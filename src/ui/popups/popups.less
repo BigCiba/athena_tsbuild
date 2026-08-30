@@ -1,0 +1,69 @@
+.CustomHudRoot
+{
+	width: 100%;
+	height: 100%;
+	z-index: 80;
+}
+
+#Popups
+{
+	width: 100%;
+	height: 100%;
+	transition-property: background-color;
+	transition-duration: 0.1s;
+
+	background-color: #00000000;
+
+	&.ShowPopup
+	{
+		background-color: #000000aa;
+	}
+}
+
+.PopupContainer
+{
+	width: 100%;
+	height: 100%;
+}
+
+.PopupBlank
+{
+	width: 100%;
+	height: 100%;
+}
+
+.PopupBox
+{
+	background-color: #0000004d;
+	border: 1px solid #62758B;
+	padding: 8px;
+}
+
+
+
+.EOM_PopupMain
+{
+	&.normal
+	{
+		#CenterBlock
+		{
+			horizontal-align: center;
+			width: 822px;
+			height: 382px;
+			margin-top: 13px;
+			background-image:url("file://{images}/custom_game/conv/popup/popup_board_middle.png");
+			background-size: 100%;
+		}
+	}
+
+	&.small
+	{
+		#CenterBlock
+		{
+			width: 688px;
+			height: 164px;
+			background-image:url("file://{images}/custom_game/conv/popup/popup_board_small.png");
+			background-size: 100%;
+		}
+	}
+}

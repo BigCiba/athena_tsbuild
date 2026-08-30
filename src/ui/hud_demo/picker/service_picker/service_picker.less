@@ -1,0 +1,136 @@
+#ServiceAddItem
+{
+
+	#ItemGrid
+	{
+		flow-children: down;
+		width: 100%;
+		height: fill-parent-flow(1);
+		border-top: 2px solid #32383677;
+		padding: 12px 0px;
+	}
+
+	#BottomBar
+	{
+		width: 100%;
+		height: 100px;
+		border-top: 2px solid #32383677;
+		flow-children: right;
+
+		.StoreItemImage
+		{
+			height: 100%;
+			width: height-percentage(100%);
+		}
+
+		#Detail
+		{
+			padding: 10px;
+			width: fill-parent-flow(1);
+			height: 100%;
+			flow-children: down;
+
+			#Name
+			{
+
+				color: #B0BCC2;
+			}
+
+			#Desc
+			{
+				color: #B0BCC2;
+				margin-top: 4px;
+				font-size: 16px;
+			}
+
+			#Copy
+			{
+				margin-left: 4px;
+				margin-right: 8px;
+				// background-image: url("s2r://panorama/images/icon_market_button_png.vtex");
+				// background-size: 100%;
+			}
+
+			#Copy1
+			{
+				width: 12px;
+				height: 16px;
+				background-color: #B0BCC2;
+				vertical-align: bottom;
+				border-radius: 4px;
+			}
+
+			#Copy2
+			{
+				width: 12px;
+				height: 16px;
+				margin-left: 3px;
+				margin-bottom: 3px;
+				border: 1px solid #B0BCC2;
+				border-radius: 4px;
+			}
+		}
+
+		#Action
+		{
+			horizontal-align: right;
+			padding: 8px 8px 0px 8px;
+			border-left: 2px solid #32383677;
+			width: 600px;
+			height: 100%;
+		}
+	}
+
+	.TitleRow
+	{
+		padding: 0px 12px;
+		width: 100%;
+		height: 30px;
+		flow-children: right;
+
+		Label
+		{
+			color: #B0BCC2;
+		}
+	}
+
+	.ItemRow
+	{
+		padding: 0px 12px;
+		width: 100%;
+		height: 30px;
+		flow-children: right;
+
+		Label
+		{
+			color: #B0BCC2;
+		}
+
+		&.EvenRow
+		{
+			background-color: #00000066;
+		}
+
+		&.OddRow
+		{
+			background-color: #00000022;
+		}
+
+		&:hover
+		{
+			background-color: #ffffff11;
+		}
+	}
+
+	.RowItem
+	{
+		width: fill-parent-flow(1);
+		vertical-align: center;
+	}
+
+	#ItemList
+	{
+		width: 100%;
+		height: 100%;
+	}
+}

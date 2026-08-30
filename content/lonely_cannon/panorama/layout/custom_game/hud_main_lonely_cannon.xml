@@ -1,0 +1,14 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/global_style.css" />
+		<include src="file://{resources}/styles/custom_game/hud_main.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/panorama-polyfill.js" />
+		<include src="file://{resources}/scripts/custom_game/hud_main.js" />
+		<include src="s2r://panorama/scripts/sequence_actions.vts_c" />
+	</scripts>
+	<Panel class="hud_main CustomHudRoot" hittest="false">
+	</Panel>
+</root>

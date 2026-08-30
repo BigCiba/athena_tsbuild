@@ -1,0 +1,29 @@
+"lang"
+{
+	"Language" "Schinese"
+	"Tokens"
+	{
+		"PaymentNormalType"	"支付宝/微信"
+		"PaymentMoreType"	"更多支付方式"
+		"PaymentWayLast"	"上次使用："
+		"PaymentWayUsual"	"常用支付："
+		"PaymentAmount"						"支付金额"
+
+		"StoreItemName"						"商品名称"
+		"PaymentRegion_Choice"				"选择地区"
+		"PaymentOrder_OrderCreating"		"正在创建订单..."
+		"PaymentOrder_OrderCreated"			"订单创建成功，正在跳转"
+		"PaymentOrder_OrderCreatedLink"		"若未自动跳转，请点我复制链接并手动黏贴至浏览器打开"
+		"PaymentOrder_isPaid"				"是否完成支付？"
+		"PaymentOrder_Success"				"支付成功"
+		"PaymentOrder_Failure"				"订单创建失败，错误代码{s:error}"
+		"PaymentOrder_Payed"				"我已支付"
+		"PaymentOrder_NotPayed"				"我未支付"
+
+		"PaymentWay_Alipay"					"支付宝"
+		"PaymentWay_WeChat_Pay"				"微信"
+		"PaymentWay_Alipay_HK"				"支付宝"
+		"PaymentWay_WeChat_Pay_HK"			"微信"
+		"PaymentRegion_Global"				"其他地区"
+	}
+}

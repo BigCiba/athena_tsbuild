@@ -1,0 +1,131 @@
+.CustomHudRoot
+{
+	width: 100%;
+	height: 100%;
+	z-index: 20;
+}
+
+.AspectRatio16x10 .CustomHudRoot
+{
+	width: 100%;
+	height: width-percentage(900/16%);
+	ui-scale: 90%;
+}
+
+.AspectRatio4x3 .CustomHudRoot
+{
+	width: 100%;
+	height: width-percentage(900/16%);
+	ui-scale: 75%;
+}
+
+.hud_main
+{
+	opacity: 1;
+	transition-property: opacity;
+	transition-duration: 0.5s;
+
+	&.DungeonLoading
+	{
+		transition-delay: 1s;
+		opacity: 0;
+	}
+
+	&.Arena
+	{
+		opacity: 0;
+	}
+}
+
+.HUDMainHover
+{
+	transition-property: brightness, transform;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
+
+	&:hover
+	{
+		brightness: 1.4;
+	}
+}
+
+.Fishing
+{
+	#BottomBar
+	{
+		opacity: 0;
+	}
+
+	#LeftBar
+	{
+		opacity: 0;
+	}
+
+	#RightBar
+	{
+		opacity: 0;
+	}
+}
+
+// .Fishing,
+.Explore
+{
+	#BottomBar
+	{
+		opacity: 0;
+	}
+
+	#LeftBar
+	{
+		#ArtifactList
+		{
+			opacity: 0;
+			visibility: collapse;
+		}
+
+		#UpgradeList
+		{
+			opacity: 0;
+			visibility: collapse;
+		}
+	}
+
+	#RightBar
+	{
+		#BackpackBtn
+		{
+			opacity: 0;
+			visibility: collapse;
+		}
+
+		#PlayerList
+		{
+			opacity: 0;
+			visibility: collapse;
+		}
+	}
+}
+
+#Version
+{
+	align: right bottom;
+	font-size: 14px;
+	brightness: 0.2;
+}
+
+#Logo
+{
+	horizontal-align: right;
+	margin-right: 240px;
+	margin-top: 10px;
+	width: 168px;
+	height: 100px;
+	background-image: url("file://{images}/custom_game/loading/logo_small_en.png");
+	background-size: 100%;
+}
+
+.Language_schinese #Logo,
+.Language_Schinese #Logo
+{
+	background-image: url("file://{images}/custom_game/loading/logo_small_cn.png");
+}

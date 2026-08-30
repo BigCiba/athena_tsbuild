@@ -1,0 +1,56 @@
+.EOM_CheckBox {
+	margin: 2px;
+
+	&>.TickBox {
+		vertical-align: center;
+	}
+
+	&>Label {
+		vertical-align: center;
+	}
+}
+
+
+.EOM_CheckBox2 {
+	flow-children: right;
+
+	&:hover {
+		brightness: 2.0;
+	}
+
+	#CheckBox {
+		width: 20px;
+		height: 20px;
+		background-image: url("file://{images}/custom_game/conv/tag/conv_checkbox_off.png");
+
+		#CheckBoxTick {
+			align: center center;
+			width: 20px;
+			height: 13px;
+			background-image: url("file://{images}/custom_game/conv/tag/conv_checkbox_on.png");
+			background-size: 20px 13px;
+			background-position: left 2px center;
+			background-repeat: no-repeat;
+			overflow: noclip;
+			opacity: 0;
+			transition-property: opacity;
+			transition-duration: 0.05s;
+			transition-timing-function: linear;
+		}
+	}
+
+	&:selected {
+		#CheckBox {
+			#CheckBoxTick {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+.CheckLabel {
+	font-size: 18px;
+	color: #FFF;
+	vertical-align: center;
+	margin-left: 8px;
+}

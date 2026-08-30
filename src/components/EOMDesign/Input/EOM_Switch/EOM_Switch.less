@@ -1,0 +1,71 @@
+.EOM_Switch
+{
+	width: 56px;
+	height: 28px;
+	transition-property: brightness, opacity;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in-out;
+
+	&:hover
+	{
+		brightness: 1.15;
+	}
+
+	&:active
+	{
+		brightness: 0.85;
+		sound: "ui_generic_button_click";
+	}
+
+	&:disabled
+	{
+		opacity: 0.4;
+		saturation: 0.0;
+	}
+
+	.EOM_Switch_Track
+	{
+		width: 56px;
+		height: 28px;
+		border-radius: 14px;
+		background-color: #473c2d;
+		box-shadow: fill #000000bb 0px 0px 10px 0px;
+		flow-children: right;
+		transition-property: background-color;
+		transition-duration: 0.2s;
+		transition-timing-function: ease-in-out;
+
+		.EOM_Switch_Spacer
+		{
+			width: 3px;
+			height: 22px;
+			vertical-align: center;
+			transition-property: width;
+			transition-duration: 0.2s;
+			transition-timing-function: ease-in-out;
+		}
+
+		.EOM_Switch_Thumb
+		{
+			width: 22px;
+			height: 22px;
+			border-radius: 11px;
+			box-shadow: fill black 1px 1px 13px 0px;
+			background-color: gradient(radial, 50% 50%, -5% -5%, 60% 60%, from(#8d8569), to(#473c2d));
+			vertical-align: center;
+		}
+	}
+
+	&:selected
+	{
+		.EOM_Switch_Track
+		{
+			background-color: #645139;
+
+			.EOM_Switch_Spacer
+			{
+				width: 31px;
+			}
+		}
+	}
+}

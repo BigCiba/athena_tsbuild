@@ -1,0 +1,60 @@
+{
+  "rules": {
+    "info_shop_product": {
+      "main_key": "id",
+      "spliter": {
+        "items": "|;"
+      },
+      "export_kv": true,
+      "ts_row_name": "Info_shop_Cfg",
+      "ts_config_name": "Info_shop_Config",
+      "description": "商城商品配置，自定义类型名，items字段用|分隔键值对"
+    },
+    "equip_level": {
+      "main_key": "equip_level",
+      "array_spliter": {
+        "weight_distribution": ","
+      },
+      "export_kv": false,
+      "description": "装备等级配置，weight_distribution字段用逗号分割成数组"
+    },
+    "skill_tree": {
+      "tree_keys": [
+        "class_id",
+        "tier"
+      ],
+      "key_whitelist": [
+        "skill_id",
+        "skill_name",
+        "cost"
+      ],
+      "export_kv": false,
+      "description": "技能树配置，按职业和层级组织"
+    },
+    "drop_config": {
+      "main_key": "drop_id",
+      "secondary_key": "item_type",
+      "export_kv": true,
+      "description": "掉落配置，使用二级键按物品类型分组"
+    },
+    "daily_reward": {
+      "main_key": "day",
+      "array_data": "true",
+      "key_whitelist": [
+        "item_id",
+        "count",
+        "type"
+      ],
+      "export_kv": false,
+      "description": "每日奖励配置，每天可能有多个奖励"
+    },
+    "server_config": {
+      "spliter": {
+        "feature_flags": ",=",
+        "time_settings": ";|"
+      },
+      "export_kv": true,
+      "description": "服务器配置，包含功能开关和时间设置"
+    }
+  }
+}

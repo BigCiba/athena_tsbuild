@@ -1,0 +1,361 @@
+Label
+{
+	color: #A39C82;
+
+	&.Rarity1,
+	.Rarity1 &
+	{
+		color: #7C918E;
+	}
+
+	&.Rarity2,
+	.Rarity2 &
+	{
+		color: #69944A;
+	}
+
+	&.Rarity3,
+	.Rarity3 &
+	{
+		color: #4472CE;
+	}
+
+	&.Rarity4,
+	.Rarity4 &
+	{
+		color: #875DD4;
+	}
+
+	&.Rarity5,
+	.Rarity5 &
+	{
+		color: #CEAD3C;
+	}
+
+	&.Rarity6,
+	.Rarity6 &
+	{
+		color: #E55043;
+	}
+
+	&.Rarity7,
+	.Rarity7 &
+	{
+		color: gradient(linear, 0% 0%, 0% 100%, from(#917E4B), to(#F1D999));
+	}
+}
+
+.TooltipContent
+{
+	background-color: none;
+	box-shadow: none;
+	background-image: url("file://{images}/custom_game/eom_design/tooltip/conv_tips_1.png");
+	border-image-source: url("file://{images}/custom_game/eom_design/tooltip/conv_tips_2.png");
+	border-width: 33px 33px 33px 33px;
+	border-image-slice: 33px 33px 33px 33px;
+	border-image-repeat: stretch;
+	border-color: none;
+	padding: -12px;
+}
+
+// 特性文本：<Electric:触电/>
+.FeatureLabel
+{
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	color: #f0e6d2;
+}
+
+// 技能文本：<Ability|vespera_2/>
+.AbilityLabel
+{
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	color: #f0e6d2;
+}
+
+// 标记文本
+.MarkLabel
+{
+	color: #f0e6d2;
+}
+
+.GameplayVariable
+{
+	color: #f0e6d2;
+}
+
+.current
+{
+	color: #ffffff;
+}
+
+.GoldIcon
+{
+	width: 24px;
+	height: 24px;
+	background-image: url("file://{images}/custom_game/eom_design/icon/gold.png");
+	background-size: 100%;
+}
+
+//二级及其他常规按钮，悬停和点击通过程序实现。悬停和点击时提高亮度20%，点击按下时按钮缩放到90%
+.SecondaryButtonStates
+{
+	&:not(:disabled):hover
+	{
+		brightness: 1.2;
+	}
+
+	&:not(:disabled):active
+	{
+		brightness: 0.5;
+		sound: "ui_generic_button_click";
+		pre-transform-scale2d: 0.90;
+	}
+
+	&:disabled
+	{
+		saturation: 0.0;
+		brightness: 0.5;
+	}
+}
+
+.VerticalScrollStyle
+{
+	&>VerticalScrollBar
+	{
+		width: 26px;
+		padding: -10px 5px -10px 5px;
+		background-color: none;
+		background-repeat: no-repeat;
+
+		border-image-source:url("file://{images}/custom_game/conv/common/bar_bg.png");
+		border-image-slice: 10px 0px fill;
+		border-width: 10px 0px;
+		border-image-repeat: stretch;
+
+		.ScrollThumb
+		{
+			background-color: none;
+			border: 1px solid #8b735500;
+			border-image-source: url('file://{images}/custom_game/conv/common/scrollbar_02.png');
+			border-image-slice: 20px 100% 20px 0px;
+			border-width: 20px 16px 20px 0px;
+			border-image-repeat: stretch;
+		}
+	}
+}
+
+.HorizontalScrollBar
+{
+	box-shadow: none;
+
+	&>HorizontalScrollBar
+	{
+		box-shadow: none;
+		height: 26px;
+		padding: 5px -10px 5px -10px;
+		background-color: none;
+		background-repeat: no-repeat;
+
+		border-image-source:url("file://{images}/custom_game/conv/common/hor_bg.png");
+		border-image-slice: 0px 10px fill;
+		border-width: 0px 10px;
+		border-image-repeat: stretch;
+
+		.ScrollThumb
+		{
+			background-color: none;
+			border: 1px solid #8b735500;
+			border-image-source: url('file://{images}/custom_game/conv/common/hor_bar.png');
+			border-image-slice: 100% 10px 0px 10px;
+			border-width: 16px 10px 0px 10px;
+			border-image-repeat: stretch;
+		}
+	}
+}
+
+@keyframes PopOut
+{
+	0%
+	{
+		pre-transform-scale2d: 0.9;
+	}
+
+	50%
+	{
+		pre-transform-scale2d: 1.05;
+	}
+
+	100%
+	{
+		pre-transform-scale2d: 1.0;
+	}
+}
+
+
+
+@keyframes PopOutClose
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+	}
+
+	50%
+	{
+		pre-transform-scale2d: 1.05;
+	}
+
+	100%
+	{
+		pre-transform-scale2d: 0.9;
+	}
+}
+
+@keyframes GlowPulse
+{
+	0%
+	{
+		brightness: 1.5;
+		pre-transform-scale2d: 1.2;
+	}
+
+	25%
+	{
+		brightness: 0.5;
+		pre-transform-scale2d: 1.0;
+	}
+
+	50%
+	{
+		brightness: 1.5;
+		pre-transform-scale2d: 1.2;
+	}
+
+	75%
+	{
+		brightness: 0.5;
+		pre-transform-scale2d: 1.0;
+	}
+
+	100%
+	{
+		brightness: 1.5;
+		pre-transform-scale2d: 1.2;
+	}
+}
+
+@keyframes GlowPulseSimple
+{
+	0%
+	{
+		brightness: 1.5;
+	}
+
+	25%
+	{
+		brightness: 0.5;
+	}
+
+	50%
+	{
+		brightness: 1.5;
+	}
+
+	75%
+	{
+		brightness: 0.5;
+	}
+
+	100%
+	{
+		brightness: 1.5;
+	}
+}
+
+@keyframes SlideInBottom
+{
+	0%
+	{
+		opacity: 0;
+		transform: translateY(40px);
+	}
+
+	100%
+	{
+		opacity: 1;
+		transform: translateY(0px);
+	}
+}
+
+@keyframes SlideInBottomSlow
+{
+	0%
+	{
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	100%
+	{
+		opacity: 1;
+		transform: translateY(0px);
+	}
+}
+
+@keyframes SlideInRight
+{
+	0%
+	{
+		opacity: 0;
+		transform: translateX(40px);
+	}
+
+	100%
+	{
+		opacity: 1;
+		transform: translateX(0px);
+	}
+}
+
+@keyframes SlideInLeft
+{
+	0%
+	{
+		opacity: 0;
+		transform: translateX(-40px);
+	}
+
+	100%
+	{
+		opacity: 1;
+		transform: translateX(0px);
+	}
+}
+
+@keyframes HideOpactiy
+{
+	0%
+	{
+		opacity: 0;
+	}
+
+	100%
+	{
+		opacity: 0;
+	}
+}
+
+@keyframes OpacityShow
+{
+	0%
+	{
+		opacity: 0;
+	}
+
+	100%
+	{
+		opacity: 1;
+	}
+}

@@ -1,0 +1,527 @@
+@extra-width: 27px; //避免超出范围的子节点会被剪切
+
+// 商品
+.StoreItemMain
+{
+	width: @extra-width + 248px;
+
+	#RedPoint
+	{
+		width: 48px;
+		height: 48px;
+		horizontal-align: right;
+		background-image: url("file://{images}/custom_game/conv/tag/tag_prompt_light.png");
+		background-size: 100%;
+	}
+
+	&.Free
+	{
+
+		#PriceBtn
+		{
+
+			#CurrentPrice,
+			#CostOriginPriceLabel
+			{
+				visibility: collapse;
+			}
+
+			#FreeLabel
+			{
+				visibility: visible;
+			}
+		}
+	}
+}
+
+.StoreItem
+{
+	width: 248px;
+	height: 300px;
+	background-size: 100%;
+	horizontal-align: center;
+
+	.Language_english &,
+	.Language_russian &
+	{
+		#LimitInfo
+		{
+			Label
+			{
+				text-overflow: shrink;
+			}
+		}
+	}
+
+	&:hover
+	{
+
+		// sound: "UI.Store.Card"; 
+		#ItemImage
+		{
+			pre-transform-scale2d: 1.05;
+			brightness: 1.5;
+		}
+	}
+
+	background-image: url("file://{images}/custom_game/s1_shop/s_panel_grey.png");
+
+	&.Rarity1
+	{
+		background-image: url("file://{images}/custom_game/s1_shop/s1_panel_grey.png");
+	}
+
+	&.Rarity2
+	{
+		background-image: url("file://{images}/custom_game/s1_shop/s1_panel_green.png");
+	}
+
+	&.Rarity3
+	{
+		background-image: url("file://{images}/custom_game/s1_shop/s1_panel_blue.png");
+	}
+
+	&.Rarity4
+	{
+		background-image: url("file://{images}/custom_game/s1_shop/s1_panel_purple.png");
+	}
+
+	&.Rarity5
+	{
+		background-image: url("file://{images}/custom_game/s1_shop/s1_panel_yellow.png");
+	}
+
+	&.Rarity6
+	{
+		background-image: url("file://{images}/custom_game/s1_shop/s1_panel_red.png");
+	}
+
+	&.Rarity7
+	{
+		background-image: url("file://{images}/custom_game/s1_shop/s1_panel_purple.png");
+	}
+
+
+	#ItemName
+	{
+		width: 100%;
+		height: 20px;
+		font-size: 18px;
+		color: #FDEFC8;
+		margin-top: 27px;
+		text-align: center;
+		padding: 0px 30px;
+	}
+
+	#SplitLine
+	{
+		width: 196px;
+		height: 10px;
+		horizontal-align: center;
+		margin-top: 53px;
+		background-image: url("file://{images}/custom_game/s1_shop/s1_panel_line.png");
+	}
+
+	#ItemParticle
+	{
+		horizontal-align: center;
+		margin-top: 65px;
+		width: 175px;
+		height: 175px;
+	}
+
+	#ItemImage
+	{
+		width: 175px;
+		height: 175px;
+		margin-top: 65px;
+		horizontal-align: center;
+		transition-property: pre-transform-scale2d, brightness;
+		transition-delay: 0.0s;
+		transition-duration: 0.3s;
+		transition-timing-function: ease-in-out;
+	}
+
+	#ItemCount
+	{
+		align: right bottom;
+		margin-right: 36px;
+		margin-bottom: 80px;
+		text-align: center;
+		font-size: 20px;
+		color: #FCD6A4;
+		text-shadow: 0px 0px 4px 4 #000000;
+	}
+
+	#FirstPayDesc
+	{
+		align: center bottom;
+		margin-bottom: 24px;
+		font-size: 18px;
+		height: 20px;
+		width: 190px;
+		text-align: center;
+		text-overflow: shrink;
+		color: #C98849;
+		text-shadow: 0px 0px 4px 4.0 #000000aa;
+	}
+
+	.EOM_Countdown
+	{
+		align: center bottom;
+		margin-bottom: 58px;
+	}
+
+	#LimitInfo
+	{
+		align: center bottom;
+		margin-bottom: 22px;
+		width: 234px;
+		height: 32px;
+		background-image: url("file://{images}/custom_game/s1_shop/s1_panel_character.png");
+		background-size: 100%;
+
+		Label
+		{
+			width: 100%;
+			vertical-align: center;
+			text-align: center;
+			font-size: 18px;
+			color: #C98849;
+		}
+	}
+}
+
+
+
+
+#VIPIcon
+{
+	width: 50px;
+	height: 50px;
+	horizontal-align: center;
+	background-size: 100%;
+
+	&.Buff101
+	{
+		background-image: url("file://{images}/custom_game/conv/common/vip101.png");
+	}
+
+	&.Buff102
+	{
+		background-image: url("file://{images}/custom_game/conv/common/vip102.png");
+	}
+
+	&.Buff104
+	{
+		background-image: url("file://{images}/custom_game/conv/common/vip104.png");
+	}
+}
+
+#FirstPayLabel
+{
+	x: -5px;
+	width: 78px;
+	height: 62px;
+
+	background-image: url("file://{images}/custom_game/s1_shop/s1_tag_double_en.png");
+	background-size: 100%;
+
+	.Language_schinese &
+	{
+		background-image: url("file://{images}/custom_game/s1_shop/s1_tag_double_cn.png");
+	}
+
+	.Language_russian &
+	{
+		background-image: url("file://{images}/custom_game/s1_shop/s1_tag_double_ru.png");
+	}
+
+	animation-name: Scale;
+	animation-duration: 1.2s;
+	animation-timing-function: ease-out;
+	animation-iteration-count: infinite;
+}
+
+#PriceBtn
+{
+	horizontal-align: center;
+	margin-top: 290px;
+
+	.CurrencyIcon
+	{
+		margin: 0px -3px 0px 0px;
+		letter-spacing: 0px;
+
+		&.0
+		{
+			margin-bottom: 1px;
+		}
+	}
+
+	#FreeLabel
+	{
+		visibility: collapse;
+		line-height: 20px;
+	}
+
+
+	#CostOriginPriceLabel
+	{
+		margin-left: 6px;
+		vertical-align: center;
+		font-size: 18px;
+		color: #E94141;
+		letter-spacing: 0px;
+		text-shadow: 0px 0px 0px 2 #000000;
+		text-decoration: line-through;
+	}
+}
+
+#DiscountNum
+{
+	x: -5px;
+	width: 78px;
+	height: 62px;
+	background-image: url("file://{images}/custom_game/s1_shop/s1_tag_sale.png");
+
+	.Rotate15
+	{
+		margin-top: 15px;
+		horizontal-align: center;
+		flow-children: down;
+		transform: rotateZ(-15deg);
+	}
+
+	#OffSign
+	{
+		horizontal-align: center;
+		margin-top: -5px;
+		margin-left: 1px;
+		width: 34px;
+		height: 18px;
+		background-image: url("file://{images}/custom_game/s1_shop/s1_nub_off.png");
+		background-size: 100%;
+	}
+}
+
+.StoreItemImage
+{
+	width: 256px;
+	height: 256px;
+	opacity-mask: url("s2r://panorama/images/masks/softedge_box_png.vtex");
+}
+
+.StoreItemBlock
+{
+	width: 128px;
+	height: 128px;
+	background-size: 100%;
+
+	@block_rarity:
+	{
+		1: "gray";
+		2: "green";
+		3: "blue";
+		4: "purple";
+		5: "yellow";
+		6: "red";
+		7: "blackgold";
+	}
+
+	each(@block_rarity, .(@v, @k, @i)
+		{
+			&.Rarity@{k}
+			{
+				background-image: url("file://{images}/custom_game/conv/item/conv_item_@{v}.png");
+			}
+		}
+	);
+
+	&.IsEquip
+	{
+		.StoreItemImage
+		{
+			width: 80%;
+			height: 80%;
+		}
+	}
+
+	.StoreItemImage
+	{
+		// width: 70%;
+		// height: 70%;
+		align: center center;
+	}
+
+	#ItemCount
+	{
+		align: right bottom;
+		font-size: 20px;
+		color: #EFEFEF;
+		margin-right: 10%;
+		margin-bottom: 8%;
+	}
+}
+
+.StoreItemCard
+{
+	width: 186px;
+	height: 208px;
+
+	#CardBG
+	{
+		width: 100%;
+		height: 100%;
+		background-size: 100%;
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-image: url("file://{images}/custom_game/conv/item/conv_item_gray.png");
+	}
+
+	&.Rarity1 #CardBG
+	{
+		background-image: url("file://{images}/custom_game/conv/item/conv_item_gray.png");
+	}
+
+	&.Rarity2 #CardBG
+	{
+		background-image: url("file://{images}/custom_game/conv/item/conv_item_green.png");
+	}
+
+	&.Rarity3 #CardBG
+	{
+		background-image: url("file://{images}/custom_game/conv/item/conv_item_blue.png");
+	}
+
+	&.Rarity4 #CardBG
+	{
+		background-image: url("file://{images}/custom_game/conv/item/item_hero_purple.png");
+	}
+
+	&.Rarity5 #CardBG
+	{
+		background-image: url("file://{images}/custom_game/conv/item/item_hero_golden.png");
+	}
+
+	&.Rarity6 #CardBG
+	{
+		background-image: url("file://{images}/custom_game/conv/item/item_hero_red.png");
+	}
+
+	&.Rarity7 #CardBG
+	{
+		background-image: url("file://{images}/custom_game/conv/item/item_hero_red.png");
+	}
+
+	#CollectionIcon
+	{
+		width: 75%;
+		height: 75%;
+		align: center bottom;
+		margin-bottom: 10%;
+	}
+
+	.StoreItemImage
+	{
+		width: 98%;
+		height: 98%;
+		align: center center;
+	}
+
+	#Name
+	{
+		align: center top;
+		margin-top: 10%;
+		max-width: 80%;
+		height: 20px;
+		font-size: 16px;
+		text-align: center;
+		text-overflow: shrink;
+		color: #FFFFFF;
+		text-shadow: 0px 0px 2px 2 #1C1132;
+	}
+
+	#LockIcon
+	{
+		width: 16%;
+		height: width-percentage(127%);
+		align: center bottom;
+		margin-bottom: 32%;
+		opacity: 0;
+		background-size: 100%;
+		background-image: url("file://{images}/custom_game/conv/tag/tag_lock.png");
+	}
+
+	#SelectedHover
+	{
+		align: center center;
+		margin: 5px;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		transition-property: opacity;
+		transition-duration: 0.03s;
+		transition-timing-function: linear;
+		border-image-source: url("file://{images}/custom_game/h2_hero/h2_select.png");
+		border-width: 15px 15px 15px 15px;
+		border-image-slice: 15px 15px 15px 15px;
+		border-image-repeat: stretch;
+	}
+
+	#BorderParticle
+	{
+		align: center center;
+		width: 100%;
+		height: 100%;
+	}
+
+	&:not(.Selected):hover #SelectedHover
+	{
+		opacity: 1;
+		brightness: 0.5;
+	}
+
+	&.Selected #SelectedHover
+	{
+		opacity: 1;
+	}
+
+	&.Lock
+	{
+		.StoreItemImage
+		{
+			brightness: 0.25;
+			saturation: 0;
+		}
+
+		#Name
+		{
+			color: #686868;
+		}
+
+		#LockIcon
+		{
+			opacity: 1;
+		}
+	}
+}
+
+
+@keyframes Scale
+{
+	0%
+	{
+		transform: scale3d(0.95, 0.95, 1);
+	}
+
+	50%
+	{
+		transform: scale3d(1.05, 1.05, 1.05);
+	}
+
+	100%
+	{
+		transform: scale3d(0.95, 0.95, 1);
+	}
+}

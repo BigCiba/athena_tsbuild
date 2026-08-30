@@ -1,0 +1,27 @@
+local __TSTL_FILE_PATH__ = "framework/index"
+local ____lualib = require("lualib_bundle")
+local __TS__SourceMapTraceBack = ____lualib.__TS__SourceMapTraceBack
+__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["4"] = 1,["5"] = 2,["6"] = 3,["7"] = 4,["8"] = 5,["9"] = 6,["10"] = 7,["11"] = 8,["12"] = 9,["13"] = 10,["14"] = 11,["15"] = 12,["16"] = 13,["17"] = 14,["18"] = 15,["19"] = 16,["20"] = 17,["21"] = 19,["22"] = 20,["23"] = 21,["24"] = 22,["25"] = 23});
+require("framework.enums")
+require("framework.constant")
+require("framework.large_number_health")
+require("framework.pseudo_random")
+require("framework.global")
+require("framework.module")
+require("framework.message")
+require("framework.notification")
+require("framework.timer")
+require("framework.particle_clear")
+require("framework.debug")
+require("framework.request")
+require("framework.game_event")
+require("framework.event")
+require("framework.draw_pool")
+require("framework.property_system.property_system")
+require("framework.state_system.state_system")
+if IsServer() then
+    require("framework.game_state")
+    require("framework.demo")
+    require("framework.settings")
+    require("framework.unit_manager")
+end

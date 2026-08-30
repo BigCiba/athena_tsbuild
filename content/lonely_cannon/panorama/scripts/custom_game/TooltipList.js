@@ -1,0 +1,1 @@
+GameUI.CustomUIConfig().TooltipList = ["text","title_text","title_image_text"];

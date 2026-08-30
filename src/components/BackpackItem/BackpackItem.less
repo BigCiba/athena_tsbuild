@@ -1,0 +1,151 @@
+.BackpackItem
+{
+	&.Button
+	{
+
+		&:hover,
+		&.Selected
+		{
+			#Container
+			{
+				#Border
+				{
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	flow-children: down;
+
+	#Container
+	{
+		width: 144px;
+		height: 144px;
+
+		#Border
+		{
+			width: 100%;
+			height: 100%;
+			background-image: url("file://{images}/custom_game/backpack/b_button_selected.png");
+			z-index: 2;
+			opacity: 0;
+		}
+	}
+
+	#Content
+	{
+		align: center center;
+		width: 130px;
+		height: 130px;
+
+		#Countdown
+		{
+			width: 130px;
+			height: 30px;
+			align: center bottom;
+			background-image: url("file://{images}/custom_game/backpack/b_panel_time.png");
+
+			.EOM_CountdownWithIcon
+			{
+				align: center center;
+			}
+		}
+	}
+
+
+	#Amounts
+	{
+		horizontal-align: center;
+		// margin-top: 130px;
+		width: 130px;
+		height: 38px;
+		background-image: url("file://{images}/custom_game/backpack/b_panel_nub.png");
+	}
+
+	#ItemAmounts
+	{
+		align: center center;
+		font-family: SimHei;
+		font-size: 28px;
+		color: #FAF0D3;
+	}
+}
+
+
+.BackpackItemContent
+{
+	width: 130px;
+	height: 130px;
+
+	#BackpackItemImage
+	{
+		width: 100%;
+		height: 100%;
+		align: center center;
+	}
+
+	#BackpackItemCount
+	{
+		align: right bottom;
+		color: #EFEFEF;
+		font-size: 30px;
+		margin-right: 4px;
+	}
+
+	#Bg
+	{
+		width: 100%;
+		height: 100%;
+		background-size: 100%;
+		background-image: url("file://{images}/custom_game/conv/item/conv_item_null.png");
+	}
+
+	&.Rarity1
+	{
+		#Bg
+		{
+			background-image: url("file://{images}/custom_game/conv/item/conv_item_gray.png");
+		}
+	}
+
+	&.Rarity2
+	{
+		#Bg
+		{
+			background-image: url("file://{images}/custom_game/conv/item/conv_item_green.png");
+		}
+	}
+
+	&.Rarity3
+	{
+		#Bg
+		{
+			background-image: url("file://{images}/custom_game/conv/item/conv_item_blue.png");
+		}
+	}
+
+	&.Rarity4
+	{
+		#Bg
+		{
+			background-image: url("file://{images}/custom_game/conv/item/conv_item_purple.png");
+		}
+	}
+
+	&.Rarity5
+	{
+		#Bg
+		{
+			background-image: url("file://{images}/custom_game/conv/item/conv_item_yellow.png");
+		}
+	}
+
+	&.Rarity6
+	{
+		#Bg
+		{
+			background-image: url("file://{images}/custom_game/conv/item/conv_item_red.png");
+		}
+	}
+}

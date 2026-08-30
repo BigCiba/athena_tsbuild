@@ -1,0 +1,10 @@
+require("CBaseEntity");
+require("CEntityInstance");
+require("CCustomNetTableManager");
+require("CDOTA_BaseNPC");
+require("CDOTA_Buff");
+require("CDOTABaseAbility");
+require("CDOTA_Item");
+require("CDOTA_Item_Lua");
+require("GridNav");
+require("CScriptParticleManager");

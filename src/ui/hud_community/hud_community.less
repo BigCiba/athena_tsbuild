@@ -1,0 +1,647 @@
+.CustomHudRoot
+{
+	width: 100%;
+	height: 100%;
+	z-index: 60;
+}
+
+#CommunityRoot
+{
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transform: translateY(-30px);
+	transition-property: opacity, transform;
+	transition-duration: 0.24s;
+	transition-timing-function: ease-out;
+
+	&.Show
+	{
+		sound: "UI.Menu.Open";
+		opacity: 1;
+		transform: translateY(0px);
+	}
+
+	.EOM_CloseButton
+	{
+		horizontal-align: right;
+		margin-top: 16px;
+		margin-right: 16px;
+		z-index: 10;
+	}
+
+	#TESTButton
+	{
+		horizontal-align: right;
+		margin-right: 145px;
+		margin-top: 16px;
+		width: 150px;
+		height: 42px;
+		background-color: #181B20E6;
+		border: 1px solid #B19A6D;
+		z-index: 10;
+
+		Label
+		{
+			align: center center;
+			color: #F1E0B1;
+			font-size: 18px;
+		}
+	}
+}
+
+#CommunityBrowser
+{
+	width: 100%;
+	height: 100%;
+	background-color: #000000D9;
+	z-index: 100;
+
+	#CommunityBrowserContent
+	{
+		align: center center;
+		width: 80%;
+		height: 80%;
+		background-color: #000000;
+		border: 2px solid #B19A6D;
+	}
+
+	#CommunityBrowserClose
+	{
+		horizontal-align: right;
+		margin-top: 3%;
+		margin-right: 3%;
+		z-index: 101;
+	}
+}
+
+#AspectAdpater
+{
+	align: center center;
+	width: 100%;
+	height: 100%;
+	background-image: url("file://{images}/custom_game/c2_community/c2_bg.png");
+	background-size: 100%;
+
+	.AspectRatio16x10 &
+	{
+		width: 100%;
+		height: width-percentage(1080/16%);
+		ui-scale: 90%;
+	}
+
+	.AspectRatio4x3 &
+	{
+		width: 100%;
+		height: width-percentage(1080/16%);
+		ui-scale: 75%;
+	}
+}
+
+#Community
+{
+	align: center center;
+	y: 22px;
+	flow-children: down;
+}
+
+.CommonBannerWindow
+{
+	width: 946px;
+	height: 368px;
+
+}
+
+.BannerBorder
+{
+	width: 100%;
+	height: 100%;
+	background-image: url("file://{images}/custom_game/c2_community/c2_banner_decoration.png");
+	background-size: 100%;
+}
+
+#Banner
+{
+	.BannerList
+	{
+		width: 100%;
+		height: 100%;
+		opacity-mask: url("file://{images}/custom_game/c2_community/c2_banner_frame.png");
+	}
+
+	.BannerSlide
+	{
+		width: 100%;
+		height: 100%;
+		overflow: clip;
+		opacity: 0;
+		transform: translateX(200%);
+		z-index: 0;
+		background-color: #151310;
+		transition-property: transform, z-index;
+		transition-duration: 0.35s;
+		transition-timing-function: ease-in-out;
+
+		&.Index-2
+		{
+			opacity: 0;
+			transform: translateX(-200%);
+		}
+
+		&.Index-1
+		{
+			opacity: 1;
+			transform: translateX(-100%);
+		}
+
+		&.Index0
+		{
+			opacity: 1;
+			transform: translateX(0%);
+			z-index: 2;
+		}
+
+		&.Index1
+		{
+			opacity: 1;
+			transform: translateX(100%);
+		}
+
+		&.Index2
+		{
+			opacity: 0;
+			transform: translateX(200%);
+		}
+	}
+
+	.BannerImage
+	{
+		align: center center;
+	}
+
+	.BannerMask
+	{
+		width: 100%;
+		height: 100%;
+		background-image: url("file://{images}/custom_game/c2_community/communitymask.png");
+		background-size: 100%;
+	}
+
+	.BannerTitle
+	{
+		horizontal-align: left;
+		vertical-align: bottom;
+		width: 100%;
+		margin-left: 25px;
+		margin-bottom: 35px;
+		font-size: 24px;
+		font-weight: bold;
+		color: #FEFAEB;
+		text-shadow: 0px 1px 4px 3.0 #000000;
+		z-index: 2;
+	}
+
+	.BannerArrow
+	{
+		vertical-align: center;
+		width: 35px;
+		height: 52px;
+		background-image: url("file://{images}/custom_game/d1_difficulty/d1_btn_arrow.png");
+		background-size: 100%;
+		z-index: 3;
+		img-shadow: 0px 0px 3px 3 black;
+
+		&.Left
+		{
+			horizontal-align: left;
+			margin-left: 18px;
+		}
+
+		&.Right
+		{
+			horizontal-align: right;
+			margin-right: 18px;
+			transform: scaleX(-1);
+		}
+	}
+
+	.BannerDots
+	{
+		horizontal-align: center;
+		vertical-align: bottom;
+		flow-children: right;
+		margin-bottom: 18px;
+		z-index: 2;
+	}
+
+	.BannerDot
+	{
+		margin: 0px 7px;
+		width: 16px;
+		height: 16px;
+		background-image: url("file://{images}/custom_game/c2_community/c2_rectangle_02.png");
+		background-size: 100%;
+		img-shadow: 0px 0px 3px 3 black;
+
+		&.Selected
+		{
+			background-image: url("file://{images}/custom_game/c2_community/c2_rectangle_01.png");
+		}
+	}
+}
+
+.CommunityState
+{
+	ignore-parent-flow: true;
+	align: center center;
+	margin-bottom: 30px;
+	width: 100%;
+	text-align: center;
+	font-size: 28px;
+	color: #AFA393;
+}
+
+.BannerState
+{
+	z-index: 1;
+}
+
+#GameGuide
+{
+	margin-left: 10px;
+
+	.Content
+	{
+		width: 100%;
+		height: 100%;
+		flow-children: right;
+	}
+
+	.GuideTitle
+	{
+		vertical-align: center;
+		margin-left: 58px;
+		width: 50px;
+		font-size: 48px;
+		color: gradient(linear, 0% 0%, 100% 0%, from(#FFE8B6), to(#E9C57F));
+	}
+
+	.DividingLine1
+	{
+		vertical-align: center;
+		width: 10px;
+		height: 256px;
+		background-image: url("file://{images}/custom_game/c2_community/c2_line_02.png");
+		background-size: 100%;
+		margin-left: 28px;
+		margin-right: 55px;
+	}
+
+	.PageFlow
+	{
+		margin-bottom: 5px;
+		flow-children: down;
+		vertical-align: center;
+
+		.PageTab
+		{
+			flow-children: right;
+
+			.PageTabBtn
+			{
+				width: 130px;
+				height: 134px;
+				margin: 0px 13px;
+				background-image: url("file://{images}/custom_game/c2_community/c2_guide_buttom_02.png");
+				background-size: 100%;
+
+				&.Selected
+				{
+					background-image: url("file://{images}/custom_game/c2_community/c2_guide_buttom_01.png");
+					background-size: 100%;
+
+					Label
+					{
+						color: #FFE5A7;
+					}
+				}
+
+				Label
+				{
+					margin-top: 7px;
+					align: center center;
+					width: 60px;
+					height: 60px;
+					text-align: center;
+					text-overflow: shrink;
+					font-size: 24px;
+				}
+			}
+		}
+
+		.GuideList
+		{
+			width: 100%;
+			height: 152px;
+			margin-top: 20px;
+			flow-children: down;
+			padding-left: 15px;
+		}
+
+		.GuideItem
+		{
+			width: 100%;
+			flow-children: down;
+			background-color: none;
+
+			.GuideLine
+			{
+				width: 550px;
+				height: 2px;
+				margin-top: 5px;
+				margin-bottom: 5px;
+				background-image: url("file://{images}/custom_game/c2_community/c2_line_01.png");
+				background-size: 100%;
+			}
+
+			Label
+			{
+				height: 34px;
+				background-image: url("file://{images}/custom_game/d1_difficulty/d1_dot_1.png");
+				background-repeat: no-repeat;
+				background-size: 34px 34px;
+				padding-left: 48px;
+				padding-top: 6px;
+				font-size: 20px;
+				color: #E8DEC2;
+			}
+		}
+	}
+
+
+	.Language_english &,
+	.Language_russian &
+	{
+		.GuideTitle
+		{
+			margin-left: 18px;
+			width: 90px;
+			height: 300px;
+			text-align: center;
+			text-overflow: shrink;
+		}
+
+		.PageFlow
+		{
+			.PageTabBtn
+			{
+				Label
+				{
+					margin-top: 0px;
+					width: 100px;
+					height: fit-children;
+				}
+			}
+		}
+	}
+}
+
+
+.NoticeTitle
+{
+	width: 400px;
+	height: 56px;
+	color: gradient(linear, 0% 0%, 0% 100%, from(#FFE8B6), to(#E9C57F));
+	padding-left: 6px;
+	font-size: 48px;
+	background-image: url("file://{images}/custom_game/c2_community/c2_line_03.png");
+	background-size: 240px 10px;
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
+
+@ContentColor: #1f1e1d9a;
+
+#GameNotice
+{
+	flow-children: down;
+
+	.NoticeListContainer
+	{
+		margin-top: 4px;
+		width: 943px;
+		height: 525px;
+		background-color: @ContentColor;
+		padding: 48px 0px;
+	}
+
+	.NoticeList
+	{
+		width: 100%;
+		flow-children: down;
+		padding-left: 16px;
+		padding-right: 12px;
+	}
+
+	.NoticeItem
+	{
+		width: 100%;
+		flow-children: down;
+		background-color: none;
+
+		.NoticeLine
+		{
+			width: 915px;
+			height: 2px;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			background-image: url("file://{images}/custom_game/c2_community/c2_line_01.png");
+			background-size: 100%;
+		}
+
+		.NoticeLabel
+		{
+			vertical-align: center;
+			width: fill-parent-flow(1);
+			height: 34px;
+			background-image: url("file://{images}/custom_game/d1_difficulty/d1_dot_1.png");
+			background-repeat: no-repeat;
+			background-size: 34px 34px;
+			padding-left: 48px;
+			padding-top: 6px;
+			font-size: 20px;
+			color: #E8DEC2;
+		}
+
+		.NoticeDate
+		{
+			vertical-align: center;
+			width: 100px;
+			font-size: 20px;
+			color: #B19A6D;
+		}
+	}
+}
+
+
+#GiftAndFeedback
+{
+	flow-children: down;
+	margin-left: 12px;
+
+	.GiftContent
+	{
+		flow-children: down;
+
+		.ClaimPanel
+		{
+			margin-top: 5px;
+			width: 944px;
+			height: 171px;
+			background-color: @ContentColor;
+		}
+
+		.ClaimBtn
+		{
+			margin: 0px 40px;
+			width: 352px;
+			height: 156px;
+			background-image: url("file://{images}/custom_game/c2_community/c2_buttom_benefits.png");
+			background-size: 100%;
+		}
+
+		.GiftName
+		{
+			horizontal-align: center;
+			color: #FFE7B5;
+			font-size: 24px;
+		}
+
+		.GiftDescContainer
+		{
+			width: 320px;
+			height: 34px;
+		}
+
+		.GiftDesc
+		{
+			align: center center;
+			width: 100%;
+			text-align: center;
+			text-overflow: shrink;
+			color: #F5D078;
+			font-size: 16px;
+		}
+
+		.GiftState
+		{
+			horizontal-align: center;
+			margin-top: 3px;
+			font-size: 17px;
+			color: #C9B88F;
+		}
+	}
+
+	.FeedbackContent
+	{
+		margin-top: 10px;
+		flow-children: down;
+
+		.FeedbackPanel
+		{
+			margin-top: 5px;
+			width: 944px;
+			height: 286px;
+			background-color: @ContentColor;
+		}
+
+		.FeedbackStatus
+		{
+			horizontal-align: center;
+			vertical-align: bottom;
+			margin-bottom: 8px;
+			font-size: 17px;
+			color: #D17A66;
+
+			&.Success
+			{
+				color: #91C77C;
+			}
+		}
+
+		.FeedbackTypeList
+		{
+			vertical-align: center;
+			flow-children: down;
+
+			.FeedTypeBtn
+			{
+				margin: 5px 0px;
+				width: 108px;
+				height: 50px;
+				background-image: url("file://{images}/custom_game/c2_community/c2_buttom_feedback_normal.png");
+				background-size: 100%;
+
+				&.Selected
+				{
+					background-image: url("file://{images}/custom_game/c2_community/c2_buttom_feedback_selected.png");
+					background-size: 100%;
+
+					Label
+					{
+						color: #F1E0B1;
+						text-shadow: 1px 1px 3px #000000;
+					}
+				}
+
+				Label
+				{
+					padding-right: 5px;
+					width: 100%;
+					text-align: center;
+					align: center center;
+					font-size: 20px;
+					color: #AFA393;
+				}
+			}
+		}
+
+		.EOM_TextEntry
+		{
+
+			margin: 0px 12px;
+			vertical-align: center;
+			width: 538px;
+			height: 178px;
+			background-image: url("file://{images}/custom_game/c2_community/c2_frame_small.png");
+			background-size: 100%;
+			background-color: none;
+			border: 0px;
+			color: #AFA393;
+
+			#PlaceholderText
+			{
+				align: center center;
+				color: #AFA393;
+				text-align: center;
+				font-size: 20px;
+			}
+		}
+
+		.PushBtn
+		{
+			vertical-align: center;
+			width: 124px;
+			height: 130px;
+			background-image: url("file://{images}/custom_game/c2_community/c2_buttome_submit.png");
+			background-size: 100%;
+
+			Label
+			{
+				align: center center;
+				color: #F1E0B1;
+				font-size: 20px;
+			}
+		}
+	}
+}

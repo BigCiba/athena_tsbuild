@@ -1,0 +1,97 @@
+#AddAttribute
+{
+	#ItemGrid
+	{
+		flow-children: down;
+		width: 100%;
+		height: 100%;
+		padding: 12px 0px;
+	}
+
+	.ControlRow
+	{
+		width: 100%;
+		height: 40px;
+		flow-children: right;
+		vertical-align: center;
+		margin-bottom: 8px;
+
+		.DemoButton{
+			width: 96px;
+		}
+	}
+
+	.ControlDivider
+	{
+		font-size: 22px;
+		line-height: 28px;
+		color: #a7b3cc;
+		margin-left: 8px;
+		margin-right: 8px;
+	}
+
+	.PickingStateText
+	{
+		margin-left: 8px;
+		color: #ffffff;
+		font-size: 18px;
+		font-weight: bold;
+		text-shadow: 0px 0px 6px #7aa2ffff;
+	}
+
+	.TitleRow
+	{
+		padding: 0px 12px;
+		width: 100%;
+		height: 30px;
+		flow-children: right;
+
+		Label
+		{
+			color: #B0BCC2;
+		}
+	}
+
+	.ItemRow
+	{
+		padding: 0px 12px;
+		width: 100%;
+		height: 38px;
+		flow-children: right;
+
+		Label
+		{
+			color: #B0BCC2;
+		}
+
+		&.EvenRow
+		{
+			background-color: #00000066;
+		}
+
+		&.OddRow
+		{
+			background-color: #00000022;
+		}
+
+		&:hover
+		{
+			background-color: #ffffff11;
+		}
+	}
+
+	.RowItem
+	{
+		width: fill-parent-flow(1);
+		vertical-align: center;
+		text-overflow: shrink;
+	}
+
+	#ItemList
+	{
+		flow-children: down;
+		width: 100%;
+		height: 100%;
+		border-top: 2px solid #32383677;
+	}
+}

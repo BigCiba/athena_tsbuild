@@ -1,0 +1,22 @@
+.CustomHudRoot {
+  width: 100%;
+  height: 100%;
+  z-index: 41;
+}
+#HudEndScreenRoot {
+  visibility: collapse;
+}
+#HudEndScreenRoot.ShowHud {
+  visibility: visible;
+}
+.CustomHudRoot {
+  width: 100%;
+  height: 100%;
+  z-index: 41;
+}
+#HudEndScreenRoot {
+  visibility: collapse;
+}
+#HudEndScreenRoot.ShowHud {
+  visibility: visible;
+}

@@ -1,0 +1,853 @@
+#CollectionVipRoot.Show {
+	#CollectionRewardPreview #CollectionRewardPreviewBG {
+		animation-name: CollectionVipPreviewPop;
+		animation-duration: 0.3s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+	}
+
+	#CollectionRewardPreview .StoreItemImage {
+		animation-name: CollectionVipRewardImageShow;
+		animation-duration: 0.6s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+	}
+
+	#CollectionVipTopRight {
+		animation-name: CollectionVipSlideInTop;
+		animation-duration: 0.6s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+	}
+
+	#CollectionVipLevelInfo,
+	#CollectionVipCenter {
+		animation-name: CollectionVipSlideInLeft;
+		animation-duration: 0.6s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+	}
+
+	#CollectionVipOperatorContainer {
+		animation-name: CollectionVipSlideInRight;
+		animation-duration: 0.6s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+	}
+}
+
+@keyframes CollectionVipPreviewPop {
+	0% {
+		pre-transform-scale2d: 2.4;
+	}
+
+	100% {
+		pre-transform-scale2d: 1;
+	}
+}
+
+@keyframes CollectionVipRewardImageShow {
+	0% {
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes CollectionVipSlideInTop {
+	0% {
+		transform: translateY(-80px);
+		opacity: 0;
+	}
+
+	50% {
+		transform: translateY(-80px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+@keyframes CollectionVipSlideInLeft {
+	0% {
+		transform: translateX(-120px);
+		opacity: 0;
+	}
+
+	50% {
+		transform: translateX(-120px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
+
+@keyframes CollectionVipSlideInRight {
+	0% {
+		transform: translateX(120px);
+		opacity: 0;
+	}
+
+	50% {
+		transform: translateX(120px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
+
+#CollectionVipRoot {
+	width: 100%;
+	height: 100%;
+	overflow: noclip;
+
+	.EOM_MenuLayout_Content_Box {
+		// padding-top: 60px;
+		overflow: noclip;
+	}
+
+	#CollectionVipContent {
+		width: 100%;
+		// height: 100%;
+		flow-children: down;
+
+		vertical-align: bottom;
+	}
+
+	.EOM_MenuLayout_Content_BG {
+		align: center center;
+		width: height-percentage(177.77778%);
+		height: 100%;
+		background-size: 100%;
+		background-position: center center;
+		// background-image: url("file://{images}/custom_game/f3_favor/new/f3_bg.png");
+	}
+
+	#CollectionRewardPreview {
+		width: 238px;
+		height: 238px;
+		ignore-parent-flow: true;
+		overflow: noclip;
+		margin-top: 246px;
+		margin-right: 96px;
+		horizontal-align: center;
+
+		.CollectionBGFx {
+			width: 100%;
+			height: 100%;
+			overflow: noclip;
+
+			.CollectionCardFx {
+				x: 0px;
+				align: center center;
+				margin-top: 180px;
+				width: 1300px;
+				height: 1300px;
+				overflow: noclip;
+			}
+		}
+
+		#CollectionRewardPreviewBG {
+			width: 2048px;
+			height: 1080px;
+			background-size: 100%;
+			background-image: url("file://{images}/custom_game/f3_favor/new/f3_bg.png");
+
+			horizontal-align: center;
+			vertical-align: center;
+
+			margin-top: 300px;
+			margin-right: 116px;
+
+			// ui-scale: 75%;
+		}
+
+		.StoreItemImage {
+			width: 238px;
+			height: 238px;
+
+			horizontal-align: center;
+			vertical-align: center;
+		}
+	}
+
+	#CollectionVipTop {
+		width: 90%;
+		horizontal-align: center;
+		margin-bottom: 8px;
+	}
+
+	#CollectionVipLevelInfo {
+		vertical-align: bottom;
+		flow-children: right;
+	}
+
+	#CollectionVipLevelBG {
+		width: 112px;
+		height: 116px;
+		background-image: url("file://{images}/custom_game/f3_favor/new/f3_level_frame.png");
+		background-size: 100%;
+	}
+
+	#VipLevelNumber {
+		horizontal-align: center;
+		vertical-align: center;
+
+		width: 55%;
+		// height: 36px;
+		font-family: Adobe Heiti Std;
+		text-align: center;
+		font-size: 32px;
+		color: gradient(linear, 0% 0%, 0% 100%, from(#FFA853), to(#FFE8B6));
+		text-shadow: 0px 0px 5px 3.0 #000000;
+		text-overflow: shrink;
+	}
+
+	#CollectionVipProgress {
+		margin-left: 10px;
+		// margin-top: 27px;
+		flow-children: down;
+
+		vertical-align: center;
+
+		#VipProgressNumber {
+			font-family: Adobe Heiti Std;
+			font-weight: normal;
+			font-size: 30px;
+			color: #F5E7C0;
+			text-shadow: 0px 0px 4px #000000;
+		}
+
+		#VipProgressNumber,
+		#VipProgressTitle,
+		#VipProgressDesc {
+			text-shadow: 0px 0px 2px 2.0 #000000;
+		}
+	}
+
+	#VipProgressTitle {
+		// margin-left: 20px;
+		font-size: 20px;
+		color: #E6D4A4;
+	}
+
+	#VipProgressBarContainer {
+		width: 434px;
+		height: 32px;
+	}
+
+	#CollectionVipProgress #ProgressBarBG {
+		width: 434px;
+		height: 32px;
+		background-image: url("file://{images}/custom_game/c1_collection/c1_progress_0.png");
+		background-size: 100%;
+	}
+
+	#CollectionVipProgress #ProgressBar {
+		align: center center;
+		width: 392px;
+		height: 14px;
+		background-image: url("file://{images}/custom_game/c1_collection/c1_progress_1.png");
+		background-size: 100%;
+	}
+
+	#CollectionVipProgress #ProgressBarText {
+		text-align: center;
+		align: center center;
+		font-size: 18px;
+		color: #F3D89C;
+		text-shadow: 0px 0px 3px 2.0 #000000;
+	}
+
+	#VipProgressDesc {
+		// margin-left: 20px;
+		font-size: 16px;
+		color: #C1BFBA;
+	}
+
+	#CollectionVipTopRight {
+		horizontal-align: left;
+		margin-top: 40px;
+		margin-left: 68px;
+	}
+
+	#CollectionVipTimeLimit {
+		margin-left: 28px;
+		vertical-align: bottom;
+		flow-children: right;
+
+		#CollectionVipTimeIcon {
+			width: 16px;
+			height: 22px;
+			background-image: url("file://{images}/custom_game/conv/tag/tag_time.png");
+			background-size: 100%;
+
+			wash-color: #B9B1A6;
+		}
+
+		#CollectionVipTimeText {
+			font-size: 20px;
+			color: #B9B1A6;
+		}
+	}
+
+	#CollectionVipToolTipIcon {
+		width: 30px;
+		height: 30px;
+		background-image: url("file://{images}/custom_game/conv/icon/icon_info.png");
+		background-size: 100%;
+
+		opacity-brush: gradient(linear, 0% 0%, 0% 100%, from(#AB8363), to(#F6E3C1));
+
+		&:hover {
+			brightness: 1.5;
+		}
+
+		&.Language_schinese {
+			margin-left: 380px;
+			margin-top: 14px;
+		}
+	}
+
+	#CollectionVipTopRightBG {
+		width: 706px;
+		height: 152px;
+		background-image: url("file://{images}/custom_game/f3_favor/new/f3_title_en.png");
+		background-size: 100%;
+
+		&.Language_schinese {
+			background-image: url("file://{images}/custom_game/f3_favor/new/f3_title_cn.png");
+		}
+
+		&.Language_russian {
+			background-image: url("file://{images}/custom_game/f3_favor/new/f3_title_ru.png");
+		}
+
+		&.Language_english {
+			background-image: url("file://{images}/custom_game/f3_favor/new/f3_title_en.png");
+		}
+	}
+
+	#VipSummary {
+		align: center center;
+		flow-children: down;
+	}
+
+	#VipSummaryTitle {
+		horizontal-align: center;
+		font-size: 28px;
+		color: #FDEFC8;
+		text-shadow: 0px 0px 4px 3.0 #000000;
+	}
+
+	#VipSummaryTime {
+		horizontal-align: center;
+		margin-top: 6px;
+		font-size: 21px;
+		color: #D9BC76;
+		text-shadow: 0px 0px 3px 2.0 #000000;
+	}
+
+	#CollectionVipCenter {
+		vertical-align: bottom;
+		horizontal-align: center;
+		width: 93%;
+		height: 456px;
+		// flow-children: right;
+
+		overflow: noclip;
+	}
+
+	.SwitchArrow {
+		width: 42px;
+		height: 44px;
+		vertical-align: center;
+		background-size: 100%;
+		transition-property: brightness;
+		transition-duration: 0.12s;
+		transition-timing-function: ease-in-out;
+
+		&:hover {
+			brightness: 1.8;
+		}
+
+		&:active {
+			brightness: 0.6;
+			sound: "ui_generic_button_click";
+		}
+
+		&:disabled {
+			opacity: 0.35;
+			brightness: 0.5;
+			saturation: 0.35;
+		}
+
+		&:disabled:hover {
+			brightness: 0.5;
+		}
+	}
+
+	#LeftArrow {
+		background-image: url("file://{images}/custom_game/conv/button/conv_btn_arrow_left.png");
+	}
+
+	#RightArrow {
+		background-image: url("file://{images}/custom_game/conv/button/conv_btn_arrow_right.png");
+	}
+
+	#RewardsContent {
+		width: 100%;
+		height: 398px;
+		margin-left: 12px;
+		margin-right: 12px;
+		margin-top: -50px;
+		padding-top: 50px;
+
+		overflow: noclip;
+		opacity-mask: url("file://{images}/custom_game/masks/horizontal_scroll_center.png");
+
+		&.Dragging {
+			#RewardCardList {
+				transition-duration: 0s;
+			}
+		}
+	}
+
+	#RewardCardViewport {
+		width: 100%;
+		// height: 100%;
+	}
+
+	#RewardCardList {
+		width: fit-children;
+		// height: 100%;
+		flow-children: right;
+		overflow: noclip;
+		transition-property: transform;
+		transition-duration: 0.18s;
+		transition-timing-function: ease-in-out;
+	}
+
+	#CollectionVipOperatorContainer {
+		horizontal-align: right;
+		vertical-align: bottom;
+		width: 290px;
+		// height: 216px;
+		// padding-bottom: 72px;
+		overflow: noclip;
+	}
+
+	#ReciveRewardButton {
+		horizontal-align: center;
+		vertical-align: bottom;
+	}
+}
+
+.CollectionCard {
+	width: 174px;
+	height: 348px;
+	margin-left: 14px;
+	margin-right: 14px;
+	overflow: noclip;
+	vertical-align: center;
+	transition-property: opacity, pre-transform-scale2d;
+	transition-duration: 0.16s;
+	transition-timing-function: ease-in-out;
+
+	.CollectionCardRoot,
+	.RewardLevelMarker {
+		transition-property: brightness;
+		transition-duration: 0.16s;
+		transition-timing-function: ease-in-out;
+	}
+
+	.RewardProgressSegment {
+		x: 87px;
+		width: 202px;
+		height: 36px;
+		margin-top: 236px;
+		overflow: clip;
+
+		.RewardProgressSegmentBG {
+			width: 100%;
+			height: 36px;
+			background-image: url("file://{images}/custom_game/f3_favor/f3_progress_0.png");
+			background-size: 1632px 36px;
+		}
+
+		.RewardProgressSegmentFill {
+			align: center center;
+			width: 100%;
+			height: 14px;
+			background-image: url("file://{images}/custom_game/f3_favor/f3_progress_1.png");
+			background-size: 1360px 14px;
+		}
+
+		&.Slice0 {
+			.RewardProgressSegmentBG {
+				background-position: -311px 0px;
+			}
+
+			.RewardProgressSegmentFill {
+				background-position: -175px 0px;
+			}
+		}
+
+		&.Slice1 {
+			.RewardProgressSegmentBG {
+				background-position: -513px 0px;
+			}
+
+			.RewardProgressSegmentFill {
+				background-position: -377px 0px;
+			}
+		}
+
+		&.Slice2 {
+			.RewardProgressSegmentBG {
+				background-position: -715px 0px;
+			}
+
+			.RewardProgressSegmentFill {
+				background-position: -579px 0px;
+			}
+		}
+
+		&.Slice3 {
+			.RewardProgressSegmentBG {
+				background-position: -917px 0px;
+			}
+
+			.RewardProgressSegmentFill {
+				background-position: -781px 0px;
+			}
+		}
+
+		&.Slice4 {
+			.RewardProgressSegmentBG {
+				background-position: -1119px 0px;
+			}
+
+			.RewardProgressSegmentFill {
+				background-position: -983px 0px;
+			}
+		}
+	}
+
+	.CollectionCardMain {
+		vertical-align: center;
+		width: 174px;
+		height: 224px;
+		// overflow: noclip;
+	}
+
+	&.Claimable {
+		.CollectionCardFxLayer {
+			opacity: 1;
+		}
+
+		.CollectionCardFxLayerTop {
+			opacity: 1;
+		}
+
+		.CollectionCardRedPoint {
+			opacity: 1;
+		}
+	}
+
+	&.Received {
+		.CollectionCardRoot,
+		.RewardLevelMarker {
+			brightness: 0.72;
+		}
+
+		.CollectionCardRecived {
+			opacity: 1;
+		}
+
+		.CollectionCardContent {
+			wash-color: #787878;
+		}
+	}
+
+	&.Locked {
+		.RewardLevelMarkerBG {
+			background-image: url("file://{images}/custom_game/f3_favor/f3_level_board_02_unlocked.png");
+		}
+	}
+
+	&.EmptyReward {
+		.CollectionCardMain {
+			opacity: 0;
+		}
+	}
+
+	.CollectionCardRoot {
+		width: 174px;
+		height: 224px;
+		overflow: noclip;
+	}
+
+	.RewardLevelMarker {
+		width: fill-parent-flow(1);
+		height: 124px;
+		vertical-align: bottom;
+		horizontal-align: center;
+		overflow: noclip;
+
+		.RewardLevelLabel {
+			align: center center;
+			text-align: center;
+			font-size: 24px;
+			color: #c4b984;
+			text-shadow: 0px 0px 2px 2.0 #0a0a0a;
+		}
+
+		.RewardLevelMarkerContent {
+			// margin-top: 40px;
+			horizontal-align: center;
+		}
+
+		.RewardLevelMarkerBG {
+			horizontal-align: center;
+			vertical-align: center;
+			width: 64px;
+			height: 64px;
+			background-image: url("file://{images}/custom_game/f3_favor/f3_level_board_02.png");
+			background-size: 100%;
+		}
+
+		&.Received {
+			.RewardLevelMarkerBG {
+				background-image: url("file://{images}/custom_game/f3_favor/f3_level_board_02_claimed.png");
+			}
+		}
+
+		&.Locked {
+			.RewardLevelMarkerBG {
+				background-image: url("file://{images}/custom_game/f3_favor/f3_level_board_02_unlocked.png");
+			}
+		}
+
+		&.Claimable {
+			.RewardLevelLabel {
+				color: #FFFFFF;
+			}
+
+			.RewardLevelMarkerBG {
+				background-image: url("file://{images}/custom_game/f3_favor/f3_level_board_02.png");
+			}
+		}
+
+		&.Current {
+			.RewardLevelMarkerBG {
+				// width: 98px;
+				// height: 96px;
+				background-image: url("file://{images}/custom_game/f3_favor/f3_level_board_01.png");
+			}
+
+			.RewardLevelLabel {
+				color: #FFF1AE;
+				// font-size: 36px;
+			}
+		}
+	}
+
+	.CollectionCardBG {
+		horizontal-align: center;
+		vertical-align: center;
+
+		width: 174px;
+		height: 224px;
+		// margin-top: 36px;
+		background-size: 100%;
+		background-image: url("file://{images}/custom_game/f3_favor/new/f3_board_gray.png");
+	}
+
+	.CollectionCardFx {
+		x: 0px;
+		align: center center;
+		// margin-top: 12px;
+		width: 1736px;
+		height: 1720px;
+		overflow: noclip;
+	}
+
+	.CollectionCardFxLayer {
+		width: 100%;
+		height: 100%;
+		overflow: noclip;
+		opacity: 0;
+	}
+
+	.CollectionCardFxLayerTop {
+		width: 100%;
+		height: 100%;
+		overflow: noclip;
+		opacity: 0;
+	}
+
+	.CollectionCardSelectedBorder {
+		horizontal-align: center;
+		vertical-align: center;
+
+		width: 174px;
+		height: 224px;
+		opacity: 0;
+		background-size: 100%;
+		background-image: url("file://{images}/custom_game/f3_favor/new/f3_select.png");
+	}
+
+	&.Selected {
+		.CollectionCardSelectedBorder {
+			opacity: 1;
+		}
+	}
+
+	.CollectionCardBorder {
+		horizontal-align: center;
+		vertical-align: center;
+
+		width: 174px;
+		height: 224px;
+		opacity: 0;
+		background-size: 100%;
+		background-image: url("file://{images}/custom_game/f3_favor/new/f3_select.png");
+	}
+
+	.CollectionCardContent {
+		horizontal-align: center;
+		vertical-align: center;
+
+		margin-top: 40px;
+		width: 250px;
+		height: 326px;
+		flow-children: down;
+
+		.CollectionCardName {
+			width: 75%;
+			height: 20px;
+			text-align: center;
+			font-size: 14px;
+			color: #E6D4A4;
+			text-shadow: 0px 0px 3px 3.0 #000000;
+			text-overflow: shrink;
+
+			horizontal-align: center;
+		}
+
+		.StoreItemImage {
+			horizontal-align: center;
+			margin-top: 8px;
+			width: 108px;
+			height: 108px;
+		}
+
+		.CollectionCardDivider {
+			width: 122px;
+			height: 14px;
+			background-size: 100%;
+			background-image: url("file://{images}/custom_game/f3_favor/f3_line_divider.png");
+
+			horizontal-align: center;
+		}
+
+		.CollectionCardAmount {
+			max-width: 100%;
+			horizontal-align: right;
+			margin-right: 28px;
+			margin-top: -6px;
+			text-align: center;
+			font-size: 18px;
+			color: #F8C66C;
+			text-shadow: 0px 0px 2px 2.0 #000000;
+		}
+	}
+
+
+	.CollectionCardRecived {
+		align: center bottom;
+		margin-bottom: 14px;
+		width: 62px;
+		height: 42px;
+		opacity: 0;
+		background-size: 100%;
+		background-image: url("file://{images}/custom_game/conv/tag/conv_tag_checkmark.png");
+	}
+
+	.CollectionCardRedPoint {
+		horizontal-align: right;
+		margin-right: -8px;
+		margin-top: 12px;
+		width: 48px;
+		height: 48px;
+		opacity: 0;
+		background-image: url("file://{images}/custom_game/conv/tag/tag_prompt_light.png");
+		background-size: 100%;
+	}
+
+	&.Rarity1 {
+		.CollectionCardBG {
+			background-image: url("file://{images}/custom_game/f3_favor/new/f3_board_gray.png");
+		}
+
+		.CollectionCardBorder {
+			background-image: url("file://{images}/custom_game/f3_favor/f3_board_line_gray.png");
+		}
+	}
+
+	&.Rarity2 {
+		.CollectionCardBG {
+			background-image: url("file://{images}/custom_game/f3_favor/new/f3_board_green.png");
+		}
+
+		.CollectionCardBorder {
+			background-image: url("file://{images}/custom_game/f3_favor/f3_board_line_blue.png");
+		}
+	}
+
+	&.Rarity3 {
+		.CollectionCardBG {
+			background-image: url("file://{images}/custom_game/f3_favor/new/f3_board_blue.png");
+		}
+
+		.CollectionCardBorder {
+			background-image: url("file://{images}/custom_game/f3_favor/f3_board_line_purple.png");
+		}
+	}
+
+	&.Rarity4 {
+		.CollectionCardBG {
+			background-image: url("file://{images}/custom_game/f3_favor/new/f3_board_purple.png");
+		}
+
+		.CollectionCardBorder {
+			background-image: url("file://{images}/custom_game/f3_favor/f3_board_line_red.png");
+		}
+	}
+
+	&.Rarity5 {
+		.CollectionCardBG {
+			background-image: url("file://{images}/custom_game/f3_favor/new/f3_board_yellow.png");
+		}
+
+		.CollectionCardBorder {
+			background-image: url("file://{images}/custom_game/f3_favor/f3_board_line_yellow.png");
+		}
+	}
+}

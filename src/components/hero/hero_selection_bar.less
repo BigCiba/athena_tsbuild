@@ -1,0 +1,80 @@
+#HeroSelectionBar
+{
+	flow-children: right;
+
+	#LeftArrow
+	{
+		pre-transform-rotate2d: 180deg;
+	}
+
+	.HeroSelectionArrow
+	{
+		width: 42px;
+		height: 44px;
+		background-image: url("file://{images}/custom_game/conv/button/conv_btn_arrow_right.png");
+		background-size: 100%;
+		vertical-align: center;
+	}
+
+	#HeroListContainer
+	{
+		margin: 0px 18px;
+		height: 100px;
+		vertical-align: center;
+
+		#Line
+		{
+			vertical-align: center;
+			width: 100%;
+			height: 10px;
+			background-image: url("file://{images}/custom_game/e1_equipment/e1_line.png");
+			background-size: 100%;
+		}
+
+		#HeroSelectionList
+		{
+			align: center center;
+			margin: 0px 30px;
+			width: 328px;
+			opacity-mask: url("s2r://panorama/images/custom_game/masks/horizontal_scroll_center_png.vtex");
+
+			HorizontalScrollBar
+			{
+				opacity: 0;
+			}
+
+			#HeroIconContainer
+			{
+				width: 72px;
+				transition-property: position;
+				transition-duration: 0.1s;
+				transition-timing-function: linear;
+				overflow: noclip;
+
+				&:not(:disabled):hover
+				{
+					brightness: 2.0;
+				}
+
+				&:not(:disabled):active
+				{
+					brightness: 0.5;
+					sound: "ui_generic_button_click";
+				}
+
+				&.Disabled
+				{
+					saturation: 0;
+				}
+
+				.EOM_RedMark
+				{
+					align: right top;
+					margin-top: 4px;
+					margin-right: 4px;
+					z-index: 10;
+				}
+			}
+		}
+	}
+}

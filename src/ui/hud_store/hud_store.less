@@ -1,0 +1,771 @@
+.CustomHudRoot
+{
+	width: 100%;
+	height: 100%;
+	z-index: 60;
+}
+
+.AspectRatio16x10 .CustomHudRoot
+{
+	width: 100%;
+	height: width-percentage(900/16%);
+	ui-scale: 90%;
+}
+
+.AspectRatio4x3 .CustomHudRoot
+{
+	width: 100%;
+	height: width-percentage(900/16%);
+	ui-scale: 75%;
+}
+
+.BackgroundScene
+{
+	width: 100%;
+	height: 100%;
+	z-index: -99;
+}
+
+#StoreBG
+{
+	width: height-percentage(177.77778%);
+	height: 100%;
+	align: center center;
+	background-image: url("file://{images}/custom_game/s1_shop/s1_bg.png");
+	background-size: 100%;
+	z-index: -100;
+	transition-property: background-image;
+	transition-duration: 0.1s;
+
+	&.StoreTabRecommend
+	{
+		background-image: url("file://{images}/custom_game/store/s_bg2.png");
+	}
+
+	&.StoreTabPrivilege
+	{
+		background-image: url("file://{images}/custom_game/m3_monthly_pass/m3_bj.png");
+	}
+
+	.SeaMysteryTurntable &
+	{
+		background-image: url("file://{images}/custom_game/w3_wanxiang/w3_bg.png");
+	}
+
+	.SeaMysteryTask &
+	{
+		width: 2048px;
+		height: 1080px;
+		background-image: url("file://{images}/custom_game/w2_wanxiang/w2_bj.png");
+		background-size: 2048px 1080px;
+		background-position: center center;
+	}
+}
+
+/** 右侧内容 */
+#StoreMain .EOM_MenuLayout_Content
+{
+	// padding-top: 60px;
+	z-index: -1;
+
+	transition-property: opacity;
+	transition-duration: 0.24s;
+	transition-timing-function: ease-out;
+
+
+	&.Show
+	{
+
+		#CosmeticPreview
+		{
+			opacity: 1;
+			transform: translateY(0px);
+		}
+	}
+
+	.MarkIcon
+	{
+		align: right top;
+		margin: 0;
+		margin-top: -16px;
+	}
+}
+
+#StoreMain .EOM_MenuLayout_Content_Box
+{
+	padding-left: 228px;
+}
+
+#ExchangeTextEntry
+{
+	width: 236px;
+	height: 37px;
+
+	TextEntry
+	{
+		width: 100%;
+		height: 27px;
+		font-size: 16px;
+		margin: 4px 35px 4px 21px;
+		padding: 3px 0px;
+		vertical-align: center;
+		overflow: clip;
+	}
+
+	#PlaceholderText
+	{
+		vertical-align: center;
+		margin-top: 0px;
+		font-size: 16px;
+	}
+}
+
+.TagContent
+{
+	width: 100%;
+	height: 100%;
+	margin-right: 70px;
+	margin-bottom: 20px;
+	overflow: squish;
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.2s;
+
+	&:selected
+	{
+		opacity: 1;
+	}
+}
+
+
+#StoreList
+{
+	margin-top: 18px;
+	padding-top: 10px;
+	padding-left: 15px;
+	margin-bottom: 100px;
+	flow-children: right-wrap;
+	width: 100%;
+	height: 100%;
+	opacity-mask: url("s2r://panorama/images/masks/softedge_vertical_vscroll_wide_psd.vtex");
+
+	.StoreItemMain
+	{
+		margin: 11px 0px;
+	}
+
+	// &>VerticalScrollBar
+	// {
+	// 	margin-top: 50px;
+	// 	margin-bottom: 15px;
+	// 	margin-right: 20px;
+	// 	width: 5px;
+	// 	background-color: #040807;
+	// 	border: 1px solid #151B1D;
+
+	// 	.ScrollThumb
+	// 	{
+	// 		background-color: #766D5E;
+	// 		border: 0px solid #6b5d4f00;
+	// 	}
+	// }
+
+}
+
+#VipPage
+{
+	width: 100%;
+	height: 100%;
+
+	#discount
+	{
+		width: 48px;
+		height: 48px;
+		margin-left: 623px;
+		background-image: url("file://{images}/custom_game/store/Vip/h_discount.png");
+		background-position: center;
+		background-repeat: no-repeat;
+		flow-children: right;
+		z-index: 11;
+
+		&.mounth
+		{
+			margin-top: 97px;
+		}
+
+		&.year
+		{
+			margin-top: 69px;
+		}
+
+		.number
+		{
+			align: center center;
+			font-family: Reaver;
+			font-size: 18px;
+			color: #F5EECB;
+			text-shadow: 0px 0px 4px #2D0505;
+			transform: translateX(6px);
+		}
+
+		.pct
+		{
+			align: center center;
+			font-family: Reaver;
+			color: #F5EECB;
+			font-size: 12px;
+			transform: translateY(2px);
+		}
+	}
+
+	.vip
+	{
+		z-index: 10;
+		width: 1514px;
+		height: 714px;
+		margin-left: 61px;
+		margin-top: 119px;
+		background-position: center;
+		background-repeat: no-repeat;
+		opacity: 0;
+
+		.PrivilegeList
+		{
+			horizontal-align: right;
+			margin-top: 220px;
+			margin-right: 99px;
+			flow-children: down;
+
+			.privilege
+			{
+				&.russian
+				{
+					.line
+					{
+						Label
+						{
+							font-size: 15px;
+							margin-top: 16px;
+							margin-bottom: 15px;
+							text-align: right;
+						}
+					}
+				}
+
+				&.english
+				{
+					.line
+					{
+						Label
+						{
+							font-size: 15px;
+							margin-top: 16px;
+							margin-bottom: 15px;
+							text-align: right;
+						}
+					}
+				}
+
+				width: 638px;
+				flow-children: down;
+
+				.line
+				{
+					flow-children: left;
+					horizontal-align: right;
+
+					Label
+					{
+						vertical-align: center;
+						font-size: 18px;
+						color: #606060;
+						margin-top: 15px;
+						margin-bottom: 13px;
+						text-align: right;
+					}
+
+					Image
+					{
+						margin-left: 10px;
+						margin-right: 17px;
+						width: 10px;
+						height: 10px;
+						vertical-align: center;
+						background-image: url("file://{images}/custom_game/store/Vip/h_block_02.png");
+						background-position: center;
+						background-repeat: no-repeat;
+					}
+				}
+
+				.div
+				{
+					width: 638px;
+					height: 2px;
+					background-image: url("file://{images}/custom_game/store/Vip/h_block_01.png");
+					background-position: center;
+					background-repeat: no-repeat;
+				}
+			}
+		}
+
+		&.show
+		{
+			opacity: 1;
+		}
+
+		.vipTitle
+		{
+			horizontal-align: right;
+			margin-top: 126px;
+			margin-right: 102px;
+			// width: 234px;
+			// height: 56px;
+			// font-family: Adobe Heiti Std;
+			font-weight: normal;
+			font-size: 60px;
+			color: #5F5F5F;
+
+			&.russian
+			{
+				font-size: 40px;
+			}
+
+			&.english
+			{
+				font-size: 40px;
+			}
+		}
+
+		#remain
+		{
+			vertical-align: bottom;
+			margin-left: 380px;
+			margin-bottom: 40px;
+
+			Label
+			{
+				font-size: 30px;
+				color: white;
+				font-family: Adobe Heiti Std;
+				font-weight: normal;
+				text-shadow: 0px 0px 5px 3 black;
+			}
+
+			&.russian
+			{
+				Label
+				{
+					font-size: 20px;
+				}
+			}
+
+			&.english
+			{
+				Label
+				{
+					font-size: 20px;
+				}
+			}
+		}
+
+		.LeftTitle
+		{
+			margin-left: 462px;
+			margin-top: 578px;
+			font-family: Adobe Heiti Std;
+			font-weight: normal;
+			font-size: 34px;
+
+			&.russian
+			{
+				margin-left: 300px;
+			}
+
+			&.english
+			{
+				margin-left: 300px;
+			}
+		}
+
+		#year_discount
+		{
+			width: 120px;
+			height: 120px;
+			margin-left: 590px;
+			margin-top: 465px;
+
+			Label
+			{
+				font-family: Reaver;
+				color: gradient(linear, 0% 0%, 0% 100%, from(#FFE675), to(#FFF098));
+				text-shadow: 0px 0px 2px #9B2420;
+			}
+
+			#number
+			{
+				font-size: 68px;
+				transform: translateX(-5px);
+			}
+
+			#pct
+			{
+				font-size: 36px;
+				transform: translateX(82px) translateY(12px);
+			}
+
+			#off
+			{
+				font-size: 20px;
+				transform: translateX(78px) translateY(50px);
+			}
+		}
+
+		.BuyBtn
+		{
+			width: 264px;
+			height: 66px;
+			background-image: url("file://{images}/custom_game/store/new/button_vip.png");
+			align: right bottom;
+			margin-right: 99px;
+			margin-bottom: 81px;
+
+			&.discount
+			{
+				#origin_price
+				{
+					opacity: 1;
+				}
+
+				#real_price
+				{
+					margin-right: 30px;
+				}
+			}
+
+			.EOM_Button_Text
+			{
+				width: 100%;
+				height: 100%;
+				flow-children: none;
+			}
+
+
+
+			#origin_price
+			{
+				opacity: 0;
+				align: right center;
+				// margin-top: 10px;
+				margin-right: 20px;
+				color: #E54A4A;
+				text-shadow: 0px 0px 2px 2 #241838;
+				text-decoration: line-through;
+				ignore-parent-flow: true;
+			}
+		}
+
+		.StoreItemDiscount
+		{
+			align: right bottom;
+			margin-right: 220px;
+			margin-bottom: 75px;
+		}
+	}
+
+	.tab
+	{
+		background-image: url("file://{images}/custom_game/store/Vip/h_unselected.png");
+		background-position: center;
+		background-repeat: no-repeat;
+		margin-top: 101px;
+		width: 216px;
+		height: 50px;
+
+		Label
+		{
+			align: center center;
+			font-weight: normal;
+			font-size: 24px;
+			color: #512D1E;
+		}
+
+		&.selected
+		{
+			margin-top: 77px;
+			width: 218px;
+			height: 79px;
+			background-image: url("file://{images}/custom_game/store/Vip/h_select.png");
+		}
+
+		&.russian
+		{
+			Label
+			{
+				font-size: 15px;
+			}
+		}
+
+		&.english
+		{
+			Label
+			{
+				font-size: 15px;
+			}
+		}
+	}
+
+	#tab_mounth
+	{
+		margin-left: 418px - 220px;
+	}
+
+	#tab_year
+	{
+		margin-left: 654px - 220px;
+	}
+
+	#vip_mounth
+	{
+		background-image: url("file://{images}/custom_game/store/Vip/h_bottom_moon.png");
+
+		// #remain{
+		// 	Label{
+		// 		color: #CCD5ED;
+		// 	}
+		// }
+		.LeftTitle
+		{
+			color: #CCD5ED;
+
+			&.russian
+			{
+				font-size: 25px;
+				margin-left: 370px;
+			}
+
+			&.english
+			{
+				font-size: 25px;
+				margin-left: 400px;
+			}
+		}
+	}
+
+	#vip_year
+	{
+		background-image: url("file://{images}/custom_game/store/Vip/h_bottom_year.png");
+
+		.LeftTitle
+		{
+			color: #FFEC9D;
+
+			&.russian
+			{
+				font-size: 25px;
+				margin-left: 400px;
+			}
+
+			&.english
+			{
+				font-size: 25px;
+				margin-left: 400px;
+			}
+		}
+
+		// #remain{
+		// 	Label{
+		// 		color: #FFEC9D;
+		// 	}
+		// }
+	}
+}
+
+
+#MustPage
+{
+	margin-left: 220px;
+	width: 100%;
+	height: 100%;
+	// flow-children: down;
+
+	#MustTitle
+	{
+		horizontal-align: center;
+		width: 1540px;
+		height: 170px;
+		margin-top: 20px;
+		background-image: url("file://{images}/custom_game/store/must/s2_goods_title_ch.png");
+		background-size: 100%;
+
+		&.english
+		{
+			background-image: url("file://{images}/custom_game/store/must/s2_goods_title_en.png");
+		}
+
+		&.russian
+		{
+			background-image: url("file://{images}/custom_game/store/must/s2_goods_title_ru.png");
+		}
+	}
+
+	#ItemList
+	{
+		margin-top: 190px;
+		flow-children: down-wrap;
+		height: 100%;
+		margin-left: -20px;
+		margin-right: -10px;
+		margin-bottom: 20px;
+		padding: 0 -50px 10px 50px;
+		// opacity-mask: url("file://{images}/masks/horizontal_scroll_mask_right.png");
+		opacity-mask: url("file://{images}/masks/horizontal_scroll_mask.png");
+
+		&>HorizontalScrollBar
+		{
+			height: 6px;
+			background-color: #425590;
+			// border: 1px solid #000000;
+			box-shadow: none;
+			width: 90%;
+
+			.ScrollThumb
+			{
+				background-color: gradient(linear, 0 0, 0 100%, from(#95cbfc), to(#6396e2));
+				margin-bottom: 1px;
+			}
+		}
+
+		// #BigItem1 {
+		// 	margin-left: 20px;
+		// }
+
+		// #BigItem2 {
+		// 	margin-left: 600px;
+		// }
+
+		// #SmallItem1 {
+		// 	margin-top: 40px;
+		// 	margin-left: 600px + 548px + 20px;
+		// }
+
+		// #SmallItem2 {
+		// 	margin-top: 400px;
+		// 	margin-left: 600px + 548px + 20px;
+		// }
+	}
+
+	// #BigItemList {
+	// 	height: 100%;
+	// 	flow-children: right;
+	// }
+
+	// #SmallItemList {
+	// 	padding-top: 16px;
+	// 	height: 100%;
+	// 	flow-children: down-wrap;
+	// }
+
+	.SpecialItem
+	{
+		margin-right: 12px;
+
+		&.small
+		{
+			margin: 22px 12px 22px 0;
+		}
+
+		&.big
+		{
+			&.9900226 #Detail
+			{
+
+				&.english,
+				&.russian
+				{
+
+					margin-top: 480px;
+				}
+			}
+		}
+	}
+}
+
+
+#FirstRechargeBanner
+{
+	width: 100%;
+	margin-left: 36px;
+	margin-right: 36px;
+	margin-top: 36px;
+
+	#BG
+	{
+		width: 100%;
+		height: 74px;
+		vertical-align: bottom;
+		background-image: url("file://{images}/custom_game/first_recharge/s4_bg_02.png");
+		background-size: 100%;
+	}
+
+	#Hero1
+	{
+		align: right bottom;
+		margin-right: 287px;
+		width: 239px;
+		height: 78px;
+		background-image: url("file://{images}/custom_game/first_recharge/s4_hero_06.png");
+		background-size: 100%;
+	}
+
+	#Hero2
+	{
+		align: right bottom;
+		margin-right: 152px;
+		width: 232px;
+		height: 93px;
+		background-image: url("file://{images}/custom_game/first_recharge/s4_hero_05.png");
+		background-size: 100%;
+	}
+
+	#Hero3
+	{
+		align: right bottom;
+		margin-right: 107px;
+		width: 136px;
+		height: 88px;
+		background-image: url("file://{images}/custom_game/first_recharge/s4_hero_07.png");
+		background-size: 100%;
+	}
+
+	#Hero4
+	{
+		align: right bottom;
+		margin-right: 3px;
+		width: 156px;
+		height: 58px;
+		background-image: url("file://{images}/custom_game/first_recharge/s4_hero_08.png");
+		background-size: 100%;
+	}
+
+	#Desc
+	{
+		margin-bottom: 23px;
+		margin-left: 47px;
+		vertical-align: bottom;
+		font-size: 28px;
+		color: gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#FFDCAB));
+		text-shadow: 0px 1px 2px 2.0 #09051D;
+	}
+}
+
+#BGRoot
+{
+	width: 100%;
+	height: 100%;
+
+	#BGLight
+	{
+		width: 100%;
+		height: 100%;
+	}
+}

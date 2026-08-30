@@ -1,0 +1,14 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+	<scripts>
+		<include src="s2r://panorama/scripts/sequence_actions.vjs_c" />
+	</scripts>
+	<Panel class="ContextMenuKeyBindPicker" acceptsfocus="true">
+		<Panel id="Header">
+			<Label id="Instructions" text="#Hotkey_Pick" />
+		</Panel>
+		<Panel id="KeyBindOption"/>
+	</Panel>
+</root>

@@ -1,0 +1,451 @@
+.EOM_MenuLayout
+{
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+
+	background-color: black;
+	// background-image: url("file://{images}/custom_game/eom_design/layout/s_bg.png");
+	// background-size: 100%;
+	transform: translateY(-30px);
+	transition-property: opacity, transform;
+	transition-duration: 0.24s;
+	transition-timing-function: ease-out;
+
+	&.Show
+	{
+		sound: "UI.Menu.Open";
+		opacity: 1;
+		transform: translateY(0px);
+	}
+
+	.EOM_CloseButton
+	{
+		margin-top: 16px;
+		margin-right: 16px;
+		horizontal-align: right;
+		z-index: 2;
+	}
+
+	#TopBottomBG
+	{
+		width: 100%;
+		height: 86px;
+		background-image: url("file://{images}/custom_game/conv/top_navigation/conv_panel_1.png");
+		background-size: 100%;
+		z-index: 1;
+	}
+
+	#WindowTitle
+	{
+		align: center top;
+		margin-top: 15px;
+
+		Label
+		{
+			font-size: 24px;
+			font-weight: normal;
+			color: #3b89d1;
+			text-shadow: 0px 0px 2px 4 rgba(0, 0, 0, 0.5);
+		}
+	}
+
+	.CurrencyGroup
+	{
+		margin-top: 24px;
+		margin-right: 73px;
+
+		.EOM_Currency
+		{
+			margin: 0px 12px;
+		}
+	}
+
+}
+
+.CurrencyGroup
+{
+	z-index: 2;
+}
+
+.EOM_MenuLayout_Content
+{
+	width: 100%;
+	height: 100%;
+	// padding-left: 246px;
+	// padding-right: 20px;
+	// padding-top: 86px;
+	opacity: 0;
+
+	&.Show
+	{
+		opacity: 1;
+	}
+}
+
+.EOM_MenuLayout_Content_BG
+{
+	background-color: black;
+}
+
+.EOM_MenuLayout_Content_Box
+{
+
+	width: 100%;
+	height: 100%;
+	padding-left: 246px;
+	// padding-right: 20px;
+	padding-top: 86px;
+}
+
+#EOM_MenuLayoutBGScene
+{
+	align: center center;
+	width: 100%;
+	height: width-percentage(100%);
+	z-index: -100;
+}
+
+
+/** 左侧菜单 */
+.EOM_MenuLayout_Menu
+{
+	opacity: 0;
+	transform: translateX(-40px);
+
+	animation-name: none;
+	animation-duration: 0.24s;
+	animation-timing-function: ease-out;
+	animation-delay: 0.24s;
+	animation-fill-mode: forwards;
+
+	&.Show
+	{
+		animation-name: SlideInLeft;
+	}
+
+	.MenuLockIcon
+	{
+		width: 30px;
+		height: 38px;
+		vertical-align: center;
+		ui-scale: 60%;
+		background-image: url("file://{images}/custom_game/conv/tag/tag_lock.png");
+		background-size: 100%;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+
+	min-width: 246px;
+	height: 895px;
+	margin-top: 169px;
+	margin-left: 0px;
+	background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_line.png");
+	background-size: 2px 618px;
+	background-position: left 42px top 0px;
+	background-repeat: no-repeat;
+	overflow: squish scroll;
+	flow-children: down;
+	padding-top: 85px;
+	z-index: 1;
+
+	VerticalScrollBar
+	{
+		opacity: 0;
+	}
+
+	.TabButton
+	{
+		width: 246px;
+		height: 52px;
+		margin-top: 10px;
+		margin-bottom: 39px;
+		z-index: 1;
+		flow-children: right;
+		overflow: noclip;
+		background-size: 100%;
+
+		transition-property: position, background-image;
+		transition-duration: 0.1s;
+		transition-timing-function: ease-in-out;
+
+
+		&:hover
+		{
+			.TabLabel
+			{
+				brightness: 2;
+			}
+		}
+
+		&.Selected,
+		&:selected
+		{
+			sound: "UI.TabButton";
+			background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_btn_select.png");
+
+			.TabBackgroundArrow
+			{
+				background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_arrow_1.png");
+				transform: rotateZ(0deg);
+			}
+
+			.TabLabel
+			{
+				color: #E6D4A4;
+			}
+		}
+
+		&.Selected,
+		&:hover,
+		&:selected
+		{
+			.TabBackgroundActive
+			{
+				opacity: 1;
+			}
+		}
+
+		.TabLabel
+		{
+			vertical-align: center;
+			margin: 0px 1px 0px 5px;
+			font-size: 22px;
+			color: #686868;
+			// text-shadow: 0px 1px 4px 2 #71541B;
+			transition-property: color, brightness;
+			transition-timing-function: ease-in-out;
+			transition-duration: 0.15s;
+		}
+
+		.english
+		{
+			font-size: 17px;
+		}
+
+		.russian
+		{
+			font-size: 17px;
+		}
+
+		.TabIcon
+		{
+			width: 26px;
+			height: 26px;
+			vertical-align: center;
+			margin-left: 33px;
+			background-image: url("file://{images}/custom_game/eom_design/layout/cvt_tag_dian3.png");
+			background-size: 100%;
+
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+
+		&.HasSecondaryMenu .TabIcon
+		{
+			background-image: url("file://{images}/custom_game/eom_design/layout/cvt_tag_dian3.png");
+			background-size: 100%;
+		}
+
+		.TabBackgroundArrow
+		{
+			width: 36px;
+			height: 28px;
+			vertical-align: center;
+			background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_arrow_0.png");
+			background-position: center;
+			transform: rotateZ(180deg);
+			background-repeat: no-repeat;
+			transition-property: transform;
+			transition-duration: 0.15s;
+			transition-timing-function: ease-in-out;
+			opacity: 1;
+			z-index: -1;
+		}
+
+		.EOM_RedMark
+		{
+			margin-left: -5px;
+			margin-right: -10px;
+			align: right top;
+		}
+
+		.TabBackgroundActive
+		{
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			opacity: 0;
+
+			transition-property: opacity;
+			transition-duration: 0.2s;
+			transition-timing-function: ease-in-out;
+		}
+
+		.MenuMarkIcon
+		{
+			align: right top;
+			margin-top: 0px;
+			margin-right: 6px;
+			z-index: 1;
+		}
+
+		.TabButtonParticle
+		{
+			align: center center;
+			width: 230px;
+			height: 100px;
+			ignore-parent-flow: true;
+			overflow: noclip;
+			z-index: -1;
+		}
+	}
+
+	.SecondaryContainer
+	{
+		width: 100%;
+		max-height: 0px;
+		margin-left: 24px;
+		margin-top: -38px;
+		margin-bottom: 39px;
+		opacity: 0;
+		flow-children: down;
+		transition-property: height, max-height, position;
+		transition-duration: 0.1s;
+		transition-timing-function: ease-in-out;
+		z-index: 0;
+
+		&.Selected,
+		&:selected
+		{
+			// visibility: visible;
+			max-height: 600px;
+			opacity: 1;
+			margin-bottom: 0px;
+
+			.SecondaryMenuButton
+			{
+				visibility: visible;
+				transform: translateY(0px);
+			}
+		}
+
+		.SecondaryMenuButton
+		{
+			visibility: collapse;
+			width: 150px;
+			height: 38px;
+			margin: 0px 1px;
+			padding-left: 12px;
+			transition-property: transform;
+			transition-timing-function: cubic-bezier(.65, .1, .9, .31);
+			transition-duration: 0.3s;
+
+			#TextAndRedMark
+			{
+				vertical-align: center;
+				margin-top: 2px;
+				margin-left: 26px;
+				flow-children: right;
+			}
+
+			.MenuLockIcon
+			{
+				margin-top: -8px;
+			}
+
+			Label
+			{
+				font-size: 18px;
+				color: #A69F87;
+				text-shadow: 0px 1px 2px 2 #000000;
+				transition-property: color, transform;
+				transition-timing-function: ease-in-out;
+				transition-duration: 0.1s;
+				text-overflow: shrink;
+			}
+
+			.EOM_RedMark
+			{
+				margin-left: -5px;
+				margin-top: -8px;
+				align: right top;
+				overflow: noclip;
+				//margin-right: 10px;
+			}
+
+			.english
+			{
+				font-size: 17px;
+			}
+
+			&.Selected,
+			&:selected
+			{
+				sound: "ui_find_match_change_options";
+				background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_btn_select2.png");
+				background-size: 100%;
+			}
+
+			&:hover,
+			&.Selected,
+			&:selected
+			{
+				.SecondaryBackgroundActive
+				{
+					opacity: 1;
+				}
+
+				Label
+				{
+					color: #FFF0BA;
+					text-shadow: 0px 1px 4px 4 #71541B;
+				}
+			}
+
+			.SecondaryBackgroundActive
+			{
+				horizontal-align: center;
+
+				z-index: -1;
+				background-image: url("file://{images}/custom_game/eom_design/layout/tag_hightlight_2.png");
+				background-repeat: no-repeat;
+				opacity: 1;
+				transition-property: opacity;
+				transition-duration: 0.2s;
+				transition-timing-function: ease-in-out;
+			}
+
+			.TabButtonParticle
+			{
+				vertical-align: center;
+				margin-left: 7px;
+				width: 115px;
+				height: 50px;
+				ignore-parent-flow: true;
+				overflow: noclip;
+				z-index: -1;
+			}
+		}
+	}
+}
+
+
+.EOM_MenuLayout_ShadowBoder
+{
+	width: 600px;
+	height: 100%;
+	background-image: url("file://{images}/custom_game/conv/common/mask_01.png"),
+	url("file://{images}/custom_game/conv/common/mask_01.png");
+	wash-color: #000000;
+	background-img-opacity: 0.9, 0.2;
+	background-size: 100%, 280px 100%;
+	background-position: left center;
+	background-repeat: no-repeat;
+
+	&.Right
+	{
+		horizontal-align: right;
+		transform: rotateZ(180deg);
+	}
+}

@@ -1,0 +1,48 @@
+.HeroCard
+{
+	width: 224*0.6px;
+	height: 244*0.6px;
+
+	&.Selected
+	{
+		#HeroCardBorder
+		{
+			margin: 5px;
+			width: 100%;
+			height: 100%;
+			border-image-source: url("file://{images}/custom_game/h2_hero/h2_select.png");
+			border-width: 15px 15px 15px 15px;
+			border-image-slice: 15px 15px 15px 15px;
+			border-image-repeat: stretch;
+		}
+
+		.BorderParticle
+		{
+			visibility: visible;
+		}
+	}
+
+	.EOM_HeroImage
+	{
+		width: 110px;
+		height: 122px;
+		align: center center;
+	}
+
+	#HeroCardBG
+	{
+		width: 100%;
+		height: 100%;
+		background-image: url("file://{images}/custom_game/conv/item/item_hero_golden.png");
+		background-size: 100%;
+	}
+
+	.BorderParticle
+	{
+		align: center center;
+		width: 100%;
+		height: 100%;
+		visibility: collapse;
+		overflow: noclip;
+	}
+}

@@ -1,0 +1,251 @@
+"lang"
+{
+	"Language"		"Schinese"
+	"Tokens"
+	{
+		// NOTE:自动替换词条，在翻译的时候填入$xxx，避免不同地方对同一翻译使用了不同的描述
+		// $xxx 后只能是空格、字符串末尾或者中文英文的冒号
+		// 也可以在其他地方使用，使用的时候需要使用replaceDollar()/LocalizeDollar()函数
+
+		// 官方变量
+		// "dota_ability_variable_health"				"生命值"					// $health
+		// "dota_ability_variable_mana"				"魔法值"						// $mana
+		// "dota_ability_variable_armor"				"护甲"						// $armor
+		// "dota_ability_variable_damage"				"攻击力"					// $damage
+		// "dota_ability_variable_str"					"力量"					// $str
+		// "dota_ability_variable_int"					"智力"				// $int
+		// "dota_ability_variable_agi"					"敏捷"					// $agi
+		// "dota_ability_variable_all"					"全属性"			// $all
+		// "dota_ability_variable_primary_attribute"	"主属性"			// $primary_attribute
+		// "dota_ability_variable_attack"				"攻击速度"				// $attack
+		// "dota_ability_variable_attack_pct"			"基础攻击速度"	// $attack_pct
+		// "dota_ability_variable_hp_regen"			"生命恢复"		// $hp_regen
+		// "dota_ability_variable_lifesteal"			"吸血"					// $lifesteal
+		// "dota_ability_variable_mana_regen"			"魔法恢复"			// $mana_regen
+		// "dota_ability_variable_mana_regen_aura"		"魔法恢复光环"	// $mana_regen_aura
+		// "dota_ability_variable_spell_amp"			"技能伤害"				// $spell_amp
+		// "dota_ability_variable_debuff_amp"			"负面状态持续时间"			// $debuff_amp
+		// "dota_ability_variable_move_speed"			"移动速度"			// $move_speed
+		// "dota_ability_variable_evasion"				"闪避"					// $evasion
+		// "dota_ability_variable_spell_resist"		"魔法抗性"			// $spell_resist
+		// "dota_ability_variable_spell_lifesteal"		"技能吸血"			// $spell_lifesteal
+		// "dota_ability_variable_spell_lifesteal_creep"	"技能吸血（非英雄）"	// $spell_lifesteal_creep
+		// "dota_ability_variable_spell_lifesteal_hero"	"技能吸血（英雄）"	// $spell_lifesteal_hero
+		// "dota_ability_variable_selected_attrib"		"所选属性"		// $selected_attribute
+		// "dota_ability_variable_attack_range"		"攻击距离<font color='#7d7d7d'>（仅对远程有效）</font>"	// $attack_range
+		// "dota_ability_variable_attack_range_melee"	"攻击距离<font color='#7d7d7d'>（仅对近战有效）</font>"	// $attack_range_melee
+		// "dota_ability_variable_cast_range"			"施法距离"				// $cast_range
+		// "dota_ability_variable_status_resist"		"状态抗性"			// $status_resist
+		// "dota_ability_variable_projectile_speed"	"弹道速度"			// $projectile_speed
+		// "dota_ability_variable_manacost_reduction"	"魔法消耗降低"		// $manacost_reduction
+		// "dota_ability_variable_cooldown_reduction"	"冷却时间减少"		// $cooldown_reduction
+		// "dota_ability_variable_max_mana_percentage"	"额外最大魔法值"			// $max_mana_percentage
+		// "dota_ability_variable_slow_resistance"		"减速抗性"			// $slow_resistance
+		// "dota_ability_variable_aoe_bonus"			"作用范围加成"					// $aoe_bonus
+
+		// "dota_ability_variable_damage_int_hero"	"攻击力（智力英雄）"
+		// "dota_ability_variable_damage_agi_hero"	"攻击力（敏捷英雄）"
+		// "dota_ability_variable_damage_str_hero"	"攻击力（力量英雄）"
+		// "dota_ability_variable_damage_universal_hero"	"攻击力（全才英雄）"
+
+		// 自定义变量
+		"dota_ability_variable_attack_rate" "攻击间隔" // $attack_rate
+		"dota_ability_variable_ignore_armor" "无视护甲" // $ignore_armor
+		"dota_ability_variable_attack_range_all" "攻击距离" // $attack_range_all
+		"dota_ability_variable_crit_chance" "暴击概率" // $crit_chance
+		"dota_ability_variable_crit_damage" "暴击伤害" // $crit_damage
+		"dota_ability_variable_gold" "金币" // $gold
+		"dota_ability_variable_crystal" "魂晶" // $crystal
+		"dota_ability_variable_score" "荣耀" // $score
+		"dota_ability_variable_exp" "经验" // $exp
+		"dota_ability_variable_base" "基础" // $base
+		"dota_ability_variable_per_second" "/秒" // $per_second
+		"dota_ability_variable_per_minute" "/分" // $per_minute
+		"dota_ability_variable_per_kill" "/击杀" // $per_kill
+		"dota_ability_variable_per_hit" "/攻击" // $per_hit
+		"dota_ability_variable_gain" "获得" // $gain
+		"dota_ability_variable_per_levelup" "/升级" // $per_levelup
+		"dota_ability_variable_spell_power" "法术强度" // $spell_power
+		"dota_ability_variable_amplification" "增幅" // $amplification
+		"dota_ability_variable_teamhero" "友方英雄" // $teamhero
+		"dota_ability_variable_team" "友方玩家" // $team
+		"dota_ability_variable_mult_mark" "[×]" // $mult_mark
+
+		"dota_ability_variable_zeus"	"雷电"	// $zeus
+		"dota_ability_variable_crit"	"暴击"	// $crit
+		"dota_ability_variable_holy"	"神圣"	// $holy
+		"dota_ability_variable_poison"	"剧毒"	// $poison
+		"dota_ability_variable_ice"		"冰冻"	// $ice
+		"dota_ability_variable_bleed"	"狂暴"	// $bleed
+		"dota_ability_variable_wind"	"御风"	// $wind
+
+		// -----------------------------------------------------------------------------------------------------
+
+		// 特别值变量，系数词条
+		"dota_ability_special_variable_attack" "<font color='#ffe9a7'>$damage</font>"
+		"dota_ability_special_variable_shield" "<font color='#7dc4fa'>护盾</font>"
+		"dota_ability_special_variable_spell_power" "<font color='#cc5eff'>$spell_power</font>"
+		"dota_ability_special_variable_armor" "<font color='#7dc4fa'>$armor</font>"
+		"dota_ability_special_variable_health" "<font color='#7fffd0'>$health</font>"
+		"dota_ability_special_variable_str" "<font color='#ec3d06'>$str</font>"
+		"dota_ability_special_variable_agi" "<font color='#3ed038'>$agi</font>"
+		"dota_ability_special_variable_int" "<font color='#00d9ec'>$int</font>"
+		"dota_ability_special_variable_primary" "<font color='#fd8b48'>$primary_attribute</font>"
+		"dota_ability_special_variable_all" "<font color='#ffcc00'>$all</font>"
+		"dota_ability_special_variable_min" "最小"
+		"dota_ability_special_variable_max" "最大"
+		"dota_ability_special_variable_attack_damage_full" "<font color='#ffe9a7'>$damage系数</font>"
+		"dota_ability_special_variable_spell_power_full" "<font color='#cc5eff'>$spell_power系数</font>"
+		"dota_ability_special_variable_armor_full" "<font color='#7dc4fa'>$armor系数</font>"
+		"dota_ability_special_variable_health_full" "<font color='#7fffd0'>$health系数</font>"
+		"dota_ability_special_variable_str_full" "<font color='#ec3d06'>$str系数</font>"
+		"dota_ability_special_variable_agi_full" "<font color='#3ed038'>$agi系数</font>"
+		"dota_ability_special_variable_int_full" "<font color='#00d9ec'>$int系数</font>"
+		"dota_ability_special_variable_primary_full" "<font color='#fd8b48'>$primary_attribute系数</font>"
+		"dota_ability_special_variable_all_full" "<font color='#ffcc00'>$all系数</font>"
+		"dota_ability_special_variable_min_full" "最小值"
+		"dota_ability_special_variable_max_full" "最大值"
+		"dota_ability_special_variable_attack_range" "<font color='#076df1'>$attack_range_all</font>"
+		"dota_ability_special_variable_abilitycooldown" "冷却时间*"
+		"dota_ability_special_variable_abilitymanacost" "魔法消耗*"
+		"dota_ability_special_variable_abilitycastrange" "施法距离"
+
+
+		"Bless_Zeus"	"$zeus"
+		"Bless_Crit"	"$crit"
+		"Bless_Holy"	"$holy"
+		"Bless_Poison"	"$poison"
+		"Bless_Ice"		"$ice"
+		"Bless_Bleed"	"$bleed"
+		"Bless_Wind"	"$wind"
+		"Bless_Shop"	"遗物"
+
+		// 特殊效果
+		"feature_Attack"					"攻击"
+		"feature_Attack_description"		"使用你的武器进行普通攻击"
+		"feature_Skill"						"特技"
+		"feature_Skill_description"			"英雄技能"
+		"feature_Dodge"						"冲刺"
+		"feature_Dodge_description"			"英雄技能，冲刺期间免疫弹幕"
+		"feature_Defense"					"防御"
+		"feature_Defense_description"		"英雄技能"
+		"feature_Ultimate"					"绝招"
+		"feature_Ultimate_description"		"英雄技能"
+		"feature_Ring"						"环绕物"
+		"feature_Ring_description"			"围绕英雄旋转的物体，对接触到的敌人造成伤害"
+		"feature_Split"						"散射"
+		"feature_Split_description"			"多投射物或多目标的技能效果"
+		"feature_Shield"					"护盾"
+		"feature_Shield_description"		"可以抵挡伤害，每<Constant|SHIELD_DECAY_INTERVAL/>秒会衰减<Constant|SHIELD_DECAY_RATE/>%，强效护盾不会自然衰减"
+		"feature_StrongShield"				"强效护盾"
+		"feature_StrongShield_description"	"可以抵挡伤害，强效护盾不会自然衰减"
+		"feature_Backstab"					"背刺"
+		"feature_Backstab_description"		"从背后发动的攻击"
+		"feature_Electric"					"触电"
+		"feature_Electric_description"		"下次受到的伤害提升<Constant|EXPOSE_DAMAGE_PCT/>%，触发后消耗一层"
+		"feature_Hit"						"受击"
+		"feature_Hit_description"			"受到伤害或规避伤害时触发的效果"
+		"feature_Hurt"						"受伤"
+		"feature_Hurt_description"			"受到伤害且造成生命值降低时触发的效果"
+		"feature_Counter"					"反击"
+		"feature_Counter_description"		"受击后进行的反击效果，会受到反击相关的加成，每种反击效果有<Constant|COUNTER_CD/>秒的冷却"
+		"feature_Frozen"					"冰冻"
+		"feature_Frozen_description"		"减速目标并增加受到的伤害(最大<Constant|FROZEN_DAMAGE_AMPLIFY_MAX/>%)，施加冰冻时造成伤害，每<Constant|FROZEN_DECAY_INTERVAL/>秒会衰减<Constant|FROZEN_DAMAGE_AMPLIFY_MAX/>%"
+		"feature_Freeze"					"冻结"
+		"feature_Freeze_description"		"被冻结的单位无法移动和攻击"
+		"feature_Crit"						"暴击"
+		"feature_Crit_description"			"暴击造成150%"
+		"feature_Fury"						"怒气"
+		"feature_Fury_description"			"通过攻击和技能积累怒气，怒气填充满后可以释放<Ultimate:绝招/>"
+		"feature_Burning"					"燃烧"
+		"feature_Burning_description"		"使目标持续受到伤害，无法叠加"
+		"feature_Bleed"						"流血"
+		"feature_Bleed_description"			"流血单位每秒受到伤害，每移动一定距离会额外受到一次伤害"
+		"feature_Poison"					"中毒"
+		"feature_Poison_description"		"中毒单位每秒受到伤害，每次结算伤害后中毒层数会衰减<Constant|POISON_DECAY_RATE/>%"
+		"feature_BladeWave"					"剑气"
+		"feature_BladeWave_description"		"每秒还会积累一层剑意，每层使下次剑气伤害和距离提高<Constant|SWORD_INTENT_PCT_PER_STACK/>%，最多<Constant|SWORD_INTENT_MAX_STACK/>层"
+		"feature_ShootDown"					"击落"
+		"feature_ShootDown_description"		"击落敌人普通的攻击弹道和部分技能弹道"
+		"feature_Reflect"					"反弹"
+		"feature_Reflect_description"		"反弹敌人普通的攻击弹道和部分技能弹道"
+		"feature_Infect"					"传染"
+		"feature_Infect_description"		"将自身的剩余中毒层数传染给其他单位"
+		"feature_Weak"						"虚弱"
+		"feature_Weak_description"			"每层虚弱减少<Constant|WEAK_REDUCE_DAMAGE_PCT/>%造成的伤害，每层持续<Constant|WEAK_DURATION/>秒，最多<Constant|WEAK_MAX_STACK/>层。"
+		"feature_Multiple"					"多重"
+		"feature_Multiple_description"		"该效果会重复触发多次"
+		"feature_DamageIntensity"			"伤害强度"
+		"feature_DamageIntensity_description"			"每10点伤害强度增加1%的伤害提升，与其他伤害类加成乘法计算。"
+		"feature_DefenseIntensity"			"防御强度"
+		"feature_DefenseIntensity_description"			"每10点防御强度增加1%的最大生命值和护盾加成，与其他生命/护盾类加成乘法计算。"
+		"feature_Intensity"			"强度"
+		"feature_Intensity_description"			"每1点钥匙强度会提高所有怪物最大生命值和攻击力"
+		"feature_Durability"			"耐久度"
+		"feature_Durability_description"			"使用钥匙进入关卡，则会扣除1点耐久度，归0钥匙将直接被摧毁，钥匙可通过吞噬提高耐久度"
+		"feature_Numeradd"			"数值提高"
+		"feature_Numeradd_description"			"当装备上的副属性有符合要求的属性时，所有对应属性都会提高对应数值"
+		"feature_DrawingChance"            "图纸掉落概率"
+		"feature_DrawingChance_description"			"获得任意混沌装备时，有对应概率获得装备图纸（每件混沌装备单独计算概率）"
+		"feature_GemRollChance"            "宝石高数值概率"
+		"feature_GemRollChance_description"			"宝石遗迹结算时，宝石属性有对应概率提升1档颜色品质；判定成功后，将继续以相同概率判定，直到失败后停止判定（宝石每条属性单独计算概率）"
+		"feature_Healthy"					"健康"
+		"feature_Healthy_description"		"生命值高于<Constant|HEALTHY_PCT/>%的单位"
+		"feature_LowHealth"					"危血"
+		"feature_LowHealth_description"		"生命值低于<Constant|LOW_HEALTH_PCT/>%的单位"
+		"feature_Stun"						"晕眩"
+		"feature_Stun_description"			"晕眩不对"
+		"feature_Bounce"					"反弹"
+		"feature_Bounce_description"		"弹道遇到障碍物后会反弹，反弹后可以再次造成命中效果"
+		"feature_Punishment"				"天罚"
+		"feature_Punishment_description"	"使目标收到<Constant|PUNISHMENT_DAMAGE/>点无视<Shield:护盾/>的伤害"
+		"feature_Blind"						"致盲"
+		"feature_Blind_description"			"使敌人无法索敌"
+		"feature_Discount"					"折扣"
+		"feature_Discount_description"		"商店折扣只取最大值，不会叠加"
+		"feature_IceMark"					"霜冻印记"
+		"feature_IceMark_description"		"造成冰冻伤害时爆裂，使该次伤害提升<Constant|ICE_MARK_DAMAGE/>点，触发后消耗一层"
+
+		"feature_charge"					"充能"
+		"feature_charge_description"		"释放技能获得充能，用于给集齐“释放”羁绊的技能增伤"
+		"feature_active"					"释放"
+		"feature_active_description"		"通过集齐“充能”羁绊的技能获得充能，从而给集齐“释放”羁绊的技能增伤"
+		"feature_substitute"				"痛击"
+		"feature_substitute_description"	"释放技能积攒点数，达到特定点数下次造成双倍伤害，不同技能的痛击点数独立计算"
+		"feature_vulnerable"				"易伤"
+		"feature_vulnerable_description"	"技能命中敌人施加易伤，使其受到的伤害提高"
+		"feature_weaken"					"削弱"
+		"feature_weaken_description"		"技能命中敌人施加易伤，使其速度和伤害降低"
+		"feature_celerity"					"迅捷"
+		"feature_celerity_description"		"释放技能使自身提高攻速移速，不同技能施加的迅捷层数累计计算"
+		"feature_shieldd"					"防御"
+		"feature_shieldd_description"		"释放技能获得护盾，不同技能的触发间隔独立计算"
+		"feature_circle"					"阵法"
+		"feature_circle_description"		"释放技能积攒点数，达到特定点数生成增伤阵法"
+		"feature_Summon"					"召唤物"
+		"feature_Summon_description"		"召唤物会受到召唤物攻击速度的影响"
+		"feature_Breakable"					"可破坏物"
+		"feature_Breakable_description"		"可破坏物包含板条箱，柱子"
+		"feature_Quantitylimit"					"唯一"
+		"feature_Quantitylimit_description"		"同名物品只能拥有一个"
+		"feature_Grouplimit"					"限制"
+		"feature_Grouplimit_description"		"无法获得低级或同级遗物"
+		"feature_CloseRange"					"近距离"
+		"feature_CloseRange_description"		"距离小于<Constant|CLOSE_RANGE/>的单位"
+		"feature_FarRange"					"远距离"
+		"feature_FarRange_description"		"距离大于<Constant|FAR_RANGE/>的单位"
+		"feature_Taunt"					"嘲讽"
+		"feature_Taunt_description"		"嘲讽会使目标仇恨转移至嘲讽者"
+
+		"feature_chargepoints"					"充能点数"
+		"feature_chargepoints_description"		"不同技能的触发间隔独立计算，但不同技能获得的充能累计计算"
+		"feature_vulnerablepoints"					"易伤状态"
+		"feature_vulnerablepoints_description"		"不同技能施加的易伤层数累计计算，不同玩家分别计算各自效果和最大叠加层数"
+		"feature_circlepoints"					"阵法点数"
+		"feature_circlepoints_description"		"已存在阵法情况下，再施加阵法只会替代旧的，但不同玩家之间可以叠加"
+	    "feature_Modify"					"转移"
+	    "feature_Modify_description"		"符文副属性不再作用于所镶嵌技能，按一定比例转移至指定技能。每枚符文独立计算；同一符文内，同目标比例叠加，多目标分别计算。转回原技能无效。"
+	    "feature_Subattribute"					"强化"
+	    "feature_Subattribute_description"		"符文装在对应技能上时，仅提高该符文本身的副属性。若该符文会将副属性转移至其他技能，则强化失效；其他符文转入的属性不受强化影响。"
+	}
+}

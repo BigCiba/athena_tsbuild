@@ -1,0 +1,32 @@
+GameUI.CustomUIConfig().npc_units_custom = {
+	"demo_dummy": {
+		"BaseClass": "npc_dota_creature",
+		"AttackCapabilities": "DOTA_UNIT_CAP_NO_ATTACK",
+		"VisionDaytimeRange": 0,
+		"VisionNighttimeRange": 0,
+		"Level": 1,
+		"MovementCapabilities": "DOTA_UNIT_CAP_MOVE_GROUND",
+		"MovementSpeed": 300,
+		"StatusHealth": 10000,
+		"StatusHealthRegen": 10000,
+		"StatusMana": 0,
+		"StatusManaRegen": 0,
+		"Model": "models/props_gameplay/dummy/dummy_large.vmdl",
+		"ModelScale": 1,
+		"HealthBarOffset": 150,
+		"SpawnModifier": "modifier_demo_dummy"
+	},
+	"npc_dota_blank_unit": {
+		"Model": "models/development/invisiblebox.vmdl",
+		"BaseClass": "npc_dota_creature",
+		"AttackCapabilities": "DOTA_UNIT_CAP_NO_ATTACK",
+		"HealthBarOffset": 145,
+		"BoundsHullName": "DOTA_HULL_SIZE_SMALL",
+		"MovementCapabilities": "DOTA_UNIT_CAP_MOVE_NONE",
+		"MovementSpeed": 0,
+		"StatusHealth": 1,
+		"StatusHealthRegen": 0,
+		"VisionDaytimeRange": 0,
+		"VisionNighttimeRange": 0
+	}
+};

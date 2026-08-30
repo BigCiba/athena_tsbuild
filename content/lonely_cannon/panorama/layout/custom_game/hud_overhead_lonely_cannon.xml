@@ -1,0 +1,20 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/global_style.css" />
+		<include src="file://{resources}/styles/custom_game/hud_overhead.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/panorama-polyfill.js" />
+		<include src="file://{resources}/scripts/custom_game/hud_overhead.js" />
+		<include src="s2r://panorama/scripts/sequence_actions.vts_c" />
+	</scripts>
+	<Panel class="hud_overhead CustomHudRoot" hittest="false" >
+		<Panel id="RecycleBin" hittest="false">
+		</Panel>
+		<Panel id="CommonOverheadContainer" class="OverheadContainer" hittest="false">
+		</Panel>
+		<Panel id="HeroOverHeadContainer" class="OverheadContainer" hittest="false">
+		</Panel>
+	</Panel>
+</root>

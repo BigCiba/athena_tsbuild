@@ -1,0 +1,114 @@
+{
+	"title": "Solid Panorama Package.json",
+	"allOf": [
+		{
+			"type": "object",
+			"properties": {
+				"panorama": {
+					"type": "object",
+					"description": "Solid Panorama 构建配置。",
+					"properties": {
+						"Hud": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							},
+							"description": "HUD 面板入口名称列表。"
+						},
+						"CustomLoadingScreen": {
+							"type": [
+								"string",
+								"null"
+							],
+							"description": "自定义加载界面面板名称，未使用时设为 null。"
+						},
+						"TeamSelect": {
+							"type": [
+								"string",
+								"null"
+							],
+							"description": "自定义队伍选择界面面板名称，未使用时设为 null。"
+						},
+						"Less": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							},
+							"description": "全局 Less 样式文件列表。"
+						},
+						"FlyoutScoreboard": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							},
+							"description": "记分板面板名称列表。"
+						},
+						"Tooltip": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							},
+							"description": "Tooltip面板名称列表。"
+						},
+						"ContextMenu": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							},
+							"description": "右键菜单面板名称列表。"
+						},
+						"Polyfill": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							},
+							"description": "需要合并到 panorama-polyfill.js 的 polyfill 文件列表，路径相对于 src/polyfill。"
+						},
+						"ManifestScripts": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							},
+							"description": "位于 src/manifest_scripts 目录下的初始化脚本脚本文件名。支持 .js 和 .ts 文件。"
+						},
+						"KV": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							},
+							"description": "KV 文件或文件夹路径列表（相对于 game/{addon}/scripts/npc）。配置名称将自动从路径提取，例如 'units/heroes.kv' -> 'heroes'，'abilities/hero_abilities.kv' -> 'hero_abilities'。"
+						}
+					},
+					"required": [
+						"Hud",
+						"FlyoutScoreboard",
+						"Tooltip",
+						"ContextMenu",
+						"ManifestScripts",
+						"KV"
+					],
+					"additionalProperties": false
+				},
+				"encryption": {
+					"type": "object",
+					"description": "vscripts的加密配置。",
+					"properties": {
+						"debug": {
+							"type": "boolean",
+							"description": "启用或禁用加密调试模式。"
+						},
+						"key": {
+							"type": "string",
+							"description": "对脚本进行加密时使用的加密密钥。"
+						}
+					},
+					"required": [
+						"debug",
+						"key"
+					],
+					"additionalProperties": false
+				}
+			}
+		}
+	]
+}

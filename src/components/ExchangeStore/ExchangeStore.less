@@ -1,0 +1,182 @@
+#ExchangeStore
+{
+	width: 100%;
+	height: 100%;
+
+	#TitleBG
+	{
+		width: 100%;
+		height: 68px;
+		opacity: 0.7;
+		background-color: #161616;
+		z-index: 1;
+	}
+
+	#BG
+	{
+		width: 100%;
+		height: 100%;
+		background-image: url("s2r://panorama/images/custom_game/p1_pass/pass_bj_02_png.vtex");
+		background-size: 100%;
+		opacity: 0;
+		// transform: translateY(10px);
+		transition-property: opacity, transform;
+		transition-duration: .1s;
+		transition-timing-function: linear;
+	}
+
+	#PlusRewards
+	{
+		#PlusItemList
+		{
+			horizontal-align: right;
+			// margin-left: 16px;
+			// margin-top: 16px;
+			// margin-bottom: 100px;
+			flow-children: right-wrap;
+			overflow: clip scroll;
+			opacity-mask: url("s2r://panorama/images/masks/softedge_vertical_vscroll_wide_psd.vtex");
+
+			.StoreItemMain
+			{
+				margin: 10px -10x 74px -10x;
+				ui-scale: 90%;
+			}
+
+			.PlusPreviewItem
+			{
+				width: 193px;
+				height: 260px;
+				margin: 2px;
+				// background-image: url("file://{images}/custom_game/backpack/b_frame_light.png");
+				// background-size: 100%;
+				background-img-opacity: 0;
+				transition-property: background-img-opacity;
+				transition-duration: .15s;
+				transition-timing-function: linear;
+
+				&.Selected
+				{
+					background-img-opacity: 1;
+				}
+
+				.BPItem
+				{
+					align: center center;
+					// ui-scale: 70%;
+				}
+
+				#Hover
+				{
+					width: 0.5 * 400px;
+					height: 0.5 * 540px;
+					background-image: url("file://{images}/custom_game/store/exchange/j3_btn_select1.png");
+					background-size: 100%;
+					opacity: 0;
+					transition-property: opacity;
+					transition-duration: 0.1s;
+					transition-timing-function: linear;
+
+					&.Rarity_3
+					{
+						background-image: url("file://{images}/custom_game/store/exchange/j3_btn_select2.png");
+					}
+
+					&.Rarity_4
+					{
+						background-image: url("file://{images}/custom_game/store/exchange/j3_btn_select2.png");
+					}
+
+					&.Rarity_5
+					{
+						background-image: url("file://{images}/custom_game/store/exchange/j3_btn_select2.png");
+					}
+				}
+
+
+				&:hover
+				{
+					#Hover
+					{
+						opacity: 1;
+					}
+				}
+			}
+		}
+
+		#BuyPlusBtn
+		{
+			align: center bottom;
+		}
+	}
+
+	#RewardPreview
+	{
+		width: 100%;
+		height: 100%;
+		padding-right: 732px;
+
+		opacity: 0;
+		// transform: translateY(10px);
+		transition-property: opacity, transform;
+		transition-duration: .1s;
+		transition-timing-function: linear;
+
+		.StoreItemImage
+		{
+			align: center center;
+			width: 256px;
+			height: 256px;
+		}
+
+		#PreviewDesc
+		{
+			margin-left: 250px;
+			margin-bottom: 92px;
+			flow-children: down;
+			vertical-align: bottom;
+
+			#Name
+			{
+				font-size: 36px;
+				color: #E6D4A4;
+				text-shadow: 0px 0px 4px 2.0 #000000;
+				margin-left: 24px;
+				// margin-bottom: 4px;
+				text-overflow: shrink;
+			}
+
+			#Line
+			{
+				width: 296px;
+				height: 10px;
+				background-image: url("file://{images}/custom_game/p1_pass/pass_line.png");
+				background-size: 100%;
+			}
+
+			#Access
+			{
+				font-size: 18px;
+				color: #DFC173;
+				// margin-top: 4px;
+				margin-left: 24px;
+				text-shadow: 0px 0px 4px 2.0 #000000;
+			}
+		}
+	}
+
+	&.showPlusPreview
+	{
+		#BG
+		{
+			opacity: 1;
+			// transform: translateY(0px);
+		}
+
+		#RewardPreview
+		{
+			opacity: 1;
+			// transform: translateY(0px);
+		}
+	}
+}

@@ -1,0 +1,177 @@
+.CommonBox
+{
+	width: 500px;
+
+	.CommonItem.large
+	{
+		width: 110px;
+		height: 110px;
+	}
+
+	.CommonItem
+	{
+		horizontal-align: left;
+		vertical-align: middle;
+		margin: -6px -10px;
+	}
+
+	.CommonInfo
+	{
+		width: 100%;
+		// height: 100%;
+		flow-children: down;
+		margin-left: 110px;
+		horizontal-align: left;
+		vertical-align: middle;
+		padding: 3px 0px;
+
+		.CommonNameRow
+		{
+			width: 100%;
+			flow-children: right;
+
+			.CommonName
+			{
+				font-size: 22px;
+				font-weight: bold;
+				text-align: left;
+				margin-bottom: 4px;
+				text-shadow: 2px 2px 4px #000000;
+			}
+
+			.CommonExtraTag
+			{
+				vertical-align: center;
+				font-size: 18px;
+				margin-left: 6px;
+				color: #D8C88E;
+				text-shadow: 1px 1px 2px #000000;
+			}
+		}
+
+		.Rarity1
+		{
+			color: #7C918E;
+		}
+
+		.Rarity2
+		{
+			color: #69944A;
+		}
+
+		.Rarity3
+		{
+			color: #4472CE;
+		}
+
+		.Rarity4
+		{
+			color: #875DD4;
+		}
+
+		.Rarity5
+		{
+			color: #CEAD3C;
+		}
+
+		.Rarity6
+		{
+			color: #E55043;
+		}
+
+		.CommonDescription
+		{
+			width: 100%;
+			font-size: 18px;
+			color: #B9B1A6;
+			text-align: left;
+			text-overflow: shrink;
+			text-shadow: 1px 1px 3px #000000;
+			// line-height: 24px;
+		}
+
+		.HeroAbility__Details
+		{
+			width: 100%;
+			flow-children: down;
+			margin-top: 6px;
+		}
+
+		.HeroAbility__Detail
+		{
+			width: 100%;
+			flow-children: right;
+			// margin-bottom: 4px;
+		}
+
+		.HeroAbility__DetailLabel
+		{
+			font-size: 16px;
+			color: #A39C82;
+		}
+
+		.HeroAbility__DetailValue
+		{
+			font-size: 16px;
+			color: #e1e1e1;
+		}
+
+		.HeroAbility__UpgradeValue
+		{
+			color: #70EA72;
+		}
+	}
+
+	.HeroAbility__PropertyValue
+	{
+		horizontal-align: right;
+		font-size: 16px;
+		color: #e1e1e1;
+		font-weight: semi-bold;
+		background-position: 0% 50%;
+		background-repeat: no-repeat;
+		padding-left: 25px;
+		margin-right: 10px;
+		text-shadow: 2px 2px 0px 1.0 #00000088;
+		padding-top: 2px;
+		background-size: 20px;
+
+		&.AbilityCooldown
+		{
+			background-image: url("s2r://panorama/images/status_icons/ability_cooldown_icon_psd.vtex")
+		}
+
+		&.AbilityManaCost
+		{
+			background-image: url("s2r://panorama/images/status_icons/ability_healthcost_icon_psd.vtex")
+		}
+
+		&.AbilityCastRange
+		{
+			background-image: url("s2r://panorama/images/status_icons/ability_castrange_icon_psd.vtex")
+		}
+
+		&.GoldCost
+		{
+			color: #FFCC33;
+			vertical-align: bottom;
+			background-image: url("file://{images}/custom_game/eom_design/icon/gold.png");
+		}
+
+		&.NoEnoughGold
+		{
+			color: red;
+		}
+	}
+
+	.SectList
+	{
+		horizontal-align: right;
+		flow-children: right;
+
+		.SectIcon
+		{
+			margin-left: 4px;
+		}
+	}
+}

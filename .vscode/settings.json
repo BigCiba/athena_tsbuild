@@ -1,0 +1,81 @@
+{
+	"less.lint.validProperties": [
+		"wash-color",
+		"saturation",
+		"brightness",
+		"tooltip-position",
+		"horizontal-align",
+		"flow-children",
+		"opacity-mask",
+		"tooltip-body-position",
+		"pre-transform-scale2d",
+		"blur",
+		"x",
+		"y",
+		"sound",
+		"sound-out",
+		"contrast",
+		"world-blur",
+		"background-blur",
+		"opacity-brush",
+		"border-brush",
+		"background-img-opacity",
+		"ui-scale",
+		"ui-scale-x",
+		"ui-scale-y",
+		"opacity-mask-scale",
+		"animation-timing-function",
+		"img-shadow",
+		"pre-transform-rotate2d",
+	],
+	"json.schemas": [
+		{
+			"fileMatch": [
+				"package.json"
+			],
+			"url": ".vscode/package.schema.json"
+		}
+	],
+	"dota2-tools.A5.localization_path": "${content}/localization",
+	"dota2-tools.A6.Kv to lua generate typescript": true,
+	"dota2-tools.A10.kv_editor.paths": {
+		"${game}/scripts/npc/npc_abilities_custom.txt": "ability",
+		"${game}/scripts/npc/npc_items_custom.txt": "item",
+		"${game}/scripts/npc/npc_heroes_custom.txt": "unit",
+		"${game}/scripts/npc/npc_units_custom.txt": "unit",
+		"${game}/scripts/npc/abilities": "ability",
+		"${game}/scripts/npc/items": "item",
+		"${game}/scripts/npc/units": "unit",
+		"${content}/scripts/vscripts/framework/property_system/properties.kv": "custom",
+		"${game}/scripts/npc/service": "custom"
+	},
+	"dota2-tools.A9.LogServer": {
+		"server": "http://111.231.89.227:4396/log/get?project=lonely_cannon&error_level=Server",
+		"client": "http://111.231.89.227:4396/log/get?project=lonely_cannon&error_level=Client",
+		"ui": "http://111.231.89.227:4396/log/get?project=lonely_cannon&error_level=Pui"
+	},
+	"dota2-tools.LuaTemplateFiles": {
+		"item": "/.vscode/ts_item_snippet.txt",
+		"ability": "/.vscode/ts_ability_snippet.txt"
+	},
+	"dota2-tools.A1.module_list": {
+		"dota2kv": true,
+		"error_logs": true
+	},
+	"dota2-tools.A2.display": {
+		"ability_export": false,
+		"unit_export": false
+	},
+	"dota2-tools.A6.Kv to lua generate script": false,
+	"dota2-tools.VPDI": {
+		"VPDIPath": "panorama/dynamic_images_auto_generate.vpdi",
+		"ImagePath": [
+			"panorama/images/custom_game",
+			"panorama/images/heroes",
+		]
+	},
+	"svg.preview.background": "editor",
+	"dota2-tools.A10.kv_editor.version": "v2",
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+}

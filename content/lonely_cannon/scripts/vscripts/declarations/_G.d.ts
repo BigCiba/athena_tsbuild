@@ -1,0 +1,179 @@
+declare type ValueOf<T> = T[keyof T];
+declare type Polygon<T extends Vector | Point = Vector> = T[];
+declare type RectVector = { min: Vector, max: Vector; };
+declare type KV = Record<string, any>;
+
+declare var CreateUnitByName_Engine: typeof CreateUnitByName;
+declare var ApplyDamage_Engine: typeof ApplyDamage;
+
+
+/**
+ * modifier事件储存表
+ */
+declare var tModifierEvents: Partial<Record<modifierfunction | EOMModifierEvents, CDOTA_Modifier_Lua[]>> | undefined;
+
+/**
+ * modifier事件系统马甲
+ */
+declare var MODIFIER_EVENTS_DUMMY: CDOTA_BaseNPC;
+
+/**
+ * 
+ */
+declare type AbilityClasses = CDOTABaseAbility;
+
+/**
+ * record系统马甲
+ */
+declare interface RECORD_SYSTEM_DUMMY extends CDOTA_BaseNPC {
+	iLastRecord?: number,
+	ATTACK_SYSTEM?: Record<number, number>,
+	ABILITY?: Record<number, AbilityClasses>,
+}
+declare var RECORD_SYSTEM_DUMMY: RECORD_SYSTEM_DUMMY;
+declare var CLIENT_ABILITY: CDOTABaseAbility;
+declare var ENEMY_DUMMY: CDOTA_BaseNPC;
+
+/**
+ * 用于储存modifier队伍或玩家数据
+ */
+declare var MODIFIER_PROPERTY_PLAYER_DATA: Partial<Record<PlayerID, any>>;
+declare var MODIFIER_PROPERTY_TEAMHERO_DATA: Partial<Record<DOTATeam_t, any>>;
+declare var MODIFIER_PROPERTY_TEAM_DATA: Partial<Record<DOTATeam_t, any>>;
+
+/**
+ * 游戏事件参数样式
+ */
+declare type EventProperties<T extends keyof GameEventDeclarations | {}> = T extends keyof GameEventDeclarations ? GameEventProvidedProperties & GameEventDeclarations[T] : GameEventProvidedProperties & T;
+/**
+ * 自定义UI事件参数样式
+ */
+declare type UIEventProperties<T extends keyof CustomGameEventDeclarations | Object> =
+	NetworkedData<
+		T extends keyof CustomGameEventDeclarations
+		? CustomGameEventDeclarations[T]
+		: T
+	> & { PlayerID: PlayerID; };
+
+type ServerRequestParams<T extends keyof ServerRequestEventDeclarations> = ServerRequestEventDeclarations[T]["params"] & { PlayerID: PlayerID; };
+
+/**@noSelf */
+declare function EntIndexToHScript<T extends CBaseEntity>(entityIndex: EntityIndex): T | undefined;
+
+/**
+ * Vector相加
+ */
+declare const Vadd: LuaAddition<Vector, Vector, Vector>;
+/**
+ * Vector相减
+ */
+declare const Vsub: LuaSubtraction<Vector, Vector, Vector>;
+/**
+ * Vector相乘
+ */
+declare const Vmul: LuaMultiplication<Vector, Vector | number, Vector>;
+/**
+ * Vector相除
+ */
+declare const Vdiv: LuaDivision<Vector, Vector | number, Vector>;
+
+/**
+ * A function to re-lookup a function by name every time.
+ *
+ * @both
+ */
+declare function Dynamic_Wrap<
+	T extends object,
+	K extends {
+		[P in keyof T]: ((...args: any[]) => any) extends T[P] // At least one of union's values is a function
+		? [T[P]] extends [((this: infer TThis, ...args: any[]) => any) | null | undefined] // Box type to make it not distributive
+		? {} extends TThis // Has no specified this
+		? P
+		: TThis extends T // Has this specified as T
+		? P
+		: never
+		: never
+		: never;
+	}[keyof T]
+>(context: T, name: K): T[K];
+
+declare interface CScriptKeyValues {
+	/**
+	 * Reads a spawn key.
+	 *
+	 * @both
+	 */
+	GetValue<T>(arg1: string): T | undefined;
+	__kind__: 'instance';
+}
+
+declare interface CEntityPointer {
+	/**
+	 * Has underlying C++ entity object been deleted?
+	 *
+	 * @both
+	 */
+	IsNull(): boolean;
+}
+
+/**@noSelf */
+declare function CreateUnitFromTable(options: Record<string, any>, location: Vector): CDOTA_BaseNPC;
+
+/**@clientOnly */
+declare var GetAbilitySpecialValue_AbilityEntIndex: EntityIndex | undefined;
+/**@clientOnly */
+declare var GetAbilitySpecialValue_Level: number | undefined;
+/**@clientOnly */
+declare var GetAbilitySpecialValue_KeyName: string | undefined;
+/**@clientOnly */
+declare var ClientRequestEventResult: string | undefined;
+
+/**@noSelf */
+declare function noSelfFunction(...args: any): any;
+
+/**@noSelf */
+declare function sortpairs<TKey extends AnyNotNil, TValue>(
+	t: LuaTable<TKey, TValue>
+): LuaIterable<LuaMultiReturn<[TKey, NonNullable<TValue>]>>;
+/**@noSelf */
+declare function sortpairs<T>(t: T): LuaIterable<LuaMultiReturn<[keyof T, NonNullable<T[keyof T]>]>>;
+
+/**@noSelf */
+declare function reverse_ipairs<T>(
+	t: Record<number, T>
+): LuaIterable<LuaMultiReturn<[number, NonNullable<T>]>>;
+
+
+/**@noSelf */
+declare function FilterCallback<T>(params: T): boolean;
+declare type FilterCallbackType<T = any> = typeof FilterCallback<T>;
+
+declare namespace string {
+	/** @noSelf */
+	function split(str: string, delimiter: string, toNumber: true): number[];
+	/** @noSelf */
+	function split(str: string, delimiter: string, toNumber?: false): string[];
+	/** @noSelf */
+	function replace(s: string, pattern: string, repl: string): string;
+}
+
+declare interface CScriptParticleManager {
+	/** @both */
+	SetParticleControlEnt(
+		particle: ParticleID,
+		controlPoint: number,
+		unit: CBaseEntity,
+		particleAttach: ParticleAttachment_t,
+		attachment: string | undefined,
+		offset: Vector,
+		lockOrientation: boolean,
+	): void;
+}
+
+declare type StaticDeclareMap = Partial<{ [K in modifierfunction]: any }>;
+declare type DynamicDeclareMap = Partial<{
+	[K in keyof typeof MODIFIER_FUNCTION_MAP]:
+	(typeof MODIFIER_FUNCTION_MAP)[K] extends keyof CDOTA_Modifier_Lua
+	? CDOTA_Modifier_Lua[(typeof MODIFIER_FUNCTION_MAP)[K]]
+	: never
+}>;

@@ -1,0 +1,63 @@
+@BarLengthMargin: 16px;
+@BarBorderMargin: 0px;
+@BarWidth: 4px;
+@ThumbWidth: 8px;
+
+.CustomScrollBar
+{
+	z-index: 999999;
+	background-color: #0000007c;
+	border-radius: 3px;
+
+	#ScrollBarThumb
+	{
+		background-color: #685c47;
+		border-radius: 3px;
+		transition-property: brightness;
+		transition-duration: 0.1s;
+		transition-timing-function: linear;
+
+		&:hover
+		{
+			brightness: 1.5;
+		}
+	}
+
+	&.CustomVerticalScrollBar
+	{
+		width: @BarWidth;
+		height: 100%;
+		horizontal-align: right;
+		margin: @BarLengthMargin @BarBorderMargin @BarLengthMargin 0px;
+
+		#ScrollBarThumb
+		{
+			width: @ThumbWidth;
+			horizontal-align: center;
+		}
+	}
+
+	&.CustomHorizontalScrollBar
+	{
+		width: 100%;
+		height: @BarWidth;
+		vertical-align: bottom;
+		margin: 0px @BarLengthMargin @BarBorderMargin @BarLengthMargin;
+
+		#ScrollBarThumb
+		{
+			height: @ThumbWidth;
+			vertical-align: center;
+		}
+	}
+}
+
+.RecycleViewPageLabel
+{
+	horizontal-align: center;
+	vertical-align: bottom;
+	margin-bottom: -28px;
+	font-size: 18px;
+	color: #b7a487;
+	text-shadow: 0px 0px 4px 2 #000000;
+}

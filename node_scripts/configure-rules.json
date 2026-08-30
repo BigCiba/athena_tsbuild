@@ -1,0 +1,537 @@
+{
+	"rules": {
+		"info_shop_product": {
+			"main_key": "id",
+			"spliter": {
+				"items": "|:"
+			},
+			"ts_row_name": "StoreItemData",
+			"field_types": {
+				"items": "Record<string, number>"
+			},
+			"description": "商城商品配置"
+		},
+		"talent": {
+			"spliter": {
+				"requires": "|:"
+			},
+			"field_types": {
+				"requires": "Record<string, number>"
+			}
+		},
+		"talent_effect": {
+			"main_key": "id",
+			"spliter": {
+				"talent_cost": "|:",
+				"attribute": "|:"
+			},
+			"field_types": {
+				"talent_cost": "Record<string, number>",
+				"attribute": "Record<string, number>"
+			}
+		},
+		"diff_star_rewards": {
+			"spliter": {
+				"star_reward1": "|:",
+				"star_reward2": "|:",
+				"star_reward3": "|:"
+			},
+			"field_types": {
+				"star_reward1": "Record<string, number>",
+				"star_reward2": "Record<string, number>",
+				"star_reward3": "Record<string, number>"
+			}
+		},
+		"collection": {
+			"export_kv": true,
+			"spliter": {
+				"attribute": "|:"
+			},
+			"field_types": {
+				"attribute": "Record<string, number>"
+			}
+		},
+		"collection_level_up": {
+			"tree_keys": [
+				"type",
+				"rarity",
+				"level"
+			],
+			"key_whitelist": [
+				"level",
+				"rarity",
+				"type",
+				"id",
+				"level_cost"
+			]
+		},
+		"info_item_blessing": {
+			"spliter": {
+				"attribute": "|:"
+			},
+			"field_types": {
+				"attribute": "Record<string, number>"
+			}
+		},
+		"info_item_rarity": {
+			"export_kv": true,
+			"main_key": "item_id"
+		},
+		"weapon": {
+			"export_kv": true,
+			"spliter": {
+				"star_effect1": "|:",
+				"star_effect2": "|:",
+				"star_effect3": "|:",
+				"star_effect4": "|:",
+				"star_effect5": "|:",
+				"star_effect6": "|:"
+			}
+		},
+		"courier": {
+			"output_name": "service_courier",
+			"export_kv": true,
+			"spliter": {
+				"star_effect1": "|:",
+				"star_effect2": "|:",
+				"star_effect3": "|:",
+				"star_effect4": "|:",
+				"star_effect5": "|:",
+				"star_effect6": "|:"
+			},
+			"field_types": {
+				"star_effect1": "Record<string, number>",
+				"star_effect2": "Record<string, number>",
+				"star_effect3": "Record<string, number>",
+				"star_effect4": "Record<string, number>",
+				"star_effect5": "Record<string, number>",
+				"star_effect6": "Record<string, number>"
+			}
+		},
+		"drawcards_pond": {
+			"main_key": "pond_id",
+			"array_data": "true"
+		},
+		"hero_soul_infusion_effect": {
+			"tree_keys": [
+				"hero_id",
+				"soul_level"
+			],
+			"key_whitelist": [
+				"hero_id",
+				"soul_level",
+				"id",
+				"soul_effect",
+				"privilege_effect",
+				"reward"
+			],
+			"spliter": {
+				"soul_effect": "|:"
+			},
+			"field_types": {
+				"soul_effect": "Record<string, number>"
+			},
+			"export_kv": true
+		},
+		"bp_rewards": {
+			"tree_keys": [
+				"season",
+				"level",
+				"plus"
+			],
+			"key_whitelist": [
+				"level",
+				"plus",
+				"values",
+				"rewards"
+			]
+		},
+		"bp_level_exp": {
+			"tree_keys": [
+				"season",
+				"level"
+			],
+			"key_whitelist": [
+				"exp"
+			]
+		},
+		"bp_season": {
+			"export_kv": true,
+			"main_key": "sid"
+		},
+		"task": {
+			"export_kv": true,
+			"spliter": {
+				"rewards": "|:",
+				"blessing_reward": "|:"
+			},
+			"field_types": {
+				"rewards": "Record<string, number>",
+				"blessing_reward": "Record<string, number>"
+			}
+		},
+		"idle_game_fish_type": {
+			"description": "鱼的配置",
+			"main_key": "id",
+			"column_array": [
+				"action_config",
+				"rainbow_action_config"
+			],
+			"array_spliter": {
+				"action_config": ",",
+				"rainbow_action_config": ","
+			},
+			"export_kv": true,
+			"field_types": {
+				"action_config": "{[index: number]: string}",
+				"rainbow_action_config": "{[index: number]: string}"
+			}
+		},
+		"idle_game_drop_privilege": {
+			"description": "钓鱼/探险特权配置",
+			"main_key": "privilege_id",
+			"export_kv": true
+		},
+		"hero_level_grow": {
+			"tree_keys": [
+				"id",
+				"level"
+			],
+			"export_kv": true,
+			"spliter": {
+				"attribute": "|:"
+			},
+			"field_types": {
+				"attribute": "Record<string, number>"
+			}
+		},
+		"settle_setting": {
+			"export_kv": true
+		},
+		"drawing_class_setting": {
+			"spliter": {
+				"drawing_cost": "|:"
+			},
+			"field_types": {
+				"drawing_cost": "Record<string, number>"
+			}
+		},
+		"game_setting": {
+			"export_kv": true
+		},
+		"equip_entry": {
+			"description": "存档装备词条属性配置",
+			"main_key": "entry_name"
+		},
+		"equipment_suit_effect": {
+			"description": "存档装备套装效果配置",
+			"export_kv": true
+		},
+		"hero_talent": {
+			"main_key": "talent_id",
+			"export_kv": true
+		},
+		"hero_talent_reset_cost": {
+			"main_key": "key"
+		},
+		"hero_talent_effect": {
+			"tree_keys": [
+				"talent_id",
+				"level"
+			]
+		},
+		"explore_reward": {
+			"description": "探险奖励配置",
+			"tree_keys": [
+				"courier_rarity",
+				"courier_star"
+			],
+			"spliter": {
+				"explore_reward": "|:"
+			},
+			"field_types": {
+				"explore_reward": "Record<string, number>"
+			},
+			"export_kv": true
+		},
+		"explore_slot": {
+			"description": "探险位配置",
+			"main_key": "build_level",
+			"spliter": {
+				"cost": "|:",
+				"effect": "|:"
+			},
+			"field_types": {
+				"cost": "Record<string, number>",
+				"effect": "Record<string, number>"
+			},
+			"export_kv": true
+		},
+		"fish_consume": {
+			"description": "钓鱼消耗配置",
+			"main_key": "id",
+			"export_kv": true
+		},
+		"idle_game_fish_rod": {
+			"description": "鱼竿数据",
+			"main_key": "rod_level",
+			"export_kv": true
+		},
+		"fish_transformation": {
+			"description": "鱼的价值",
+			"spliter": {
+				"transformation": "|:"
+			}
+		},
+		"collection_essence": {
+			"description": "精粹",
+			"spliter": {
+				"attribute": "|:"
+			},
+			"field_types": {
+				"attribute": "Record<string, number>"
+			}
+		},
+		"aquarium_slot": {
+			"description": "水族馆展位",
+			"spliter": {
+				"cost_item": "|:",
+				"effect": "|:"
+			},
+			"field_types": {
+				"cost_item": "Record<string, number>",
+				"effect": "Record<string, number>"
+			}
+		},
+		"info_item_rune": {
+			"description": "符文基础信息",
+			"export_kv": true
+		},
+		"rune_entry": {
+			"description": "符文词条信息",
+			"export_kv": true,
+			"main_key": "entry_name"
+		},
+		"rune_setting": {
+			"description": "符文基础配置",
+			"export_kv": true
+		},
+		"rune_suit_effect": {
+			"description": "符文套装效果",
+			"export_kv": true,
+			"spliter": {
+				"base_effect": "|:",
+				"points__effect": "|:"
+			},
+			"field_types": {
+				"base_effect": "Record<string, string>",
+				"points__effect": "Record<string, string>"
+			}
+		},
+		"collection_treasure": {
+			"description": "宝藏配置",
+			"tree_keys": [
+				"item_id",
+				"treasure_lv"
+			],
+			"export_kv": true,
+			"spliter": {
+				"attribute": "|:",
+				"treasure_level_exp": ":"
+			},
+			"field_types": {
+				"attribute": "Record<string, number>",
+				"treasure_level_exp": "Record<number, number>"
+			}
+		},
+		"collection_treasure_level_reward": {
+			"description": "宝藏等级奖励配置",
+			"main_key": "level",
+			"export_kv": true,
+			"spliter": {
+				"reward": "|:"
+			},
+			"field_types": {
+				"reward": "Record<string, number>"
+			}
+		},
+		"activity_growth_fund_rewards": {
+			"tree_keys": [
+				"activity_id",
+				"reward_id"
+			],
+			"key_whitelist": [
+				"id",
+				"activity_id",
+				"num",
+				"rewards",
+				"plus",
+				"reward_id"
+			]
+		},
+		"activity_moonstone": {
+			"tree_keys": [
+				"activity_id",
+				"num"
+			],
+			"key_whitelist": [
+				"activity_id",
+				"reward_id",
+				"num",
+				"rewards"
+			],
+			"spliter": {
+				"rewards": ";"
+			}
+		},
+		"activity_starsea": {
+			"tree_keys": [
+				"activity_id",
+				"reward_id"
+			],
+			"key_whitelist": [
+				"id",
+				"activity_id",
+				"reward_id",
+				"product_id",
+				"rewards",
+				"rarity",
+				"show"
+			],
+			"spliter": {
+				"rewards": "|:"
+			},
+			"field_types": {
+				"rewards": "Record<string, number>"
+			}
+		},
+		"activity_login": {
+			"tree_keys": [
+				"activity_id",
+				"day"
+			]
+		},
+		"info_item_cosmetic": {
+			"export_kv": true,
+			"spliter": {
+				"attribute": "|:"
+			},
+			"field_types": {
+				"attribute": "Record<string, number>"
+			}
+		},
+		"info_item_key": {
+			"export_kv": true
+		},
+		"key_diff_setting": {
+			"export_kv": true
+		},
+		"rune_break_level_exp": {
+			"export_kv": true,
+			"spliter": {
+				"effect": "|:"
+			},
+			"field_types": {
+				"effect": "Record<string, number>"
+			}
+		},
+		"info_item_prop": {
+			"spliter": {
+				"prop_drop": "|:"
+			},
+			"field_types": {
+				"prop_drop": "Record<string, number>"
+			}
+		},
+		"dayreward": {},
+		"key_rarity_setting": {
+			"spliter": {
+				"durability": "|:",
+				"adverb_points": "|:",
+				"level_exp": "|:"
+			},
+			"field_types": {
+				"durability": "Record<string, number>",
+				"adverb_points": "Record<string, number>",
+				"level_exp": "Record<string, number>"
+			}
+		},
+		"key_entry": {
+			"main_key": "entry_name"
+		},
+		"idle_game_setting": {
+			"main_key": "key",
+			"export_kv": true
+		},
+		"rune_drop": {
+			"spliter": {
+				"star_reward1": "|:",
+				"star_reward2": "|:",
+				"star_reward3": "|:"
+			},
+			"field_types": {
+				"star_reward1": "Record<string, number>",
+				"star_reward2": "Record<string, number>",
+				"star_reward3": "Record<string, number>"
+			}
+		},
+		"payments": {
+			"main_key": "id"
+		},
+		"pay_config": {
+			"main_key": "language",
+			"spliter": {
+				"home": "|:"
+			},
+			"field_types": {
+				"home": "Record<string, string>"
+			}
+		},
+		"version": {
+			"export_kv": true
+		},
+		"gem_diff": {
+			"export_kv": true
+		},
+		"rune_rarity_setting": {
+			"main_key": "rarity",
+			"spliter": {
+				"break_bonus": "|:"
+			},
+			"field_types": {
+				"break_bonus": "Record<string, number>"
+			}
+		},
+		"equip_class_setting": {
+			"export_kv": true
+		},
+		"info_item_equipment": {
+			"export_kv": true
+		},
+		"activity_saving_pot": {
+			"export_kv": true,
+			"spliter": {
+				"drop_rule": "|:",
+				"free_reward": "|:",
+				"plus_reward": "|:"
+			},
+			"field_types": {
+				"drop_rule": "Record<string, number>",
+				"free_reward": "Record<string, number>",
+				"plus_reward": "Record<string, number>"
+			}
+		},
+		"activity_boardslot_reward": {
+			"main_key": "id",
+			"spliter": {
+				"event": "|:"
+			},
+			"field_types": {
+				"event": "Record<string, number>"
+			}
+		},
+		"activity_data": {
+			"export_kv": true
+		}
+	}
+}

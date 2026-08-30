@@ -1,0 +1,60 @@
+@artifact_rarity: h_artifact_grey, h_artifact_green, h_artifact_blue, h_artifact_purple, h_artifact_golden, h_artifact_red;
+
+.CommonItem
+{
+	&.large
+	{
+		width: 128px;
+		height: 128px;
+
+		.Border
+		{
+			each(@artifact_rarity, .(@k, @i)
+				{
+					@rarity: @i;
+
+					&.Rarity@{rarity}
+					{
+						background-image: url("file://{images}/custom_game/hud/@{k}_big.png");
+					}
+				}
+			);
+		}
+	}
+
+	width: 64px;
+	height: 64px;
+
+	.ItemIcon
+	{
+		align: center center;
+		width: 68%;
+		height: width-percentage(100%);
+	}
+
+	.Border
+	{
+		width: 100%;
+		height: 100%;
+
+		each(@artifact_rarity, .(@k, @i)
+			{
+				@rarity: @i;
+
+				&.Rarity@{rarity}
+				{
+					background-image: url("file://{images}/custom_game/hud/@{k}.png");
+				}
+			}
+		);
+		background-size: 100%;
+	}
+
+	.StackCount
+	{
+		align: right bottom;
+		margin: 10%;
+		font-size: 16px;
+		color: white;
+	}
+}

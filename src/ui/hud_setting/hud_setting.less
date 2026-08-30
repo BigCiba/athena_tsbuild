@@ -1,0 +1,435 @@
+.CustomHudRoot
+{
+	width: 100%;
+	height: 100%;
+	z-index: 61;
+}
+
+#Setting
+{
+	width: 1362px;
+	height: 804px;
+	align: center center;
+
+	&.Tutorial
+	{
+		width: 1062px;
+		height: 804px;
+
+		.KeyBindPicker
+		{
+			align: center top;
+			margin-left: 0;
+			margin-top: 120px;
+		}
+
+		#SettingMain
+		{
+			padding-bottom: 100px;
+		}
+
+		transition-duration: 0s;
+	}
+
+	#SettingMain
+	{
+		width: 100%;
+		height: 100%;
+		flow-children: right;
+		margin: 20px 12px 0px 12px;
+	}
+
+	.EOM_CloseButton
+	{
+		margin: 0px;
+	}
+
+	.EOM_PopupTitle
+	{
+		width: 592px;
+		height: 33px;
+		margin-top: 51px;
+		padding-top: 2px;
+		font-size: 20px;
+		color: #E0CA7E;
+		text-align: center;
+		line-height: 30px;
+
+		background-image: url("file://{images}/custom_game/conv/popup/popup_board_title.png");
+		background-size: 100%;
+	}
+
+	.EOM_PopupBG
+	{
+		background-position: center top;
+		background-image: url("file://{images}/custom_game/s2_settings/s2_popup.png");
+		background-size: 100%;
+	}
+
+	.EOM_PopupContent
+	{
+		margin: 0px;
+		flow-children: none;
+	}
+
+	.SettingColumn
+	{
+		height: 100%;
+		width: fill-parent-flow(1);
+		padding-right: 20px;
+		flow-children: down;
+
+		.TitleRow
+		{
+			width: 100%;
+		}
+
+		.Separator
+		{
+			width: 95%;
+			height: 2px;
+			margin-top: 6px;
+			margin-bottom: 8px;
+			background-image: url("file://{images}/custom_game/s2_settings/s2_line_divider.png");
+			background-size: 100%;
+		}
+
+		.SectionHeader
+		{
+			margin-left: 5px;
+			align: left bottom;
+			font-size: 20px;
+			font-weight: thin;
+			color: #A39A7A;
+			text-transform: uppercase;
+		}
+
+		.SectionHeaderLine
+		{
+			height: 2px;
+			width: 100%;
+			margin: 2px;
+			background-color: #3b3f40;
+			margin-bottom: 12px;
+		}
+
+		#SettingTabContainer
+		{
+			width: 100%;
+			height: 100%;
+		}
+
+		.SettingTab
+		{
+			width: 100%;
+			height: 100%;
+			flow-children: down;
+			padding: 10px 0px;
+			opacity: 0;
+
+			opacity-mask: url("s2r://panorama/images/masks/softedge_vertical_vscroll_wide_psd.vtex");
+
+			&.Show
+			{
+				opacity: 1;
+			}
+
+			VerticalScrollBar
+			{
+				height: 95%;
+				vertical-align: center;
+			}
+		}
+	}
+
+	.KeyBinderRow
+	{
+		// margin-right: 62px;
+		margin-bottom: 2px;
+		flow-children: right;
+
+		&:hover
+		{
+			brightness: 1.5;
+
+			.KeyBinderHotKey,
+			.KeyBinderText
+			{
+				color: white;
+			}
+		}
+
+		&.Disable
+		{
+			saturation: 0;
+			wash-color: gray;
+			brightness: 0.45;
+
+			&:hover
+			{
+				brightness: 0.45;
+
+				.KeyBinderHotKey,
+				.KeyBinderText
+				{
+					color: #B9B1A6;
+				}
+			}
+		}
+
+		&.Binding
+		{
+			.GamepadInput
+			{
+				opacity: 0;
+			}
+		}
+
+		.KeyBinderText
+		{
+			vertical-align: center;
+			letter-spacing: 1px;
+			background-color: #000000d0;
+			width: 208px;
+			height: 39px;
+			margin: 0px 8px 0px 0px;
+			border-width: 0px;
+			padding-top: 8px;
+			padding-left: 8px;
+			font-size: 18px;
+			color: #B9B1A6;
+			horizontal-align: left;
+			transition-property: color, background-color;
+			transition-duration: 0.16s;
+			transition-timing-function: ease-in-out;
+		}
+
+		.KeyBinderInput
+		{
+			vertical-align: center;
+			width: 154px;
+			height: 44px;
+			background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+			background-size: 100%;
+			horizontal-align: right;
+			transition-property: box-shadow, background-color;
+			transition-duration: 0.16s;
+			transition-timing-function: ease-in-out;
+		}
+
+		.KeyBinderHotKey
+		{
+			width: 100%;
+			vertical-align: center;
+			color: #FDEFC8;
+			text-align: center;
+			font-size: 18px;
+			text-overflow: shrink;
+		}
+
+		.GamepadInput
+		{
+			vertical-align: center;
+			width: 154px;
+			height: 39px;
+			background-color: #000000d0;
+			horizontal-align: right;
+			overflow: noclip;
+		}
+	}
+
+	#KeyBindPickerContainer
+	{
+		opacity: 0;
+		visibility: collapse;
+		transition-property: opacity, visibility;
+		transition-duration: 0.2s;
+		transition-timing-function: ease-in-out;
+
+	}
+
+	.KeyBindPicker
+	{
+		align: left top;
+		margin-left: 410px;
+		margin-top: 120px;
+	}
+
+	&.ShowPicker
+	{
+		.EOM_PopupBG
+		{
+			wash-color: #00000044;
+		}
+
+		#KeyBindPickerContainer
+		{
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	.SwitchSettingRow
+	{
+		width: 100%;
+		background-color: #00000044;
+		padding: 8px 10px;
+		margin-bottom: 4px;
+
+		.SwitchSettingText
+		{
+			vertical-align: center;
+			width: 60%;
+			text-overflow: shrink;
+		}
+
+		.EOM_DropDown,
+		.EOM_Switch
+		{
+			vertical-align: center;
+			horizontal-align: right;
+
+			// .EOM_Switch_Track
+			// {
+			// 	background-color: #534e49;
+			// }
+
+			// &:selected
+			// {
+			// 	.EOM_Switch_Track
+			// 	{
+			// 		background-color: #1d6a7e;
+			// 	}
+			// }
+		}
+	}
+
+	.SettingSlider,
+	.SettingSlotSlider
+	{
+		margin-bottom: 4px;
+		flow-children: down;
+		background-color: #00000044;
+		padding: 8px 10px;
+		transition-property: saturation, wash-color;
+		transition-duration: 0.1s;
+
+		&.Disable
+		{
+			saturation: 0;
+			// brightness: 0.5;
+			wash-color: gray;
+		}
+
+		Slider
+		{
+			margin-bottom: 0px;
+		}
+
+		.SliderThumb
+		{
+			background-color: gradient(radial, 50% 50%, -5% -5%, 60% 60%, from(#8d8569), to(#473c2d));
+		}
+
+		#SliderTrack
+		{
+			border: 2px solid #473c2d;
+		}
+
+		.SliderNotch
+		{
+			border-bottom: 2px solid #473c2d;
+			border-left: 2px solid #473c2d;
+			border-right: 2px solid #473c2d;
+		}
+
+		#SliderTrackProgress
+		{
+			background-color: gradient(linear, 0% 0%, 100% 0%, from(#222222), to(#645139));
+		}
+
+	}
+
+	.SettingList
+	{
+		flow-children: down;
+		padding-right: 20px;
+		padding-top: 8px;
+		opacity-mask: url("s2r://panorama/images/masks/softedge_vertical_vscroll_wide_psd.vtex");
+	}
+
+	.SettingRadioGroup
+	{
+		width: 100%;
+		flow-children: down;
+		margin-bottom: 4px;
+		padding: 8px 10px;
+		background-color: #00000044;
+
+		.SettingLabel
+		{
+			width: 100%;
+			font-size: 22px;
+			color: #d8c39a;
+			margin-bottom: 4px;
+			text-shadow: 0px 1px 2px 2 #000000;
+		}
+
+		.EOM_RadioButton
+		{
+			margin-top: 4px;
+			width: 100%;
+		}
+	}
+
+	.SettingSubGroup
+	{
+		margin-left: 24px;
+		flow-children: down;
+	}
+
+
+	.EOM_Breadcrumb
+	{
+		.EOM_BreadcrumbSeparator
+		{
+			color: #A39C8222;
+		}
+
+		&>TabButton
+		{
+			Label
+			{
+				color: #A39C8244;
+			}
+
+			&:selected
+			{
+				Label
+				{
+					color: #d8c39a;
+				}
+			}
+
+			&:hover
+			{
+				Label
+				{
+					color: #eed7aa;
+				}
+			}
+		}
+	}
+
+	.EOM_TextEntry
+	{
+		border-color: #473c2d;
+		// padding: 0px 7px;
+		background-color: #000000aa;
+		font-size: 18px;
+		color: #A5ADA2;
+		vertical-align: center;
+		width: fill-parent-flow(1);
+		margin-right: 4px;
+	}
+}

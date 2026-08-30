@@ -1,0 +1,486 @@
+.Language_schinese {
+	#SeaMysteryContent {
+
+		#SeaMysteryTitle {
+			background-image: url("file://{images}/custom_game/store/h2_title_cn.png");
+		}
+	}
+}
+
+.Language_russian {
+	#SeaMysteryContent {
+
+		#SeaMysteryTitle {
+			background-image: url("file://{images}/custom_game/store/h2_title_ru.png");
+		}
+	}
+}
+
+#SeaMysteryContent {
+	align: center bottom;
+
+	#DrawerBG {
+		vertical-align: bottom;
+		width: 1920px;
+		height: 286px;
+		background-image: url("file://{images}/custom_game/w3_wanxiang/w3_step.png");
+		background-size: 100%;
+	}
+
+	#DrawerBG2 {
+		align: center bottom;
+		transform: translateX(100px);
+		margin-bottom: 120px;
+		width: 311px;
+		height: 138px;
+		background-image: url("file://{images}/custom_game/w3_wanxiang/w3_treasure_01.png");
+		background-size: 100%;
+	}
+
+	#DrawerBG3 {
+		align: right bottom;
+		width: 355px;
+		height: 220px;
+		margin-right: 160px;
+		margin-bottom: 90px;
+		background-image: url("file://{images}/custom_game/w3_wanxiang/w3_treasure_02.png");
+		background-size: 100%;
+	}
+
+	#SeaMysteryCurrency {
+		margin-top: 19px;
+		margin-right: 40px;
+		align: right top;
+	}
+
+	.CurrencyGroup {
+		margin-top: 19px;
+		margin-right: 40px;
+	}
+
+	#SeaMysteryTitle {
+		width: 410px;
+		height: 70px;
+		margin-left: 30px;
+		background-image: url("file://{images}/custom_game/store/h2_title_en.png");
+		background-size: 410px 110px;
+		background-position: center center;
+	}
+
+	#LeftContent {
+		vertical-align: bottom;
+		width: 868px;
+		height: 926px;
+		margin-left: 178px;
+		margin-bottom: 74px;
+		background-image: url("file://{images}/custom_game/w3_wanxiang/w3_exchange_bg.png");
+		background-size: 100%;
+	}
+
+	#StoreItemContent {
+		horizontal-align: right;
+		margin-top: 65px;
+		width: 600px;
+		height: 770px;
+		margin-right: 80px;
+		flow-children: down;
+	}
+
+	#SeaMysteryDesc {
+		margin: 0px 60px;
+		width: 100%;
+		height: 90px;
+		margin-top: 28px;
+		horizontal-align: center;
+		flow-children: down;
+
+		#SeaMysteryDesc_Title {
+			width: fill-parent-flow(1.0);
+			font-size: 24px;
+			color: #ECCEA1;
+			text-shadow: 0px 0px 2px 2.0 #0A1732;
+			text-align: center;
+			text-overflow: shrink;
+		}
+
+		#SeaMysteryDesc_Desc {
+			width: fill-parent-flow(1.0);
+			font-size: 16px;
+			color: #ECCEA1;
+			text-shadow: 0px 0px 2px 2.0 #0A1732;
+			text-align: center;
+			text-overflow: shrink;
+		}
+
+	}
+
+	#DropLeft {
+		width: 17px;
+		height: 23px;
+		background-image: url("file://{images}/custom_game/store/h2_water.png");
+		vertical-align: center;
+	}
+
+	#DropRight {
+		width: 17px;
+		height: 23px;
+		background-image: url("file://{images}/custom_game/store/h2_water.png");
+		vertical-align: center;
+		transform: rotateY(-180deg);
+	}
+
+	#BottomFrame {
+		width: 705px;
+		height: 15px;
+		background-image: url("file://{images}/custom_game/store/h2_frame_02.png");
+		background-size: 100%;
+	}
+
+	#ItemList {
+		flow-children: right-wrap;
+		horizontal-align: center;
+		max-width: 644px;
+		padding-right: 20px;
+		height: fill-parent-flow(1);
+		opacity-mask: url("s2r://panorama/images/masks/softedge_vertical_vscroll_wide_psd.vtex");
+
+		VerticalScrollBar {
+			opacity: 0;
+		}
+
+		.StoreItemMain {
+			ui-scale: 70%;
+
+			.StoreItem #ItemName {
+				font-size: 22px;
+				text-overflow: shrink;
+				padding: 0px 16px;
+				height: 26px;
+				margin-top: 24px;
+			}
+
+			.StoreItem #ItemImage {
+				width: 240px;
+				height: 240px;
+				margin-top: 40px;
+			}
+
+			#CostLabel {
+				font-size: 28px;
+			}
+		}
+	}
+
+	#RightContent {
+		margin-right: 170px;
+		// width: 780px;
+		align: right bottom;
+		height: 940px;
+	}
+
+	#RouletteTitleImage {
+		horizontal-align: center;
+		width: 556px;
+		height: 92px;
+		background-image: url("file://{images}/custom_game/w3_wanxiang/w3_title_02.png");
+		background-size: 100%;
+
+		.Language_schinese & {
+			background-image: url("file://{images}/custom_game/w3_wanxiang/w3_title_01.png");
+		}
+
+		.Language_russian & {
+			background-image: url("file://{images}/custom_game/w3_wanxiang/w3_title_03.png");
+		}
+	}
+
+	#RouletteTitle {
+		width: 657px;
+		height: 34px;
+		background-image: url("file://{images}/custom_game/conv/common/label_bg.png");
+		background-size: 100%;
+		background-img-opacity: 0.5;
+		margin-top: 95px;
+		padding: 0px 20px;
+		horizontal-align: center;
+		flow-children: right;
+
+		Label {
+			align: center center;
+			font-size: 16px;
+			color: #ECCEA1;
+			text-shadow: 0px 0px 2px 2.0 #0A1732;
+			text-align: center;
+			margin: 0px 15px;
+			text-overflow: shrink;
+			width: fill-parent-flow(1.0);
+		}
+
+		#Info {
+			vertical-align: center;
+			width: 15px;
+			height: 15px;
+			background-image: url("file://{images}/custom_game/conv/icon/icon_info.png");
+			background-size: 100%;
+			wash-color: #ECCEA1;
+		}
+	}
+
+	#RouletteMain {
+		align: center bottom;
+		margin-bottom: 113px;
+	}
+
+	#Compass1 {
+		width: 750px;
+		height: 750px;
+		background-image: url("file://{images}/custom_game/w3_wanxiang/w3_turntable_03.png");
+		background-size: 100%;
+	}
+
+	#Compass2 {
+		width: 750px;
+		height: 750px;
+		background-image: url("file://{images}/custom_game/w3_wanxiang/w3_turntable_04.png");
+		background-size: 100%;
+	}
+
+	#Compass2Particle {
+		width: 700px;
+		height: 700px;
+	}
+
+	#RotatingParticle {
+		width: 700px;
+		height: 700px;
+		opacity: 0;
+
+		&.SceneLoaded.Show {
+			opacity: 1;
+		}
+	}
+
+	#Compass3 {
+		width: 750px;
+		height: 750px;
+		background-image: url("file://{images}/custom_game/w3_wanxiang/w3_turntable_02.png");
+		background-size: 100%;
+
+		animation-name: SpinnerRotate;
+		animation-duration: 80.0s;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+
+	#Compass3Particle {
+		width: 700px;
+		height: 700px;
+
+		// animation-name: SpinnerRotate;
+		// animation-duration: 80.0s;
+		// animation-timing-function: linear;
+		// animation-iteration-count: infinite;
+	}
+
+	#Compass4 {
+		width: 700px;
+		height: 700px;
+		background-image: url("file://{images}/custom_game/store/h2_compass_04.png");
+		background-size: 100%;
+
+		animation-name: SpinnerRotate;
+		animation-duration: 80.0s;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+
+	#RouletteItemList {
+		width: 540px;
+		height: 540px;
+		align: center center;
+
+		.RewardItemCol {
+			width: 150px;
+			height: 100%;
+			align: center center;
+			overflow: noclip;
+
+			.RewardItem {
+				width: 150px;
+				height: 90px;
+				background-image: url("file://{images}/custom_game/store/item_border.png");
+				background-size: 100%;
+			}
+
+			.StoreItemImage {
+				width: 110px;
+				height: 110px;
+				horizontal-align: center;
+				margin-top: 10px;
+			}
+
+			#Bubble {
+				width: 110px;
+				height: 110px;
+				horizontal-align: center;
+				margin-top: 10px;
+			}
+		}
+	}
+
+	#Pointer {
+		align: center center;
+		width: 750px;
+		height: 750px;
+		background-image: url("file://{images}/custom_game/w3_wanxiang/w3_turntable_01.png");
+		background-size: 100%;
+		overflow: noclip;
+		z-index: 1;
+		// animation-name: SpinnerRotate;
+		// animation-duration: 2.0s;
+		// animation-timing-function: linear;
+		// animation-iteration-count: infinite;
+	}
+
+	#PointerParticle {
+		width: 390px;
+		height: 390px;
+		opacity: 0;
+		align: center center;
+		background-size: 100%;
+		z-index: 1;
+		// animation-name: SpinnerRotate;
+		// animation-duration: 2.0s;
+		// animation-timing-function: linear;
+		// animation-iteration-count: infinite;
+	}
+
+	#SeaMysteryLuckyContainer {
+		align: right center;
+		width: 74px;
+		height: 338px;
+		overflow: noclip;
+
+		#SeaMysteryLuckyFill {
+			width: 40px;
+			background-image: url("file://{images}/custom_game/w3_wanxiang/w3_slider_03.png");
+			background-size: 30px 233px;
+			background-repeat: no-repeat;
+			background-position: bottom;
+			align: center bottom;
+
+			transition-property: height;
+			transition-duration: 0.4s;
+			transition-timing-function: ease-in-out;
+		}
+
+		#SeaMysteryLuckyFrame {
+			align: center top;
+			width: 59px;
+			height: 285px;
+			background-image: url("file://{images}/custom_game/w3_wanxiang/w3_slider_01.png");
+			background-size: 100%;
+			overflow: noclip;
+			padding: 26px 0px;
+		}
+
+		#SeaMysteryLuckyBadgeContent {
+			width: 72px;
+			height: 64px;
+
+			align: center bottom;
+			y: 18px;
+			transition-property: transform;
+			transition-duration: 0.4s;
+			transition-timing-function: ease-in-out;
+
+			flow-children: up;
+		}
+
+		#SeaMysteryLuckyBadge {
+			width: 72px;
+			height: 43px;
+			background-image: url("file://{images}/custom_game/w3_wanxiang/w3_slider_02.png");
+			background-size: 100%;
+		}
+
+		#SeaMysteryLuckyValue {
+			align: center center;
+			font-size: 17px;
+			font-weight: bold;
+			color: #F9E6C1;
+			text-shadow: 0px 1px 3px 2 #000000;
+		}
+
+		#SeaMysteryLuckyTitle {
+			width: 100px;
+			align: center bottom;
+			y: -30px;
+			text-align: center;
+			font-size: 18px;
+			color: #ECCEA1;
+		}
+	}
+
+	#DrawBtnContainer {
+		width: 100%;
+		vertical-align: bottom;
+		margin-bottom: 130px;
+
+		.CostContainer {
+			flow-children: right;
+			horizontal-align: center;
+			overflow: noclip;
+
+			Label {
+				vertical-align: center;
+				font-size: 24px;
+				color: white;
+				text-shadow: 0px 0px 1px 2.0 #000000;
+			}
+		}
+	}
+
+	#SkipButton {
+		align: right bottom;
+		margin-bottom: 700px;
+	}
+
+	#Draw1 {
+		// margin-top: 750px;
+		horizontal-align: center;
+		flow-children: down;
+		background-image: url("file://{images}/custom_game/conv/common/label_bg.png");
+		background-size: 80% 100%;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-img-opacity: 0.5;
+		x: -150px;
+	}
+
+	#Draw2 {
+		// margin-top: 750px;
+		horizontal-align: center;
+		flow-children: down;
+		background-image: url("file://{images}/custom_game/conv/common/label_bg.png");
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-img-opacity: 0.5;
+		x: 150px;
+	}
+
+	#Draw1Cost {
+		// margin-top: 750px;
+		horizontal-align: center;
+		x: -150px;
+		margin-top: 100px;
+	}
+
+	#Draw2Cost {
+		// margin-top: 750px;
+		horizontal-align: center;
+		x: 150px;
+		margin-top: 100px;
+	}
+}

@@ -1,0 +1,92 @@
+.StoreBuyItemResult
+{
+	.Popup_StoreBuyItemResultIcon
+	{
+		animation-name: PopOut;
+		animation-duration: 0.3s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+	}
+
+	@keyframes PopOut
+	{
+		0%
+		{
+			pre-transform-scale2d: 0.9;
+		}
+
+		50%
+		{
+			pre-transform-scale2d: 1.1;
+		}
+
+		100%
+		{
+			pre-transform-scale2d: 1.0;
+		}
+	}
+
+	#ErrorMsg
+	{
+		align: center center;
+		color: white;
+		font-size: 24px;
+	}
+
+	#TipLabel
+	{
+		color: #D9B88D;
+		font-size: 24px;
+		horizontal-align: center;
+		text-shadow: 0px 0px 3px 3 rgba(0, 0, 0, 0.5);
+	}
+
+	.Popup_StoreBuyItemResultIcon
+	{
+		horizontal-align: center;
+		margin-top: 100px;
+		width: 66px;
+		height: 56px;
+		background-size: 100%;
+	}
+
+	.Success
+	{
+		background-image: url("file://{images}/custom_game/eom_design/icon/conv_checkmark.png");
+	}
+
+	.Failure
+	{
+		background-image: url("file://{images}/custom_game/eom_design/icon/conv_worngmark.png");
+	}
+
+	#Reason
+	{
+		color: #D9B88D;
+		font-size: 24px;
+		margin-top: 60px;
+		horizontal-align: center;
+		text-shadow: 0px 0px 3px 3 rgba(0, 0, 0, 0.5);
+	}
+
+	#RewardList
+	{
+		max-width: 760px;
+		flow-children: right-wrap;
+		align: center center;
+		padding-bottom: 60px;
+	}
+
+	.BackpackItemContent
+	{
+		ui-scale: 70%;
+		margin: 4px;
+	}
+
+	#Bubble
+	{
+		width: 110px;
+		height: 110px;
+		align: center center;
+	}
+}

@@ -1,0 +1,14 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/global_style.css" />
+		<include src="file://{resources}/styles/custom_game/popups.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/panorama-polyfill.js" />
+		<include src="file://{resources}/scripts/custom_game/popups.js" />
+		<include src="s2r://panorama/scripts/sequence_actions.vts_c" />
+	</scripts>
+	<Panel class="popups CustomHudRoot" hittest="false">
+	</Panel>
+</root>

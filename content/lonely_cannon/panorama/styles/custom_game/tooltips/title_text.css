@@ -1,0 +1,25 @@
+.TooltipTitle {
+  font-size: 20px;
+  color: #E6D4A4;
+}
+#TitleText {
+  max-width: 400px;
+  min-width: 200px;
+  flow-children: down;
+}
+.TooltipContainer.BaseTooltip #Contents {
+  background-color: none;
+  box-shadow: none;
+  background-image: url("file://{images}/custom_game/eom_design/tooltip/conv_tips_1.png");
+  border-image-source: url("file://{images}/custom_game/eom_design/tooltip/conv_tips_2.png");
+  border-width: 33px 33px 33px 33px;
+  border-image-slice: 33px 33px 33px 33px;
+  border-image-repeat: stretch;
+  padding: -12px;
+  border-color: none;
+}
+.TooltipContainer.EmptyTooltip #Contents {
+  background-color: none;
+  box-shadow: none;
+  border-color: none;
+}

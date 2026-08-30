@@ -1,0 +1,318 @@
+#AddBless
+{
+	#SelectionList
+	{
+		flow-children: right;
+		padding: 0px;
+	}
+
+	#LeftNav
+	{
+		padding: 6px;
+		width: 200px;
+		flow-children: down;
+		height: 100%;
+	}
+
+	#BlessList
+	{
+		padding: 6px;
+		width: fill-parent-flow(1);
+		height: 100%;
+		flow-children: right-wrap;
+		border-left: 2px solid #32383677;
+		border-right: 2px solid #32383677;
+
+		.PickerItemName
+		{
+			width: 100%;
+			height: 20px;
+			color: #ffffff;
+			text-align: center;
+			text-overflow: shrink;
+			text-shadow: 0px 1px 2px 3 #00000066;
+		}
+
+		/* 编辑模式：禁用悬停高亮 */
+		&.EditMode .EOM_BaseButton:hover
+		{
+			brightness: 1;
+		}
+
+		/* 编辑模式-添加状态：物品可点击高亮 */
+		&.EditModeAdding .EOM_BaseButton:hover
+		{
+			brightness: 1.3;
+			saturation: 1.2;
+		}
+	}
+
+	#BlessDetail
+	{
+		padding: 6px;
+		height: 100%;
+		width: 450px;
+		flow-children: down;
+
+		.BlessMetaSection
+		{
+			width: 100%;
+			flow-children: down;
+			padding: 8px;
+			margin-top: 8px;
+			background-color: #00000055;
+			border: 1px solid #ffffff22;
+		}
+
+		.BlessMetaTitle
+		{
+			color: #d9c288;
+			font-size: 20px;
+			font-weight: bold;
+			margin-bottom: 4px;
+		}
+
+		.BlessMetaText
+		{
+			color: #ffffff;
+			font-size: 18px;
+			margin-top: 2px;
+			text-overflow: shrink;
+		}
+
+		.BlessMetaHint
+		{
+			color: #9fb3bb;
+			font-size: 16px;
+			margin-bottom: 4px;
+			text-overflow: shrink;
+		}
+
+		.RequireGroupHeader
+		{
+			width: 100%;
+			flow-children: right;
+			vertical-align: center;
+			margin-top: 6px;
+			margin-bottom: 2px;
+
+			.SectIcon
+			{
+				margin-right: 6px;
+			}
+		}
+
+		.RequireItemRow
+		{
+			width: 64px;
+			flow-children: down;
+			margin: 4px;
+		}
+
+		.RequireBlessBox
+		{
+			width: 64px;
+			height: 64px;
+		}
+
+		.RequireBlessName
+		{
+			width: 100%;
+			height: 20px;
+			color: #ffffff;
+			text-align: center;
+			text-overflow: shrink;
+			text-shadow: 0px 1px 2px 3 #00000066
+		}
+
+		/* ===== 编辑模式样式 ===== */
+
+		.BlessConditionEditor
+		{
+			width: 100%;
+			flow-children: down;
+			padding: 8px;
+			margin-top: 8px;
+
+			.BlessMetaTitle
+			{
+				margin-bottom: 8px;
+			}
+		}
+
+		.ConditionGroupHeader
+		{
+			width: 100%;
+			flow-children: right;
+			vertical-align: center;
+			margin-top: 10px;
+			margin-bottom: 4px;
+		}
+
+		.ConditionGroupLabel
+		{
+			color: #c8b870;
+			font-size: 18px;
+			font-weight: bold;
+			margin-right: 6px;
+		}
+
+		.ConditionGroupHint
+		{
+			color: #9fb3bb;
+			font-size: 14px;
+			width: fill-parent-flow(1);
+			vertical-align: center;
+		}
+
+		.ConditionCopyButton
+		{
+			padding-top: 3px;
+			padding-bottom: 3px;
+			padding-left: 10px;
+			padding-right: 10px;
+			background-color: #2a4a2a;
+			border: 1px solid #4a814a;
+
+			Label
+			{
+				color: #88dd88;
+				font-size: 14px;
+			}
+
+			&:hover
+			{
+				background-color: #3a6a3a;
+			}
+
+			&:active
+			{
+				background-color: #1e3a1e;
+			}
+		}
+
+		.ConditionBox
+		{
+			width: 100%;
+			min-height: 60px;
+			flow-children: right-wrap;
+			padding: 6px;
+			background-color: #0d1520;
+			border: 2px solid #2a3a4a;
+			transition-property: border-color;
+			transition-duration: 0.15s;
+			transition-timing-function: ease-out;
+		}
+
+		.ConditionBoxAdding
+		{
+			border-color: #5a9aff;
+			background-color: #0d1a30;
+		}
+
+		.ConditionItem
+		{
+			width: 48px;
+			height: 48px;
+			flow-children: down;
+			margin: 4px;
+			vertical-align: top;
+			overflow: noclip;
+
+			.ConditionItemIcon
+			{
+				align: center center;
+			}
+
+			.ConditionItemName
+			{
+				width: 100%;
+				height: 18px;
+				color: #cccccc;
+				font-size: 12px;
+				text-align: center;
+				text-overflow: shrink;
+			}
+
+			.ConditionRemoveButton
+			{
+				horizontal-align: center;
+				width: 36px;
+				height: 18px;
+				background-color: #661111cc;
+				border: 1px solid #aa3333;
+				margin-top: 2px;
+
+				Label
+				{
+					color: #ffaaaa;
+					font-size: 13px;
+					font-weight: bold;
+					text-align: center;
+					width: 100%;
+					vertical-align: center;
+				}
+
+				&:hover
+				{
+					background-color: #882222cc;
+				}
+			}
+		}
+
+		.ConditionAddButton
+		{
+			width: 48px;
+			height: 48px;
+			margin: 4px;
+			background-color: #1a2a3a;
+			border: 2px dashed #3a5a7a;
+			// vertical-align: center;
+			// horizontal-align: center;
+			transition-property: background-color, border-color;
+			transition-duration: 0.12s;
+			transition-timing-function: ease-out;
+
+			&:hover
+			{
+				background-color: #1e3a5a;
+				border-color: #5a8aaa;
+			}
+
+			&:active
+			{
+				background-color: #0e2030;
+			}
+
+			&.Active
+			{
+				background-color: #1a3060;
+				border-color: #5a9aff;
+				border-style: solid;
+			}
+
+			.ConditionAddIcon
+			{
+				width: 20px;
+				height: 20px;
+				align: center center;
+				// color: #aaccff;
+				// font-size: 28px;
+				// font-weight: bold;
+				// text-align: center;
+				// width: 100%;
+				// vertical-align: center;
+			}
+		}
+
+		.ConditionAddHint
+		{
+			width: 100%;
+			color: #5a9aff;
+			font-size: 14px;
+			text-align: center;
+			margin-top: 6px;
+			text-overflow: shrink;
+		}
+	}
+}

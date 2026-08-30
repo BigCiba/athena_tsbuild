@@ -1,0 +1,54 @@
+.EOM_ToggleButton
+{
+	flow-children: right;
+
+	#ToggleBox
+	{
+		vertical-align: center;
+	}
+
+	#ToggleBoxRing
+	{
+		width: 20px;
+		height: 20px;
+		align: center center;
+		background-image: url("file://{images}/custom_game/conv/tag/conv_checkbox_off.png");
+		background-size: 100%;
+	}
+
+	#ToggleBoxTick
+	{
+		width: 20px;
+		height: 14px;
+		align: center center;
+		background-image: url("file://{images}/custom_game/conv/tag/conv_checkbox_on.png");
+		background-size: 100%;
+		opacity: 0;
+		transition-property: opacity;
+		transition-duration: 0.15s;
+		transition-timing-function: linear;
+	}
+
+	&:selected
+	{
+		#ToggleBoxTick
+		{
+			opacity: 1;
+		}
+	}
+
+	&:not(:disabled):active
+	{
+		sound: "ui_generic_button_click";
+	}
+
+	&>Label
+	{
+		vertical-align: center;
+		margin-top: 2px;
+		margin-left: 4px;
+		font-size: 18px;
+		color: #D5C9A9;
+		text-shadow: 0px 0px 5px 2 #000000;
+	}
+}

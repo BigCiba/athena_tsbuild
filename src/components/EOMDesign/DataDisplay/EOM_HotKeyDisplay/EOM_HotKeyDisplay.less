@@ -1,0 +1,41 @@
+.EOM_HotKeyDisplay
+{
+	&:not(.IsImage)
+	{
+		min-width: 24px;
+	}
+
+	&.IsImage
+	{
+		min-height: 24px;
+	}
+
+	&.Filp
+	{
+		transform: rotateY(-180deg);
+	}
+
+	.EOM_HotKeyDisplayText
+	{
+		align: center center;
+		font-size: 12px;
+		color: #D5C8A8;
+		text-align: center;
+		margin: 0px 5px;
+	}
+
+	.EOM_HotKeyDisplayImage
+	{
+		align: center center;
+	}
+
+	.EOM_HotKeyDisplayBorder
+	{
+		width: 100%;
+		border-image-source: url("file://{images}/custom_game/hud/h_key_bg.png");
+		border-width: 24px 5px 0px 5px;
+		border-image-slice: 100% 5px 0px 5px;
+		border-image-repeat: stretch;
+		border-color: none;
+	}
+}

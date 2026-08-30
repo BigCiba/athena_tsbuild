@@ -1,0 +1,186 @@
+#DemoLoadout
+{
+	#DemoLoadoutPicker
+	{
+		width: 100%;
+		height: 100%;
+		flow-children: down;
+		padding: 12px;
+		background-color: #00000066;
+	}
+
+	#LoadoutHeader
+	{
+		width: 100%;
+		height: 42px;
+		flow-children: right;
+		margin-bottom: 8px;
+
+		Label
+		{
+			width: fill-parent-flow(1);
+			vertical-align: center;
+			color: #B0BCC2;
+		}
+	}
+
+	#LoadoutTransfer
+	{
+		width: 100%;
+		height: 36px;
+		flow-children: right;
+		margin-bottom: 8px;
+
+		#LoadoutImportText
+		{
+			width: fill-parent-flow(1);
+			height: 32px;
+			margin-right: 6px;
+		}
+
+		.LoadoutTransferButton
+		{
+			width: 76px;
+			height: 30px;
+			margin-left: 4px;
+		}
+
+		#LoadoutImportStatus
+		{
+			width: 150px;
+			vertical-align: center;
+			margin-left: 8px;
+			font-size: 13px;
+			color: #B0BCC2;
+			text-overflow: shrink;
+		}
+	}
+
+	#LoadoutList
+	{
+		width: 100%;
+		height: fill-parent-flow(1);
+		flow-children: down;
+	}
+
+	.LoadoutRow
+	{
+		width: 100%;
+		padding: 10px;
+		margin-bottom: 8px;
+		background-color: #00000066;
+		border: 1px solid #32383677;
+	}
+
+	.LoadoutTopRow,
+	.LoadoutOptions
+	{
+		width: 100%;
+		flow-children: right;
+	}
+
+	.LoadoutName
+	{
+		width: 180px;
+		height: 30px;
+		margin-right: 8px;
+	}
+
+	.LoadoutApplyButton
+	{
+		width: fill-parent-flow(1);
+	}
+
+	.LoadoutSecondaryButton
+	{
+		width: 72px;
+		height: 20px;
+		margin-left: 6px;
+		vertical-align: center;
+
+		> Label
+		{
+			padding: 0px 2px;
+			font-size: 12px;
+			letter-spacing: 0px;
+		}
+	}
+
+	.LoadoutDeleteButton
+	{
+		width: 48px;
+	}
+
+	.LoadoutOptions
+	{
+		margin-top: 8px;
+	}
+
+	.LoadoutSummary
+	{
+		width: fill-parent-flow(1);
+		vertical-align: center;
+		horizontal-align: right;
+		text-align: right;
+		color: #B0BCC2;
+	}
+
+	#EmptyHint
+	{
+		horizontal-align: center;
+		vertical-align: center;
+		color: #B0BCC2;
+	}
+}
+
+#DemoLoadoutConfirmOverlay
+{
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	background-color: #000000aa;
+
+	#DemoLoadoutConfirmDialog
+	{
+		width: 540px;
+		height: 250px;
+		align: center center;
+		padding: 22px 28px;
+		background-color: gradient(linear, 0% 0%, 0% 100%, from(#292b2e), to(#151719));
+		border: 2px solid #596268;
+		box-shadow: #000000cc 0px 0px 16px 0px;
+
+		#DemoLoadoutConfirmTitle
+		{
+			width: 100%;
+			height: 42px;
+			color: #D9E3E8;
+			font-size: 24px;
+			text-align: center;
+		}
+
+		#DemoLoadoutConfirmText
+		{
+			width: 100%;
+			height: fill-parent-flow(1);
+			padding: 24px;
+			color: #AEA280;
+			font-size: 24px;
+			text-align: center;
+			text-overflow: shrink;
+		}
+
+		#DemoLoadoutConfirmButtons
+		{
+			horizontal-align: center;
+			flow-children: right;
+
+			.DemoLoadoutConfirmButton
+			{
+				width: 128px;
+				height: 34px;
+				margin: 0px 10px;
+			}
+		}
+	}
+}

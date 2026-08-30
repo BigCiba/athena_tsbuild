@@ -1,0 +1,80 @@
+.EOM_Segmented
+{
+	height: 38px;
+	background-color: rgba(0, 0, 0, 0.15);
+	border-radius: 8px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	/* overflow: noclip 让绝对定位的指示块不被裁切 */
+	overflow: noclip;
+
+	/* ─── 滑动指示块层（绝对定位，z-index 低） ─── */
+	.EOM_Segmented_IndicatorRow
+	{
+		/* Panorama 绝对坐标：x=4px, y=4px, z=0 */
+		position: 4px 4px 0px;
+		flow-children: right;
+		z-index: 0;
+
+		.EOM_Segmented_Spacer
+		{
+			height: 30px;
+			transition-property: width;
+			transition-duration: 0.2s;
+			transition-timing-function: ease-in-out;
+		}
+
+		.EOM_Segmented_Indicator
+		{
+			height: 30px;
+			background-color: #FFFFFF;
+			border-radius: 6px;
+			box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.2);
+		}
+	}
+
+	/* ─── 文字选项层（正常流布局，z-index 高于指示块） ─── */
+	.EOM_Segmented_Items
+	{
+		flow-children: right;
+		z-index: 1;
+		margin-left: 4px;
+
+		.EOM_Segmented_Item
+		{
+			height: 38px;
+			transition-property: brightness;
+			transition-duration: 0.1s;
+			transition-timing-function: ease-in-out;
+
+			&:hover
+			{
+				brightness: 0.85;
+			}
+
+			&:active
+			{
+				brightness: 0.7;
+				sound: "ui_generic_button_click";
+			}
+
+			.EOM_Segmented_Label
+			{
+				align: center center;
+				font-size: 16px;
+				font-weight: bold;
+				color: rgba(255, 255, 255, 0.45);
+				transition-property: color;
+				transition-duration: 0.2s;
+				transition-timing-function: ease-in-out;
+			}
+
+			&.is-selected
+			{
+				.EOM_Segmented_Label
+				{
+					color: #333333;
+				}
+			}
+		}
+	}
+}

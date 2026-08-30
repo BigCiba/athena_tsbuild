@@ -1,0 +1,265 @@
+.Popup_StoreMoneyPayment {
+	.EOM_PopupContent {
+		flow-children: none;
+	}
+
+	.PaymentCard {
+		margin: 6px 4px;
+		border: 4px solid #00000000;
+		transition-property: border;
+		transition-duration: 0.15s;
+		transition-timing-function: ease-in-out;
+
+		&:hover {
+			border-color: #348fdf;
+		}
+
+		&>Image {
+			background-color: white;
+			brightness: 0.7;
+			width: 215px * 0.6;
+			height: 73px * 0.6;
+		}
+	}
+
+	#SwitchRoot {
+		align: center bottom;
+		margin-bottom: 30px;
+		flow-children: right;
+
+		.SwitchButton {
+			width: 0.75 * 223px;
+			height: 0.75 * 67px;
+			background-image: url("file://{images}/custom_game/common/menu_button_unselected.png");
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			transition-property: background-image;
+			transition-duration: 0.2s;
+			transition-timing-function: ease-in-out;
+
+			&:selected {
+				background-image: url("file://{images}/custom_game/common/menu_button_selected.png");
+			}
+
+			&:selected,
+			&:hover {
+				Label {
+					text-shadow: 0px 0px 6px 2 #805100;
+					color: #FCECB1;
+				}
+			}
+
+			Label {
+				align: center center;
+				color: #928970;
+				transition-property: color;
+				transition-timing-function: ease-in-out;
+				transition-duration: 0.4s;
+			}
+		}
+
+		#DefaultPaymentsBtn {}
+
+		#MorePaymentsBtn {
+			margin-left: 1px;
+		}
+	}
+
+	TabContents {
+		opacity: 0;
+		// transition-property: opacity;
+		// transition-duration: 0.15s;
+		// transition-timing-function: ease-in-out;
+
+		&:selected {
+			opacity: 1;
+		}
+	}
+
+	#DefaultPayments {
+		align: center center;
+		margin-bottom: 80px;
+		flow-children: down;
+
+		#DefaultPaymentCenter {
+			horizontal-align: center;
+			flow-children: right-wrap;
+
+			#PaymentSuccess {
+				flow-children: down;
+
+				Image {
+					horizontal-align: center;
+				}
+
+				Label {
+					horizontal-align: center;
+					margin-top: 16px;
+					color: #D9B88D;
+					font-size: 24px;
+					text-shadow: 0px 0px 3px 3 rgba(0, 0, 0, 0.5);
+				}
+			}
+
+			.QrCodeContainer {
+				width: 212px;
+				height: 212px;
+				margin: 16px;
+				background-color: #00000066;
+			}
+
+			.PaymentCard {
+				&>Image {
+					width: 0.4 * 429px;
+					height: 0.4 * 145px;
+				}
+			}
+		}
+
+		#RecentUsePayment {
+			horizontal-align: center;
+			margin-top: 16px;
+			flow-children: right;
+
+			Label {
+				vertical-align: center;
+				color: #ffffff;
+				text-shadow: 0px 0px 2px 2 #000000;
+			}
+
+			.PaymentCard {
+				vertical-align: center;
+				margin-left: 8px;
+
+				&>Image {
+					width: 0.4 * 429px;
+					height: 0.4 * 145px;
+				}
+			}
+		}
+	}
+
+	#MorePayments {
+		align: center center;
+		margin-bottom: 60px;
+		flow-children: down;
+
+		#PaymentSearch {
+			width: 300px;
+			flow-children: right;
+			background-color: black;
+			margin-bottom: 8px;
+
+			TextEntry {
+				width: fill-parent-flow(1);
+				border: 0px solid transparent;
+				background-color: none;
+
+				#PlaceholderText {
+					margin-top: 2px;
+					color: #8a8a8a;
+				}
+			}
+
+			Image {
+				background-image: url("file://{images}/control_icons/icon_search.png");
+				background-repeat: no-repeat;
+				background-size: contain;
+				width: 27px;
+				height: 27px;
+				margin: 0px 8px;
+				vertical-align: middle;
+				wash-color: #4f4f4f;
+				transition-property: wash-color;
+				transition-duration: 0.1s;
+
+				&:hover {
+					wash-color: #cccccc;
+				}
+
+				&:active {
+					wash-color: #ffffff;
+				}
+			}
+		}
+
+		#MorePaymentsList {
+			width: 747px;
+			height: 266px;
+			padding: 8px;
+			horizontal-align: center;
+			flow-children: right-wrap;
+			overflow: clip scroll;
+			border: 1px solid #000;
+			background-color: #00000066;
+			box-shadow: #00000055 0px 0px 4px 1px;
+		}
+	}
+}
+
+.Popup_PaymentOversea {
+
+	.EOM_Loading,
+	.QrCode,
+	#BrowserTipRoot,
+	#PaymentSuccess,
+	#PaymentFail {
+		align: center center;
+		margin: 16px;
+	}
+
+	#BrowserTipRoot {
+		flow-children: down;
+
+		Label {
+			horizontal-align: center;
+			text-shadow: 0px 0px 2px 2 #000000;
+		}
+
+		#BrowserTip {
+			color: #fff;
+			font-size: 20px;
+		}
+
+		#BrowserUrl {
+			margin-top: 16px;
+			color: #ddd;
+			text-decoration: underline;
+			font-size: 16px;
+		}
+	}
+
+	#PaymentSuccess {
+		flow-children: down;
+
+		Image {
+			width: 100px;
+			height: 100px;
+			horizontal-align: center;
+		}
+
+		Label {
+			horizontal-align: center;
+			margin-top: 16px;
+			color: #fff;
+			text-shadow: 0px 0px 2px 2 #000000;
+		}
+	}
+
+	#PaymentFail {
+		flow-children: down;
+
+		Image {
+			width: 100px;
+			height: 100px;
+			horizontal-align: center;
+		}
+
+		Label {
+			horizontal-align: center;
+			margin-top: 16px;
+			color: #fff;
+			text-shadow: 0px 0px 2px 2 #000000;
+		}
+	}
+}

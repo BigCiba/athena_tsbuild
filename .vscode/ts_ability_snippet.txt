@@ -1,0 +1,19 @@
+import { EOMModifier, registerEOMModifier } from "../../../modifiers/eom_modifier/eom_modifier";
+import { EOMAbility, registerEOMAbility } from "../../eom_ability";
+
+@registerEOMAbility()
+class __filename_replacer__ extends EOMAbility {
+	GetIntrinsicModifierName(): string {
+		return "modifier___filename_replacer__";
+	}
+}
+@registerEOMModifier({
+	IsHidden: false,
+	IsDebuff: false,
+	IsPurgable: false,
+	IsPurgeException: false,
+	AllowIllusionDuplicate: false,
+})
+class modifier___filename_replacer__ extends EOMModifier {
+
+}

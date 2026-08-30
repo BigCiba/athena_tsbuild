@@ -1,0 +1,234 @@
+.AspectRatio4x3
+{
+	.EOM_PopupMain
+	{
+		&.large
+		{
+			ui-scale: 90%;
+		}
+	}
+}
+
+.EOM_PopupMain
+{
+	align: center center;
+	width: 981px;
+	height: 620px;
+	// background-image: url("file://{images}/custom_game/eom_design/popup/popup_bg.png");
+	// background-size: 100%;
+	opacity: 0;
+	// y: -100px;
+	transition-property: opacity, transform, pre-transform-scale2d, wash-color;
+
+	&.Custom
+	{
+		width: fit-children;
+		height: fit-children;
+	}
+
+	&.normal
+	{
+		width: 884px;
+		height: 635px;
+	}
+
+	&.small
+	{
+		width: 814px;
+		height: 380px;
+
+		.EOM_CloseButton
+		{
+			margin: 2px -11px 0px 0px;
+		}
+	}
+
+	&.large
+	{
+		width: 1362px;
+		height: 872px;
+	}
+
+	&.PopupType_LeftTop
+	{
+		transition-duration: 0.4s;
+		transform: translateX(-120px) translateY(-60px);
+		pre-transform-scale2d: 0.95;
+		// wash-color: #33cccc;
+
+		perspective-origin: 62% 5% invert;
+		perspective: 1000;
+
+		&.EOM_PopupMainShow
+		{
+			opacity: 1;
+			// y: 0px;
+			pre-transform-scale2d: 1;
+			transform: none;
+
+		}
+
+	}
+
+	&.PopupType_PopOut
+	{
+		transition-duration: 0.2s;
+		animation-name: PopOut;
+		animation-duration: 0.2s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+
+		&.EOM_PopupMainShow
+		{
+			opacity: 1;
+		}
+
+		&.EOM_PopupMainClose
+		{
+			opacity: 0;
+			animation-name: PopOutClose;
+			animation-duration: 0.2s;
+			animation-timing-function: ease-in-out;
+			animation-iteration-count: 1;
+		}
+	}
+
+	.EOM_PopupBG
+	{
+		width: 100%;
+		height: 100%;
+
+		.small&
+		{
+			background-image: url("file://{images}/custom_game/conv/popup/popup_small.png");
+			background-size: 100%;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		.normal&
+		{
+			background-image: url("file://{images}/custom_game/conv/popup/popup_middle.png");
+			background-size: 100% 602px;
+			background-position: center top 23px;
+			background-repeat: no-repeat;
+		}
+
+		.large&
+		{
+			background-image: url("file://{images}/custom_game/conv/popup/popup_big.png");
+			background-size: 1362px 804px;
+			background-position: center top 23px;
+			background-repeat: no-repeat;
+		}
+	}
+
+
+	.EOM_PopupTitle
+	{
+		width: 408px;
+		height: 66px;
+		text-align: center;
+		horizontal-align: center;
+		font-size: 24px;
+		font-weight: normal;
+		color: #e1cb7e;
+		text-shadow: 0px 0px 3px 3 rgba(0, 0, 0, 0.5);
+		background-image: url("file://{images}/custom_game/conv/popup/popup_title.png");
+		background-size: 408px 66px;
+		background-position: center;
+		background-repeat: no-repeat;
+		padding-top: 22px;
+
+		.small&
+		{
+			width: 592px;
+			margin-top: 42px;
+			padding-top: 5px;
+			font-size: 22px;
+			color: #D0CA95;
+			background-image: url("file://{images}/custom_game/conv/popup/popup_board_title.png");
+			background-size: 592px 34px;
+			background-position: center top;
+		}
+	}
+
+	.EOM_PopupContent
+	{
+		width: 100%;
+		height: 100%;
+		flow-children: down;
+		padding: 100px 60px 60px 60px;
+
+		&.Custom
+		{
+			width: fit-children;
+			height: fit-children;
+			margin: 0px;
+		}
+
+		.small&
+		{
+			padding: 85px 63px 40px 63px;
+		}
+
+		.normal&
+		{
+			padding: 73px 32px 48px 30px;
+		}
+	}
+
+	.EOM_CloseButton
+	{
+		horizontal-align: right;
+		margin-top: 15px;
+		margin-right: -6px;
+
+		&:active
+		{
+			sound: "ui_settings_out_multi";
+		}
+
+		&:hover
+		{
+			wash-color: none;
+		}
+	}
+}
+
+
+@keyframes PopOut
+{
+	0%
+	{
+		pre-transform-scale2d: 0.9;
+	}
+
+	50%
+	{
+		pre-transform-scale2d: 1.05;
+	}
+
+	100%
+	{
+		pre-transform-scale2d: 1.0;
+	}
+}
+
+@keyframes PopOutClose
+{
+	0%
+	{
+		pre-transform-scale2d: 1;
+	}
+
+	50%
+	{
+		pre-transform-scale2d: 1.05;
+	}
+
+	100%
+	{
+		pre-transform-scale2d: 0.9;
+	}
+}

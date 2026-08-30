@@ -1,0 +1,257 @@
+#HeroTalentPopup
+{
+	.EOM_PopupContent
+	{
+		margin: 0px;
+		width: 100%;
+		height: 100%;
+		padding: 0px;
+	}
+
+	#Talent
+	{
+		width: 100%;
+		height: 100%;
+		padding: 80px 60px 0px 60px;
+
+		#TalentBlock
+		{
+			align: center center;
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	#Talent #TalentBlock
+	{
+		#TalentPoint
+		{
+			horizontal-align: right;
+			//margin-top: 80px;
+			padding-right: 40px;
+			flow-children: down;
+
+			.CurrencyGroup
+			{
+				margin-right: -7px;
+			}
+
+			#RemainingPoint
+			{
+				margin-top: 32px;
+				width: 100%;
+				horizontal-align: center;
+				text-align: center;
+				font-size: 20px;
+				color: #BFAA82;
+				text-overflow: shrink;
+			}
+
+			.EOM_Button
+			{
+				horizontal-align: center;
+			}
+
+			.Fragment
+			{
+				width: 20px;
+				height: 20px;
+				background-repeat: no-repeat;
+				background-size: 100%;
+			}
+		}
+	}
+
+	#Talent #HeroSelectionList
+	{
+		flow-children: down;
+		margin-left: 40px;
+
+	}
+
+	#Talent #TalentContainer
+	{
+		align: center center;
+		width: 1200px;
+		height: 1200px;
+		ui-scale: 90%;
+		x: 0px;
+		y: -110px;
+
+
+		#Canvas
+		{
+			width: 100%;
+			height: 100%;
+		}
+
+		.TalentNode
+		{
+			width: 84px;
+			height: 84px;
+
+			&.Unlock
+			{
+				#TalentImage
+				{
+					// background-image: url("file://{images}/custom_game/h3_hero_talent_tree/h3_talent_dot_normal.png");: 100%;
+				}
+
+				#LockImg
+				{
+					opacity: 0;
+				}
+
+				#TalentLv
+				{
+					opacity: 1;
+				}
+			}
+
+			&.MaxLv
+			{
+				#TalentImage
+				{
+					background-image: url("file://{images}/custom_game/h3_hero_talent_tree/h3_talent_dot_max.png");
+				}
+
+				#TalentLv
+				{
+					color: #E6D4A4;
+				}
+			}
+
+			#TalentImage
+			{
+				align: center center;
+				width: 62px;
+				height: 64px;
+				background-image: url("file://{images}/custom_game/h3_hero_talent_tree/h3_talent_dot_disable.png");
+				background-size: 100%;
+
+				&.CustomIcon
+				{
+					width: 1.3 * 64px;
+					height: 1.3 * 68px;
+				}
+			}
+
+			#TalentLv
+			{
+				align: center bottom;
+				margin-bottom: 5px;
+				color: #76E739;
+				text-shadow: 0px 0px 0px 2.0 #000000;
+				opacity: 0;
+			}
+
+			#LockImg
+			{
+				align: center center;
+				width: 21px;
+				height: 26px;
+				background-image: url("file://{images}/custom_game/conv/tag/tag_lock.png");
+				background-size: 100%;
+			}
+
+			#TalentPos
+			{
+				width: 200px;
+				horizontal-align: center;
+				color: #ffffff;
+				text-align: center;
+				overflow: noclip;
+				font-size: 14px;
+			}
+
+			#TalentName
+			{
+				align: center center;
+				color: red;
+				text-shadow: 0px 0px 0px 2.0 #000000;
+			}
+
+			.TalentNodeLvBg
+			{
+				align: center center;
+				width: 95%;
+				height: 95%;
+				//visibility: collapse;
+				background-image: url("file://{images}/custom_game/t1_talent/t1_select_effect.png");
+				background-size: 100%;
+				animation-name: TalentNodeLvRotateBreath;
+				animation-duration: 5s;
+				animation-timing-function: linear;
+				animation-iteration-count: infinite;
+			}
+		}
+	}
+
+	#Talent
+	{
+		background-image: url("file://{images}/custom_game/h3_hero_talent_tree/h3_talent_assassin.png");
+		background-size: 1340px 782px;
+		background-position: center;
+		background-repeat: no-repeat;
+		transition-property: background-image;
+		transition-duration: 0.15s;
+		transition-timing-function: ease-in-out;
+
+		&.SelectHero224
+		{
+			background-image: url("file://{images}/custom_game/h3_hero_talent_tree/h3_talent_assassin.png");
+		}
+
+		&.SelectHero225
+		{
+			background-image: url("file://{images}/custom_game/h3_hero_talent_tree/h3_talentgunslinger.png");
+		}
+
+		&.SelectHero226
+		{
+			background-image: url("file://{images}/custom_game/h3_hero_talent_tree/h3_talent_mage.png");
+		}
+
+		&.SelectHero227
+		{
+			background-image: url("file://{images}/custom_game/h3_hero_talent_tree/h3_talent_paladin.png");
+		}
+	}
+
+	.HideNode
+	{
+		opacity: 0;
+	}
+
+	.Decoration
+	{
+		y: 30px;
+		align: center center;
+		width: 164px;
+		height: 146px;
+		background-image: url("file://{images}/custom_game/h3_hero_talent_tree/h3_img_decoration.png");
+		background-size: 100%;
+	}
+
+	/* 天赋等级背景旋转呼吸动画 */
+	@keyframes TalentNodeLvRotateBreath
+	{
+		0%
+		{
+			transform: rotateZ(0deg);
+			opacity: 0.2;
+		}
+
+		50%
+		{
+			transform: rotateZ(-180deg);
+			opacity: 0.6;
+		}
+
+		100%
+		{
+			transform: rotateZ(-360deg);
+			opacity: 0.2;
+		}
+	}
+}

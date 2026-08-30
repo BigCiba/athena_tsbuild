@@ -1,0 +1,8 @@
+"lang"
+{
+	"Language" "Schinese"
+	"Tokens"
+	{
+		"StoreRechargeReport"	"充值未到账，请点击这里"
+	}
+}

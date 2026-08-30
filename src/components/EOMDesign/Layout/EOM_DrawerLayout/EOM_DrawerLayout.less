@@ -1,0 +1,69 @@
+.EOM_DrawerLayout
+{
+	width: 908px;
+	height: 986px;
+	background-image: url("file://{images}/custom_game/eom_design/layout/v1_shop_board.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	align: right bottom;
+	z-index: 1;
+
+	transform: translateX(912px);
+	opacity: 0;
+	transition-property: transform, opacity;
+	transition-duration: 0.15s;
+
+	&.DrawerVisible
+	{
+		opacity: 1;
+		transform: translateX(0px);
+	}
+
+	#EOM_DrawerLayoutClose
+	{
+		// width: 62px;
+		// height: 62px;
+		// horizontal-align: right;
+		width: 94px;
+		height: 100px;
+		background-image: url("file://{images}/custom_game/eom_design/layout/v1_shop_close.png");
+		background-size: 100%;
+		vertical-align: center;
+		margin-left: 24px;
+		// background-image: url("file://{images}/custom_game/icon/s_button_close.png");
+	}
+
+	.EOM_IconXClose.Tui12
+	{
+		// background-image: none;
+	}
+
+	#TitleContainer
+	{
+		width: 830px;
+		height: 60px;
+		horizontal-align: right;
+		margin-top: 53px;
+
+		Label
+		{
+			width: 340px;
+			align: center center;
+			text-align: center;
+			text-overflow: shrink;
+			font-size: 26px;
+			color: #E1CFB3;
+			text-shadow: 0px 0px 2px 2 #000000;
+		}
+	}
+
+	#DrawerContents
+	{
+		width: 860px;
+		height: 100%;
+		horizontal-align: right;
+		margin-top: 103px;
+		padding: 20px 10px 10px 41px;
+
+	}
+}

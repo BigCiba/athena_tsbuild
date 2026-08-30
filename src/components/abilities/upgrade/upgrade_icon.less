@@ -1,0 +1,53 @@
+@upgrade_icon: h_skill_green, h_skill_blue, h_skill_purple, h_skill_golden, h_skill_red;
+
+.UpgradeIcon
+{
+
+	&.large
+	{
+		width: 128px;
+		height: 128px;
+
+		#Border
+		{
+			each(@upgrade_icon, .(@k, @i)
+				{
+					@rarity: @i - 1;
+
+					&.Rarity@{rarity}
+					{
+						background-image: url("file://{images}/custom_game/hud/@{k}_big.png");
+					}
+				}
+			);
+		}
+	}
+
+	width: 64px;
+	height: 64px;
+
+	#UpgradeImage
+	{
+		align: center center;
+		width: 68%;
+		height: width-percentage(100%);
+	}
+
+	#Border
+	{
+		width: 100%;
+		height: 100%;
+		background-size: 100%;
+
+		each(@upgrade_icon, .(@k, @i)
+			{
+				@rarity: @i - 1;
+
+				&.Rarity@{rarity}
+				{
+					background-image: url("file://{images}/custom_game/hud/@{k}.png");
+				}
+			}
+		);
+	}
+}

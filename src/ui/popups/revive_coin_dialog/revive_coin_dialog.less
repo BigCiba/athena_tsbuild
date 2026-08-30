@@ -1,0 +1,76 @@
+.Popup_ReviveCoinDialog
+{
+	flow-children: down;
+
+	// 覆盖 small 弹窗尺寸，给底部按钮留空间
+	.EOM_PopupMain
+	{
+		height: 460px;
+
+		.EOM_PopupContent
+		{
+			margin-bottom: 20px;
+		}
+	}
+
+	#CenterBlock
+	{
+		align: center center;
+		margin-top: 20px;
+
+		Label
+		{
+			align: center center;
+			color: #AEA280;
+			font-size: 24px;
+			text-overflow: shrink;
+			text-align: center;
+		}
+	}
+
+	#CountdownBar
+	{
+		align: center center;
+		margin-top: 16px;
+		width: 80%;
+		height: 8px;
+		background-color: #33333388;
+		overflow: clip;
+
+		#CountdownFill
+		{
+			align: left center;
+			height: 100%;
+			background-color: #4CAF50;
+			transition-property: width;
+			transition-duration: 0.3s;
+			transition-timing-function: linear;
+		}
+	}
+
+	#CountdownText
+	{
+		align: center center;
+		margin-top: 8px;
+
+		Label
+		{
+			color: #FFD54F;
+			font-size: 20px;
+			font-weight: bold;
+		}
+	}
+
+	#BottomButtons
+	{
+		align: center center;
+		flow-children: right;
+		height: 64px;
+		margin-top: 16px;
+
+		.EOM_Button
+		{
+			margin: 0px 12.5px;
+		}
+	}
+}

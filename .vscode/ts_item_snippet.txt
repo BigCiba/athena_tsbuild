@@ -1,0 +1,7 @@
+import { registerAbility } from "../../lib/dota_ts_adapter";
+import { EOMItem, registerEOMAbility } from "../eom_ability";
+
+@registerEOMAbility()
+class __filename_replacer__ extends EOMItem {
+
+}

@@ -1,0 +1,14 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/global_style.css" />
+		<include src="file://{resources}/styles/custom_game/context_menus.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/panorama-polyfill.js" />
+		<include src="file://{resources}/scripts/custom_game/context_menus.js" />
+		<include src="s2r://panorama/scripts/sequence_actions.vts_c" />
+	</scripts>
+	<Panel class="context_menus CustomHudRoot" hittest="false">
+	</Panel>
+</root>

@@ -1,0 +1,56 @@
+.EOM_FilterChip
+{
+	flow-children: right;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	padding: 7px 12px;
+	border: 1px solid transparent;
+	border-radius: 16px;
+	background-color: #33425544;
+	transition-property: background-color, border, brightness;
+	transition-duration: 0.12s;
+	transition-timing-function: ease-in-out;
+
+	&:hover
+	{
+		background-color: #3342555f;
+		border: 1px solid #8fa7c466;
+		brightness: 1.05;
+	}
+
+	&.Selected
+	{
+		background-color: #3342557a;
+		border: 1px solid #8fa7c466;
+	}
+}
+
+.EOM_FilterChip_Dot
+{
+	width: 8px;
+	height: 8px;
+	margin-right: 8px;
+	vertical-align: center;
+	border-radius: 50%;
+	background-color: #9eb4ca;
+	box-shadow: 0px 0px 6px 0px #9eb4ca22;
+}
+
+.EOM_FilterChip_Label
+{
+	vertical-align: center;
+	font-size: 16px;
+	color: #d8e0ea;
+}
+
+.EOM_FilterChip_Count
+{
+	vertical-align: center;
+	margin-left: 8px;
+	padding: 0px 6px;
+	border-radius: 10px;
+	background-color: #00000022;
+	font-size: 14px;
+	color: #90a0b4;
+	text-align: center;
+}

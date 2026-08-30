@@ -1,0 +1,241 @@
+#EOM_UnitInfo
+{
+	.ControlRow
+	{
+		width: 100%;
+		height: 40px;
+		flow-children: right;
+		vertical-align: center;
+		margin-bottom: 8px;
+		padding: 0px 8px;
+	}
+
+	.ControlDivider
+	{
+		font-size: 22px;
+		line-height: 28px;
+		color: #a7b3cc;
+		margin-left: 8px;
+		margin-right: 8px;
+	}
+
+	.PickingStateText
+	{
+		margin-left: 8px;
+		color: #ffffff;
+		font-size: 18px;
+		font-weight: bold;
+		text-shadow: 0px 0px 6px #7aa2ffff;
+	}
+
+	.EOM_UnitInfoRow
+	{
+		flow-children: right;
+		width: fill-parent-flow(1.0);
+		height: 24px;
+
+		// padding: 3px;
+
+		.EOM_UnitInfoKey
+		{
+			vertical-align: center;
+			min-width: 100px;
+			color: #A8C2C1;
+			text-shadow: 0px 0px 1px 1 #A8C2C1;
+			text-align: right;
+		}
+
+		.EOM_UnitInfoValue
+		{
+			vertical-align: center;
+			margin-left: 20px;
+		}
+
+		.EOM_UnitInfoEdit
+		{
+			opacity: 0;
+			horizontal-align: right;
+			background-image: url("s2r://panorama/images/control_icons/edit_png.vtex");
+			background-size: 100%;
+			width: 16px;
+			height: 16px;
+			vertical-align: center;
+			margin-right: 4px;
+
+			&.Add
+			{
+				background-image: url("s2r://panorama/images/control_icons/plus_thin_png.vtex");
+			}
+
+			&:hover
+			{
+				brightness: 1.5;
+			}
+		}
+
+		&.Editable
+		{
+			&:hover
+			{
+				.EOM_UnitInfoEdit
+				{
+					opacity: 1;
+				}
+			}
+		}
+
+		&.Editing
+		{
+			.EOM_UnitInfoEdit
+			{
+				background-image: url("s2r://panorama/images/control_icons/close_png.vtex");
+			}
+		}
+
+		&:hover
+		{
+			background-color: #212121aa;
+		}
+
+		.EOM_TextEntry
+		{
+			border-color: #444444;
+			padding: 0px 7px;
+			font-size: 18px;
+			color: #A5ADA2;
+		}
+
+	}
+
+	.UnitInfoTab
+	{
+		margin-top: 8px;
+		margin-bottom: 10px;
+		opacity: 0;
+		flow-children: down;
+		width: 100%;
+		overflow: squish scroll;
+
+		&.Show
+		{
+			opacity: 1;
+		}
+	}
+
+	#AbilityList
+	{
+		flow-children: right-wrap;
+		padding: 4px 6px;
+	}
+
+	.AbilityActionPanel
+	{
+		margin: 6px;
+		flow-children: down;
+		width: 112px;
+		padding: 6px;
+		background-color: #111922ee;
+		border: 1px solid #33465f;
+
+		.AbilityActionButton
+		{
+			height: 26px;
+			width: 64px;
+			margin: 0px;
+		}
+
+		DOTAAbilityImage
+		{
+			width: 64px;
+			height: 64px;
+			tooltip-position: top;
+			horizontal-align: center;
+		}
+
+		.AbilityName
+		{
+			width: 100%;
+			margin-top: 6px;
+			font-size: 16px;
+			color: #f1f5ff;
+			text-align: center;
+			max-height: 42px;
+			text-overflow: shrink;
+		}
+
+		.AbilityMeta
+		{
+			width: 100%;
+			margin-top: 4px;
+			font-size: 14px;
+			color: #8fa7c6;
+			text-align: center;
+		}
+	}
+
+	#DevouredList
+	{
+		flow-children: right-wrap;
+	}
+
+	.DevouredItemActionPanel
+	{
+		margin: 6px;
+		flow-children: down;
+
+		.DevouredItemActionButton
+		{
+			height: 26px;
+			width: 64px;
+			margin: 0px;
+		}
+
+		.CustomItemImage
+		{
+			width: 64px;
+			height: width-percentage(75%);
+			tooltip-position: top;
+		}
+	}
+
+	.EOM_UnitInfoModifierRow
+	{
+		flow-children: right;
+		width: fill-parent-flow(1.0);
+		height: 24px;
+
+		.EOM_UnitInfoModifierName
+		{
+			vertical-align: center;
+			width: fill-parent-flow(3.0);
+			text-align: center;
+		}
+
+		.EOM_UnitInfoModifierCount
+		{
+			vertical-align: center;
+			width: fill-parent-flow(1.0);
+			text-align: center;
+		}
+
+		.EOM_UnitInfoModifierAction
+		{
+			vertical-align: center;
+			width: fill-parent-flow(2.0);
+			text-align: center;
+			flow-children: right;
+		}
+
+		&:hover
+		{
+			background-color: #212121aa;
+		}
+
+		.ModifierActionButton
+		{
+			height: 26px;
+			width: 64px;
+			margin: 0px 4px;
+		}
+	}
+}

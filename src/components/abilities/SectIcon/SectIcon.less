@@ -1,0 +1,55 @@
+.SectIcon {
+	width: 32px;
+	height: 32px;
+
+	.SectImage {
+		width: 100%;
+		height: 100%;
+		background-size: 130%;
+		align: center center;
+		background-position: center;
+	}
+
+	// ============ 通用的图标样式生成mixin ============
+	// 参数：tag类名, 灰色图标名, 激活图标名, 文件夹(默认sect_icon)
+	.sect-icon(@tag; @grey-icon; @active-icon; @folder: ~"sect_icon") {
+		@base: ~"file://{images}/custom_game/@{folder}";
+
+		// 普通 - 灰色
+		&.@{tag} .SectImage {
+			background-image: url("@{base}/@{grey-icon}.png");
+		}
+
+		// 普通 - 激活
+		&.@{tag}.Active .SectImage {
+			background-image: url("@{base}/@{active-icon}.png");
+		}
+
+		// Large - 灰色
+		&.@{tag}.Large .SectImage {
+			background-image: url("@{base}/large/@{grey-icon}.png");
+		}
+
+		// Large - 激活
+		&.@{tag}.Active.Large .SectImage {
+			background-image: url("@{base}/large/@{active-icon}.png");
+		}
+	}
+
+	// ============ 使用mixin配置所有图标 ============
+	.sect-icon(Crit, skill_swordsman_grey, skill_crit, ~"conv/skill");
+	.sect-icon(Ice, skill_ice_grey, skill_ice, ~"conv/skill");
+	.sect-icon(Zeus, skill_mage_grey, skill_zeus, ~"conv/skill");
+	.sect-icon(Poison, skill_poisoner_grey, skill_poison, ~"conv/skill");
+	.sect-icon(Holy, skill_warrior_grey, skill_holy, ~"conv/skill");
+	.sect-icon(Wind, skill_wild_grey, skill_wind, ~"conv/skill");
+	.sect-icon(Bleed, skill_beast_grey, skill_blood, ~"conv/skill");
+
+	.sect-icon(sect_health, skill_brawny_grey, skill_brawny);
+	.sect-icon(sect_fury, skill_fury_grey, skill_fury);
+	.sect-icon(sect_regen, skill_healer_grey, skill_healer);
+	.sect-icon(sect_wisp, skill_void_grey, skill_void);
+	.sect-icon(sect_chaos, sect_chaos_grey, sect_chaos);
+	.sect-icon(sect_none, sect_none_grey, sect_none);
+	.sect-icon(sect_crit, skill_assassin_grey, skill_assassin);
+}

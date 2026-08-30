@@ -1,0 +1,54 @@
+.WeaponCard
+{
+	width: 224*0.6px;
+	height: 244*0.6px;
+
+	&.Selected
+	{
+		#WeaponCardBorder
+		{
+			margin: 5px;
+			width: 100%;
+			height: 100%;
+			border-image-source: url("file://{images}/custom_game/h2_hero/h2_select.png");
+			border-width: 15px 15px 15px 15px;
+			border-image-slice: 15px 15px 15px 15px;
+			border-image-repeat: stretch;
+		}
+
+		.BorderParticle
+		{
+			visibility: visible;
+		}
+	}
+
+	.StoreItemImage
+	{
+		width: 80%;
+		height: 80%;
+		align: center center;
+	}
+
+	#WeaponCardBG
+	{
+		width: 100%;
+		height: 100%;
+		background-image: url("file://{images}/custom_game/conv/item/item_hero_golden.png");
+		background-size: 100%;
+	}
+
+	.BorderParticle
+	{
+		align: center center;
+		width: 100%;
+		height: 100%;
+		visibility: collapse;
+		overflow: noclip;
+	}
+
+	.Weapon3DPreview
+	{
+		width: 100%;
+		height: 100%;
+	}
+}

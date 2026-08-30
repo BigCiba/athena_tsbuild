@@ -1,0 +1,83 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"hide": true,
+			"script": "dev:solid",
+			"group": "build",
+			"presentation": {
+				"group": "watchers"
+			},
+			"problemMatcher": [],
+			"detail": "运行webpack监控任务",
+			"options": {
+				"statusbar": {
+					"label": "$(wrench) UI开发"
+				}
+			}
+		},
+		{
+			"type": "npm",
+			"hide": true,
+			"script": "dev:vscripts",
+			"group": "build",
+			"presentation": {
+				"group": "watchers"
+			},
+			"problemMatcher": [],
+			"detail": "运行vscripts监控任务",
+			"options": {
+				"statusbar": {
+					"label": "$(wrench) vscripts开发"
+				}
+			}
+		},
+		{
+			"label": "$(wrench) 开发",
+			"dependsOn": [
+				"npm: dev:solid",
+				"npm: dev:vscripts"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "$(send) 生成属性表",
+			"dependsOn": [
+				"npm: generate:properties"
+			],
+			"problemMatcher": [],
+			"detail": "将properties.kv生成properties.ts"
+		},
+		{
+			"label": "$(send) 导出配置表",
+			"dependsOn": [
+				"npm: generate:configure"
+			],
+			"problemMatcher": [],
+			"detail": "将configure文件夹中的配表导出"
+		},
+		{
+			"type": "npm",
+			"script": "generate:precache",
+			"problemMatcher": [],
+			"label": "$(wrench) 预载生成",
+			"detail": "生成预载文件precache_auto.ts"
+		},
+		{
+			"type": "npm",
+			"hide": true,
+			"script": "sync:enums",
+			"problemMatcher": [],
+			"label": "$(wrench) 同步常量",
+			"detail": "将shared/enums.ts同步到lua和ui"
+		},
+		{
+			"type": "npm",
+			"script": "encrypt:vscripts",
+			"problemMatcher": [],
+			"label": "$(lock) 加密",
+			"detail": "加密lua"
+		}
+	]
+}

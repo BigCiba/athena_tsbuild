@@ -1,0 +1,201 @@
+.CourierCard {
+	&.EOM_Button {
+		transition-property: transform, z-index;
+		transition-duration: 0.0333s;
+		transition-timing-function: linear;
+
+		&:not(:disabled):hover {
+			brightness: 1;
+
+			.StoreItemImage,
+			.CourierBG {
+				brightness: 1.5;
+			}
+		}
+	}
+
+	each(range(0, 4), .(@index) {
+			@rarity: @index + 1;
+
+			&.Rarity@{rarity} .CourierBG {
+				& when (@rarity <=1) {
+					background-image: url("file://{images}/custom_game/conv/item/conv_item_gray.png");
+				}
+
+				& when (@rarity =2) {
+					background-image: url("file://{images}/custom_game/conv/item/conv_item_green.png");
+				}
+
+				& when (@rarity =3) {
+					background-image: url("file://{images}/custom_game/conv/item/conv_item_blue.png");
+				}
+
+				& when (@rarity =4) {
+					background-image: url("file://{images}/custom_game/conv/item/item_hero_purple.png");
+				}
+
+				& when (@rarity =5) {
+					background-image: url("file://{images}/custom_game/conv/item/item_hero_golden.png");
+				}
+
+				& when (@rarity >=6) {
+					background-image: url("file://{images}/custom_game/conv/item/item_hero_red.png");
+				}
+			}
+		});
+
+	&.Unlock {
+
+		.StoreItemImage,
+		.CourierBG {
+			brightness: 1;
+			saturation: 1;
+		}
+
+		.CourierLock {
+			opacity: 0;
+		}
+	}
+
+	&.Selected {
+		.CourierBorder {
+			transition-delay: 0s;
+			opacity: 1;
+		}
+	}
+
+	&.Equiped {
+		.CourierEquiped {
+			opacity: 1;
+		}
+	}
+
+	&.Explored {
+		.CourierExplored {
+			opacity: 1;
+		}
+	}
+
+	&.Assisted {
+		.CourierAssisted {
+			opacity: 1;
+		}
+	}
+
+	.StoreItemImage {
+		brightness: .25;
+		transition-property: brightness, saturation;
+		transition-duration: 0.05s;
+	}
+
+	.CourierBG {
+		brightness: .25;
+		saturation: .85;
+		align: center center;
+		background-image: url("file://{images}/custom_game/conv/item/item_hero_green.png");
+		background-size: 100%;
+		width: 100%;
+		height: 100%;
+		transition-property: brightness, saturation;
+		transition-duration: 0.05s;
+	}
+
+	.CourierInTool {
+		color: red;
+		horizontal-align: center;
+		margin-top: 50px;
+		font-size: 20px;
+		text-shadow: 0px 0px 2px 2 #1C1132;
+	}
+
+	.CourierBorder {
+		align: center center;
+		border-image-source: url("file://{images}/custom_game/h2_hero/h2_select.png");
+		margin: 4px;
+		width: 89%;
+		height: 89%;
+		border-width: 15px 15px 15px 15px;
+		border-image-slice: 15px 15px 15px 15px;
+		border-image-repeat: stretch;
+		opacity: 0;
+	}
+
+	#BorderParticle {
+		width: 100%;
+		height: 100%;
+	}
+
+	.CourierName {
+		horizontal-align: center;
+		margin-top: 21px;
+		font-size: 18px;
+		color: #E7D69E;
+		text-shadow: 0px 0px 2px 2 #1C1132;
+	}
+
+	.StoreItemImage {
+		width: 80%;
+		height: 80%;
+		align: center center;
+		// horizontal-align: center;
+		// vertical-align: bottom;
+		// margin-bottom: 10px;
+	}
+
+	.CourierExplored {
+		background-image: url("file://{images}/custom_game/conv/tag/conv_tag_equipped.png");
+		width: 24px;
+		height: 24px;
+		background-size: 100%;
+		align: right top;
+		margin-right: 10px;
+		margin-top: 10px;
+		opacity: 0;
+	}
+
+	.CourierAssisted,
+	.CourierEquiped {
+		width: 40px;
+		height: 36px;
+		background-image: url("file://{images}/custom_game/m1_messenger/m1_position_label.png");
+		background-size: 100%;
+		align: right top;
+		margin-right: 10px;
+		margin-top: 10px;
+		opacity: 0;
+
+		Label {
+			margin: 0px 4px;
+			text-overflow: shrink;
+			color: #100B05;
+			align: center center;
+			font-size: 10px;
+			transform: rotateZ(45deg);
+			x: 10px;
+			y: -4px;
+		}
+	}
+
+	.CourierCardStarList {
+		align: center bottom;
+		margin-bottom: 6px;
+		flow-children: right;
+
+		.CourierStar {
+			width: 20px;
+			height: 20px;
+			background-image: url("file://{images}/custom_game/hero/y2_img_star_s.png");
+
+			background-size: 100%
+		}
+	}
+
+	.CourierLock {
+		width: 27px;
+		height: 33px;
+		align: center bottom;
+		margin-bottom: 10px;
+		background-image: url("file://{images}/custom_game/conv/tag/tag_lock.png");
+		background-size: 100%;
+	}
+}

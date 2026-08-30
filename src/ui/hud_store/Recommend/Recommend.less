@@ -1,0 +1,178 @@
+.Language_schinese {
+	#StoreRecommend {
+		#RecommendTitle {
+			background-image: url("file://{images}/custom_game/store/s_catchlines_cn.png");
+		}
+
+		.hero {
+			background-image: url("file://{images}/custom_game/store/s_reffle_hero_bg.png");
+
+			#TitleImage {
+				height: 59px;
+				background-image: url("file://{images}/custom_game/store/s_hero_title_cn.png");
+			}
+		}
+	}
+}
+
+.Language_russian {
+	#StoreRecommend {
+		#RecommendTitle {
+			background-image: url("file://{images}/custom_game/store/s_catchlines_ru.png");
+		}
+
+		.hero {
+			background-image: url("file://{images}/custom_game/store/s_reffle_hero_bg.png");
+
+			#TitleImage {
+				height: 51px;
+				background-image: url("file://{images}/custom_game/store/s_hero_title_ru.png");
+			}
+		}
+	}
+}
+
+#StoreRecommend {
+	width: 100%;
+	height: 100%;
+	margin-right: 0px;
+
+	#RecommendTitle {
+		width: 1438px;
+		height: 150px;
+		background-image: url("file://{images}/custom_game/store/s_catchlines_en.png");
+		background-size: 100%;
+		margin-top: 70px;
+		horizontal-align: center;
+	}
+
+	#RecommendContent {
+		horizontal-align: center;
+		margin-top: 223px;
+		flow-children: right;
+		//opacity-mask: url("file://{images}/masks/horizontal_scroll_center.png");
+		padding: 0 0px 10px 50px;
+
+		HorizontalScrollBar {
+			opacity: 0;
+		}
+	}
+
+	.RecommendItem {
+		width: 420px;
+		height: 620px;
+		margin-right: 60px;
+		background-image: url("file://{images}/custom_game/store/s_raffle_messenger.png");
+		background-size: 100%;
+
+		.JumpTo {
+			align: center bottom;
+			width: 100%;
+			margin-bottom: 20px;
+			font-size: 22px;
+			color: #FFF9CE;
+			text-align: center;
+			text-shadow: 0px 0px 2px 2.0 #000000d9;
+		}
+
+		.ViewDetail {
+			width: 111px;
+			height: 24px;
+			background-color: #482b197f;
+			horizontal-align: center;
+			border-radius: 12px;
+
+			.Icon {
+				vertical-align: center;
+				width: 18px;
+				height: 18px;
+				background-image: url("file://{images}/custom_game/store/s_check.png");
+				background-size: 100%;
+				wash-color: #DFCDAB;
+			}
+
+			.Desc {
+				vertical-align: center;
+				margin-left: 3px;
+				font-size: 16px;
+				color: #DFCDAB;
+			}
+		}
+
+		#SubTitle {
+			font-size: 20px;
+			color: #cbbb9f;
+			opacity: 0.8;
+			horizontal-align: center;
+			margin-bottom: 10px;
+			width: 370px;
+			text-align: center;
+		}
+	}
+
+	.hero {
+		background-image: url("file://{images}/custom_game/store/s_reffle_hero_bg.png");
+
+		#TitleImage {
+			height: 51px;
+			background-image: url("file://{images}/custom_game/store/s_hero_title_en.png");
+		}
+	}
+
+	#DetailedAttributesHeroPortraitContainer {
+		horizontal-align: center;
+		margin: 40px 20px 60px 20px;
+		width: 100%;
+		height: 100%;
+		overflow: clip;
+		opacity-mask: url("s2r://panorama/images/masks/softedge_box_png.vtex");
+	}
+
+	#DetailedAttributesHeroPortrait {
+		align: center top;
+		y: -305px;
+		x: -15px;
+		width: 1040px;
+		height: 1040px;
+		overflow: noclip;
+	}
+
+	#BottomMask {
+		background-image: url("file://{images}/custom_game/store/s_reffle_mask_black.png"),
+		url("file://{images}/custom_game/store/s_reffle_mask_black.png");
+		width: 420px;
+		height: 620px;
+		background-size: 100%;
+	}
+
+	#TitleImage {
+		horizontal-align: center;
+		width: 370px;
+		background-size: 100%;
+		margin: 7px 0px;
+	}
+
+	.NoEndTime {
+		#RecommendEndTime {
+			opacity: 0;
+		}
+	}
+
+	#RecommendEndTime {
+		horizontal-align: center;
+		background-image: url("file://{images}/custom_game/store/s_time_bg.png");
+		background-size: 100%;
+		width: 343px;
+		height: 24px;
+		margin-bottom: 28px;
+
+		.EOM_Countdown {
+			align: center center;
+		}
+
+		Label {
+			font-size: 16px;
+			color: #DFCDAB;
+		}
+	}
+}

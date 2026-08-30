@@ -1,0 +1,1009 @@
+#CollectionTreasureRoot
+{
+    width: 100%;
+    height: 100%;
+
+    .EOM_MenuLayout_Content_BG
+    {
+        align: center center;
+        width: height-percentage(177.77778%);
+        height: 100%;
+        background-size: 100%;
+        background-position: center center;
+        background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_bj.png");
+    }
+
+    .CollectionDivider
+    {
+        width: 450px;
+        height: 10px;
+        background-size: 100%;
+        background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_lin.png");
+    }
+}
+
+#CollectionTreasurePanel
+{
+    width: 1614px;
+    height: 930px;
+    align: center center;
+    overflow: noclip;
+
+    #CollectionTreasureBG
+    {
+        width: 1614px;
+        height: 930px;
+        background-size: 100%;
+        background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_panel_book.png");
+    }
+
+    #CollectionDetails
+    {
+        flow-children: down;
+        margin-top: 92px;
+        margin-left: 64px;
+        width: 450px;
+        height: 760px;
+        overflow: noclip;
+
+        #CollectionItemIconContent
+        {
+            vertical-align: center;
+            margin-left: 24px;
+            margin-bottom: 0px;
+            width: 124px;
+            height: 124px;
+            overflow: noclip;
+
+            #CollectionItemIcon
+            {
+                width: 100%;
+                height: 100%;
+            }
+
+            #LevelupFx
+            {
+                width: 512px;
+                height: 512px;
+                align: center center;
+            }
+        }
+
+        #CollectionTopContent
+        {
+            flow-children: right;
+            width: 100%;
+            height: 168px;
+        }
+
+        #CollectionTopRightContent
+        {
+            flow-children: down;
+        }
+
+        #CollectionTitle
+        {
+            horizontal-align: center;
+            margin-top: 26px;
+            width: 380px;
+            height: 36px;
+
+            #CollectionTitleText
+            {
+                align: center center;
+                width: 100%;
+                font-size: 24px;
+                text-align: center;
+                text-overflow: shrink;
+                // color: #F3DCA6;
+                text-shadow: 0px 0px 3px 3 #000000;
+            }
+        }
+
+        #CollectionSubTitle
+        {
+            horizontal-align: center;
+            margin-top: 4px;
+            width: 212px;
+            height: 28px;
+        }
+
+        #CollectionSubTitleBG
+        {
+            width: 212px;
+            height: 22px;
+            align: center center;
+            background-size: 100%;
+            background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_title_bottom_01.png");
+        }
+
+        #CollectionSubTitleText
+        {
+            align: center center;
+            width: 190px;
+            font-size: 18px;
+            text-align: center;
+            text-overflow: shrink;
+            text-shadow: 0px 0px 2px 2 #000000;
+        }
+
+        #LvArea
+        {
+            horizontal-align: center;
+            flow-children: right;
+        }
+
+        #CollectionLevelContentWithBorder
+        {
+            horizontal-align: center;
+        }
+
+        #Triangle
+        {
+            margin: 0px 25px;
+            vertical-align: center;
+            width: 30px;
+            height: 16px;
+            background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_shape_triangle.png");
+        }
+
+        #CollectionLevelBorderTextContent
+        {
+            align: center center;
+            max-width: 96px;
+            max-height: 36px;
+            flow-children: right;
+
+            .CollectionLevelBorderText
+            {
+                text-overflow: shrink;
+                font-size: 30px;
+                color: #EFCC77;
+                text-shadow: 0px 0px 2px 2 #000000;
+                font-family: Adobe Heiti Std;
+
+                &.BorderTextPrefix
+                {
+                    margin-bottom: 2px;
+                    vertical-align: bottom;
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .CollectionLevelBG
+        {
+            horizontal-align: center;
+            vertical-align: top;
+            width: 62px;
+            height: 68px;
+            background-size: 100%;
+            background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_lv_big.png");
+
+            // ui-scale: 120%;
+        }
+
+        #CollectionLevelContent
+        {
+            horizontal-align: center;
+            flow-children: down;
+            margin-top: 10px;
+            width: 306px;
+        }
+
+        #CollectionLevelText
+        {
+            horizontal-align: center;
+            height: 24px;
+            font-size: 20px;
+            color: #B9B1A6;
+            text-shadow: 0px 0px 2px 2 #000000;
+        }
+
+        #CollectionLevelProgressBar
+        {
+            margin-top: 0px;
+            width: 306px;
+            height: 32px;
+        }
+
+        #CollectionLevelProgressBG
+        {
+            width: 306px;
+            height: 32px;
+            background-size: 100%;
+            background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_progress_0.png");
+        }
+
+        #CollectionLevelProgressFill
+        {
+            width: 276px;
+            height: 14px;
+            background-size: 100%;
+            background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_progress_1.png");
+        }
+
+        #CollectionLevelProgressTrack
+        {
+            align: center center;
+            width: 276px;
+            height: 14px;
+            overflow: noclip;
+        }
+
+        .CollectionLevelProgressSeparator
+        {
+            vertical-align: center;
+            width: 3px;
+            height: 14px;
+            margin-left: -1px;
+            background-color: #000000;
+        }
+
+        #CollectionCurrentAttributes
+        {
+            flow-children: down;
+            width: 100%;
+            height: 136px;
+
+            #CollectionCurrentAttributesLockedContent
+            {
+                width: 100%;
+                height: 100%;
+            }
+
+            #CollectionCurrentAttributesLockedText
+            {
+                align: center center;
+                width: 100%;
+                font-size: 20px;
+                color: #B9B1A6;
+                text-align: center;
+                text-overflow: shrink;
+                text-shadow: 0px 0px 2px 2 #000000;
+            }
+        }
+
+        #CollectionCurrentAttributesBG
+        {
+            width: 138px;
+            height: 38px;
+            background-size: 100%;
+            background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_title_bottom_short.png");
+        }
+
+        #CollectionCurrentAttributesText
+        {
+            horizontal-align: left;
+            vertical-align: center;
+            margin-left: 18px;
+            margin-bottom: 4px;
+
+            font-size: 18px;
+            color: #CCBB8F;
+            text-align: center;
+        }
+
+        #CollectionLevelEffects
+        {
+            flow-children: down;
+            width: 100%;
+            height: fill-parent-flow(1);
+
+            &.MaxLevel
+            {
+                height: 434px;
+            }
+        }
+
+        #CollectionLevelEffectsTitleBG
+        {
+            width: 230px;
+            height: 42px;
+            background-size: 100%;
+            background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_title_bottom_long.png");
+        }
+
+        #CollectionLevelEffectsTitle
+        {
+            flow-children: right;
+            vertical-align: center;
+            margin-left: 18px;
+            margin-bottom: 4px;
+        }
+
+        #CollectionLevelEffectsText1,
+        #CollectionLevelEffectsText2,
+        #CollectionLevelEffectsText3
+        {
+            vertical-align: center;
+
+            font-size: 18px;
+            color: #F3DCA6;
+        }
+
+        #CollectionLevelEffectsText1
+        {
+            margin-right: 10px;
+            color: #CCBB8F;
+            text-align: center;
+        }
+
+        #CollectionLevelEffectsText2
+        {
+            color: #B9B1A6;
+        }
+
+        #CollectionLevelEffectsText3
+        {
+            color: #61C441;
+        }
+
+        #CollectionUpgradeSection
+        {
+            flow-children: down;
+            horizontal-align: center;
+            width: 100%;
+            // height: 190px;
+            margin-top: 2px;
+
+            #CollectionUpgradeItemBlock
+            {
+                horizontal-align: center;
+                width: 52px;
+                height: 52px;
+                margin-top: 3px;
+                overflow: noclip;
+
+                .EOM_RedMark
+                {
+                    margin-top: -8px;
+                    margin-right: -8px;
+                }
+            }
+
+            .StoreItemBlock
+            {
+                horizontal-align: center;
+                width: 52px;
+                height: 52px;
+            }
+
+            #UpgradeCost
+            {
+                horizontal-align: center;
+                margin-top: 2px;
+            }
+
+            #UpgradeBtn
+            {
+                horizontal-align: center;
+                margin-top: 6px;
+
+                ui-scale: 70%;
+            }
+        }
+
+        #CollectionUpgradeCostLabel
+        {
+            flow-children: right;
+            horizontal-align: center;
+        }
+
+        #CollectionUpgradeCostText1,
+        #CollectionUpgradeCostText2
+        {
+            font-size: 18px;
+            color: #B9B1A6;
+            text-shadow: 0px 0px 2px 2 #000000;
+        }
+
+        #CollectionUpgradeCostText2
+        {
+            margin-left: 6px;
+            color: #F3DCA6;
+        }
+    }
+
+    #CollectionRightContainer
+    {
+        flow-children: down;
+        horizontal-align: right;
+        margin-top: 92px;
+        margin-right: 58px;
+        width: 1000px;
+        height: 760px;
+    }
+
+    #CollectionList
+    {
+        flow-children: right-wrap;
+        horizontal-align: right;
+        width: 1000px;
+        height: fill-parent-flow(1);
+        padding: 8px 0px;
+        opacity-mask: url("s2r://panorama/images/masks/softedge_vertical_vscroll_wide_psd.vtex");
+
+        VerticalScrollBar
+        {
+            opacity: 0;
+        }
+
+        .CollectionRarityTitle
+        {
+            horizontal-align: center;
+
+            width: 100%;
+            height: 66px;
+            background-size: 986px 66px;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_panel_tiele_gray.png");
+
+            &.Rarity1
+            {
+                background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_panel_tiele_gray.png");
+            }
+
+            &.Rarity2
+            {
+                background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_panel_tiele_green.png");
+            }
+
+            &.Rarity3
+            {
+                background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_panel_tiele_blue.png");
+            }
+
+            &.Rarity4
+            {
+                background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_panel_tiele_purple.png");
+            }
+
+            &.Rarity5
+            {
+                background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_panel_tiele_yellow.png");
+            }
+
+            &.Rarity6
+            {
+                background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_panel_tiele_red.png");
+            }
+
+            &.Rarity7
+            {
+                background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_panel_tiele_blackgold.png");
+            }
+        }
+
+        .CollectionRarityTitleContent
+        {
+            flow-children: right;
+            vertical-align: center;
+            horizontal-align: center;
+        }
+
+        .RarityTitle
+        {
+            align: center center;
+            font-size: 24px;
+            text-align: center;
+            text-shadow: 0px 0px 2px 2 #000000;
+        }
+
+        .CollectionRarityIcon
+        {
+            vertical-align: center;
+            margin-left: 8px;
+            width: 21px;
+            height: 21px;
+            background-size: 100%;
+            background-image: url("file://{images}/custom_game/conv/icon/icon_info.png");
+            transition-property: brightness;
+            transition-duration: 0.15s;
+            transition-timing-function: linear;
+
+            &:hover
+            {
+                brightness: 1.5;
+            }
+
+            &.Rarity1
+            {
+                wash-color: #7C918E;
+            }
+
+            &.Rarity2
+            {
+                wash-color: #69944A;
+            }
+
+            &.Rarity3
+            {
+                wash-color: #4472CE;
+            }
+
+            &.Rarity4
+            {
+                wash-color: #875DD4;
+            }
+
+            &.Rarity5
+            {
+                wash-color: #CEAD3C;
+            }
+
+            &.Rarity6
+            {
+                wash-color: #E55043;
+            }
+
+            &.Rarity7
+            {
+                wash-color: #F1D999;
+            }
+        }
+
+        .CollectionTreasureItem
+        {
+            margin: 6px;
+            width: 186px;
+            height: 208px;
+
+            #CardBG
+            {
+                width: 186px;
+                height: 208px;
+                background-size: 186px 208px;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-image: url("file://{images}/custom_game/c1_collection/c1_item_gray.png");
+            }
+
+            &.Rarity1 #CardBG
+            {
+                background-image: url("file://{images}/custom_game/c1_collection/c1_item_gray.png");
+            }
+
+            &.Rarity2 #CardBG
+            {
+                background-image: url("file://{images}/custom_game/c1_collection/c1_item_green.png");
+            }
+
+            &.Rarity3 #CardBG
+            {
+                background-image: url("file://{images}/custom_game/c1_collection/c1_item_blue.png");
+            }
+
+            &.Rarity4 #CardBG
+            {
+                background-image: url("file://{images}/custom_game/c1_collection/c1_item_purple.png");
+            }
+
+            &.Rarity5 #CardBG
+            {
+                background-image: url("file://{images}/custom_game/c1_collection/c1_item_yellow.png");
+            }
+
+            &.Rarity6 #CardBG
+            {
+                background-image: url("file://{images}/custom_game/c1_collection/c1_item_red.png");
+            }
+
+            &.Rarity7 #CardBG
+            {
+                background-image: url("file://{images}/custom_game/c1_collection/c1_item_blackgold.png");
+            }
+
+            #CollectionIcon
+            {
+                width: 140px;
+                height: 140px;
+                align: center bottom;
+                margin-bottom: 20px;
+            }
+
+            .StoreItemImage
+            {
+                width: 182px;
+                height: 182px;
+                align: center center;
+            }
+
+            #Name
+            {
+                horizontal-align: center;
+                width: 100%;
+                margin: 14px;
+                font-size: 20px;
+                text-align: center;
+                text-overflow: shrink;
+                text-shadow: 0px 0px 2px 2 #1C1132;
+            }
+
+            #LockIcon
+            {
+                width: 30px;
+                height: 38px;
+                align: center bottom;
+                margin-bottom: 67px;
+                opacity: 0;
+                background-size: 100%;
+                background-image: url("file://{images}/custom_game/conv/tag/tag_lock.png");
+            }
+
+            #CollectionLevel
+            {
+                align: center bottom;
+                margin-bottom: 10px;
+                width: 100%;
+                font-size: 20px;
+                color: #B9B1A6;
+                text-align: center;
+                text-overflow: shrink;
+                text-shadow: 0px 0px 3px 3 #000000;
+
+                &.Max
+                {
+                    color: #CEAD3C;
+                }
+            }
+
+            #CollectionNumberCount
+            {
+                align: center bottom;
+                margin-bottom: 9px;
+                flow-children: right;
+
+                .EOM_CostLabelValue
+                {
+                    font-size: 18px;
+                    text-align: center;
+                    text-overflow: shrink;
+                    text-shadow: 0px 0px 3px 3 #000000;
+                }
+            }
+
+            #HasCount
+            {
+                align: right bottom;
+                flow-children: right;
+                margin-bottom: 29px;
+                margin-right: 12px;
+
+                #IconBG
+                {
+                    align: center center;
+                    width: 20px;
+                    height: 20px;
+                    background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_box.png");
+                    background-size: 100%;
+                }
+
+                #SmallCollectionIcon
+                {
+                    width: 100%;
+                    height: 100%;
+                }
+
+                #HasCountText
+                {
+                    vertical-align: center;
+                    font-size: 18px;
+                    color: #F3DCA6;
+                    text-shadow: 0px 0px 2px 2 #000000;
+                }
+
+            }
+
+            #SelectedHover
+            {
+                align: center center;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transition-property: opacity;
+                transition-duration: 0.03s;
+                transition-timing-function: linear;
+                border-image-source: url("file://{images}/custom_game/h2_hero/h2_select.png");
+                border-width: 15px 15px 15px 15px;
+                border-image-slice: 15px 15px 15px 15px;
+                border-image-repeat: stretch;
+            }
+
+            #BorderParticle
+            {
+                align: center center;
+                width: 120%;
+                height: 120%;
+                overflow: noclip;
+            }
+
+            .EOM_RedMark
+            {
+                margin-top: 4px;
+                margin-right: 4px;
+            }
+
+            &:not(.Selected):hover #SelectedHover
+            {
+                opacity: 1;
+                brightness: 0.5;
+            }
+
+            &.Selected #SelectedHover
+            {
+                opacity: 1;
+            }
+
+            &.Lock
+            {
+                .StoreItemImage
+                {
+                    brightness: 0.25;
+                    saturation: 0;
+                }
+
+                #Name
+                {
+                    color: #686868;
+                }
+
+                #LockIcon
+                {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    #CollectionRightOperations
+    {
+        horizontal-align: center;
+
+        #FastUpgradeBtn
+        {
+            ui-scale: 70%;
+        }
+    }
+}
+
+#CollectionAttributesList
+{
+    flow-children: down;
+    horizontal-align: center;
+    width: 410px;
+    height: fill-parent-flow(1);
+    overflow: squish scroll;
+
+    VerticalScrollBar
+    {
+        opacity: 0;
+    }
+
+    .CurrentAttributeRow
+    {
+        flow-children: right;
+        width: 410px;
+        min-height: 28px;
+        margin-top: 4px;
+        margin-left: 10px;
+    }
+
+    .CurrentAttributeRowDot
+    {
+        vertical-align: center;
+        width: 22px;
+        height: 22px;
+        background-size: 100%;
+        background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_diamond.png");
+    }
+
+    .CurrentAttributeRowContent
+    {
+        width: 374px;
+        min-height: 24px;
+    }
+
+    .CurrentAttributeRowBG
+    {
+        width: 374px;
+        height: 100%;
+        min-height: 24px;
+        background-size: 100%;
+        background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_title_bottom_02_small.png");
+    }
+
+    .CurrentAttributeRowText
+    {
+        vertical-align: center;
+        width: 354px;
+        margin-left: 16px;
+        font-size: 18px;
+        text-overflow: shrink;
+
+        .AbilityLabel,
+        .FeatureLabel
+        {
+            text-decoration: none;
+        }
+    }
+
+    .CollectionAttributesPlaceholder
+    {
+        horizontal-align: center;
+        width: 100%;
+        margin-top: 18px;
+        font-size: 18px;
+        color: #B9B1A6;
+        text-align: center;
+        text-overflow: shrink;
+        text-shadow: 0px 0px 2px 2 #000000;
+    }
+}
+
+#CollectionLevelEffectsList
+{
+    flow-children: down;
+    horizontal-align: center;
+    width: 430px;
+    height: fill-parent-flow(1);
+    overflow: squish scroll;
+    opacity-mask: url("s2r://panorama/images/masks/softedge_vertical_vscroll_wide_psd.vtex");
+
+    VerticalScrollBar
+    {
+        opacity: 0;
+    }
+
+    #CollectionLevelEffects.MaxLevel &
+    {
+        height: 386px;
+    }
+
+    .LevelEffectRow
+    {
+        flow-children: right;
+        width: 430px;
+        margin-top: 4px;
+
+        &.Locked
+        {
+            saturation: 0.8;
+            brightness: 0.3;
+        }
+    }
+
+    .LevelEffectRowDotContent
+    {
+        align: center center;
+        width: 54px;
+        height: fill-parent-flow(1);
+        max-height: 58px;
+    }
+
+    .LevelEffectRowDot
+    {
+        align: center center;
+        width: 62px;
+        height: 68px;
+        background-size: 100%;
+        background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_lv_big.png");
+
+        ui-scale: 80%;
+    }
+
+    .LevelEffectRowLevelText
+    {
+        align: center center;
+        width: 54px;
+        font-family: Adobe Heiti Std;
+        font-size: 24px;
+        color: #EBCE82;
+        text-align: center;
+        text-overflow: shrink;
+    }
+
+    .LevelEffectRowDescriptionContent
+    {
+        width: 406px;
+        min-height: 58px;
+
+        .LevelEffectRowDescriptionBG
+        {
+            width: 100%;
+            height: 100%;
+            background-size: 100%;
+            background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_title_effect_bottom_03.png");
+        }
+
+        &.WithExp
+        {
+            width: 244px;
+
+            .LevelEffectRowDescriptionBG
+            {
+                background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_title_effect_bottom_01.png");
+            }
+        }
+    }
+
+    .LevelEffectRowDescriptionText
+    {
+        font-size: 18px;
+        margin-top: 5px;
+
+        &.FirstRow
+        {
+            margin-top: 0px;
+        }
+
+        .AbilityLabel,
+        .FeatureLabel
+        {
+            text-decoration: none;
+        }
+    }
+
+    .LevelEffectRowDescriptionList
+    {
+        flow-children: down;
+        vertical-align: center;
+        width: 100%;
+        margin-right: 4px;
+        margin-left: 10px;
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+
+    .LevelEffectRowExpDescrioption .StoreItemImage
+    {
+        width: 52px;
+        height: 52px;
+        vertical-align: center;
+    }
+
+    .LevelEffectRowExpContent
+    {
+        height: 100%;
+    }
+
+    .LevelEffectRowExpBG
+    {
+        width: 160px;
+        height: 100%;
+        background-size: 100%;
+        background-image: url("file://{images}/custom_game/f3_favor/favor_treasure/f3_treasure_title_effect_bottom_02.png");
+    }
+
+    .LevelEffectRowExpIcon
+    {
+        vertical-align: center;
+        margin-left: 8px;
+        width: 32px;
+        height: 32px;
+    }
+
+    .LevelEffectRowExpDescrioption
+    {
+        flow-children: right;
+        vertical-align: center;
+        horizontal-align: center;
+        width: 90%;
+    }
+
+    .LevelEffectRowExpText
+    {
+        vertical-align: center;
+        font-size: 20px;
+        color: #AFA26D;
+        text-overflow: shrink;
+    }
+
+    .LevelEffectRowExpName
+    {
+        font-size: 18px;
+        color: #AFA26D;
+        text-overflow: shrink;
+    }
+}

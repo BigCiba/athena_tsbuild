@@ -1,0 +1,33 @@
+.EOM_RadioButton
+{
+	margin: 2px;
+
+
+	&:enabled:hover>.RadioBox
+	{
+		border: 2px solid #8d8569;
+	}
+
+	&:enabled:selected:hover>.RadioBox
+	{
+		border: 3px solid #000000;
+	}
+
+	&:selected>.RadioBox
+	{
+		box-shadow: #8d856977 0px 0px 6px 0px;
+		background-color: gradient(radial, 50% 50%, -5% -5%, 60% 60%, from(#8d8569), to(#473c2d));
+	}
+
+	&>.RadioBox
+	{
+		vertical-align: center;
+		border: 2px solid #473c2d;
+	}
+
+	&>Label
+	{
+		color: #A39C82;
+		vertical-align: center;
+	}
+}

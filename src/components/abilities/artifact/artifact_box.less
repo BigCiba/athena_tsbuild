@@ -1,0 +1,122 @@
+.ArtifactBox
+{
+	width: 600px;
+	height: 100px;
+	// margin-top: 8px;
+	// margin-bottom: 8px;
+	// padding: 12px;
+	// border-radius: 6px;
+	// border: 3px solid #8b7355;
+	// background-color: gradient(linear, 0% 0%, 0% 100%, from(#2a2520), to(#1a1510));
+	// box-shadow: 0px 4px 8px 0px #00000088;
+	// transition-property: border-color, box-shadow, brightness;
+	// transition-duration: 0.15s;
+	// transition-timing-function: ease-in-out;
+
+	// &:hover
+	// {
+	// 	border-color: #d4af37;
+	// 	box-shadow: 0px 0px 20px 4px #d4af3766;
+	// 	brightness: 1.15;
+	// }
+
+	.ArtifactItem
+	{
+		width: height-percentage(100%);
+		height: 100%;
+		horizontal-align: left;
+		vertical-align: middle;
+	}
+
+	.ArtifactInfo
+	{
+		width: fill-parent-flow(1.0);
+		height: 100%;
+		flow-children: down;
+		margin-left: 115px;
+		horizontal-align: left;
+		vertical-align: middle;
+
+		.ArtifactName
+		{
+			width: 100%;
+			font-size: 28px;
+			font-weight: bold;
+			// color: #f0e6d2;
+			text-align: left;
+			text-shadow: 2px 2px 4px #000000;
+		}
+
+		.ArtifactDescription
+		{
+			width: 100%;
+			font-size: 20px;
+			color: #c4b998;
+			text-align: left;
+			text-overflow: shrink;
+			text-shadow: 1px 1px 3px #000000;
+			line-height: 24px;
+		}
+
+		.HeroAbility__Details
+		{
+			width: 100%;
+			flow-children: down;
+			margin-top: 10px;
+		}
+
+		.HeroAbility__Detail
+		{
+			width: 100%;
+			flow-children: right;
+			margin-bottom: 4px;
+		}
+
+		.HeroAbility__DetailLabel
+		{
+			color: #A39C82;
+		}
+
+		.HeroAbility__DetailValue
+		{
+			color: #e1e1e1;
+		}
+	}
+
+	.HeroAbility__PropertyValue
+	{
+		horizontal-align: right;
+		font-size: 16px;
+		color: #e1e1e1;
+		font-weight: semi-bold;
+		background-position: 0% 50%;
+		background-repeat: no-repeat;
+		padding-left: 25px;
+		margin-right: 10px;
+		text-shadow: 2px 2px 0px 1.0 #00000088;
+		padding-top: 2px;
+		background-size: 20px;
+
+		&.AbilityCooldown
+		{
+			background-image: url("s2r://panorama/images/status_icons/ability_cooldown_icon_psd.vtex")
+		}
+
+		&.AbilityManaCost
+		{
+			background-image: url("s2r://panorama/images/status_icons/ability_healthcost_icon_psd.vtex")
+		}
+
+		&.AbilityCastRange
+		{
+			background-image: url("s2r://panorama/images/status_icons/ability_castrange_icon_psd.vtex")
+		}
+
+		&.GoldCost
+		{
+			color: #FFCC33;
+			vertical-align: bottom;
+			background-image: url("file://{images}/custom_game/eom_design/icon/gold.png");
+		}
+	}
+}

@@ -1,0 +1,8 @@
+<root>
+    <scripts>
+        <include src="file://{resources}/scripts/custom_game/panorama-polyfill.js" />
+        <include src="file://{resources}/scripts/custom_game/common_item.js" />
+    </scripts>
+    <Panel hittest="false" >
+    </Panel>
+</root>

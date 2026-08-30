@@ -1,0 +1,31 @@
+"lang"
+{
+	"Language"		"Schinese"
+	"Tokens"
+	{
+		"error_artifact_limit"	"数量已达上限"
+		"error_artifact_upgrade_group_owned"	"已拥有同类遗物，无法购买低级或同级遗物"
+		"error_token_no_enough"	"资源不足"
+		"error_match_begin_timeout"	"对局开始超时，请重试"
+		"error_reward_preview_timeout"	"获取对局信息超时"
+		"error_room_ready_timeout"	"地牢加载超时"
+		"error_no_artifact_upgrade"	"没有可升级的遗物，送你一个"
+		"error_abyss_not_allowed"  "通关N5后解锁深渊狂潮，掉落符文"
+		"error_cheat_mode_not_allowed"	"不允许使用作弊模式"
+		"error_password_length"	"密码至少为8位"
+		"error_hero_not_selected"	"请等待所有玩家选择英雄后再开始"
+
+		"error_version"	"版本过旧，请更新到最新版本"
+		"error_player_keys"	"钥匙使用错误，请取消"
+		"error_difficulty_key_unavailable" "当前钥匙不适用于最终难度，请取消"
+		"error_request_timeout"	"网络请求超时"
+		"error_receive_abyssal_rewards"	"请求失败，无法开启深渊宝箱"
+		"error_rune_count_reach_limit"	"符文背包已满，无法开启深渊宝箱"
+		"error_engraving_count_reach_limit"	"刻印背包已满，无法开启深渊宝箱"
+		"error_bp_endtime"	"请注意通行证到期时间"
+
+		"error_adventure_in_progress" "副本正在进行中"
+		"error_adventure_completed" "副本已完成,次数不足"
+		"error_team_request_pedding" "系统繁忙，稍后重试"
+	}
+}

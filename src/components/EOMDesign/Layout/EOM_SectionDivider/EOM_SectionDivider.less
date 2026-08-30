@@ -1,0 +1,38 @@
+.EOM_SectionDivider
+{
+	width: 100%;
+	flow-children: right;
+	horizontal-align: center;
+
+	.LineLeft,
+	.LineRight
+	{
+		vertical-align: center;
+		width: 174px;
+		height: 16px;
+		background-image: url("file://{images}/custom_game/e1_equipment/e1_img_title.png");
+		background-size: 100%;
+	}
+
+	.LineLeft
+	{
+		margin-left: 26px;
+	}
+
+	.LineRight
+	{
+		transform: scaleX(-1);
+		margin-right: 26px;
+	}
+
+	.TitleLabel
+	{
+		width: fill-parent-flow(1);
+		margin: 0px 12px;
+		font-size: 20px;
+		text-overflow: shrink;
+		text-align: center;
+		max-height: 48px;
+		color: #BFAA82;
+	}
+}

@@ -1,0 +1,263 @@
+#EOM_DropDownMenu_Container
+{
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	overflow: noclip;
+}
+
+.EOM_DropDown
+{
+	min-width: 100px;
+	min-height: 32px;
+	background-color: #363942;
+	// box-shadow: #00000055 0px 0px 0px 0px;
+	// box-shadow: 0px 0px 12px 0px #000000AA;
+	// background-image: url("s2r://panorama/images/control_icons/arrow_dropdown_png.vtex");
+	// background-position: right 20px 35%;
+	// background-size: 16px 16px;
+	// background-repeat: no-repeat;
+	border: 0px solid #5e686966;
+	border-radius: 3px;
+	font-size: 20px;
+	transition-property: background-color, border, color;
+	transition-duration: 0.15s;
+	transition-timing-function: linear;
+	padding: 4px 10px;
+
+	&:hover
+	{
+		background-color: #3e4047;
+
+		// brightness: 1.5;
+		&>Label
+		{
+			color: white;
+		}
+
+		&>#EOM_DropDown_arrow
+		{
+			wash-color: white;
+		}
+	}
+
+	&>Label
+	{
+		width: 100%;
+		margin: 0px 24px 0px 2px;
+		font-size: 16px;
+		transition-property: color;
+		transition-duration: 0.15s;
+		transition-timing-function: linear;
+		color: #aeaeaf;
+		vertical-align: center;
+		// font-style: italic;
+		font-weight: bold;
+		text-overflow: clip;
+	}
+}
+
+/** 箭头图标*/
+#EOM_DropDown_arrow
+{
+	align: right center;
+	background-image: url("s2r://panorama/images/control_icons/arrow_dropdown_png.vtex");
+	background-size: 100%;
+	width: 18px;
+	height: 18px;
+	wash-color: #aeaeaf;
+}
+
+/** 下拉容器 */
+.EOM_DropDownMenu
+{
+	// min-width: 100px;
+	// width: fit-children;
+	flow-children: down;
+	max-height: 0px;
+	padding: 4px 0px;
+	border-radius: 4px;
+	background-color: #262626;
+	// border: 1px solid #3D3D3D;
+	// box-shadow: #000000AA 0px 0px 12px 0px;
+	box-shadow: fill #00000044 0px 0px 12px 0px;
+	transition-property: background-color, max-height;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
+
+	&.EOM_DropDownMenuShow
+	{
+		overflow: squish scroll;
+		max-height: 1000px;
+	}
+}
+
+/** 下拉物品包一层 */
+.EOM_DropDownMenuItem
+{
+	min-height: 30px;
+	// width: 15px;
+	height: fit-children;
+	// width: 100%;
+	// width: fit-children;
+	margin: 2px;
+	border-radius: 4px;
+	padding: 8px 4px;
+	// padding-left: 8px;
+	background-color: #262626;
+	transition-property: background-color;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in-out;
+
+	// flow-children: right;
+	Label
+	{
+		font-family: defaultFont;
+	}
+
+	&>Label
+	{
+		font-size: 16px;
+		vertical-align: center;
+		// color: #EEEEEE;
+		color: #aeaeaf;
+		font-family: defaultFont;
+	}
+
+	&:hover
+	{
+		background-color: #32364733;
+
+		&>Label
+		{
+			color: white;
+		}
+	}
+
+	&:selected
+	{
+		background-color: #373f5566;
+
+		&>Label
+		{
+			color: white;
+		}
+	}
+
+	.RadioBox
+	{
+		visibility: collapse;
+		width: 2px;
+		color: blue;
+		height: 70%;
+		vertical-align: center;
+	}
+}
+
+.EOM_DropDown.EquipmentDropDown
+{
+
+	width: 146px;
+	height: 38px;
+	padding: 0px 2px;
+	border-radius: 0px;
+	font-size: 18px;
+	background-color: none;
+	border-color: none;
+	wash-color: none;
+	border-image-source: url('file://{images}/custom_game/conv/common/conv_dropdown_list.png');
+	border-width: 5px 5px 5px 5px;
+	border-image-slice: 5px 5px 5px 5px;
+	border-image-repeat: stretch;
+	background-color: #181613;
+
+
+	&>Label
+	{
+		width: 100%;
+		vertical-align: center;
+		margin: 0px;
+		font-size: 18px;
+		transition-property: color;
+		transition-duration: 0.15s;
+		transition-timing-function: linear;
+		color: #A39A7D;
+		vertical-align: center;
+		// font-style: italic;
+		font-weight: bold;
+		text-overflow: clip;
+	}
+
+	/** 箭头图标*/
+	#EOM_DropDown_arrow
+	{
+		align: right center;
+		background-image: url("file://{images}/custom_game/conv/common/conv_arrow.png");
+		width: 18px;
+		height: 14px;
+		transform: rotateX(-180deg);
+	}
+
+}
+
+.EOM_DropDownMenu.EquipmentDropDown
+{
+	max-height: 0px;
+	padding: 0px;
+	border-radius: 0px;
+	flow-children: down;
+	//background-color: #262626;
+	// border: 1px solid #3D3D3D;
+	// box-shadow: #000000AA 0px 0px 12px 0px;
+	box-shadow: none;
+	transition-property: background-color, max-height;
+	transition-duration: 0.15s;
+	transition-timing-function: ease-in-out;
+
+	border-image-source: url('file://{images}/custom_game/conv/common/conv_dropdown_list.png');
+	border-width: 5px 5px 5px 5px;
+	border-image-slice: 5px 5px 5px 5px;
+	border-image-repeat: stretch;
+	background-color: #181613;
+
+	/** 下拉物品包一层 */
+	.EOM_DropDownMenuItem
+	{
+		horizontal-align: center;
+
+		margin: 0px;
+		padding: 0px;
+		min-height: 26px;
+		border-image-source: url('file://{images}/custom_game/conv/common/conv_dropdown_list_select.png');
+
+		border-image-repeat: stretch;
+		background-color: none;
+		border-radius: 0px;
+		transition-duration: 0s;
+		padding: 2px;
+
+		&:hover
+		{
+			padding: 0px;
+			border-width: 2px 2px 2px 2px;
+			border-image-slice: 2px 2px 2px 2px;
+			background-color: #26221E;
+		}
+
+		Label
+		{
+			font-size: 18px;
+			color: #A39A7D;
+		}
+
+		.RadioBox
+		{
+			visibility: collapse;
+			width: 2px;
+			color: blue;
+			height: 70%;
+			vertical-align: center;
+		}
+	}
+
+}
