@@ -2,7 +2,7 @@
 
 ## 项目起点
 
-本项目从 `lonely_cannon` 的根提交 `4741a125753f53f4c6f8c58bbd1db28817c66f48`（框架清理）创建，当前完成项目名称与路径统一、Windows 含空格路径的构建修复及依赖安装，尚未迁移雅典娜玩法。
+本项目从 `lonely_cannon` 的根提交 `4741a125753f53f4c6f8c58bbd1db28817c66f48`（框架清理）创建，当前完成项目名称与路径统一、Windows 含空格路径的构建修复及依赖安装，并已复制雅典娜 KV 配置，尚未迁移雅典娜玩法代码。
 
 同时合入其后续提交 `83b467b9445f8c597e7b991a88cca8ef6f9f55e6`：清理 c1 残留的命令、文案与资源引用，恢复伤害数字粒子及贴图；其中的 addon 名称已适配为 `athena_tsbuild`。
 
@@ -15,6 +15,14 @@
 初始化已验证：VScripts 类型检查、Lua 输出构建和 Solid UI 首轮编译。一次性构建 VScripts 可运行 `node node_scripts/build-vscripts.js`；持续开发使用下文的现有脚本。
 
 继承的 Source 2 已编译资源保留原始依赖元数据，部分仍记录旧 addon 的源路径；后续在 Dota 工坊工具中重新编译资源时生成新元数据。本次未进行 Dota 实机运行验证。
+
+## 雅典娜 KV 配置
+
+配置复制自 `D:\Dota Addons\athena-reborn\game\athena_reborn\scripts`，保留原版 `npc/kv` 目录及 `#base` 引用：40 个 `.kv` 文件、6 个 NPC `.txt` 入口或列表，以及 `shops.txt`。
+
+后续直接编辑 `game/athena_tsbuild/scripts/npc/kv/**/*.kv`、`npc/*.txt` 和 `scripts/shops.txt`，不使用原版 Excel 导出流程。原版 `kv_js_config.txt` 属于旧 KV 转 JS 工具配置，未复制；本项目继续使用现有 Rollup KV 插件。
+
+`npc/npc_abilities_custom.txt` 额外引用 `npc/framework/abilities.kv`，保留新框架初始化所需的 `client_ability`。配置中的原版 `ScriptFile` 和资源路径保持原样，对应玩法脚本、资源及独立 gameplay 表的加载接入仍需后续迁移。本次只迁移配置，不代表玩法已能在新框架运行。
 
 
 基于 Solid.js 和 TypeScript 的 Dota 2 自定义游戏项目，使用现代化的前端技术栈开发 Panorama UI。

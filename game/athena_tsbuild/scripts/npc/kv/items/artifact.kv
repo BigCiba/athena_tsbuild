@@ -1,0 +1,142 @@
+"artifact"
+{
+	"item_chaos_plate"
+	{
+		"BaseClass"					"item_lua"
+		"ScriptFile"				"abilities/items/artifact/item_chaos_plate"
+		"AbilityTextureName"		"item_aeon_disk"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityCooldown"			"90"
+		"ItemCost"					"20000"
+		"ItemSellable"				"1"
+		"ItemPurchasable"			"0"
+		"ItemKillable"				"0"
+		"AbilityValues"
+		{
+			"interval"	"3"
+			"attribute"	"800"
+			"duration"	"10"
+			"damage_reduce"	"25"
+			"shield"	"30"
+			"health_bonus"	"20000"
+			"avoid_duration"	"5"
+		}
+		"ItemStockTime"	"0"
+	}
+
+	"item_world_editor"
+	{
+		"BaseClass"					"item_lua"
+		"ScriptFile"				"abilities/items/artifact/item_world_editor"
+		"AbilityTextureName"		"world_editor"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		"AbilityCooldown"			"90"
+		"ItemCost"					"20000"
+		"ItemSellable"				"1"
+		"ItemPurchasable"			"0"
+		"ItemKillable"				"0"
+		"AbilityValues"
+		{
+			"health"	"10"
+			"regen"	"10"
+			"duration"	"30"
+			"damage_deepen"	"50"
+			"attribute"	"800"
+			"radius"	"600"
+			"damage_reduce"	"25"
+			"health_bonus"	"60000"
+		}
+		"ItemStockTime"	"0"
+	}
+
+	"item_longinus_spear"
+	{
+		"BaseClass"					"item_lua"
+		"ScriptFile"				"abilities/items/artifact/item_longinus_spear"
+		"AbilityTextureName"		"longinus_spear"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_MAGICAL"
+		"AbilityCooldown"			"90"
+		"AbilityCastRange"			"600"
+		"ItemCost"					"20000"
+		"ItemSellable"				"1"
+		"ItemPurchasable"			"0"
+		"ItemKillable"				"0"
+		"precache"
+		{
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_monkey_king.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_elder_titan.vsndevts"
+			"soundfile"	"soundevents/game_sounds_heroes/game_sounds_mirana.vsndevts"
+			"particle"	"particles/econ/items/shadow_fiend/sf_desolation/sf_desolation_ambient_blade_energy.vpcf"
+		}
+		"AbilityValues"
+		{
+			"attribute"	"800"
+			"damage_percent"	"30"
+			"block_percent"	"20"
+			"magic_damage_increase"	"80"
+			"radius"	"400"
+			"trigger_percent"	"10"
+			"mana_bonus"	"60000"
+			"bonus_mana_regen_pct"	"15"
+			"stun_duration"	"2.25"
+		}
+	}
+
+	"item_mystletainn"
+	{
+		"BaseClass"					"item_lua"
+		"ScriptFile"				"abilities/items/artifact/item_mystletainn"
+		"AbilityTextureName"		"mystletainn"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"ItemCost"					"20000"
+		"ItemSellable"				"1"
+		"ItemPurchasable"			"0"
+		"ItemKillable"				"0"
+		"AbilityValues"
+		{
+			"interval"	"1"
+			"attribute"	"500"
+			"attack"	"4444"
+			"critical"	"100"
+			"absorb"	"2"
+			"attack_increase"	"44"
+			"attack_rate"	"0.5"
+			"critical_rate"	"10"
+			"duration"	"1"
+			"damage_deepen"	"100"
+		}
+	}
+	
+	"item_yata_mirror"
+	{
+		"BaseClass"					"item_lua"
+		"ScriptFile"				"abilities/items/artifact/item_yata_mirror"
+		"AbilityTextureName"		"item_yata_mirror"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityCooldown"			"15"
+		"ItemCost"					"20000"
+		"ItemSellable"				"1"
+		"ItemPurchasable"			"0"
+		"ItemKillable"				"0"
+		"AbilityValues"
+		{
+			"bonus_attribute"	"800"
+			"bonus_resistance"	"30"
+			"interval"	"3"
+			"duration"	"1"
+			"ability_critical_chance"	"25"
+			"ability_critical_damage"	"150"
+			"damage"	"150"
+		}
+	}
+}
