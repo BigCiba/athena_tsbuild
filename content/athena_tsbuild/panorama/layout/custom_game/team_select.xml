@@ -19,7 +19,7 @@
 					<Panel class="PlayerInfoBackgroundGradient" />
 					<Panel class="PlayerInfoCol">
 						<Panel class="CourierPanel">
-							<Image src="file://{images}/custom_game/courier/icons/courier_9.png" />
+							<Image src="file://{images}/custom_game/eom_design/icon/conv_worngmark.png" />
 						</Panel>
 						<Panel class="PlayerInfoRow">
 							<DOTAAvatarImage class="PlayerAvatar" accountid="128320546" />

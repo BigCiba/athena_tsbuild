@@ -92,6 +92,16 @@ class CBullet extends CModule {
 	private readonly CIRCLE_RADIUS = 10;
 	/** 环绕弹道重排最大角速度（度/秒），限制新弹道加入时已有弹道的追赶速度 */
 	private readonly MAX_REPOSITION_SPEED = 360;
+	/** 清除本局弹道；销毁时不触发再生成弹道的业务回调，保留常驻调度器。 */
+	reset(): void {
+		for (const bullet of Object.values(this.bulletList)) {
+			bullet.OnBulletDestroy = undefined;
+			this.DestroyBullet(bullet);
+		}
+		this.bulletList = {}; this.bulletCount = 0; this.spatialGrid = {};
+		this.surroundGroup = {}; this.pendingRemoval = []; this.temporaryBlocks = {};
+		for (const key of Object.keys(this.bulletsByType)) this.bulletsByType[Number(key) as BULLET_TYPE] = [];
+	}
 	init(bReload: boolean): void {
 		if (!bReload) {
 			this.bulletList = {};

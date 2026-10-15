@@ -17,6 +17,7 @@ if (IsServer()) {
 	require("base");
 	require("bullet");
 	require("damage_system/damage_counter");
+	require("damage_system/damage_system");
 } else {
 	// 客户端初始化
 }

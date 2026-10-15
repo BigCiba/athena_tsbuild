@@ -652,7 +652,14 @@ class MStateSystem extends CModule {
 		if (!unit) return;
 
 		const entIndex = unit.GetEntityIndex();
+		this.CleanupUnitStatesByIndex(entIndex);
+	}
+	/** 清理本局单位的状态与客户端快照，不影响地图常驻单位。 */
+	CleanupUnitStatesByIndex(entIndex: EntityIndex): void {
 		this.CleanupStorage(entIndex);
+		const prefix = `${entIndex}|`;
+		for (const key of Object.keys(StateData.dirtyKeys)) if (key.indexOf(prefix) === 0) delete StateData.dirtyKeys[key];
+		if (IsServer()) CustomNetTables.SetTableValue(this.NETTABLE_NAME, this.GetEntityKeyForNetTable(entIndex), {});
 	}
 
 	private CleanupStorage(key: StateSystemKey): void {
@@ -699,6 +706,7 @@ class MStateSystem extends CModule {
 
 	/** 重置系统 */
 	private ResetSystem(): void {
+		if (IsServer()) for (const key of CustomNetTables.GetAllTableKeys("state_system")) CustomNetTables.SetTableValue("state_system", key, {});
 		StateData.unitStorage = {};
 		StateData.dirtyKeys = {};
 		StateData.stats = {

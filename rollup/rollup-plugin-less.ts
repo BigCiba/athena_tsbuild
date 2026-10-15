@@ -5,13 +5,14 @@ import { readFile } from 'node:fs/promises';
 import path, { basename, dirname, extname, join } from 'node:path';
 import { Plugin, PluginContext } from 'rollup';
 import { getAllCacheCSS } from 'solid-panorama-all-in-jsx/css.macro';
-import { ensureDir, writeFileCache } from "./utils";
+import { PanoramaImageGuard } from './panorama-image-guard';
 
 export function rollupPluginLess(options: {
 	inputFiles: string[];
 	dir: string;
 	rootPath: string;
 	globalLessFiles?: string[];
+	imageGuard: PanoramaImageGuard;
 	resolvePath?: (path: string) => string | undefined;
 	resolveFilename?: (filename: string) => string | undefined;
 }): Plugin {
@@ -98,8 +99,7 @@ export function rollupPluginLess(options: {
 						return match.replace(name, `'${name}'`);
 					});
 
-					ensureDir(path.dirname(outPath));
-					writeFileCache(outPath, css);
+					options.imageGuard.write(outPath, options.imageGuard.css(css, outPath));
 				}
 			}
 
@@ -143,8 +143,7 @@ export function rollupPluginLess(options: {
 					return match.replace(name, `'${name}'`);
 				});
 
-				ensureDir(path.dirname(outPath));
-				writeFileCache(outPath, css);
+				options.imageGuard.write(outPath, options.imageGuard.css(css, outPath));
 			}
 		}
 	};

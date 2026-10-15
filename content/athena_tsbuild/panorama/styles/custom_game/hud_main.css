@@ -72,10 +72,363 @@
   margin-top: 10px;
   width: 168px;
   height: 100px;
-  background-image: url("file://{images}/custom_game/loading/logo_small_en.png");
+  background-image: none;
   background-size: 100%;
 }
 .Language_schinese #Logo,
 .Language_Schinese #Logo {
-  background-image: url("file://{images}/custom_game/loading/logo_small_cn.png");
+  background-image: none;
+}
+#AthenaSessionRoot {
+  width: 100%;
+  height: 100%;
+}
+.AthenaSessionCard {
+  horizontal-align: center;
+  vertical-align: center;
+  width: 850px;
+  padding: 28px;
+  flow-children: down;
+  background-color: #151b27f5;
+  border: 1px solid #a88c55;
+}
+.AthenaSessionCard Label {
+  color: #e5dfd2;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.AthenaSessionCard .AthenaTitle {
+  color: #eac985;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.AthenaSessionCard .AthenaError {
+  color: #ff9797;
+  white-space: normal;
+}
+.AthenaHeroes {
+  width: 100%;
+  flow-children: right-wrap;
+  margin-bottom: 20px;
+}
+.AthenaHeroes .EOM_Button {
+  margin: 4px;
+}
+.AthenaActions {
+  flow-children: right;
+  margin-top: 12px;
+}
+.AthenaActions .EOM_Button {
+  margin-right: 10px;
+}
+.AthenaVote {
+  flow-children: down;
+  margin-top: 16px;
+}
+.AthenaBattleBar {
+  horizontal-align: center;
+  margin-top: 65px;
+  padding: 12px 22px;
+  flow-children: down;
+  background-color: #151b27eb;
+}
+.AthenaBattleBar Label {
+  color: #e5dfd2;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+.EOM_BaseButton {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  transition-property: brightness, color;
+  transition-duration: 0.05s;
+  transition-timing-function: ease-in-out;
+}
+.EOM_BaseButton:not(:disabled):hover {
+  brightness: 2;
+}
+.EOM_BaseButton:not(:disabled):active {
+  brightness: 0.5;
+  sound: "ui_generic_button_click";
+}
+.EOM_BaseButton:disabled {
+  saturation: 0;
+  brightness: 0.5;
+}
+.EOM_Button {
+  width: 266px;
+  height: 64px;
+  padding: 10px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  transition-property: brightness, color, pre-transform-scale2d;
+  transition-duration: 0.1s, 0.1s, 0.1s;
+  transition-timing-function: ease-in-out;
+}
+.EOM_Button Label {
+  margin-bottom: 2px;
+  color: #FDEFC8;
+  font-size: 22px;
+  line-height: 24px;
+  letter-spacing: 2px;
+  align: center center;
+  text-align: center;
+  text-shadow: 0px 0px 5px 2 #000000;
+  transition-property: color, opacity;
+  transition-duration: 0.35s;
+  transition-timing-function: ease-in-out;
+}
+.EOM_Button:not(:disabled):hover {
+  brightness: 1;
+}
+.EOM_Button:not(:disabled):hover Label {
+  color: #FEF5DA;
+}
+.EOM_Button:not(:disabled):active {
+  brightness: 1;
+  pre-transform-scale2d: 0.9;
+}
+.EOM_Button:not(:disabled):active Label {
+  color: #FEF5DA;
+}
+.EOM_Button:disabled {
+  saturation: 1;
+  brightness: 1;
+  cursor: not-allowed;
+}
+.EOM_Button:disabled Label {
+  color: #9C9C9C;
+}
+.EOM_Button.color-Red {
+  background-image: url("file://{images}/custom_game/eom_design/button/btn_red.png");
+}
+.EOM_Button.color-Green {
+  background-image: none;
+  background-size: 100%, 0%;
+}
+.EOM_Button.color-Green:not(:disabled):hover {
+  background-size: 0%, 100%;
+}
+.EOM_Button.color-Purple {
+  background-image: url("file://{images}/custom_game/eom_design/button/btn_purple.png");
+}
+.EOM_Button.color-Gray {
+  background-image: none;
+  background-size: 100%, 0%;
+}
+.EOM_Button.color-Gray:not(:disabled):hover {
+  background-size: 0%, 100%;
+}
+.EOM_Button.color-Gold {
+  background-image: none;
+  background-size: 100%, 0%;
+}
+.EOM_Button.color-Gold:not(:disabled):hover {
+  background-size: 0%, 100%;
+}
+.EOM_Button.color-Blue {
+  background-image: url("file://{images}/custom_game/eom_design/button/btn_blue.png");
+}
+.EOM_Button.color-Confirm {
+  background-image: none;
+  background-size: 100%, 0%;
+}
+.EOM_Button.color-Confirm:not(:disabled):hover {
+  background-size: 0%, 100%;
+}
+.EOM_Button.color-Cancel {
+  background-image: none;
+  background-size: 100%, 0%;
+}
+.EOM_Button.color-Cancel:not(:disabled):hover {
+  background-size: 0%, 100%;
+}
+.EOM_Button.size-Small {
+  width: 154px;
+  height: 44px;
+  padding: 1px 5px 0px 5px;
+  background-image: none;
+}
+.EOM_Button.size-Small:disabled {
+  background-image: none;
+}
+.EOM_Button.size-Small:not(:disabled):hover {
+  background-image: none;
+  brightness: 1.2;
+  background-size: 100%;
+}
+.EOM_Button.size-Small Label {
+  font-size: 18px;
+  text-overflow: shrink;
+}
+.EOM_Button.size-Large {
+  ui-scale: 120%;
+}
+.EOM_Button .EOM_Button_Content {
+  align: center center;
+  flow-children: right;
+}
+.EOM_Button .EOM_Button_Content > Image {
+  margin: 0px 4px;
+  background-size: 100%;
+  vertical-align: center;
+}
+.EOM_Button.Loading .EOM_Button_LoadingIcon {
+  width: 24px;
+  height: 24px;
+  background-image: url("s2r://panorama/images/control_icons/party_finder_icon_03_png.vtex");
+  background-size: 100%;
+  animation-name: SpinnerRotate;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: reverse;
+}
+.EOM_Button.Loading_Refresh .EOM_Button_LoadingIcon {
+  background-image: url("s2r://panorama/images/control_icons/refresh_psd.vtex");
+}
+.EOM_CloseButton {
+  width: 50px;
+  height: 48px;
+  background-image: none;
+  background-size: 100%;
+}
+.CustomHudRoot {
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+}
+.AspectRatio16x10 .CustomHudRoot {
+  width: 100%;
+  height: width-percentage(900/16%);
+  ui-scale: 90%;
+}
+.AspectRatio4x3 .CustomHudRoot {
+  width: 100%;
+  height: width-percentage(900/16%);
+  ui-scale: 75%;
+}
+.hud_main {
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: 0.5s;
+}
+.hud_main.DungeonLoading {
+  transition-delay: 1s;
+  opacity: 0;
+}
+.hud_main.Arena {
+  opacity: 0;
+}
+.HUDMainHover {
+  transition-property: brightness, transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in-out;
+}
+.HUDMainHover:hover {
+  brightness: 1.4;
+}
+.Fishing #BottomBar {
+  opacity: 0;
+}
+.Fishing #LeftBar {
+  opacity: 0;
+}
+.Fishing #RightBar {
+  opacity: 0;
+}
+.Explore #BottomBar {
+  opacity: 0;
+}
+.Explore #LeftBar #ArtifactList {
+  opacity: 0;
+  visibility: collapse;
+}
+.Explore #LeftBar #UpgradeList {
+  opacity: 0;
+  visibility: collapse;
+}
+.Explore #RightBar #BackpackBtn {
+  opacity: 0;
+  visibility: collapse;
+}
+.Explore #RightBar #PlayerList {
+  opacity: 0;
+  visibility: collapse;
+}
+#Version {
+  align: right bottom;
+  font-size: 14px;
+  brightness: 0.2;
+}
+#Logo {
+  horizontal-align: right;
+  margin-right: 240px;
+  margin-top: 10px;
+  width: 168px;
+  height: 100px;
+  background-image: none;
+  background-size: 100%;
+}
+.Language_schinese #Logo,
+.Language_Schinese #Logo {
+  background-image: none;
+}
+#AthenaSessionRoot {
+  width: 100%;
+  height: 100%;
+}
+.AthenaSessionCard {
+  horizontal-align: center;
+  vertical-align: center;
+  width: 850px;
+  padding: 28px;
+  flow-children: down;
+  background-color: #151b27f5;
+  border: 1px solid #a88c55;
+}
+.AthenaSessionCard Label {
+  color: #e5dfd2;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.AthenaSessionCard .AthenaTitle {
+  color: #eac985;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.AthenaSessionCard .AthenaError {
+  color: #ff9797;
+  white-space: normal;
+}
+.AthenaHeroes {
+  width: 100%;
+  flow-children: right-wrap;
+  margin-bottom: 20px;
+}
+.AthenaHeroes .EOM_Button {
+  margin: 4px;
+}
+.AthenaActions {
+  flow-children: right;
+  margin-top: 12px;
+}
+.AthenaActions .EOM_Button {
+  margin-right: 10px;
+}
+.AthenaVote {
+  flow-children: down;
+  margin-top: 16px;
+}
+.AthenaBattleBar {
+  horizontal-align: center;
+  margin-top: 65px;
+  padding: 12px 22px;
+  flow-children: down;
+  background-color: #151b27eb;
+}
+.AthenaBattleBar Label {
+  color: #e5dfd2;
+  font-size: 20px;
+  margin-bottom: 8px;
 }

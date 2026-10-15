@@ -1,5 +1,3 @@
-import { DropItem } from "./class/drop_item";
-import { ShopItem } from "./class/shop_item";
 import { reloadable } from "./lib/tstl-utils";
 
 @reloadable
@@ -28,7 +26,10 @@ class MGame extends CModule {
 
 		if (!reload) {
 			if (IsServer()) {
-				_G.MODIFIER_EVENTS_DUMMY = CreateModifierThinker((!IsDedicatedServer() ? GameRules.GetGameModeEntity() as unknown as CDOTA_BaseNPC : undefined), undefined, "modifier_events", undefined, Vector(0, 0, 0), DOTATeam_t.DOTA_TEAM_NOTEAM, false);
+				// 精简框架没有旧版 modifier_events；内置 modifier 仍可创建通信载体。
+				_G.MODIFIER_EVENTS_DUMMY = CreateModifierThinker(undefined, undefined, (_G as AnyTable).modifier_events !== undefined ? "modifier_events" : "modifier_invulnerable", undefined, Vector(0, 0, 0), DOTATeam_t.DOTA_TEAM_NOTEAM, false);
+				if (!IsValid(MODIFIER_EVENTS_DUMMY)) { this.error("通信载体创建失败"); return; }
+				_G.RECORD_SYSTEM_DUMMY = MODIFIER_EVENTS_DUMMY;
 				// _G.RECORD_SYSTEM_DUMMY = CreateModifierThinker((!IsDedicatedServer() ? GameRules.GetGameModeEntity() as unknown as CDOTA_BaseNPC : undefined), undefined, "modifier_record_system_dummy", undefined, Vector(0, 0, 0), DOTATeam_t.DOTA_TEAM_NOTEAM, false);
 				_G.CLIENT_ABILITY = MODIFIER_EVENTS_DUMMY.AddAbility("client_ability");
 				if (IsValid(CLIENT_ABILITY)) {
@@ -155,6 +156,12 @@ class MGame extends CModule {
 	GetGameResult() {
 		return this._gameSuccess;
 	}
+	/** 只重置局内标记与暂停冷却，保留登录及账号模块。 */
+	ResetRunState() {
+		this._gameSuccess = false;
+		this.tPlayerLastPauseTime = {}; this.tPlayerLastUnPauseTime = {};
+		if (this._isPause || GameRules.IsGamePaused()) this.Pause(false);
+	}
 
 	private OnNPCSpawned(tEvents: EventProperties<NpcSpawnedEvent>) {
 		let spawnedUnit = EntIndexToHScript<CDOTA_BaseNPC>(tEvents.entindex);
@@ -166,13 +173,13 @@ class MGame extends CModule {
 		}
 
 		if (spawnedUnit.GetUnitName() != "npc_dota_thinker") {
-			if (!spawnedUnit.HasModifier("modifier_common")) {
+			if ((_G as AnyTable).modifier_common !== undefined && !spawnedUnit.HasModifier("modifier_common")) {
 				spawnedUnit.AddNewModifier(spawnedUnit, undefined, "modifier_common", undefined);
 			}
-			if (spawnedUnit.IsRealHero() && !spawnedUnit.HasModifier("modifier_hero")) {
+			if ((_G as AnyTable).modifier_hero !== undefined && spawnedUnit.IsRealHero() && !spawnedUnit.HasModifier("modifier_hero")) {
 				spawnedUnit.AddNewModifier(spawnedUnit, undefined, "modifier_hero", undefined);
 			}
-			if (spawnedUnit.IsRealHero() && !spawnedUnit.HasModifier("modifier_bless_set")) {
+			if ((_G as AnyTable).modifier_bless_set !== undefined && spawnedUnit.IsRealHero() && !spawnedUnit.HasModifier("modifier_bless_set")) {
 				spawnedUnit.AddNewModifier(spawnedUnit, undefined, "modifier_bless_set", undefined);
 			}
 		}
@@ -287,8 +294,8 @@ class MGame extends CModule {
 		}
 		// 准备阶段
 		if (state == DOTA_GameState.DOTA_GAMERULES_STATE_PRE_GAME) {
-			DropItem.Prewarm();
-			ShopItem.Prewarm();
+			// DropItem.Prewarm();
+			// ShopItem.Prewarm();
 		}
 		// 游戏开始
 		if (state == DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) {
@@ -296,6 +303,7 @@ class MGame extends CModule {
 		}
 	}
 	private OnCustomTogglePause(tEvents: UIEventProperties<"CustomTogglePause">) {
+		if (GameState.GetStateName() !== "GameState_Battle" && !this._isPause) return;
 		this.print("CustomTogglePause", tEvents);
 		let playerID = tEvents.PlayerID;
 		// 多人游戏下的暂停、解除暂停有CD，单人无限制

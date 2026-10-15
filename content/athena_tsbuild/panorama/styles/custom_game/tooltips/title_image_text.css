@@ -52,7 +52,7 @@
 #TitleImageText #TooltipSpecialEffectsImagePanel #TooltipSpecialEffectsFrame {
   width: 200px;
   height: 200px;
-  background-image: url("file://{images}/custom_game/cosmetic/specialeffects_frame.png");
+  background-image: none;
   background-size: 100%;
   z-index: 0;
 }
@@ -61,7 +61,7 @@
   height: 200px;
   margin: 0px;
   horizontal-align: center;
-  opacity-mask: url("file://{images}/custom_game/cosmetic/specialeffects_mask.png");
+  opacity-mask: none;
   z-index: 1;
 }
 #TitleImageText #TooltipDesc {

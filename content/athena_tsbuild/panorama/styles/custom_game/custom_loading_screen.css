@@ -1,19 +1,19 @@
 .LoadingRoot {
-  background-image: url("file://{images}/custom_game/loading/l_bg.png");
+  background-image: none;
   background-size: 2520px 1200px;
   background-position: center center;
 }
 .Logo {
   width: 455px;
   height: 514px;
-  background-image: url("file://{images}/custom_game/loading/l_logo.png");
+  background-image: none;
   background-size: 100%;
   margin-top: 40px;
   margin-left: 80px;
   z-index: 100;
 }
 #CompanyLogo {
-  background-image: url("file://{images}/custom_game/loading/loading_company_english.png");
+  background-image: none;
   /* background-image: url("file://{images}/custom_game/loading/loading_company.png"); */
   background-size: 100%;
   width: 277px;
@@ -25,7 +25,7 @@
 .Schinese #CompanyLogo {
   width: 228px;
   height: 53px;
-  background-image: url("file://{images}/custom_game/loading/loading_company.png");
+  background-image: none;
 }
 @keyframes 'FadeIn' {
   0% {

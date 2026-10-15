@@ -2,7 +2,7 @@
 
 ## 项目起点
 
-本项目从 `lonely_cannon` 的根提交 `4741a125753f53f4c6f8c58bbd1db28817c66f48`（框架清理）创建，当前完成项目名称与路径统一、Windows 含空格路径的构建修复及依赖安装，并已复制雅典娜 KV 配置和地图，尚未迁移雅典娜玩法代码。
+本项目从 `lonely_cannon` 的根提交 `4741a125753f53f4c6f8c58bbd1db28817c66f48`（框架清理）创建，已统一项目名称与路径、复制雅典娜 KV 和地图，并接入可重复开局的生命周期及基础波次调度。原版技能、AI、掉落与奖励等玩法仍需继续迁移。
 
 同时合入其后续提交 `83b467b9445f8c597e7b991a88cca8ef6f9f55e6`：清理 c1 残留的命令、文案与资源引用，恢复伤害数字粒子及贴图；其中的 addon 名称已适配为 `athena_tsbuild`。
 
@@ -11,6 +11,14 @@
 - 服务端源码：`content/athena_tsbuild/scripts/vscripts`
 - Lua 输出：`game/athena_tsbuild/scripts/vscripts`
 - Panorama 源码：`src`
+
+UI 输出沿用入口原名，例如 `hud_demo.xml`、`hud_demo.js`、`hud_demo.css`。HUD、FlyoutScoreboard 和其他 UI 资源的文件名不附加项目名，`custom_ui_manifest.xml` 直接引用对应 XML 原名。
+
+UI 图片检查覆盖全局/组件 CSS、XML 静态 `Image` 和内联样式。`pnpm run dev:solid` 持续监听，`pnpm run build:solid:dev` 一次性开发构建：缺失的自定义图片在产物中降级为 `none` 或现有的红叉占位图，检查器不改原始 LESS/XML；补齐图片后监听会自动恢复引用。检查同时识别 `file://{images}/custom_game/`、`file://{resources}/images/custom_game/` 和自定义 `s2r://` 纹理，以及源码图片或已有编译纹理。只有编译纹理时会规范化为 `s2r://` 引用。Dota 内置图片不按项目本地文件校验；内置图片应使用有效的引擎资源 URI，避免引用游戏未提供的原始 PNG。
+
+复合图片声明缺少任意资源时整条降级为单个 `none`，资源完整的多重背景保持不变。不要逐张生成 `none, none` 或 `url(...), none`：资源编译器可能放行，但 Panorama 运行时会拒绝这种属性值。
+
+`pnpm run build:solid` 为严格构建，缺图时退出失败并保留上次可用的 XML/CSS。完整缺图清单位于 `node_modules/.cache/panorama/missing-images.json`，包含生成文件、行号、原始 URL 和降级方式。`pnpm run test:ui-assets` 验证资源判断、降级、严格模式和补图后的自动恢复。修改 Rollup 编译器代码后需重新启动 UI 监听。
 
 初始化已验证：VScripts 类型检查、Lua 输出构建和 Solid UI 首轮编译。一次性构建 VScripts 可运行 `node node_scripts/build-vscripts.js`；持续开发使用下文的现有脚本。
 
@@ -22,7 +30,7 @@
 
 后续直接编辑 `game/athena_tsbuild/scripts/npc/kv/**/*.kv`、`npc/*.txt` 和 `scripts/shops.txt`，不使用原版 Excel 导出流程。原版 `kv_js_config.txt` 属于旧 KV 转 JS 工具配置，未复制；本项目继续使用现有 Rollup KV 插件。
 
-`npc/npc_abilities_custom.txt` 额外引用 `npc/framework/abilities.kv`，保留新框架初始化所需的 `client_ability`。配置中的原版 `ScriptFile` 和资源路径保持原样，对应玩法脚本、资源及独立 gameplay 表的加载接入仍需后续迁移。本次只迁移配置，不代表玩法已能在新框架运行。
+`npc/npc_abilities_custom.txt` 额外引用 `npc/framework/abilities.kv`，保留新框架初始化所需的 `client_ability`。配置中的原版 `ScriptFile` 和资源路径保持原样；技能脚本、其他资源及剩余 gameplay 表仍需逐步迁移，复制配置不代表全量玩法完成。
 
 ## 雅典娜地图
 
@@ -34,6 +42,25 @@
 基于 Solid.js 和 TypeScript 的 Dota 2 自定义游戏项目，使用现代化的前端技术栈开发 Panorama UI。
 
 ## 🚀 快速开始
+
+### 重复开局流程
+
+会话启动一次 `CModule.initialize()`，等待登录完成及引擎进入运行阶段后执行：
+
+`Login → Prepare → DiffSelection → RunInit → Battle → Settle → Reset → Prepare ...`
+
+- `Prepare`：选择英雄并准备，solo 需要本人准备，team 需要当前在线玩家全部准备；进入难度阶段即锁定本局参战名单，中途加入者下一局再参与。
+- `DiffSelection`：15 秒选择 1–5 难度，未选择默认 2，多数票决定，同票取较低值。
+- `RunInit`：新建英雄和雅典娜基地，按 KV 初始化基础生命、攻击、魔法与护甲；初始金币沿用原版 300/200/100/0/0。初始化失败进入错误结算。
+- `Battle`：按 `npc/kv/gameplay/round.kv` 与 `spawner_group.kv` 执行普通波次，内部循环备战、刷怪和波次结束；当前基础适配器命令怪物攻击基地。原版英雄技能、特殊刷怪、成长、掉落、奖励及难度数值缩放尚未迁移。
+- `Settle`：基地死亡、最终首领死亡、全部波次完成或确认放弃，冻结本局结果并发送一次 `game_end`，不调用 `SetGameWinner` 终止承载会话。未接入真实奖励或后端结算，不会虚构发奖成功。
+- `Reset`：停止旧阶段资源，释放本局实体、弹道和注册的释放函数，清空局内属性/状态/升级/统计数据与网表，替换为待命英雄并重建单位索引。保留登录与账号数据；清理失败留在本阶段，玩家可以重试。
+
+放弃和再开需要当前在线参战玩家全部确认，投票使用不受暂停影响的 30 秒时限；拒绝、超时或投票成员掉线会取消。重开仍在当前 solo/team 地图内；阶段操作携带 `run_id` 和 `state_version`，旧局请求失效。暂停只在战斗阶段开启，结算时解除暂停。
+
+代码接口：`class/run_session.ts` 管理纯规则，`framework/game_state.ts` 管理转换与请求校验，`mechanics/athena_run_world.ts` 管理世界资源，`class/round_runner.ts` 管理波次。新增阶段的计时器、引擎事件和内部事件应通过 `CGameStateBase.StartThink/Listen/Register` 持有；异步创建单位使用 `GameState.GetWorld().TrackUnit(unit, runId)`，掉落/粒子等资源用 `Own(runId, cleanup)` 绑定幂等释放函数。不要通过重复初始化模块或全局 `CModule.reset()` 重开。以后接入后端时，对局键需包含引擎会话标识与 `run_id`，正常结束和主动放弃都应通过同一终局入口结算。
+
+运行 `pnpm run test:session` 验证规则、实际控制器/阶段和世界适配器在虚拟引擎中的行为；它不替代 Dota 实机验收。工坊工具模式可用 `athena_run_result victory` / `athena_run_result defeat` 手动结束当前战斗验证重开，不在正式环境注册这些命令。Dota 验收需分别验证 solo/team 连续三局、基地死亡、断线投票、属性同步和原版资源缺失情况。
 
 ### 前置要求
 

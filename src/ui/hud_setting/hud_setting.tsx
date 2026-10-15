@@ -153,7 +153,10 @@ function Setting() {
 				<Panel class="Separator" />
 				<ExchangeEntry />
 
-				<EOM_Button enabled={gameState()?.state == "GameState_Dungeon"} text="#Setting_GiveUp" align="right bottom" onactivate={self => GameEvents.SendCustomEventToServer("restart_game", {})} />
+				<EOM_Button enabled={gameState()?.state == "GameState_Battle"} text="#Setting_GiveUp" align="right bottom" onactivate={() => {
+					const snapshot = gameState();
+					if (snapshot?.run_id !== undefined && snapshot.state_version !== undefined) GameEvents.SendCustomEventToServer("athena_game_action", { action: "abandon", run_id: snapshot.run_id, state_version: snapshot.state_version });
+				}} />
 			</Panel>
 		</Panel>
 	</EOM_Popup>;

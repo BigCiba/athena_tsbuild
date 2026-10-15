@@ -39,12 +39,12 @@
   color: #E0CA7E;
   text-align: center;
   line-height: 30px;
-  background-image: url("file://{images}/custom_game/conv/popup/popup_board_title.png");
+  background-image: none;
   background-size: 100%;
 }
 #Setting .EOM_PopupBG {
   background-position: center top;
-  background-image: url("file://{images}/custom_game/s2_settings/s2_popup.png");
+  background-image: none;
   background-size: 100%;
 }
 #Setting .EOM_PopupContent {
@@ -65,7 +65,7 @@
   height: 2px;
   margin-top: 6px;
   margin-bottom: 8px;
-  background-image: url("file://{images}/custom_game/s2_settings/s2_line_divider.png");
+  background-image: none;
   background-size: 100%;
 }
 #Setting .SettingColumn .SectionHeader {
@@ -149,7 +149,7 @@
   vertical-align: center;
   width: 154px;
   height: 44px;
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
   background-size: 100%;
   horizontal-align: right;
   transition-property: box-shadow, background-color;
@@ -358,7 +358,7 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_red.png");
 }
 .EOM_Button.color-Green {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_green_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_green_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Green:not(:disabled):hover {
@@ -368,14 +368,14 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_purple.png");
 }
 .EOM_Button.color-Gray {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_disabled_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_disabled_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Gray:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .EOM_Button.color-Gold {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_yellow_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_yellow_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Gold:not(:disabled):hover {
@@ -385,14 +385,14 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_blue.png");
 }
 .EOM_Button.color-Confirm {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_brown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_brown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Confirm:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .EOM_Button.color-Cancel {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Cancel:not(:disabled):hover {
@@ -402,13 +402,13 @@
   width: 154px;
   height: 44px;
   padding: 1px 5px 0px 5px;
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
 }
 .EOM_Button.size-Small:disabled {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small_disabled.png");
+  background-image: none;
 }
 .EOM_Button.size-Small:not(:disabled):hover {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
   brightness: 1.2;
   background-size: 100%;
 }
@@ -445,7 +445,7 @@
 .EOM_CloseButton {
   width: 50px;
   height: 48px;
-  background-image: url("file://{images}/custom_game/conv/top_navigation/conv_btn_close.png");
+  background-image: none;
   background-size: 100%;
 }
 .AspectRatio4x3 .EOM_PopupMain.large {
@@ -511,19 +511,19 @@
   height: 100%;
 }
 .small.EOM_PopupMain .EOM_PopupBG {
-  background-image: url("file://{images}/custom_game/conv/popup/popup_small.png");
+  background-image: none;
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
 }
 .normal.EOM_PopupMain .EOM_PopupBG {
-  background-image: url("file://{images}/custom_game/conv/popup/popup_middle.png");
+  background-image: none;
   background-size: 100% 602px;
   background-position: center top 23px;
   background-repeat: no-repeat;
 }
 .large.EOM_PopupMain .EOM_PopupBG {
-  background-image: url("file://{images}/custom_game/conv/popup/popup_big.png");
+  background-image: none;
   background-size: 1362px 804px;
   background-position: center top 23px;
   background-repeat: no-repeat;
@@ -537,7 +537,7 @@
   font-weight: normal;
   color: #e1cb7e;
   text-shadow: 0px 0px 3px 3 rgba(0, 0, 0, 0.5);
-  background-image: url("file://{images}/custom_game/conv/popup/popup_title.png");
+  background-image: none;
   background-size: 408px 66px;
   background-position: center;
   background-repeat: no-repeat;
@@ -549,7 +549,7 @@
   padding-top: 5px;
   font-size: 22px;
   color: #D0CA95;
-  background-image: url("file://{images}/custom_game/conv/popup/popup_board_title.png");
+  background-image: none;
   background-size: 592px 34px;
   background-position: center top;
 }
@@ -633,7 +633,7 @@
 .EOM_GamePad .EOM_GamePadTextBorder {
   width: 100%;
   height: 100%;
-  border-image-source: url("file://{images}/custom_game/hud/h_key_bg.png");
+  border-image-source: none;
   border-width: 24px 5px 0px 5px;
   border-image-slice: 100% 5px 0px 5px;
   border-image-repeat: stretch;
@@ -698,127 +698,127 @@
   height: 40px;
 }
 .EOM_GamePad.Key-joy1 .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/joy1.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-joy2 .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/joy2.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-joy3 .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/joy3.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-joy4 .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/joy4.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-joy5 .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/joy5.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-joy6 .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/joy6.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-joy7 .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/joy7.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-joy8 .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/joy8.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-joy9 .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/joy9.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-joy10 .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/joy10.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-z_axis_pos .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/z_axis_pos.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-v_axis_pos .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/v_axis_pos.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-home .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/btn_home.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-menu .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/btn_menu.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-select .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/btn_select.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-start .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/btn_start.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-view .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/btn_view.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-pov_left .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/pov_left.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-pov_right .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/pov_right.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-pov_up .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/pov_up.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
 }
 .EOM_GamePad.Key-pov_down .EOM_GamePadIcon {
-  background-image: url("file://{images}/custom_game/conv/gamepad/pov_down.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
@@ -827,7 +827,7 @@
 .EOM_GamePad.Key-x_axis_pos .EOM_GamePadStick,
 .EOM_GamePad.Key-y_axis_neg .EOM_GamePadStick,
 .EOM_GamePad.Key-y_axis_pos .EOM_GamePadStick {
-  background-image: url("file://{images}/custom_game/conv/gamepad/left_stick.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
@@ -836,7 +836,7 @@
 .EOM_GamePad.Key-r_axis_pos .EOM_GamePadStick,
 .EOM_GamePad.Key-u_axis_neg .EOM_GamePadStick,
 .EOM_GamePad.Key-u_axis_pos .EOM_GamePadStick {
-  background-image: url("file://{images}/custom_game/conv/gamepad/right_stick.png");
+  background-image: none;
   background-size: 120%;
   background-position: center center;
   background-repeat: no-repeat;
@@ -986,7 +986,7 @@
   background-color: none;
   border-color: none;
   wash-color: none;
-  border-image-source: url('file://{images}/custom_game/conv/common/conv_dropdown_list.png');
+  border-image-source: none;
   border-width: 5px 5px 5px 5px;
   border-image-slice: 5px 5px 5px 5px;
   border-image-repeat: stretch;
@@ -1007,7 +1007,7 @@
 }
 .EOM_DropDown.EquipmentDropDown #EOM_DropDown_arrow {
   align: right center;
-  background-image: url("file://{images}/custom_game/conv/common/conv_arrow.png");
+  background-image: none;
   width: 18px;
   height: 14px;
   transform: rotateX(-180deg);
@@ -1021,7 +1021,7 @@
   transition-property: background-color, max-height;
   transition-duration: 0.15s;
   transition-timing-function: ease-in-out;
-  border-image-source: url('file://{images}/custom_game/conv/common/conv_dropdown_list.png');
+  border-image-source: none;
   border-width: 5px 5px 5px 5px;
   border-image-slice: 5px 5px 5px 5px;
   border-image-repeat: stretch;
@@ -1033,7 +1033,7 @@
   margin: 0px;
   padding: 0px;
   min-height: 26px;
-  border-image-source: url('file://{images}/custom_game/conv/common/conv_dropdown_list_select.png');
+  border-image-source: none;
   border-image-repeat: stretch;
   background-color: none;
   border-radius: 0px;
@@ -1065,11 +1065,11 @@
   height: 100%;
   horizontal-align: center;
   vertical-align: middle;
-  background-image: url("file://{images}/custom_game/conv/tag/tag_prompt_light.png");
+  background-image: none;
   background-size: 100%;
 }
 .EOM_RedMark.Type-exclamation .EOM_RedMark-Dot {
-  background-image: url("file://{images}/custom_game/conv/tag/tag_prompt_light_01.png");
+  background-image: none;
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -1097,7 +1097,7 @@
   overflow: noclip;
 }
 .EOM_RedMark.Type-new .EOM_RedMark-Dot {
-  background-image: url("file://{images}/custom_game/conv/tag/conv_tag_new_02.png");
+  background-image: none;
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -1190,7 +1190,7 @@
 .EOM_MenuLayout #TopBottomBG {
   width: 100%;
   height: 86px;
-  background-image: url("file://{images}/custom_game/conv/top_navigation/conv_panel_1.png");
+  background-image: none;
   background-size: 100%;
   z-index: 1;
 }
@@ -1250,7 +1250,7 @@
   height: 895px;
   margin-top: 169px;
   margin-left: 0px;
-  background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_line.png");
+  background-image: none;
   background-size: 2px 618px;
   background-position: left 42px top 0px;
   background-repeat: no-repeat;
@@ -1267,7 +1267,7 @@
   height: 38px;
   vertical-align: center;
   ui-scale: 60%;
-  background-image: url("file://{images}/custom_game/conv/tag/tag_lock.png");
+  background-image: none;
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -1294,11 +1294,11 @@
 .EOM_MenuLayout_Menu .TabButton.Selected,
 .EOM_MenuLayout_Menu .TabButton:selected {
   sound: "UI.TabButton";
-  background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_btn_select.png");
+  background-image: none;
 }
 .EOM_MenuLayout_Menu .TabButton.Selected .TabBackgroundArrow,
 .EOM_MenuLayout_Menu .TabButton:selected .TabBackgroundArrow {
-  background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_arrow_1.png");
+  background-image: none;
   transform: rotateZ(0deg);
 }
 .EOM_MenuLayout_Menu .TabButton.Selected .TabLabel,
@@ -1343,7 +1343,7 @@
   width: 36px;
   height: 28px;
   vertical-align: center;
-  background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_arrow_0.png");
+  background-image: none;
   background-position: center;
   transform: rotateZ(180deg);
   background-repeat: no-repeat;
@@ -1445,7 +1445,7 @@
 .EOM_MenuLayout_Menu .SecondaryContainer .SecondaryMenuButton.Selected,
 .EOM_MenuLayout_Menu .SecondaryContainer .SecondaryMenuButton:selected {
   sound: "ui_find_match_change_options";
-  background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_btn_select2.png");
+  background-image: none;
   background-size: 100%;
 }
 .EOM_MenuLayout_Menu .SecondaryContainer .SecondaryMenuButton:hover .SecondaryBackgroundActive,
@@ -1481,7 +1481,7 @@
 .EOM_MenuLayout_ShadowBoder {
   width: 600px;
   height: 100%;
-  background-image: url("file://{images}/custom_game/conv/common/mask_01.png"), url("file://{images}/custom_game/conv/common/mask_01.png");
+  background-image: none;
   wash-color: #000000;
   background-img-opacity: 0.9, 0.2;
   background-size: 100%, 280px 100%;
@@ -1502,18 +1502,18 @@
   width: 100%;
   height: 30px;
   vertical-align: center;
-  background-image: url("file://{images}/custom_game/conv/top_navigation/conv_bar_currency.png");
+  background-image: none;
   background-size: 100%;
 }
 .EOM_Currency.type_popup #Background {
-  background-image: url("file://{images}/custom_game/s1_shop/s1_bar_currency.png");
+  background-image: none;
 }
 .EOM_Currency .EOM_CurrencyRecharge {
   align: right center;
   width: 26px;
   height: 26px;
   margin-right: 19px;
-  background-image: url("file://{images}/custom_game/conv/top_navigation/conv_bar_currency_add.png");
+  background-image: none;
   background-size: 100%;
 }
 .EOM_Currency .EOM_CurrencyLabelContainer {
@@ -1585,7 +1585,7 @@
 .ExchangeEntry #ExchangeTextEntry {
   width: 200px;
   height: 32px;
-  background-image: url("file://{images}/custom_game/store/s_panel_Redeem.png");
+  background-image: none;
   background-size: 100%;
   vertical-align: center;
 }
@@ -1595,7 +1595,7 @@
   font-size: 16px;
 }
 .ExchangeEntry #ExchangeBTN {
-  background-image: url("file://{images}/custom_game/e1_equipment/e1_btn_attribute.png");
+  background-image: none;
   background-size: 100%;
   height: 44px;
   width: 44px;

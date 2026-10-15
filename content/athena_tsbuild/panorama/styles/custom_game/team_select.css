@@ -106,7 +106,7 @@
   width: 100%;
   vertical-align: center;
   flow-children: down;
-  background-image: url("s2r://panorama/images/custom_game/e3_end/e3_frame_06_png.vtex");
+  background-image: none;
   background-size: 100%;
   /* visibility: collapse; */
 }
@@ -518,7 +518,7 @@ DOTAAvatarImage {
   width: 32px;
   height: 32px;
   /* opacity: 0.7; */
-  background-image: url("s2r://panorama/images/custom_game/empty_slot_avatar_png.vtex");
+  background-image: none;
   background-size: 32px 32px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -618,7 +618,7 @@ DOTAAvatarImage {
   color: #9C9C9C;
 }
 .CustomPlayButton.color-Green {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_green_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_green_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .CustomPlayButton.color-Green:not(:disabled):hover {
@@ -628,14 +628,14 @@ DOTAAvatarImage {
   background-image: url("file://{images}/custom_game/eom_design/button/btn_purple.png");
 }
 .CustomPlayButton.color-Gray {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_disabled_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_disabled_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .CustomPlayButton.color-Gray:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .CustomPlayButton.color-Gold {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_yellow_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_yellow_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .CustomPlayButton.color-Gold:not(:disabled):hover {
@@ -645,14 +645,14 @@ DOTAAvatarImage {
   background-image: url("file://{images}/custom_game/eom_design/button/btn_blue.png");
 }
 .CustomPlayButton.color-Confirm {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_brown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_brown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .CustomPlayButton.color-Confirm:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .CustomPlayButton.color-Cancel {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .CustomPlayButton.color-Cancel:not(:disabled):hover {

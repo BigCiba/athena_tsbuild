@@ -82,7 +82,7 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_red.png");
 }
 .EOM_Button.color-Green {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_green_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_green_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Green:not(:disabled):hover {
@@ -92,14 +92,14 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_purple.png");
 }
 .EOM_Button.color-Gray {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_disabled_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_disabled_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Gray:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .EOM_Button.color-Gold {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_yellow_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_yellow_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Gold:not(:disabled):hover {
@@ -109,14 +109,14 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_blue.png");
 }
 .EOM_Button.color-Confirm {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_brown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_brown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Confirm:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .EOM_Button.color-Cancel {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Cancel:not(:disabled):hover {
@@ -126,13 +126,13 @@
   width: 154px;
   height: 44px;
   padding: 1px 5px 0px 5px;
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
 }
 .EOM_Button.size-Small:disabled {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small_disabled.png");
+  background-image: none;
 }
 .EOM_Button.size-Small:not(:disabled):hover {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
   brightness: 1.2;
   background-size: 100%;
 }
@@ -169,6 +169,6 @@
 .EOM_CloseButton {
   width: 50px;
   height: 48px;
-  background-image: url("file://{images}/custom_game/conv/top_navigation/conv_btn_close.png");
+  background-image: none;
   background-size: 100%;
 }

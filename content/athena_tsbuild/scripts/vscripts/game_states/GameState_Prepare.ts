@@ -1,11 +1,11 @@
 import { CGameStateBase } from "../class/game_state_class";
 import { reloadable } from "../lib/tstl-utils";
 
-/** 选完英雄后的准备阶段 */
+/** 每局选人及准备。尚未创建本局世界，也不提前发送 game_start。 */
 @reloadable
 export class GameState_Prepare extends CGameStateBase {
 	OnStateStart(): void {
-		Event.Fire("game_start", {});
+		GameState.RefreshPlayers();
 	}
 
 	OnStateEnd(): void {

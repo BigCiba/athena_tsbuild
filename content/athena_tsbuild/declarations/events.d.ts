@@ -37,6 +37,7 @@ declare interface NotificationHelpData {
 	[x: string]: any;
 }
 declare interface CustomGameEventDeclarations {
+	athena_game_action: AthenaGameAction;
 	DemoEvent: {
 		event_name: string,
 		player_id: PlayerID,

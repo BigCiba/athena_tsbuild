@@ -5,7 +5,7 @@ local __TS__ClassExtends = ____lualib.__TS__ClassExtends
 local __TS__DecorateLegacy = ____lualib.__TS__DecorateLegacy
 local __TS__New = ____lualib.__TS__New
 local __TS__SourceMapTraceBack = ____lualib.__TS__SourceMapTraceBack
-__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["9"] = 1,["10"] = 1,["11"] = 28,["12"] = 28,["13"] = 29,["15"] = 29,["16"] = 30,["17"] = 31,["18"] = 32,["19"] = 33,["20"] = 34,["21"] = 28,["22"] = 35,["23"] = 36,["24"] = 35,["25"] = 39,["26"] = 40,["28"] = 39,["29"] = 44,["30"] = 45,["31"] = 46,["32"] = 47,["34"] = 49,["35"] = 50,["36"] = 51,["37"] = 52,["38"] = 53,["39"] = 54,["41"] = 56,["42"] = 58,["44"] = 61,["45"] = 62,["46"] = 63,["47"] = 64,["48"] = 65,["50"] = 68,["51"] = 44,["52"] = 71,["53"] = 72,["54"] = 73,["55"] = 74,["57"] = 76,["58"] = 71,["59"] = 79,["60"] = 79,["61"] = 79,["63"] = 80,["65"] = 80,["67"] = 80,["68"] = 81,["69"] = 81,["71"] = 82,["72"] = 79,["73"] = 28,["74"] = 90,["75"] = 90});
+__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["9"] = 1,["10"] = 1,["11"] = 28,["12"] = 28,["13"] = 29,["15"] = 29,["16"] = 30,["17"] = 31,["18"] = 32,["19"] = 33,["20"] = 34,["21"] = 28,["22"] = 35,["23"] = 36,["24"] = 35,["25"] = 39,["26"] = 40,["27"] = 40,["29"] = 41,["31"] = 39,["32"] = 45,["33"] = 46,["34"] = 47,["35"] = 48,["36"] = 49,["37"] = 50,["38"] = 45,["39"] = 53,["40"] = 54,["41"] = 55,["42"] = 56,["44"] = 58,["45"] = 59,["46"] = 60,["47"] = 61,["48"] = 62,["49"] = 63,["51"] = 65,["52"] = 67,["54"] = 70,["55"] = 71,["56"] = 72,["57"] = 73,["58"] = 74,["60"] = 77,["61"] = 53,["62"] = 80,["63"] = 81,["64"] = 82,["65"] = 83,["67"] = 85,["68"] = 80,["69"] = 88,["70"] = 88,["71"] = 88,["73"] = 89,["75"] = 89,["77"] = 89,["78"] = 90,["79"] = 90,["81"] = 91,["82"] = 88,["83"] = 28,["84"] = 99,["85"] = 99});
 local ____exports = {}
 local ____tstl_2Dutils = require("lib.tstl-utils")
 local reloadable = ____tstl_2Dutils.reloadable
@@ -17,15 +17,25 @@ function MKeyValues.prototype.____constructor(self, ...)
     self.abilities = LoadKeyValues("scripts/npc/npc_abilities_custom.txt")
     self.units = LoadKeyValues("scripts/npc/npc_units_custom.txt")
     self.heroes = LoadKeyValues("scripts/npc/npc_heroes_custom.txt")
-    self.hero_abilities = LoadKeyValues("scripts/npc/abilities/hero_abilities.kv")
+    self.hero_abilities = LoadKeyValues("scripts/npc/kv/abilities/ability_heroes.kv")
     self.items = LoadKeyValues("scripts/npc/npc_items_custom.txt")
 end
 function MKeyValues.prototype.initPriority(self)
     return 3
 end
 function MKeyValues.prototype.init(self, reload)
+    if reload then
+        self:Reload()
+    end
     if IsClient() then
     end
+end
+function MKeyValues.prototype.Reload(self)
+    self.abilities = LoadKeyValues("scripts/npc/npc_abilities_custom.txt")
+    self.units = LoadKeyValues("scripts/npc/npc_units_custom.txt")
+    self.heroes = LoadKeyValues("scripts/npc/npc_heroes_custom.txt")
+    self.hero_abilities = LoadKeyValues("scripts/npc/kv/abilities/ability_heroes.kv")
+    self.items = LoadKeyValues("scripts/npc/npc_items_custom.txt")
 end
 function MKeyValues.prototype.GetUnitData(self, unit, ...)
     local unitName

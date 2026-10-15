@@ -332,9 +332,7 @@ class CDemo extends CModule {
 
 	/** 重开游戏 */
 	Restart(data: DemoEvents) {
-		// GameState.SwitchState();
-		CModule.reset();
-		GameState.SwitchState("GameState_Prepare");
+		GameState.DebugRestart();
 	}
 	/** 重载KV */
 	ReloadKeyValue(data: DemoEvents) {

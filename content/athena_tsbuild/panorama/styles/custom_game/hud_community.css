@@ -61,7 +61,7 @@
   align: center center;
   width: 100%;
   height: 100%;
-  background-image: url("file://{images}/custom_game/c2_community/c2_bg.png");
+  background-image: none;
   background-size: 100%;
 }
 .AspectRatio16x10 #AspectAdpater {
@@ -86,13 +86,13 @@
 .BannerBorder {
   width: 100%;
   height: 100%;
-  background-image: url("file://{images}/custom_game/c2_community/c2_banner_decoration.png");
+  background-image: none;
   background-size: 100%;
 }
 #Banner .BannerList {
   width: 100%;
   height: 100%;
-  opacity-mask: url("file://{images}/custom_game/c2_community/c2_banner_frame.png");
+  opacity-mask: none;
 }
 #Banner .BannerSlide {
   width: 100%;
@@ -133,7 +133,7 @@
 #Banner .BannerMask {
   width: 100%;
   height: 100%;
-  background-image: url("file://{images}/custom_game/c2_community/communitymask.png");
+  background-image: none;
   background-size: 100%;
 }
 #Banner .BannerTitle {
@@ -152,7 +152,7 @@
   vertical-align: center;
   width: 35px;
   height: 52px;
-  background-image: url("file://{images}/custom_game/d1_difficulty/d1_btn_arrow.png");
+  background-image: none;
   background-size: 100%;
   z-index: 3;
   img-shadow: 0px 0px 3px 3 black;
@@ -177,12 +177,12 @@
   margin: 0px 7px;
   width: 16px;
   height: 16px;
-  background-image: url("file://{images}/custom_game/c2_community/c2_rectangle_02.png");
+  background-image: none;
   background-size: 100%;
   img-shadow: 0px 0px 3px 3 black;
 }
 #Banner .BannerDot.Selected {
-  background-image: url("file://{images}/custom_game/c2_community/c2_rectangle_01.png");
+  background-image: none;
 }
 .CommunityState {
   ignore-parent-flow: true;
@@ -215,7 +215,7 @@
   vertical-align: center;
   width: 10px;
   height: 256px;
-  background-image: url("file://{images}/custom_game/c2_community/c2_line_02.png");
+  background-image: none;
   background-size: 100%;
   margin-left: 28px;
   margin-right: 55px;
@@ -232,11 +232,11 @@
   width: 130px;
   height: 134px;
   margin: 0px 13px;
-  background-image: url("file://{images}/custom_game/c2_community/c2_guide_buttom_02.png");
+  background-image: none;
   background-size: 100%;
 }
 #GameGuide .PageFlow .PageTab .PageTabBtn.Selected {
-  background-image: url("file://{images}/custom_game/c2_community/c2_guide_buttom_01.png");
+  background-image: none;
   background-size: 100%;
 }
 #GameGuide .PageFlow .PageTab .PageTabBtn.Selected Label {
@@ -268,12 +268,12 @@
   height: 2px;
   margin-top: 5px;
   margin-bottom: 5px;
-  background-image: url("file://{images}/custom_game/c2_community/c2_line_01.png");
+  background-image: none;
   background-size: 100%;
 }
 #GameGuide .PageFlow .GuideItem Label {
   height: 34px;
-  background-image: url("file://{images}/custom_game/d1_difficulty/d1_dot_1.png");
+  background-image: none;
   background-repeat: no-repeat;
   background-size: 34px 34px;
   padding-left: 48px;
@@ -301,7 +301,7 @@
   color: gradient(linear, 0% 0%, 0% 100%, from(#FFE8B6), to(#E9C57F));
   padding-left: 6px;
   font-size: 48px;
-  background-image: url("file://{images}/custom_game/c2_community/c2_line_03.png");
+  background-image: none;
   background-size: 240px 10px;
   background-repeat: no-repeat;
   background-position: left bottom;
@@ -332,14 +332,14 @@
   height: 2px;
   margin-top: 5px;
   margin-bottom: 5px;
-  background-image: url("file://{images}/custom_game/c2_community/c2_line_01.png");
+  background-image: none;
   background-size: 100%;
 }
 #GameNotice .NoticeItem .NoticeLabel {
   vertical-align: center;
   width: fill-parent-flow(1);
   height: 34px;
-  background-image: url("file://{images}/custom_game/d1_difficulty/d1_dot_1.png");
+  background-image: none;
   background-repeat: no-repeat;
   background-size: 34px 34px;
   padding-left: 48px;
@@ -370,7 +370,7 @@
   margin: 0px 40px;
   width: 352px;
   height: 156px;
-  background-image: url("file://{images}/custom_game/c2_community/c2_buttom_benefits.png");
+  background-image: none;
   background-size: 100%;
 }
 #GiftAndFeedback .GiftContent .GiftName {
@@ -424,11 +424,11 @@
   margin: 5px 0px;
   width: 108px;
   height: 50px;
-  background-image: url("file://{images}/custom_game/c2_community/c2_buttom_feedback_normal.png");
+  background-image: none;
   background-size: 100%;
 }
 #GiftAndFeedback .FeedbackContent .FeedbackTypeList .FeedTypeBtn.Selected {
-  background-image: url("file://{images}/custom_game/c2_community/c2_buttom_feedback_selected.png");
+  background-image: none;
   background-size: 100%;
 }
 #GiftAndFeedback .FeedbackContent .FeedbackTypeList .FeedTypeBtn.Selected Label {
@@ -448,7 +448,7 @@
   vertical-align: center;
   width: 538px;
   height: 178px;
-  background-image: url("file://{images}/custom_game/c2_community/c2_frame_small.png");
+  background-image: none;
   background-size: 100%;
   background-color: none;
   border: 0px;
@@ -464,7 +464,7 @@
   vertical-align: center;
   width: 124px;
   height: 130px;
-  background-image: url("file://{images}/custom_game/c2_community/c2_buttome_submit.png");
+  background-image: none;
   background-size: 100%;
 }
 #GiftAndFeedback .FeedbackContent .PushBtn Label {
@@ -538,7 +538,7 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_red.png");
 }
 .EOM_Button.color-Green {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_green_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_green_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Green:not(:disabled):hover {
@@ -548,14 +548,14 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_purple.png");
 }
 .EOM_Button.color-Gray {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_disabled_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_disabled_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Gray:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .EOM_Button.color-Gold {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_yellow_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_yellow_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Gold:not(:disabled):hover {
@@ -565,14 +565,14 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_blue.png");
 }
 .EOM_Button.color-Confirm {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_brown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_brown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Confirm:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .EOM_Button.color-Cancel {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Cancel:not(:disabled):hover {
@@ -582,13 +582,13 @@
   width: 154px;
   height: 44px;
   padding: 1px 5px 0px 5px;
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
 }
 .EOM_Button.size-Small:disabled {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small_disabled.png");
+  background-image: none;
 }
 .EOM_Button.size-Small:not(:disabled):hover {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
   brightness: 1.2;
   background-size: 100%;
 }
@@ -625,7 +625,7 @@
 .EOM_CloseButton {
   width: 50px;
   height: 48px;
-  background-image: url("file://{images}/custom_game/conv/top_navigation/conv_btn_close.png");
+  background-image: none;
   background-size: 100%;
 }
 .EOM_TextEntry {
@@ -647,11 +647,11 @@
   height: 100%;
   horizontal-align: center;
   vertical-align: middle;
-  background-image: url("file://{images}/custom_game/conv/tag/tag_prompt_light.png");
+  background-image: none;
   background-size: 100%;
 }
 .EOM_RedMark.Type-exclamation .EOM_RedMark-Dot {
-  background-image: url("file://{images}/custom_game/conv/tag/tag_prompt_light_01.png");
+  background-image: none;
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -679,7 +679,7 @@
   overflow: noclip;
 }
 .EOM_RedMark.Type-new .EOM_RedMark-Dot {
-  background-image: url("file://{images}/custom_game/conv/tag/conv_tag_new_02.png");
+  background-image: none;
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -772,7 +772,7 @@
 .EOM_MenuLayout #TopBottomBG {
   width: 100%;
   height: 86px;
-  background-image: url("file://{images}/custom_game/conv/top_navigation/conv_panel_1.png");
+  background-image: none;
   background-size: 100%;
   z-index: 1;
 }
@@ -832,7 +832,7 @@
   height: 895px;
   margin-top: 169px;
   margin-left: 0px;
-  background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_line.png");
+  background-image: none;
   background-size: 2px 618px;
   background-position: left 42px top 0px;
   background-repeat: no-repeat;
@@ -849,7 +849,7 @@
   height: 38px;
   vertical-align: center;
   ui-scale: 60%;
-  background-image: url("file://{images}/custom_game/conv/tag/tag_lock.png");
+  background-image: none;
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -876,11 +876,11 @@
 .EOM_MenuLayout_Menu .TabButton.Selected,
 .EOM_MenuLayout_Menu .TabButton:selected {
   sound: "UI.TabButton";
-  background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_btn_select.png");
+  background-image: none;
 }
 .EOM_MenuLayout_Menu .TabButton.Selected .TabBackgroundArrow,
 .EOM_MenuLayout_Menu .TabButton:selected .TabBackgroundArrow {
-  background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_arrow_1.png");
+  background-image: none;
   transform: rotateZ(0deg);
 }
 .EOM_MenuLayout_Menu .TabButton.Selected .TabLabel,
@@ -925,7 +925,7 @@
   width: 36px;
   height: 28px;
   vertical-align: center;
-  background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_arrow_0.png");
+  background-image: none;
   background-position: center;
   transform: rotateZ(180deg);
   background-repeat: no-repeat;
@@ -1027,7 +1027,7 @@
 .EOM_MenuLayout_Menu .SecondaryContainer .SecondaryMenuButton.Selected,
 .EOM_MenuLayout_Menu .SecondaryContainer .SecondaryMenuButton:selected {
   sound: "ui_find_match_change_options";
-  background-image: url("file://{images}/custom_game/conv/left_navigation/conv_table_btn_select2.png");
+  background-image: none;
   background-size: 100%;
 }
 .EOM_MenuLayout_Menu .SecondaryContainer .SecondaryMenuButton:hover .SecondaryBackgroundActive,
@@ -1063,7 +1063,7 @@
 .EOM_MenuLayout_ShadowBoder {
   width: 600px;
   height: 100%;
-  background-image: url("file://{images}/custom_game/conv/common/mask_01.png"), url("file://{images}/custom_game/conv/common/mask_01.png");
+  background-image: none;
   wash-color: #000000;
   background-img-opacity: 0.9, 0.2;
   background-size: 100%, 280px 100%;

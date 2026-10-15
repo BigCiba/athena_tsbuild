@@ -82,7 +82,7 @@ Label.Rarity7,
   padding: -10px 5px -10px 5px;
   background-color: none;
   background-repeat: no-repeat;
-  border-image-source: url("file://{images}/custom_game/conv/common/bar_bg.png");
+  border-image-source: none;
   border-image-slice: 10px 0px fill;
   border-width: 10px 0px;
   border-image-repeat: stretch;
@@ -90,7 +90,7 @@ Label.Rarity7,
 .VerticalScrollStyle > VerticalScrollBar .ScrollThumb {
   background-color: none;
   border: 1px solid #8b735500;
-  border-image-source: url('file://{images}/custom_game/conv/common/scrollbar_02.png');
+  border-image-source: none;
   border-image-slice: 20px 100% 20px 0px;
   border-width: 20px 16px 20px 0px;
   border-image-repeat: stretch;
@@ -104,7 +104,7 @@ Label.Rarity7,
   padding: 5px -10px 5px -10px;
   background-color: none;
   background-repeat: no-repeat;
-  border-image-source: url("file://{images}/custom_game/conv/common/hor_bg.png");
+  border-image-source: none;
   border-image-slice: 0px 10px fill;
   border-width: 0px 10px;
   border-image-repeat: stretch;
@@ -112,7 +112,7 @@ Label.Rarity7,
 .HorizontalScrollBar > HorizontalScrollBar .ScrollThumb {
   background-color: none;
   border: 1px solid #8b735500;
-  border-image-source: url('file://{images}/custom_game/conv/common/hor_bar.png');
+  border-image-source: none;
   border-image-slice: 100% 10px 0px 10px;
   border-width: 16px 10px 0px 10px;
   border-image-repeat: stretch;

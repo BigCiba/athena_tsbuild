@@ -16,18 +16,18 @@
 		<include src="file://{resources}/scripts/custom_game/manifest_scripts/netdata.js"/>
 	</scripts>
 	<Panel>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_login_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_demo_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_setting_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_pause_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_menu_bar_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_message_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_notification_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_main_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_endscreen_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_mail_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_community_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/popups_athena_tsbuild.xml"/>
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/context_menus_athena_tsbuild.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_login.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_demo.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_setting.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_pause.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_menu_bar.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_message.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_notification.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_main.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_endscreen.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_mail.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_community.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/popups.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/context_menus.xml"/>
 	</Panel>
 </root>

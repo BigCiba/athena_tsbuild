@@ -17,7 +17,14 @@ const rootPath = normalizedPath(path.join(__dirname, '../src'));
  */
 async function StartRollup(): Promise<void> {
     const packageInfo = await ReadPackage();
-    let options: rollup.RollupWatchOptions = GetRollupWatchOptions(rootPath, packageInfo);
+    let options: rollup.RollupWatchOptions = GetRollupWatchOptions(rootPath, packageInfo, process.argv.includes('--strict-assets') ? 'strict' : 'fallback');
+    if (!process.argv.includes('--watch')) {
+        const bundle = await rollup.rollup(options);
+        try { await bundle.write(options.output as rollup.OutputOptions); }
+        finally { await bundle.close(); }
+        console.log(Panorama + ' ✅ Compilation complete');
+        return;
+    }
     let watcher = rollup.watch(options);
 
     // 监听双端 enums 文件变化
@@ -113,7 +120,7 @@ export default async function TaskPUI() {
             }
 
             copySolidCore(addonName);
-            StartRollup();
+            await StartRollup();
         } else {
             console.error(`./content/${addonName} 目录不存在，检查package.json的name属性`);
         }
@@ -122,4 +129,4 @@ export default async function TaskPUI() {
     }
 }
 
-TaskPUI();
+TaskPUI().catch(error => { console.error(error); process.exitCode = 1; });

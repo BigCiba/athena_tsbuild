@@ -1,20 +1,18 @@
 import * as fs from "fs";
 import { existsSync } from "fs-extra";
-import path, { basename, extname, join } from "path";
+import { basename, extname, join } from "path";
 import { Plugin } from "rollup";
-import { addAddonNameToFileStem, ensureDir, writeFileCache } from "./utils";
+import { PanoramaImageGuard } from './panorama-image-guard';
 
 // 生成XML文件
 export function GenerateXML(options: {
 	inputFiles: string[];
 	rootPath: string;
 	dir: string;
-	addonName: string;
 	globalStyles?: string[];
+	imageGuard: PanoramaImageGuard;
 	resolvePath?: (path: string) => string | undefined;
 	resolveFilename?: (filename: string) => string | undefined;
-	/** Hud/FlyoutScoreboard 面板名称集合，这些面板的 XML 文件名会添加 addonName 后缀 */
-	hudPanelNames?: string[];
 }): Plugin {
 	return {
 		name: 'plugin-xml',
@@ -37,14 +35,9 @@ export function GenerateXML(options: {
 				if (options.resolveFilename) {
 					outFilename = options.resolveFilename(outFilename) ?? outFilename;
 				}
-				// 仅对 Hud/FlyoutScoreboard 面板添加 addonName 后缀，Tooltip/ContextMenu 等不加
-				const isHudPanel = options.hudPanelNames?.includes(rawName);
-				const outputXmlFilename = isHudPanel
-					? addAddonNameToFileStem(outFilename, options.addonName)
-					: outFilename;
 				let outPath = join(
 					options.dir,
-					outputXmlFilename + '.xml'
+					outFilename + '.xml'
 				);
 				if (options.resolvePath) {
 					outPath = options.resolvePath(outPath) ?? outPath;
@@ -98,8 +91,7 @@ export function GenerateXML(options: {
 				// if (!sourceContent.includes('<include src="file://{resources}/scripts/custom_game/common.js" />')) {
 				// 	sourceContent = sourceContent.replace('<scripts>', '<scripts>\n\t\t<include src="file://{resources}/scripts/custom_game/common.js" />');
 				// }
-				ensureDir(path.dirname(outPath));
-				writeFileCache(outPath, sourceContent);
+				options.imageGuard.write(outPath, options.imageGuard.xml(sourceContent, outPath));
 			}
 		}
 	};

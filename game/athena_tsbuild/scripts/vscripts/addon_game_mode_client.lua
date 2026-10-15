@@ -36,7 +36,7 @@ function MClient.prototype.init(self, bReload)
     GameEvent(
         "client_reload_game_keyvalues",
         function()
-            require("addon_game_mode_client")
+            KeyValues:Reload()
         end,
         nil
     )

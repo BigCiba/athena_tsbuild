@@ -14,6 +14,7 @@ import { SaveFresh } from "./plugin-save-fresh";
 import { GenerateXML } from './plugin-xml';
 import { rollupPluginLess } from './rollup-plugin-less';
 import compatiblePanorama from './rollup-plugin-panorama';
+import { ImageGuardMode, PanoramaImageGuard } from './panorama-image-guard';
 import { ContextMenu, Panorama, Tooltip } from './utils';
 
 /**
@@ -52,10 +53,16 @@ interface PackageInfo {
 		ServiceConfig?: Record<string, any>,
 	};
 }
-export default function GetRollupWatchOptions(rootPath: string, packageInfo: PackageInfo) {
+export default function GetRollupWatchOptions(rootPath: string, packageInfo: PackageInfo, imageMode: ImageGuardMode = 'fallback') {
 	let pagesUrl = rootPath + "/ui";
 	const addonName = packageInfo.name;
 	const panorama = packageInfo.panorama ?? {};
+	const imageGuard = new PanoramaImageGuard({
+		projectRoot: path.resolve(rootPath, '..'),
+		contentImages: join(__dirname, `../content/${addonName}/panorama/images`),
+		gameImages: join(__dirname, `../game/${addonName}/panorama/images`),
+		mode: imageMode,
+	});
 
 	let PanelList: {
 		name: string;
@@ -251,9 +258,8 @@ export default function GetRollupWatchOptions(rootPath: string, packageInfo: Pac
 				inputFiles,
 				rootPath: pagesUrl,
 				dir: layoutDir,
-				addonName,
 				globalStyles: LessConfigs,
-				hudPanelNames: PanelList.map(p => p.name),
+				imageGuard,
 				resolveFilename(filename) {
 					if (panorama.Tooltip && panorama.Tooltip.indexOf(filename) != -1) {
 						return `tooltips/${filename}`;
@@ -268,6 +274,7 @@ export default function GetRollupWatchOptions(rootPath: string, packageInfo: Pac
 				dir: stylesDir,
 				rootPath: rootPath,
 				globalLessFiles: LessConfigs.map(f => join(rootPath, 'less', f)),
+				imageGuard,
 				resolveFilename(filename) {
 					if (panorama.Tooltip && panorama.Tooltip.indexOf(filename) != -1) {
 						return `tooltips/${filename}`;
@@ -297,11 +304,11 @@ export default function GetRollupWatchOptions(rootPath: string, packageInfo: Pac
 				rootPath: pagesUrl,
 				dir: layoutDir,
 				scriptsDir: scriptsDir,
-				addonName,
 				npcRoot: path.join(__dirname, `../game/${addonName}/scripts/npc`),
 			}),
 			fixLibs(),
 			SaveFresh(),
+			imageGuard.plugin(),
 		]
 	};
 

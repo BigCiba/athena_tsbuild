@@ -11,11 +11,12 @@ class CDataRecord extends CModule {
 	playerData: Record<number, Record<string, string | number>> = {};
 	/** 不清空的数据 */
 	globalData: Record<string, string | number> = {};
+	/** 清理本局埋点，保留账号和会话累计数据。 */
+	reset(): void { this.playerMatchData = {}; this.globalMatchData = {}; }
 	init(reload: boolean): void {
 		if (!reload) {
 			Event.Register("game_start", () => {
-				this.playerMatchData = {};
-				this.globalMatchData = {};
+				this.reset();
 			});
 			Event.Register("damage_event", (params) => {
 				if (params.target.IsRealHero() && params.damage > 0 && params.attacker != params.target) {

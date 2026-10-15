@@ -20,7 +20,7 @@ class MClient extends CModule {
 		if (!bReload) {
 		}
 		GameEvent("client_reload_game_keyvalues", () => {
-			require("addon_game_mode_client");
+			KeyValues.Reload();
 		}, undefined);
 		GameEvent("custom_command_unique", function (event) {
 			this.commandUnique[event.command] = event.unique;

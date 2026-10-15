@@ -100,11 +100,18 @@ function Setting() {
       libs.insert(_el$10, libs.createComponent(Player.ExchangeEntry, {}), null);
       libs.insert(_el$10, libs.createComponent(EOM_Button.EOM_Button, {
         get enabled() {
-          return gameState()?.state == "GameState_Dungeon";
+          return gameState()?.state == "GameState_Battle";
         },
         text: "#Setting_GiveUp",
         align: "right bottom",
-        onactivate: self => GameEvents.SendCustomEventToServer("restart_game", {})
+        onactivate: () => {
+          const snapshot = gameState();
+          if (snapshot?.run_id !== undefined && snapshot.state_version !== undefined) GameEvents.SendCustomEventToServer("athena_game_action", {
+            action: "abandon",
+            run_id: snapshot.run_id,
+            state_version: snapshot.state_version
+          });
+        }
       }), null);
       return _el$;
     }

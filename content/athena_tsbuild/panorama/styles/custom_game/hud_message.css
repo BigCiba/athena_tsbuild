@@ -19,7 +19,7 @@
   margin-bottom: 265px;
   transform: scaleY(-1);
   max-height: 326px;
-  opacity-mask: url("file://{images}/custom_game/masks/message_mask.png");
+  opacity-mask: none;
   padding-bottom: 20px;
 }
 #ReceiveItemContainer > VerticalScrollBar {
@@ -52,7 +52,7 @@
   margin-left: 265px;
   transform: scaleY(-1);
   max-height: 326px;
-  opacity-mask: url("file://{images}/custom_game/masks/message_mask.png");
+  opacity-mask: none;
   padding-bottom: 20px;
 }
 #GameplayTextContainer > VerticalScrollBar {
@@ -113,26 +113,26 @@
   background-repeat: no-repeat;
 }
 .AddItemRow.Rarity1 .ItemBg {
-  background-image: url("file://{images}/custom_game/o1_obtain/o1_obtain_grey_06.png");
+  background-image: none;
 }
 .AddItemRow.Rarity2 .ItemBg {
-  background-image: url("file://{images}/custom_game/o1_obtain/o1_obtain_green_04.png");
+  background-image: none;
 }
 .AddItemRow.Rarity3 .ItemBg {
-  background-image: url("file://{images}/custom_game/o1_obtain/o1_obtain_blue_05.png");
+  background-image: none;
 }
 .AddItemRow.Rarity4 .ItemBg {
-  background-image: url("file://{images}/custom_game/o1_obtain/o1_obtain_purple_03.png");
+  background-image: none;
 }
 .AddItemRow.Rarity5 .ItemBg {
-  background-image: url("file://{images}/custom_game/o1_obtain/o1_obtain_yellow_02.png");
+  background-image: none;
 }
 .AddItemRow.Rarity6 .ItemBg {
-  background-image: url("file://{images}/custom_game/o1_obtain/o1_obtain_red_01.png");
+  background-image: none;
 }
 .AddItemRow.Rarity7 .ItemBg {
   height: 88px;
-  background-image: url("file://{images}/custom_game/o1_obtain/o1_obtain_chaos_01.png");
+  background-image: none;
 }
 .AddItemRow.Rarity7 .ItemName {
   margin-bottom: 30px;
@@ -193,7 +193,7 @@
   align: center bottom;
   width: 522px;
   height: 196px;
-  background-image: url("file://{images}/custom_game/hud/h_popup.png");
+  background-image: none;
   background-size: 100%;
 }
 #RestartGameRequestContainer #AbyssalEndRequest,
@@ -295,7 +295,7 @@
   align: center bottom;
   width: 522px;
   height: 196px;
-  background-image: url("file://{images}/custom_game/hud/h_popup.png");
+  background-image: none;
   background-size: 100%;
 }
 #RestartGameRequestContainer #DungeonStartWaitTitle,
@@ -345,7 +345,7 @@
 #SavingPotProgress #ProgressBarIcon {
   width: 50px;
   height: 50px;
-  background-image: url("file://{images}/custom_game/activity/a3_piggy/pig_icon.png");
+  background-image: none;
   background-size: 100%;
 }
 #SavingPotProgress .EOM_ProgressBar {
@@ -354,7 +354,7 @@
   z-index: -1;
   width: 248px;
   height: 32px;
-  background-image: url("file://{images}/custom_game/activity/a3_piggy/a3_progress_04.png");
+  background-image: none;
   background-size: 562px 32px;
   border: 0px solid black;
   background-color: #00000000;
@@ -363,7 +363,7 @@
 #SavingPotProgress .EOM_ProgressBar .EOM_ProgressBar_Left {
   height: 20px;
   margin: 0px 6px;
-  background-image: url("file://{images}/custom_game/activity/a3_piggy/a3_progress_02.png");
+  background-image: none;
   background-size: 100%;
   background-position: right center;
   vertical-align: center;
@@ -476,7 +476,7 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_red.png");
 }
 .EOM_Button.color-Green {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_green_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_green_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Green:not(:disabled):hover {
@@ -486,14 +486,14 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_purple.png");
 }
 .EOM_Button.color-Gray {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_disabled_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_disabled_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Gray:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .EOM_Button.color-Gold {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_yellow_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_yellow_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Gold:not(:disabled):hover {
@@ -503,14 +503,14 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_blue.png");
 }
 .EOM_Button.color-Confirm {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_brown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_brown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Confirm:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .EOM_Button.color-Cancel {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Cancel:not(:disabled):hover {
@@ -520,13 +520,13 @@
   width: 154px;
   height: 44px;
   padding: 1px 5px 0px 5px;
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
 }
 .EOM_Button.size-Small:disabled {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small_disabled.png");
+  background-image: none;
 }
 .EOM_Button.size-Small:not(:disabled):hover {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
   brightness: 1.2;
   background-size: 100%;
 }
@@ -563,6 +563,6 @@
 .EOM_CloseButton {
   width: 50px;
   height: 48px;
-  background-image: url("file://{images}/custom_game/conv/top_navigation/conv_btn_close.png");
+  background-image: none;
   background-size: 100%;
 }

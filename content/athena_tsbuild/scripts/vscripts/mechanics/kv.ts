@@ -30,15 +30,24 @@ class MKeyValues extends CModule {
 	abilities: KV = LoadKeyValues("scripts/npc/npc_abilities_custom.txt");
 	units: KV = LoadKeyValues("scripts/npc/npc_units_custom.txt");
 	heroes: KV = LoadKeyValues("scripts/npc/npc_heroes_custom.txt");
-	hero_abilities: KV = LoadKeyValues("scripts/npc/abilities/hero_abilities.kv");
+	hero_abilities: KV = LoadKeyValues("scripts/npc/kv/abilities/ability_heroes.kv");
 	items: KV = LoadKeyValues("scripts/npc/npc_items_custom.txt");
 	initPriority(): number {
 		return 3;
 	}
 
 	init(reload: boolean) {
+		if (reload) this.Reload();
 		if (IsClient()) {
 		}
+	}
+	/** 重载根配置缓存，供调试重载和后续新一局读取。已有实体数值不自动重算。 */
+	Reload() {
+		this.abilities = LoadKeyValues("scripts/npc/npc_abilities_custom.txt");
+		this.units = LoadKeyValues("scripts/npc/npc_units_custom.txt");
+		this.heroes = LoadKeyValues("scripts/npc/npc_heroes_custom.txt");
+		this.hero_abilities = LoadKeyValues("scripts/npc/kv/abilities/ability_heroes.kv");
+		this.items = LoadKeyValues("scripts/npc/npc_items_custom.txt");
 	}
 
 	GetUnitData<T extends any[]>(unit: string | EntityIndex | CDOTA_BaseNPC, ...keys: string[]): LuaMultiReturn<Partial<T>> {

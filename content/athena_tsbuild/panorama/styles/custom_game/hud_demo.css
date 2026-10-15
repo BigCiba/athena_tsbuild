@@ -86,12 +86,12 @@
 .EOM_IconLockSmall {
   width: 30px;
   height: 38px;
-  background-image: url("file://{images}/custom_game/conv/tag/tag_lock.png");
+  background-image: none;
 }
 .EOM_CloseButton.Tui12 {
   width: 48px;
   height: 48px;
-  background-image: url("file://{images}/custom_game/eom_design/icon/Tui12/s_button_close2.png");
+  background-image: none;
 }
 .EOM_CloseButton.Tui12:not(:disabled):hover .EOM_IconXClose {
   pre-transform-scale2d: 1.2;
@@ -116,40 +116,40 @@
 .EOM_IconXClose.Tui9 {
   width: 37px;
   height: 34px;
-  background-image: url("file://{images}/custom_game/eom_design/icon/Tui9/btn_close.png");
+  background-image: none;
 }
 .EOM_IconXClose.Tui10 {
   width: 80px;
   height: 80px;
-  background-image: url("file://{images}/custom_game/eom_design/icon/Tui10/x_close3.png");
+  background-image: none;
 }
 .EOM_IconXClose.Tui10_old {
   width: 80px;
   height: 80px;
-  background-image: url("file://{images}/custom_game/eom_design/icon/Tui10/btn_close.png");
+  background-image: none;
 }
 .EOM_IconXClose.Tui7 {
-  background-image: url("file://{images}/custom_game/eom_design/icon/Tui7/btn_close.png");
+  background-image: none;
 }
 .EOM_IconXClose.Tui3 {
-  background-image: url("file://{images}/custom_game/eom_design/icon/Tui3/btn_close.png");
+  background-image: none;
 }
 .EOM_IconXClose.P2 {
-  background-image: url("file://{images}/custom_game/eom_design/icon/P2/btn_close.png");
+  background-image: none;
 }
 .EOM_IconXClose.C4_old {
-  background-image: url("file://{images}/custom_game/eom_design/icon/C4/btn_close.png");
+  background-image: none;
 }
 .EOM_IconXClose.C4 {
-  background-image: url("file://{images}/custom_game/eom_design/icon/C4/btn_store_close.png");
+  background-image: none;
 }
 .EOM_IconXClose.Default {
-  background-image: url("file://{images}/custom_game/eom_design/icon/C4/btn_close.png");
+  background-image: none;
 }
 .EOM_IconXClose.Tui12 {
   width: 48px;
   height: 48px;
-  background-image: url("file://{images}/custom_game/eom_design/icon/Tui12/s_button_close1.png");
+  background-image: none;
   background-size: 100%;
   transition-property: pre-transform-scale2d;
   transition-duration: 0.15s;
@@ -224,7 +224,7 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_red.png");
 }
 .EOM_Button.color-Green {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_green_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_green_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Green:not(:disabled):hover {
@@ -234,14 +234,14 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_purple.png");
 }
 .EOM_Button.color-Gray {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_disabled_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_disabled_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Gray:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .EOM_Button.color-Gold {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_yellow_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_yellow_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Gold:not(:disabled):hover {
@@ -251,14 +251,14 @@
   background-image: url("file://{images}/custom_game/eom_design/button/btn_blue.png");
 }
 .EOM_Button.color-Confirm {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_brown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_brown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Confirm:not(:disabled):hover {
   background-size: 0%, 100%;
 }
 .EOM_Button.color-Cancel {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_normal.png"), url("file://{images}/custom_game/conv/button/conv_btn_darkbrown_hover.png");
+  background-image: none;
   background-size: 100%, 0%;
 }
 .EOM_Button.color-Cancel:not(:disabled):hover {
@@ -268,13 +268,13 @@
   width: 154px;
   height: 44px;
   padding: 1px 5px 0px 5px;
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
 }
 .EOM_Button.size-Small:disabled {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small_disabled.png");
+  background-image: none;
 }
 .EOM_Button.size-Small:not(:disabled):hover {
-  background-image: url("file://{images}/custom_game/conv/button/conv_btn_small.png");
+  background-image: none;
   brightness: 1.2;
   background-size: 100%;
 }
@@ -311,7 +311,7 @@
 .EOM_CloseButton {
   width: 50px;
   height: 48px;
-  background-image: url("file://{images}/custom_game/conv/top_navigation/conv_btn_close.png");
+  background-image: none;
   background-size: 100%;
 }
 #EOM_DropDownMenu_Container {
@@ -427,7 +427,7 @@
   background-color: none;
   border-color: none;
   wash-color: none;
-  border-image-source: url('file://{images}/custom_game/conv/common/conv_dropdown_list.png');
+  border-image-source: none;
   border-width: 5px 5px 5px 5px;
   border-image-slice: 5px 5px 5px 5px;
   border-image-repeat: stretch;
@@ -448,7 +448,7 @@
 }
 .EOM_DropDown.EquipmentDropDown #EOM_DropDown_arrow {
   align: right center;
-  background-image: url("file://{images}/custom_game/conv/common/conv_arrow.png");
+  background-image: none;
   width: 18px;
   height: 14px;
   transform: rotateX(-180deg);
@@ -462,7 +462,7 @@
   transition-property: background-color, max-height;
   transition-duration: 0.15s;
   transition-timing-function: ease-in-out;
-  border-image-source: url('file://{images}/custom_game/conv/common/conv_dropdown_list.png');
+  border-image-source: none;
   border-width: 5px 5px 5px 5px;
   border-image-slice: 5px 5px 5px 5px;
   border-image-repeat: stretch;
@@ -474,7 +474,7 @@
   margin: 0px;
   padding: 0px;
   min-height: 26px;
-  border-image-source: url('file://{images}/custom_game/conv/common/conv_dropdown_list_select.png');
+  border-image-source: none;
   border-image-repeat: stretch;
   background-color: none;
   border-radius: 0px;
@@ -1946,7 +1946,7 @@ ToggleButton Label {
   brightness: 2;
 }
 .SettingToggleButton.selected .TickBox {
-  background-image: url("file://{images}/custom_game/new_equip/tab_btn_center.png"), url("file://{images}/custom_game/new_equip/tab_btn.png");
+  background-image: none;
   background-size: 16px 16px, 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -1956,7 +1956,7 @@ ToggleButton Label {
   margin-right: 4px;
   width: 24px;
   height: 24px;
-  background-image: url("file://{images}/custom_game/new_equip/tab_btn.png");
+  background-image: none;
   transition-property: box-shadow, background-image, wash-color, pre-transform-scale2d;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;

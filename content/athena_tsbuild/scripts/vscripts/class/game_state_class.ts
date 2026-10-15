@@ -1,47 +1,35 @@
+/** 阶段持有全部计时器和监听器；退出后使晚到的回调失效。 */
 export class CGameStateBase {
-	/** 持续时间 */
-	//duration?: number;
-	/** 开始时间 */
-	timeStart: number;
-	/** 结束时间 */
+	timeStart = GameRules.GetGameTime();
 	timeEnd?: number;
-	/** 计时器 */
-	timerID?: string;
-	/** 事件ID列表 */
-	eventIDList: number[] = [];
-	constructor() {
-
-	}
+	private disposed = false;
+	private timers: string[] = [];
+	private cleanup: (() => void)[] = [];
 	dispose() {
-		this.StopTimer();
-
-		this.eventIDList.forEach((id) => {
-			Event.Unregister(id);
-		});
+		if (this.disposed) return;
+		this.disposed = true; this.StopTimer();
+		const failures: string[] = [];
+		for (let i = this.cleanup.length - 1; i >= 0; i--) { try { this.cleanup[i](); } catch (reason) { failures.push(tostring(reason)); } }
+		this.cleanup = [];
+		if (failures.length > 0) throw failures.join("; ");
 	}
-	/** 开始阶段 */
-	OnStateStart() {
-
+	OnStateStart() { }
+	OnStateEnd() { }
+	StartThink(interval: number, callback: () => number | void, realTime = false) {
+		const guarded = () => { if (!this.disposed) return callback(); };
+		const id = realTime ? Timer.Timer(interval, guarded) : Timer.GameTimer(interval, guarded);
+		this.timers.push(id); return id;
 	}
-	/** 结束阶段 */
-	OnStateEnd() {
-
-	}
-	StartThink(interval: number, callback: () => void) {
-		this.timerID = Timer.GameTimer(interval, callback);
+	Own(cleanup: () => void) { this.cleanup.push(cleanup); }
+	/** 原生引擎事件同样归阶段持有，不依赖旧版 modifier_events 转发。 */
+	Listen<K extends keyof GameEventDeclarations>(name: K, callback: (event: GameEventProvidedProperties & GameEventDeclarations[K]) => void) {
+		const id = ListenToGameEvent(name, event => { if (!this.disposed) callback(event); }, undefined);
+		this.Own(() => StopListeningToGameEvent(id)); return id;
 	}
 	Register<K extends keyof EventCallback>(eventName: K, callback: (data: EventCallback[K]) => void): number {
-		return this.eventIDList.push(Event.Register(eventName, callback));
+		const id = Event.Register(eventName, data => { if (!this.disposed) callback(data); });
+		this.Own(() => Event.Unregister(id)); return id;
 	}
-	/** 获取当前阶段的名字 */
-	GetName() {
-		return this.constructor.name;
-	}
-
-	StopTimer() {
-		if (this.timerID) {
-			Timer.StopTimer(this.timerID);
-			this.timerID = undefined;
-		}
-	}
+	GetName() { return this.constructor.name; }
+	StopTimer() { this.timers.forEach(id => Timer.StopTimer(id)); this.timers = []; }
 }

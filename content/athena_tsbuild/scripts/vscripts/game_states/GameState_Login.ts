@@ -3,19 +3,13 @@ import { reloadable } from "../lib/tstl-utils";
 
 @reloadable
 export class GameState_Login extends CGameStateBase {
-	times: number = 0;
 	OnStateStart(): void {
-		Timer.Timer(1, () => {
-			if (Login.IsAllLoginState()) {
+		this.StartThink(0.5, () => {
+			if (GameState.GetOnlinePlayers().length > 0 && Login.IsAllLoginState() && GameRules.State_Get() === DOTA_GameState.DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) {
 				GameState.SwitchState("GameState_Prepare");
 				return;
 			}
-			this.times++;
-			// if (this.times > 100) {
-			// 	GameState.SwitchState();
-			// 	return;
-			// }
-			return 1;
-		});
+			return 0.5;
+		}, true);
 	}
 }

@@ -32,7 +32,7 @@
   margin-left: 9px;
 }
 .Combat .Notification {
-  background-image: url("file://{images}/custom_game/hud/z_notice_bottom_purple.png"), url("file://{images}/custom_game/hud/z_notice_bottom_purple.png");
+  background-image: none;
   background-size: 266px 32px;
   background-position: left bottom;
   background-repeat: no-repeat;
@@ -42,10 +42,10 @@
   margin-left: 37px;
 }
 .CombatIconBase .Notification {
-  background-image: url("file://{images}/custom_game/hud/z_notice_bottom_red.png"), url("file://{images}/custom_game/hud/z_notice_bottom_red.png");
+  background-image: none;
 }
 .CombatIconReward .Notification {
-  background-image: url("file://{images}/custom_game/hud/z_notice_bottom_yellow.png"), url("file://{images}/custom_game/hud/z_notice_bottom_yellow.png");
+  background-image: none;
 }
 .CombatIcon {
   align: left center;
@@ -53,20 +53,20 @@
   margin-left: 2px;
   width: 26px;
   height: 26px;
-  background-image: url("file://{images}/custom_game/conv/icon/z_icon_experience.png");
+  background-image: none;
   background-size: 100%;
 }
 .CombatIconBase .CombatIcon {
-  background-image: url("file://{images}/custom_game/conv/icon/z_icon_attack.png");
+  background-image: none;
 }
 .CombatIconReward .CombatIcon {
-  background-image: url("file://{images}/custom_game/conv/icon/z_icon_obtain.png");
+  background-image: none;
 }
 .CombatIconFishing .CombatIcon {
-  background-image: url("file://{images}/custom_game/conv/icon/f1_icon_01.png");
+  background-image: none;
 }
 .CombatIconWeapon .CombatIcon {
-  background-image: url("file://{images}/custom_game/conv/icon/z_icon_weapon.png");
+  background-image: none;
 }
 .NotificationListLabel {
   color: #e7e0f5;
@@ -127,7 +127,7 @@
   height: 20px;
   margin-left: 2px;
   margin-right: 2px;
-  background-image: url("file://{images}/custom_game/icon/score.png");
+  background-image: none;
   background-size: 100%;
   img-shadow: 1px 1px 3px black;
 }
@@ -136,7 +136,7 @@
   height: 20px;
   margin-left: 2px;
   margin-right: 2px;
-  background-image: url("file://{images}/custom_game/icon/crystal.png");
+  background-image: none;
   background-size: 100%;
   img-shadow: 1px 1px 3px black;
 }
@@ -145,7 +145,7 @@
   height: 20px;
   margin-left: 2px;
   margin-right: 2px;
-  background-image: url("file://{images}/custom_game/icons/kill.png");
+  background-image: none;
   background-size: 100%;
 }
 .CombatEventKillIcon {
@@ -577,7 +577,7 @@
   height: 24px;
   margin-left: 2px;
   margin-right: 2px;
-  background-image: url("file://{images}/hud/icon_gold.png");
+  background-image: url("s2r://panorama/images/hud/icon_gold_png.vtex");
   background-size: 100%;
 }
 #PlaceNameContainer {
@@ -586,7 +586,7 @@
   horizontal-align: center;
   margin-top: 117px;
   padding: 19.6px 67.2px;
-  background-image: url("file://{images}/custom_game/hud/z_place_buttom.png");
+  background-image: none;
   background-size: 100%;
   opacity: 0;
   transition-property: opacity;
@@ -648,22 +648,22 @@
   height: 128px;
 }
 .CommonItem.large .Border.Rarity1 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_grey_big.png");
+  background-image: none;
 }
 .CommonItem.large .Border.Rarity2 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_green_big.png");
+  background-image: none;
 }
 .CommonItem.large .Border.Rarity3 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_blue_big.png");
+  background-image: none;
 }
 .CommonItem.large .Border.Rarity4 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_purple_big.png");
+  background-image: none;
 }
 .CommonItem.large .Border.Rarity5 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_golden_big.png");
+  background-image: none;
 }
 .CommonItem.large .Border.Rarity6 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_red_big.png");
+  background-image: none;
 }
 .CommonItem .ItemIcon {
   align: center center;
@@ -676,22 +676,22 @@
   background-size: 100%;
 }
 .CommonItem .Border.Rarity1 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_grey.png");
+  background-image: none;
 }
 .CommonItem .Border.Rarity2 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_green.png");
+  background-image: none;
 }
 .CommonItem .Border.Rarity3 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_blue.png");
+  background-image: none;
 }
 .CommonItem .Border.Rarity4 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_purple.png");
+  background-image: none;
 }
 .CommonItem .Border.Rarity5 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_golden.png");
+  background-image: none;
 }
 .CommonItem .Border.Rarity6 {
-  background-image: url("file://{images}/custom_game/hud/h_artifact_red.png");
+  background-image: none;
 }
 .CommonItem .StackCount {
   align: right bottom;

@@ -337,11 +337,7 @@ declare interface CustomNetTableDeclarations {
 			_: EntityIndex;
 		};
 		// 游戏阶段
-		game_state: {
-			state: string,
-			start_time: number,
-			end_time: number,
-		};
+		game_state: AthenaGameSnapshot;
 		game_data: {
 			champion_mode: boolean;
 		};
@@ -398,13 +394,11 @@ interface NetDataDeclarations {
 			time_stamp: number;
 		};
 		// 游戏阶段
-		game_state: {
-			state: string,
-			start_time: number,
-			end_time?: number,
-		};
+		game_state: AthenaGameSnapshot;
 		// 回合阶段
 		round_state: {
+			run_id?: number;
+			stage?: "prepare" | "battle" | "end";
 			round_number: number,
 			prep_end_time: number,
 			timed_round_end_time?: number,

@@ -6,17 +6,6 @@ export function normalizedPath(p: string): string {
     return p.replace(/\\/g, '/');
 }
 
-export function addAddonNameToFileStem(filePath: string, addonName: string): string {
-    const normalized = normalizedPath(filePath);
-    const slashIndex = normalized.lastIndexOf('/');
-    const dir = slashIndex >= 0 ? normalized.slice(0, slashIndex + 1) : '';
-    const fileName = slashIndex >= 0 ? normalized.slice(slashIndex + 1) : normalized;
-    const dotIndex = fileName.lastIndexOf('.');
-    const stem = dotIndex >= 0 ? fileName.slice(0, dotIndex) : fileName;
-    const ext = dotIndex >= 0 ? fileName.slice(dotIndex) : '';
-    return `${dir}${stem}_${addonName}${ext}`;
-}
-
 export const Panorama = `[${color.magenta('Panorama')}]`;
 export const Tooltip = `[${color.cyan('Tooltips')}]`;
 export const ContextMenu = `[${color.yellow('ContextMenus')}]`;

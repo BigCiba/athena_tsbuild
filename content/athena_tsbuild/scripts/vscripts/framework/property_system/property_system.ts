@@ -1111,14 +1111,19 @@ class MPropertySystem extends CModule {
 		if (!unit) return;
 
 		const entIndex = unit.GetEntityIndex();
-		this.ClearEntityDirtyKeys(PropertyScope.UNIT, entIndex);
-		this.ClearEntityNetTable(PropertyScope.UNIT, entIndex);
-		this.CleanupStorage(PropertyScope.UNIT, entIndex);
+		this.CleanupUnitPropertiesByIndex(entIndex);
 
 		const playerID = unit.GetPlayerOwnerID();
 		if (playerID !== -1) {
 			this.ClearDynamicPropertyCache(PropertyScope.PLAYER, playerID);
 		}
+	}
+
+	/** 尸体已被引擎移除时，生命周期仍能按记录的索引清理旧数据。 */
+	CleanupUnitPropertiesByIndex(entIndex: EntityIndex): void {
+		this.ClearEntityDirtyKeys(PropertyScope.UNIT, entIndex);
+		this.ClearEntityNetTable(PropertyScope.UNIT, entIndex);
+		this.CleanupStorage(PropertyScope.UNIT, entIndex);
 	}
 
 	/** 清理玩家的所有属性 */
@@ -1158,7 +1163,7 @@ class MPropertySystem extends CModule {
 		}
 
 		const entityKey = `${scope}_${key}`;
-		CustomNetTables.SetTableValue(this.NETTABLE_NAME, entityKey, undefined);
+		CustomNetTables.SetTableValue(this.NETTABLE_NAME, entityKey, {});
 	}
 
 	/** 清理所有无效的修饰符引用 */
@@ -1240,6 +1245,7 @@ class MPropertySystem extends CModule {
 
 	/** 重置系统 */
 	private ResetSystem(): void {
+		if (IsServer()) for (const key of CustomNetTables.GetAllTableKeys("property_system")) CustomNetTables.SetTableValue("property_system", key, {});
 		PropertyData.playerStorage = {};
 		PropertyData.unitStorage = {};
 		PropertyData.dirtyKeys = {};

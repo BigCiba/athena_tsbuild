@@ -15,7 +15,7 @@ class MSettings extends CModule {
 			GameRules.SetCustomGameAllowBattleMusic(false);
 			GameRules.SetCustomGameAllowHeroPickMusic(false);
 			GameRules.SetCustomGameAllowMusicAtGameStart(true);
-			GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, 4);
+			GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_GOODGUYS, GetMapName() === "solo" ? 1 : 4);
 			GameRules.SetCustomGameTeamMaxPlayers(DOTATeam_t.DOTA_TEAM_BADGUYS, 0);
 			GameRules.SetFirstBloodActive(false);
 			GameRules.SetGoldPerTick(0);

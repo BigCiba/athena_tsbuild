@@ -2,7 +2,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "fs";
 import path from "path";
 import { Plugin } from "rollup";
 import ts from "typescript";
-import { addAddonNameToFileStem, ensureDir, writeFileCache } from "./utils";
+import { ensureDir, writeFileCache } from "./utils";
 
 // 生成custom_ui_manifest.xml文件
 /**
@@ -141,7 +141,6 @@ export function GenerateCustomUIManifest(options: {
 	rootPath: string;
 	dir: string;
 	scriptsDir: string;
-	addonName: string;
 	npcRoot: string; // 新增：NPC文件根目录
 }): Plugin {
 	return {
@@ -190,7 +189,7 @@ export function GenerateCustomUIManifest(options: {
 				: '';
 			const configureList = options.ConfigureList.map(v => `\t\t<include src="file://{resources}/scripts/custom_game/configure/${v}.js"/>`).join('\n');
 			const scriptList = compiledScripts.map(v => `\t\t<include src="file://{resources}/scripts/custom_game/manifest_scripts/${v}.js"/>`).join('\n');
-			const panel = options.PanelList.map(v => `\t\t<CustomUIElement type="${v.type}" layoutfile="file://{resources}/layout/custom_game/${addAddonNameToFileStem(v.name, options.addonName)}.xml"/>`).join('\n');
+			const panel = options.PanelList.map(v => `\t\t<CustomUIElement type="${v.type}" layoutfile="file://{resources}/layout/custom_game/${v.name}.xml"/>`).join('\n');
 
 			const allScripts = [tooltipText, srcListText, kvList, configureList, scriptList].filter(s => s).join('\n');
 			writeFileCache(manifestPath, GetManifestContent(allScripts, panel));

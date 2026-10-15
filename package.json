@@ -58,9 +58,6 @@
 			"netdata.js"
 		],
 		"KV": [
-			"units",
-			"abilities",
-			"items",
 			"npc_abilities_custom.txt",
 			"npc_heroes_custom.txt",
 			"npc_items_custom.txt",
@@ -69,6 +66,7 @@
 		]
 	},
 	"scripts": {
+		"test:session": "node ./node_scripts/test-game-session.js",		"test:ui-assets": "node ./node_scripts/test-panorama-images.js",
 		"generate:compiler": "node ./node_scripts/compiler.js",
 		"generate:image": "node ./.github/skills/apimart-image-generator/scripts/generate-image.js",
 		"sync:enums": "node ./node_scripts/sync-enums.js",
@@ -79,6 +77,8 @@
 		"generate:modifiers": "node ./node_scripts/generate-modifiers-index.js",
 		"generate:configure": "node ./node_scripts/generate-configure.js",
 		"build:polyfill": "ts-node rollup/build-polyfill.ts",
+		"build:solid": "npm run sync:enums && npm run sync:constants && ts-node -r ./rollup/build-write-file.ts ./rollup/build.ts --strict-assets",
+		"build:solid:dev": "npm run sync:enums && npm run sync:constants && ts-node -r ./rollup/build-write-file.ts ./rollup/build.ts",
 		"dev:solid": "npm run sync:enums && npm run sync:constants && ts-node -r ./rollup/build-write-file.ts ./rollup/build.ts --watch",
 		"dev:vscripts": "npm run sync:enums && npm run sync:constants && npm run generate:precache && node ./node_scripts/watch-vscripts.js",
 		"dev:vscripts:basic": "node ./node_scripts/build-vscripts.js --watch",

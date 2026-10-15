@@ -5,6 +5,10 @@ import { reloadable } from "../lib/tstl-utils";
 @reloadable
 export class GameState_DiffSelection extends CGameStateBase {
 	OnStateStart(): void {
-		EmitAnnouncerSound("UI.DiffSelection");
+		this.timeEnd = this.timeStart + 15;
+		this.StartThink(15, () => {
+			GameState.GetSession().ResolveDifficulty();
+			GameState.SwitchState("GameState_RunInit");
+		});
 	}
 }

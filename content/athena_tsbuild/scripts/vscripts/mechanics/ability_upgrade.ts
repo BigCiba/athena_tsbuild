@@ -482,7 +482,17 @@ class CAbilityUpgrade extends CModule {
 		}
 	}
 
+	/** 生命周期清理按索引释放，避免实体已经销毁时残留升级或误清其他单位。 */
+	CleanupUnitUpgrades(entindex: EntityIndex): void {
+		for (const source of Object.keys(this.upgradeSource)) {
+			delete this.upgradeSource[source][entindex];
+			if (Object.keys(this.upgradeSource[source]).length === 0) delete this.upgradeSource[source];
+		}
+		delete this.unitUpgrades[entindex];
+		if (IsServer()) CustomNetTables.SetNetData("ability_upgrade", `${entindex}`, undefined);
+	}
 	reset(): void {
+		if (IsServer()) for (const key of CustomNetTables.GetAllTableKeys("ability_upgrade")) CustomNetTables.SetNetData("ability_upgrade", key, undefined);
 		this.unitUpgrades = {};
 		this.upgradeSource = {};
 	}

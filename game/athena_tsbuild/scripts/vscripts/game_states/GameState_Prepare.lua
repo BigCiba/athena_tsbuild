@@ -10,13 +10,13 @@ local ____game_state_class = require("class.game_state_class")
 local CGameStateBase = ____game_state_class.CGameStateBase
 local ____tstl_2Dutils = require("lib.tstl-utils")
 local reloadable = ____tstl_2Dutils.reloadable
---- 选完英雄后的准备阶段
+--- 每局选人及准备。尚未创建本局世界，也不提前发送 game_start。
 ____exports.GameState_Prepare = __TS__Class()
 local GameState_Prepare = ____exports.GameState_Prepare
 GameState_Prepare.name = "GameState_Prepare"
 __TS__ClassExtends(GameState_Prepare, CGameStateBase)
 function GameState_Prepare.prototype.OnStateStart(self)
-    Event:Fire("game_start", {})
+    GameState:RefreshPlayers()
 end
 function GameState_Prepare.prototype.OnStateEnd(self)
 end

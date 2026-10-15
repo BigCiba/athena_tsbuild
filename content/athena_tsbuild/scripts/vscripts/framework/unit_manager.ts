@@ -93,6 +93,9 @@ class CUnitManager extends CModule {
 
 	reset() {
 		this.Clear();
+		this.CollectExistingUnits();
+		this.StartGridUpdate();
+		this.ready = true;
 	}
 
 	SetCellSize(cellSize: number) {
