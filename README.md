@@ -2,7 +2,7 @@
 
 ## 项目起点
 
-本项目从 `lonely_cannon` 的根提交 `4741a125753f53f4c6f8c58bbd1db28817c66f48`（框架清理）创建，当前完成项目名称与路径统一、Windows 含空格路径的构建修复及依赖安装，并已复制雅典娜 KV 配置，尚未迁移雅典娜玩法代码。
+本项目从 `lonely_cannon` 的根提交 `4741a125753f53f4c6f8c58bbd1db28817c66f48`（框架清理）创建，当前完成项目名称与路径统一、Windows 含空格路径的构建修复及依赖安装，并已复制雅典娜 KV 配置和地图，尚未迁移雅典娜玩法代码。
 
 同时合入其后续提交 `83b467b9445f8c597e7b991a88cca8ef6f9f55e6`：清理 c1 残留的命令、文案与资源引用，恢复伤害数字粒子及贴图；其中的 addon 名称已适配为 `athena_tsbuild`。
 
@@ -23,6 +23,12 @@
 后续直接编辑 `game/athena_tsbuild/scripts/npc/kv/**/*.kv`、`npc/*.txt` 和 `scripts/shops.txt`，不使用原版 Excel 导出流程。原版 `kv_js_config.txt` 属于旧 KV 转 JS 工具配置，未复制；本项目继续使用现有 Rollup KV 插件。
 
 `npc/npc_abilities_custom.txt` 额外引用 `npc/framework/abilities.kv`，保留新框架初始化所需的 `client_ability`。配置中的原版 `ScriptFile` 和资源路径保持原样，对应玩法脚本、资源及独立 gameplay 表的加载接入仍需后续迁移。本次只迁移配置，不代表玩法已能在新框架运行。
+
+## 雅典娜地图
+
+地图分为 `solo` 和 `team`：源文件分别为 `content/athena_tsbuild/maps/solo.vmap`、`team.vmap`，编译文件分别为 `game/athena_tsbuild/maps/solo.vpk`、`team.vpk`，替换原有 `main` 地图。两张地图共用 `guarding_athena` 小地图材质和贴图，各自使用同名的 overview 描述；同时保留地图直接引用的自定义粒子及其子粒子（共 16 个粒子的源文件和编译文件）。
+
+`game/athena_tsbuild/addoninfo.txt` 已登记 `solo`（1 人）和 `team`（1–4 人）。地图源文件和编译文件已由用户更新；本次检查文件存在及 VPK 目录结构，未进行 Dota 加载验证。原版地图触发器和玩法逻辑需在后续脚本迁移时接入。
 
 
 基于 Solid.js 和 TypeScript 的 Dota 2 自定义游戏项目，使用现代化的前端技术栈开发 Panorama UI。

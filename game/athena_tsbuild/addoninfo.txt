@@ -5,7 +5,8 @@
 	IsTemplate = false
 	maps = 
 	[
-		"main",
+		"solo",
+		"team",
 	]
 	CheckAFKPlayers = false
 	DefaultMap = ""
@@ -20,8 +21,13 @@
 	map_options = 
 	[
 		{
-			map = "main"
+			map = "solo"
 			MaxPlayers = 1
+		},
+		{
+			map = "team"
+			MinPlayers = 1
+			MaxPlayers = 4
 		},
 	]
 	PenaltiesEnabled = false
