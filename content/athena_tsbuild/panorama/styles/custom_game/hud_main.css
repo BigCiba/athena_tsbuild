@@ -293,6 +293,792 @@
   background-image: none;
   background-size: 100%;
 }
+.AthenaHeroSelection {
+  width: 100%;
+  height: 100%;
+}
+.AthenaHeroSelection .Full {
+  width: 100%;
+  height: 100%;
+}
+.AthenaHeroSelection .CloseButton {
+  width: 30px;
+  height: 30px;
+  background-image: url("s2r://panorama/images/control_icons/x_close_gradient_png.vtex");
+  background-size: 100%;
+  transition-property: wash-color;
+  transition-duration: 0.1s;
+}
+.AthenaHeroSelection .CloseButton:active {
+  background-size: 100%;
+}
+.AthenaHeroSelection .CommonButton {
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#5a6c75), to(#3d4a50));
+  border: 1px solid black;
+  margin: 8px;
+  width: 192px;
+  padding: 5px 10px 5px 10px;
+  border-top: 1px solid #ffffff44;
+  border-right: 1px solid #4e5b60;
+  border-left: 1px solid #4e5b60;
+  border-bottom: 1px solid #00000088;
+  transition-property: background-color, wash-color;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+}
+.AthenaHeroSelection .CommonButton:hover {
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#a9c8da), to(#596b75));
+}
+.AthenaHeroSelection .CommonButton:active {
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#272f33), to(#5a6c75));
+  border-top: 1px solid #00000088;
+  border-right: 1px solid #00000088;
+  border-left: 1px solid #00000088;
+  border-bottom: 1px solid #aaaaaa44;
+}
+.AthenaHeroSelection .CommonButton Label {
+  color: white;
+  font-size: 24px;
+  align: center center;
+}
+.AthenaHeroSelection .CheckBox:selected Label {
+  color: white;
+}
+.AthenaHeroSelection .CheckBox Label {
+  font-size: 18px;
+  color: #7d8688;
+  vertical-align: center;
+  margin: 0px;
+  padding-top: 4px;
+  padding-left: 5px;
+  letter-spacing: 1px;
+  font-weight: thin;
+}
+.AthenaHeroSelection .full {
+  width: 100%;
+  height: 100%;
+}
+.AthenaHeroSelection .flow-down {
+  flow-children: down;
+}
+.AthenaHeroSelection .HeroSelectionRoot {
+  width: 100%;
+  height: 100%;
+  background-color: #3B4553;
+}
+.AthenaHeroSelection #BackGroundImage {
+  width: 100%;
+  height: 100%;
+}
+.AthenaHeroSelection .HeroSelectionBackgroundScene {
+  blur: gaussian(2, 2, 1);
+  width: 50%;
+  height: 51%;
+  pre-transform-scale2d: 2;
+  vertical-align: middle;
+  horizontal-align: center;
+  background-color: #3B4553;
+  transform: none;
+  transition-property: transform, blur, opacity;
+  transition-duration: 0.45s;
+  transition-delay: 0s;
+  transition-timing-function: ease-in;
+}
+.AthenaHeroSelection #Waiting {
+  width: 100%;
+  height: 100%;
+  background-color: #3B4553;
+  z-index: 100;
+}
+.AthenaHeroSelection #Waiting #WaitingContent {
+  align: center center;
+  flow-children: down;
+}
+.AthenaHeroSelection #Waiting #WaitingContent #WaitingSpinner {
+  horizontal-align: center;
+  width: 128px;
+  height: 128px;
+  background-image: url("s2r://panorama/images/status_icons/loadingthrobber_round_psd.vtex");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
+  animation-name: SpinnerRotate;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes 'SpinnerRotate' {
+  0% {
+    transform: rotateZ(360deg);
+  }
+  50% {
+    transform: rotateZ(180deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+.AthenaHeroSelection #Waiting #WaitingContent #WaitingText {
+  horizontal-align: center;
+  margin-top: 10px;
+  font-size: 32px;
+  color: #ffffff;
+}
+.AthenaHeroSelection .ServerNoChecked {
+  visibility: visible;
+}
+.AthenaHeroSelection .ServerChecked {
+  visibility: collapse;
+}
+.AthenaHeroSelection .MainSelectionPage {
+  width: 100%;
+  height: 100%;
+  flow-children: right;
+}
+.AthenaHeroSelection .SideBar {
+  flow-children: down;
+  width: 480px;
+  height: 100%;
+  /* background-color: #222A35; */
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#433620), to(#141b21));
+  box-shadow: #161b22 0px 0px 20px 0px;
+}
+.AthenaHeroSelection .SideBar .PlayerList {
+  flow-children: down;
+  width: 100%;
+  height: 50%;
+  padding-top: 5%;
+  border-bottom: 2px solid #00000088;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer {
+  width: 100%;
+  height: 100px;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerBackground {
+  align: center center;
+  flow-children: right;
+  width: 80%;
+  height: 72px;
+  border-radius: 5px;
+  background-color: #0E141Aaa;
+  background-image: url("s2r://panorama/images/textures/miniprofile_rock_psd.vtex");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 100% 256px;
+  border-top: 1px solid #3b404777;
+  border-right: 1px solid #00000088;
+  border-left: 1px solid #4c434677;
+  border-bottom: 1px solid #00000088;
+  box-shadow: fill #00000055 0px 0px 6px 0px;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerBackground .AvatarAndHeroContainer {
+  width: 72px;
+  height: 72px;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerBackground .AvatarAndHeroContainer .AvatarAndHero {
+  align: center center;
+  width: 56px;
+  height: 56px;
+  border: 2px solid transparent;
+  margin: 4px;
+  vertical-align: center;
+  box-shadow: #000000aa 0px 0px 5px 0px;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerBackground .AvatarAndHeroContainer .Hidden {
+  visibility: collapse;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerBackground .UserInfoContainer {
+  vertical-align: center;
+  flow-children: down;
+  height: 56px;
+  width: 280px;
+  margin-left: 30px;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerBackground .UserInfoContainer .UserName {
+  height: 50%;
+  width: 100%;
+  vertical-align: center;
+  text-overflow: shrink;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerBackground .UserInfoContainer .UserName Label {
+  vertical-align: center;
+  font-weight: thin;
+  font-size: 24px;
+  color: white;
+  white-space: nowrap;
+  height: fit-children;
+  font-family: defaultFont;
+  text-overflow: shrink;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerBackground .UserInfoContainer .SelectDiffBG {
+  height: 50%;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerBackground .UserInfoContainer .SelectDiffBG Label {
+  font-weight: bold;
+  vertical-align: center;
+  font-size: 18px;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerLevelContent {
+  horizontal-align: right;
+  margin-right: 5%;
+  height: 100%;
+  width: height-percentage(100%);
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerLevelContent Image {
+  width: 100%;
+  height: 100%;
+}
+.AthenaHeroSelection .SideBar .PlayerList .PlayerContainer .PlayerLevelContent Image Label {
+  color: white;
+  align: center center;
+  text-align: center;
+  font-size: 19px;
+  font-weight: bold;
+  width: 100%;
+  text-shadow: 1px 1px 2px 1 #000000;
+  margin-top: 66px;
+  font-family: defaultFont;
+}
+.AthenaHeroSelection .SideBar .DiffList {
+  flow-children: down;
+  padding-top: 10%;
+  width: 100%;
+  height: 50%;
+}
+.AthenaHeroSelection .SideBar .DiffList .DiffButton {
+  width: 80%;
+  height: 64px;
+  horizontal-align: center;
+  margin-bottom: 20px;
+  /* border-radius: 5px; */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("s2r://panorama/images/dota_plus/shop_button_bg_psd.vtex");
+}
+.AthenaHeroSelection .SideBar .DiffList .DiffButton:hover {
+  brightness: 2;
+}
+.AthenaHeroSelection .SideBar .DiffList .DiffButton:active {
+  brightness: 1.5;
+  sound: "ui_generic_button_click";
+}
+.AthenaHeroSelection .SideBar .DiffList .DiffButton Label {
+  horizontal-align: center;
+  vertical-align: center;
+  font-size: 30px;
+  text-align: center;
+  color: #c1c5c6;
+  text-overflow: shrink;
+  font-weight: bold;
+  text-shadow: 2px 2px 3px 3 #000000;
+}
+.AthenaHeroSelection .SideBar .DiffList .DiffButton .DiffIcon {
+  width: 64px;
+  height: 64px;
+  horizontal-align: left;
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Easy {
+  border-bottom: 1px solid #00000060;
+  border-right: 1px solid #00000060;
+  border-top: 1px solid #ffffff06;
+  border-left: 1px solid #ffffff06;
+  wash-color: #aee2ff33;
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Easy:selected {
+  wash-color: #aee2ff;
+  color: gradient(linear, 0% 0%, 0% 100%, from(white), color-stop(0.5, #ff5757), to(#c43030));
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Common {
+  border-bottom: 1px solid #ffffff06;
+  border-right: 1px solid #ffffff06;
+  border-top: 1px solid #33333360;
+  border-left: 1px solid #33333360;
+  wash-color: #d5ff9a33;
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Common:selected {
+  wash-color: #d5ff9a;
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Hard {
+  border-bottom: 1px solid #ffffff06;
+  border-right: 1px solid #ffffff06;
+  border-top: 1px solid #33333360;
+  border-left: 1px solid #33333360;
+  wash-color: #ffcf4d33;
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Hard:selected {
+  wash-color: #ffcf4d;
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Nightmare {
+  border-bottom: 1px solid #ffffff06;
+  border-right: 1px solid #ffffff06;
+  border-top: 1px solid #33333360;
+  border-left: 1px solid #33333360;
+  wash-color: #b29aff33;
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Nightmare:selected {
+  wash-color: #b29aff;
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Hell {
+  border-bottom: 1px solid #ffffff06;
+  border-right: 1px solid #ffffff06;
+  border-top: 1px solid #33333360;
+  border-left: 1px solid #33333360;
+  wash-color: #ff9a9a33;
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Hell:selected {
+  wash-color: #ff9a9a;
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Easy:selected Label {
+  color: gradient(linear, 0% 0%, 0% 100%, from(white), color-stop(0.5, #70dfff), to(#7bb7ff));
+}
+.AthenaHeroSelection .SideBar .DiffList .Normal:selected Label {
+  color: gradient(linear, 0% 0%, 0% 100%, from(white), color-stop(0.5, #c2ff57), to(#79e900));
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Hard:selected Label {
+  color: gradient(linear, 0% 0%, 0% 100%, from(white), color-stop(0.5, #ffef8a), to(#ffbb0f));
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Nightmare:selected Label {
+  color: gradient(linear, 0% 0%, 0% 100%, from(white), color-stop(0.5, #8f57ff), to(#612fc4));
+}
+.AthenaHeroSelection .SideBar .DiffList .GameMode_Hell:selected Label {
+  color: gradient(linear, 0% 0%, 0% 100%, from(white), color-stop(0.5, #ff5757), to(#c43030));
+}
+.AthenaHeroSelection .MainPage {
+  width: 75%;
+  height: 100%;
+}
+.AthenaHeroSelection .MainPage .TimerContent {
+  horizontal-align: center;
+  vertical-align: top;
+  /* background-color: #222A35; */
+  width: 200px;
+  height: 100px;
+  /* box-shadow: #222A35 -10px -10px 20px 20px; */
+  /* clip: radial( 50% 100%, -27deg, 54deg ); */
+  background-image: url("file://{images}/custom_game/hero_selection/triangle.png");
+  background-repeat: no-repeat;
+  background-size: 99%;
+}
+.AthenaHeroSelection .MainPage .TimerContent Label {
+  horizontal-align: center;
+  vertical-align: center;
+  margin-bottom: 30px;
+  font-size: 48px;
+  text-align: center;
+  color: #c1c5c6;
+  text-overflow: shrink;
+  text-shadow: 0px 0px 3px 3 #000000;
+}
+.AthenaHeroSelection .MainPage .HeroListAndChat {
+  width: 65%;
+  height: 100%;
+  margin-top: 150px;
+  padding-left: 7%;
+  padding-right: 7%;
+  padding-bottom: 3%;
+  z-index: 2;
+}
+.AthenaHeroSelection .MainPage .HeroListAndChat .HeroList {
+  width: 100%;
+  height: 70%;
+  vertical-align: top;
+  padding: 2%;
+  flow-children: right-wrap;
+  box-shadow: #00000055 0px 0px 2px 0px;
+  background-color: dotaPlusBgGradient;
+  border-top: 2px solid dotaPlusGold;
+}
+.AthenaHeroSelection .MainPage .HeroListAndChat .HeroList VerticalScrollBar .ScrollThumb,
+.AthenaHeroSelection .MainPage .HeroListAndChat .HeroList HTMLVerticalScrollBar .ScrollThumb {
+  visibility: visible;
+  background-color: #bae3f1;
+  border-right: 0px;
+  border-radius: 20px;
+}
+.AthenaHeroSelection .MainPage .HeroListAndChat .HeroList .HeroCard {
+  /* margin-left: 2%;
+				margin-top: 20px; */
+  saturation: 0.3;
+  width: 15%;
+  margin: 0.7%;
+  /* 3:4 */
+  height: width-percentage(133.3%);
+  border-radius: 4px;
+  /* border: 1px solid #87CEEBff; */
+  box-shadow: fill #191e25 0px 0px 18px 0px;
+  transition-property: brightness, pre-transform-scale2d, saturation;
+  transition-duration: 0.1s;
+}
+.AthenaHeroSelection .MainPage .HeroListAndChat .HeroList .HeroCard DOTAHeroMovie {
+  width: 100%;
+  height: 100%;
+}
+.AthenaHeroSelection .MainPage .HeroListAndChat .HeroList .HeroCard:hover {
+  brightness: 1.4;
+  pre-transform-scale2d: 1.05;
+  box-shadow: fill #000000aa 0px 0px 8px 0px;
+}
+.AthenaHeroSelection .MainPage .HeroListAndChat .HeroList .HeroCard:selected {
+  saturation: 1;
+  brightness: 1.4;
+  pre-transform-scale2d: 1.05;
+  box-shadow: fill #000000aa 0px 0px 8px 0px;
+}
+.AthenaHeroSelection .MainPage .HeroListAndChat .HeroList .HeroCard .LockImage {
+  width: 100%;
+  height: 100%;
+}
+.AthenaHeroSelection .MainPage .HeroListAndChat .HeroList .HeroCard .UnLockImage {
+  visibility: collapse;
+}
+.AthenaHeroSelection .MainPage .HeroListAndChat .HeroList .AspectRatio4x3 .HeroCard {
+  width: 15%;
+  margin: 0.68%;
+}
+.AthenaHeroSelection .MainPage .HeroInfoContainer {
+  height: 100%;
+  width: 35%;
+  horizontal-align: right;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-top: 100px;
+  flow-children: down;
+}
+.AthenaHeroSelection .MainPage .HeroInfoContainer .HeroName {
+  width: 100%;
+  /* height: 200px; */
+  margin-bottom: 10px;
+  horizontal-align: right;
+  flow-children: right;
+}
+.AthenaHeroSelection .MainPage .HeroInfoContainer .HeroName Label {
+  font-size: 48px;
+  text-align: center;
+  color: #c1c5c6;
+  text-overflow: shrink;
+  text-shadow: 2px 2px 3px 3 #000000;
+  margin-left: 10px;
+}
+.AthenaHeroSelection .MainPage .HeroInfoContainer .HeroAbilityList {
+  flow-children: right;
+  margin-bottom: 20px;
+  height: 64px;
+}
+.AthenaHeroSelection .MainPage .HeroInfoContainer .HeroAbilityList .HeroAbility {
+  width: 64px;
+  height: 64px;
+  border-radius: 5px;
+  margin-right: 3%;
+  box-shadow: fill #222A35 0px 0px 8px 0px;
+}
+.AthenaHeroSelection .MainPage .HeroInfoContainer .HeroSelectButton {
+  width: 80%;
+  height: 50px;
+  /* horizontal-align: center; */
+  /* border-radius: 5px; */
+  background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
+  border-top: 1px solid #ffffff22;
+  border-bottom: 1px solid #00000088;
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#433620), to(#141b21));
+}
+.AthenaHeroSelection .MainPage .HeroInfoContainer .HeroSelectButton:hover {
+  brightness: 2;
+}
+.AthenaHeroSelection .MainPage .HeroInfoContainer .HeroSelectButton:active {
+  brightness: 1.5;
+  sound: "HeroPicker.Selected";
+}
+.AthenaHeroSelection .MainPage .HeroInfoContainer .HeroSelectButton Label {
+  horizontal-align: center;
+  vertical-align: center;
+  font-size: 30px;
+  text-align: center;
+  color: #c1c5c6;
+  text-overflow: shrink;
+  text-shadow: 2px 2px 3px 3 #000000;
+}
+.AthenaHeroSelection .MainPage .HeroScenePanel {
+  opacity-mask: url("s2r://panorama/images/masks/softedge_box_png.vtex");
+  width: 70%;
+  height: 100%;
+  x: 15%;
+  y: 5%;
+  vertical-align: bottom;
+  horizontal-align: Right;
+}
+.AthenaHeroSelection .MainPage .HeroScenePanel .HeroScene {
+  width: 100%;
+  height: 100%;
+}
+.AthenaHeroSelection #HeroInfoContent {
+  horizontal-align: right;
+  height: 100%;
+  width: 35%;
+  /* z-index: 10; */
+}
+.AthenaHeroSelection #HeroDataPanel {
+  width: 560px;
+  height: 100%;
+  margin-top: 100px;
+  /* vertical-align: bottom; */
+  horizontal-align: right;
+  flow-children: down;
+}
+.AthenaHeroSelection #HeroNamePanel {
+  width: 100%;
+  /* height: 200px; */
+  margin-bottom: 10px;
+  horizontal-align: right;
+  flow-children: right;
+}
+.AthenaHeroSelection #PrimaryAttributeImage {
+  width: 48px;
+  height: 48px;
+}
+.AthenaHeroSelection #HeroNamePanel Label {
+  font-size: 48px;
+  text-align: center;
+  color: #c1c5c6;
+  text-overflow: shrink;
+  text-shadow: 2px 2px 3px 3 #000000;
+  margin-left: 10px;
+}
+.AthenaHeroSelection #HeroAbilityPanel {
+  flow-children: right;
+  height: 64px;
+}
+.AthenaHeroSelection .HeroAbility {
+  width: 64px;
+  height: 64px;
+  border-radius: 5px;
+  margin-right: 3%;
+  box-shadow: fill #222A35 0px 0px 7px 0px;
+}
+.AthenaHeroSelection .HeroLocked #HeroSelectPanel {
+  saturation: 0;
+}
+.AthenaHeroSelection #HeroSelectPanel {
+  width: 80%;
+  height: 50px;
+  margin-top: 20px;
+  /* horizontal-align: center; */
+  /* border-radius: 5px; */
+  background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
+  border-top: 1px solid #ffffff22;
+  border-bottom: 1px solid #00000088;
+  background-color: gradient(linear, 0% 0%, 0% 100%, from(#433620), to(#141b21));
+}
+.AthenaHeroSelection #HeroSelectPanel:disabled {
+  saturation: 0;
+}
+.AthenaHeroSelection #HeroSelectPanel:disabled:hover {
+  brightness: 1;
+}
+.AthenaHeroSelection #HeroSelectPanel:hover {
+  brightness: 2;
+}
+.AthenaHeroSelection #HeroSelectPanel:active {
+  brightness: 1.5;
+  sound: "HeroPicker.Selected";
+}
+.AthenaHeroSelection #HeroSelectPanel Label {
+  horizontal-align: center;
+  vertical-align: center;
+  font-size: 30px;
+  text-align: center;
+  color: #c1c5c6;
+  text-overflow: shrink;
+  text-shadow: 2px 2px 3px 3 #000000;
+}
+.AthenaHeroSelection #HeroScenePanel {
+  /*opacity-mask: url("s2r://panorama/images/masks/hud_hero_inspect_psd.vtex");*/
+  opacity-mask: url("s2r://panorama/images/masks/softedge_box_png.vtex");
+  width: 70%;
+  height: 100%;
+  x: 15%;
+  y: 5%;
+  vertical-align: bottom;
+  horizontal-align: Right;
+  /* visibility: collapse; */
+  /* transition-property: position;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in-out; */
+}
+.AthenaHeroSelection .HeroScene {
+  width: 100%;
+  height: 100%;
+}
+.AthenaHeroSelection #HeroSettingPanel {
+  /* margin: 5%; */
+  /* margin-bottom: 2.5%; */
+  /* margin-left: 2.5%; */
+  width: 100%;
+  height: 230px;
+  /* background-color: #222A35; */
+  /* box-shadow: fill #191e25 2px 2px 6px 0px; */
+  padding: 1%;
+  vertical-align: bottom;
+  flow-children: right;
+  box-shadow: #00000055 0px 0px 4px 0px;
+  background-color: dotaPlusBgGradient;
+  border-top: 2px solid dotaPlusGold;
+}
+.AthenaHeroSelection .SettingPanel {
+  height: 100%;
+  width: fill-parent-flow(1);
+  margin: 1%;
+  flow-children: down;
+  transition-property: brightness, pre-transform-scale2d;
+  transition-duration: 0.1s;
+  context-menu-position: top;
+  context-menu-body-position: 50% 50%;
+  context-menu-arrow-position: 50% 50%;
+}
+.AthenaHeroSelection .SettingPanel:hover {
+  brightness: 1.4;
+}
+.AthenaHeroSelection .SettingIcon {
+  width: 100%;
+  /* height: width-percentage( 50% ); */
+  horizontal-align: center;
+}
+.AthenaHeroSelection .SettingPanel Label {
+  horizontal-align: center;
+  vertical-align: center;
+  font-size: 30px;
+  text-align: center;
+  color: #c1c5c6;
+  text-overflow: shrink;
+  font-weight: bold;
+  text-shadow: 2px 2px 3px 3 #000000;
+}
+.AthenaHeroSelection #MenuArrowContainer {
+  margin-top: 4px;
+  width: 100%;
+  height: 16px;
+  background-color: gradient(linear, 100% 0%, 0% 0%, from(#000), color-stop(0.4, #282a29), color-stop(0.5, #282a29), color-stop(0.6, #282a29), to(#000));
+}
+.AthenaHeroSelection #MenuArrow {
+  width: 16px;
+  height: 16px;
+  horizontal-align: center;
+  background-image: url("s2r://panorama/images/control_icons/arrow_solid_up_png.vtex");
+  background-size: 16px 11px;
+  background-position: center 2px;
+  background-repeat: no-repeat;
+  wash-color: #777;
+}
+.AthenaHeroSelection #ContextMenuBody {
+  /* transform: translateY(-22%);
+	vertical-align: bottom; */
+  /* horizontal-align: center; */
+  min-width: 407px;
+  width: fit-children;
+  /* position: 0px 0px 0px; */
+}
+.AthenaHeroSelection .ContextMenuBody {
+  visibility: collapse;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+.AthenaHeroSelection .ContextMenuBodyShow {
+  visibility: visible;
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+.AthenaHeroSelection #BottomArrow {
+  background-image: url("s2r://panorama/images/tooltips/black_tooltip_arrow_bottom_png.vtex");
+  height: 14px;
+  width: 27px;
+  margin-top: -1px;
+  wash-color: #252b30;
+  margin-left: 12px;
+  margin-right: 12px;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-size: contain;
+  horizontal-align: center;
+  vertical-align: bottom;
+}
+.AthenaHeroSelection #Contents {
+  margin-bottom: 14px;
+  min-height: 120px;
+  flow-children: right-wrap;
+  padding: 6px;
+  min-width: 407px;
+  max-width: 505px;
+  max-height: 330px;
+}
+.AthenaHeroSelection .EconItem {
+  margin: 6px;
+  width: 89px;
+  height: 96px;
+  /* box-shadow: fill #000000aa 0px 0px 2px 2px; */
+  box-shadow: fill #00000077 0px 0px 8px 0px;
+  pre-transform-scale2d: 1;
+  /* border: 2px solid black; */
+  border-top: 1px solid #ffffff09;
+  border-left: 1px solid #ffffff22;
+  background-color: black;
+  wash-color: #899aa944;
+  saturation: 0.9;
+  transition-property: height, width, pre-transform-scale2d, box-shadow, background-color, border, saturation, brightness;
+  transition-duration: 0.28s;
+  transition-timing-function: ease-in-out;
+  tooltip-position: right left;
+}
+.AthenaHeroSelection #EconItemImage {
+  height: 100%;
+  width: 100%;
+  horizontal-align: center;
+  margin-top: -2px;
+  margin-bottom: 2px;
+  transition-property: wash-color, saturation, brightness;
+  transition-duration: 0.28s;
+  transition-timing-function: ease-in-out;
+}
+.AthenaHeroSelection #EconItemImage:hover {
+  brightness: 1.4;
+  wash-color: white;
+}
+.AthenaHeroSelection #Equipped {
+  width: 23%;
+  height: 21%;
+  background-image: url("s2r://panorama/images/status_icons/econtooltip_equipped_immortal_psd.vtex");
+  horizontal-align: right;
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 100%;
+  background-color: gradient(linear, 100% 0%, 50% 40%, from(#000000ff), color-stop(0.22, #000000ff), color-stop(0.3, #00000000), to(transparent));
+}
+.AthenaHeroSelection #BottomLayer {
+  vertical-align: bottom;
+  width: 100%;
+  height: 3px;
+  /* background-color: rarity_color_immortal; */
+}
+.AthenaHeroSelection .Common {
+  background-color: #ffffff;
+}
+.AthenaHeroSelection .Rare {
+  background-color: blue;
+}
+.AthenaHeroSelection .Epic {
+  background-color: purple;
+}
+.AthenaHeroSelection .Artifact {
+  background-color: orange;
+}
+.AthenaHeroSelection .ContextMenuHeroItemSlotPicker {
+  background-color: gradient(linear, 0% 100%, 0% 0%, from(#222), to(#333));
+  border-top: 1px solid #444;
+  border-left: 1px solid #ffffff01;
+  box-shadow: fill #00000077 0px 0px 8px 0px;
+}
 .CustomHudRoot {
   width: 100%;
   height: 100%;

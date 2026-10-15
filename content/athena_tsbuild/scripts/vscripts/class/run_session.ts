@@ -54,7 +54,9 @@ export class RunSession {
 		this.participants = online; return true;
 	}
 	SetDifficulty(id: PlayerID, value: number) {
-		if (this.state !== "GameState_DiffSelection" || this.participants.indexOf(id) < 0 || !this.players[id]?.online || value % 1 !== 0 || value < 1 || value > 5) return false;
+		// 原版在选英雄前即可投难度；名单锁定后仍仅允许本局参战玩家修改。
+		if ((this.state !== "GameState_Prepare" && this.state !== "GameState_DiffSelection") || !this.players[id]?.online ||
+			(this.state === "GameState_DiffSelection" && this.participants.indexOf(id) < 0) || value % 1 !== 0 || value < 1 || value > 5) return false;
 		this.players[id]!.difficulty = value; return true;
 	}
 	/** 沿用原版多数票、同票取较低难度；未投票者默认选择难度 2。 */

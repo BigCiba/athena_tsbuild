@@ -66,6 +66,7 @@
 		]
 	},
 	"scripts": {
+		"test:hero-selection": "node ./node_scripts/test-hero-selection.js",
 		"test:session": "node ./node_scripts/test-game-session.js",		"test:ui-assets": "node ./node_scripts/test-panorama-images.js",
 		"generate:compiler": "node ./node_scripts/compiler.js",
 		"generate:image": "node ./.github/skills/apimart-image-generator/scripts/generate-image.js",

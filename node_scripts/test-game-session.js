@@ -63,6 +63,17 @@ test('人数上限、非法难度和同票取较低难度', () => {
 	assert.equal(session.SetDifficulty(0, 1.5), false); assert.equal(session.SetDifficulty(0, 6), false);
 	session.SetDifficulty(0, 4); session.SetDifficulty(1, 2); assert.equal(session.ResolveDifficulty(), 2);
 });
+test('原版选人前可以投难度，进入难度阶段后保留投票并限制参战名单', () => {
+	const session = prepare('team', [0, 1]);
+	assert.equal(session.SetDifficulty(0, 5), true); assert.equal(session.players[0].ready, false);
+	assert.equal(session.SetDifficulty(1, 3), true); assert.equal(session.SetDifficulty(2, 1), false);
+	assert.equal(session.SetDifficulty(0, 0), false); assert.equal(session.SetDifficulty(0, 2.5), false);
+	for (const id of [0, 1]) session.SetReady(id, true);
+	session.LockParticipants(); session.Transition('GameState_DiffSelection');
+	assert.equal(session.players[0].difficulty, 5); assert.equal(session.ResolveDifficulty(), 3);
+	session.Transition('GameState_RunInit'); session.Transition('GameState_Battle');
+	assert.equal(session.SetDifficulty(0, 1), false);
+});
 test('放弃需全部在线参与者确认，拒绝/超时/掉线取消投票', () => {
 	const session = prepare('team', [0, 1]); battle(session);
 	session.RequestVote(0, 'abandon', 0); assert.equal(session.VotePassed(1), false);
