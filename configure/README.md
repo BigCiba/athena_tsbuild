@@ -15,14 +15,14 @@
 Excel 配置文件 (configure/)
     ↓
 generate-configure.js
-    ├→ JS 文件 (content/lonely_cannon/panorama/scripts/custom_game/configure/)
-    └→ KV 文件 (game/lonely_cannon/scripts/npc/service/) [可选]
+    ├→ JS 文件 (content/athena_tsbuild/panorama/scripts/custom_game/configure/)
+    └→ KV 文件 (game/athena_tsbuild/scripts/npc/service/) [可选]
 ```
 
 ## 配置生成规则
 
 ### 1. Excel → JS（所有配置）
-- **输出目录**：`content/lonely_cannon/panorama/scripts/custom_game/configure/`
+- **输出目录**：`content/<addon_name>/panorama/scripts/custom_game/configure/`
 - **用途**：前端 Panorama UI 使用
 - **类型定义**：`src/declarations/configure.d.ts`
 - **特点**：
@@ -31,7 +31,7 @@ generate-configure.js
   - 支持复杂的嵌套结构和可选字段
 
 ### 2. Excel → KV（可选）
-- **输出目录**：`game/lonely_cannon/scripts/npc/service/`
+- **输出目录**：`game/<addon_name>/scripts/npc/service/`
 - **用途**：服务端脚本使用
 - **触发条件**：在 `configure-rules.json` 中设置 `"export_kv": true`
 - **特点**：
@@ -128,7 +128,7 @@ interface CustomUIConfig {
 ## 文件结构
 
 ```
-lonely_cannon/
+athena_tsbuild/
 ├── configure/                          # Excel 配置源文件
 │   ├── bp/
 │   │   ├── bp_season.xlsx            # 设置了 export_kv: true
@@ -138,12 +138,12 @@ lonely_cannon/
 │   │   └── collection.xlsx
 │   └── configure-rules.json           # 配置规则
 │
-├── game/lonely_cannon/scripts/npc/service/       # 服务端 KV 文件（Excel 生成）
+├── game/athena_tsbuild/scripts/npc/service/       # 服务端 KV 文件（Excel 生成）
 │   ├── bp_season.kv                   # ✅ 从 Excel 生成
 │   ├── hero_level_grow.kv
 │   └── talent.kv
 │
-├── content/lonely_cannon/panorama/scripts/custom_game/
+├── content/athena_tsbuild/panorama/scripts/custom_game/
 │   ├── configure/                     # 前端 JS 配置（Excel 生成）
 │   │   ├── bp_season.js              # ✅ 从 Excel 直接生成
 │   │   ├── bp_level_exp.js

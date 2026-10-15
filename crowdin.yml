@@ -1,7 +1,7 @@
 "project_id": "863308"
 "files": [
   {
-    "source": "/content/lonely_cannon/localization/schinese/**/*.vdf",
-    "translation": "/content/lonely_cannon/localization/%language%/%original_file_name%"
+    "source": "/content/athena_tsbuild/localization/schinese/**/*.vdf",
+    "translation": "/content/athena_tsbuild/localization/%language%/%original_file_name%"
   }
 ]

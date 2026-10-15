@@ -4,7 +4,7 @@
 // 1. 所有配置的类型定义都在这个文件中
 // 2. service/ 目录下的 KV 文件是从 Excel 生成的，仅用于服务端
 //    前端直接使用 Excel→JS 的配置（configure/ 目录）
-// 3. game/c1/scripts/npc/service/ 目录不参与前端 KV→JS 转换
+// 3. game/<addon_name>/scripts/npc/service/ 目录不参与前端 KV→JS 转换
 // 4. kv.d.ts 只包含游戏引擎原生 KV 的类型定义
 //
 declare global {

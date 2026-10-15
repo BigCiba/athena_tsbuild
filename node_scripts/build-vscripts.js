@@ -12,7 +12,7 @@ const paths = getAddonPaths();
 const args = process.argv.slice(2); // 获取传递给脚本的参数
 const WRITE_RETRY_PRELOAD = path.join(__dirname, 'retry-vscripts-write.js').replace(/\\/g, '/');
 const NODE_OPTIONS = `${process.env.NODE_OPTIONS || ''} --require="${WRITE_RETRY_PRELOAD}"`.trim();
-const TSTL_COMMAND = path.join(paths.root, 'node_modules', '.bin', process.platform === 'win32' ? 'tstl.cmd' : 'tstl');
+const TSTL_ENTRY = path.join(paths.root, 'node_modules', '@bigciba', 'typescript-to-lua', 'dist', 'tstl.js');
 
 console.log(`📦 Building VScripts for addon: ${paths.addonName}`);
 
@@ -27,10 +27,9 @@ try {
 console.log(`📂 Config: ${paths.vscriptsTsConfig}`);
 
 // 执行 tstl 命令
-// 注入 NODE_PATH 确保跨盘插件（tstl_plugins）能解析到项目的 node_modules
-const tstlProcess = spawn(TSTL_COMMAND, ['--project', paths.vscriptsTsConfig, ...args], {
+// 直接使用 Node 入口，保证包含空格的项目路径在 Windows 上可正常构建。
+const tstlProcess = spawn(process.execPath, [TSTL_ENTRY, '--project', paths.vscriptsTsConfig, ...args], {
 	stdio: 'inherit',
-	shell: true,
 	cwd: paths.contentScripts,
 	env: {
 		...process.env,
@@ -42,4 +41,8 @@ const tstlProcess = spawn(TSTL_COMMAND, ['--project', paths.vscriptsTsConfig, ..
 tstlProcess.on('error', (error) => {
 	console.error('❌ Failed to run TSTL:', error);
 	process.exit(1);
+});
+
+tstlProcess.on('exit', (code) => {
+	process.exitCode = code ?? 1;
 });

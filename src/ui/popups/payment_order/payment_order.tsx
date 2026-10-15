@@ -511,7 +511,7 @@ interface Popup_PaymentSuccess_Props extends PopupProps {
 export const Popup_PaymentSuccess: ParentComponent<Popup_PaymentSuccess_Props> = (props) => {
 	const [local, others] = splitProps(props, ["product_id", "PopupID", "group", "count"]);
 	const { product_id, count, group, PopupID } = local;
-	// c1 使用 KeyValues.info_shop_product 查找商品数据
+	// 当前商城使用 KeyValues.info_shop_product 查找商品数据
 	let itemData: StoreItemData | undefined = undefined;
 	Object.values(KeyValues.info_shop_product ?? {}).forEach((item) => {
 		if (itemData == undefined && item.id == product_id) {

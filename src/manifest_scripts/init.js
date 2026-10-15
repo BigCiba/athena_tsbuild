@@ -209,7 +209,7 @@ GameUI.CustomUIConfig().GetServerTimeStamp = () => {
 			if (damageMsg == 0) continue;
 			if (damageMsg > 0) {
 				const fmtDamage = formatDamageNum(damageMsg, damageLength, isCrit, damageEffect);
-				const particleID = Particles.CreateParticle("particles/msg_fx/msg_damage_c1.vpcf", ParticleAttachment_t.PATTACH_CENTER_FOLLOW, victim);
+				const particleID = Particles.CreateParticle("particles/msg_fx/msg_damage.vpcf", ParticleAttachment_t.PATTACH_CENTER_FOLLOW, victim);
 				Particles.SetParticleControl(particleID, 1, [fmtDamage.cp1_x, fmtDamage.value, fmtDamage.unit]);
 				Particles.SetParticleControl(particleID, 2, [1, fmtDamage.length, 0]);
 				Particles.SetParticleControl(particleID, 6, [1, isCrit, 0]);

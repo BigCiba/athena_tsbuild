@@ -1,6 +1,6 @@
 /**
  * ⚠️ 此文件由 generate-property-system.js 自动生成，请勿手动修改！
- * 源文件: content/c1/scripts/vscripts/framework/property_system/properties.kv
+ * 源文件: content/athena_tsbuild/scripts/vscripts/framework/property_system/properties.kv
  */
 
 const PROPERTY_LIST = [

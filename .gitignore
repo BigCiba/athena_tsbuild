@@ -44,6 +44,5 @@ imagegen
 
 # Auto-generated config files
 kv_editor_user_setting.json
-pnpm-lock.yaml
 package-lock.json
 reasonix.toml

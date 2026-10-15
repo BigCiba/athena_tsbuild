@@ -56,7 +56,7 @@ export const CustomTip: ParentComponent<CustomTipAttribute> = (props) => {
 	return (
 		<Panel {...others} class="CustomTip">
 			<Button id="PrevTip" onactivate={PrevTip} />
-			<Label id="TipLabel" text={"#c1_Custom_Tip_" + tipQueue[index()]} hittest={false} />
+			<Label id="TipLabel" text={"#Custom_Tip_" + tipQueue[index()]} hittest={false} />
 			<Button id="NextTip" onactivate={nextTip} />
 		</Panel>
 	);

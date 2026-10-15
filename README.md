@@ -1,4 +1,21 @@
-# Dota 2 Custom Game - lonely_cannon
+# Dota 2 Custom Game - athena_tsbuild
+
+## 项目起点
+
+本项目从 `lonely_cannon` 的根提交 `4741a125753f53f4c6f8c58bbd1db28817c66f48`（框架清理）创建，当前完成项目名称与路径统一、Windows 含空格路径的构建修复及依赖安装，尚未迁移雅典娜玩法。
+
+同时合入其后续提交 `83b467b9445f8c597e7b991a88cca8ef6f9f55e6`：清理 c1 残留的命令、文案与资源引用，恢复伤害数字粒子及贴图；其中的 addon 名称已适配为 `athena_tsbuild`。
+
+- 项目标识：`athena_tsbuild`
+- 工作目录：`D:\Dota Addons\athena_tsbuild`
+- 服务端源码：`content/athena_tsbuild/scripts/vscripts`
+- Lua 输出：`game/athena_tsbuild/scripts/vscripts`
+- Panorama 源码：`src`
+
+初始化已验证：VScripts 类型检查、Lua 输出构建和 Solid UI 首轮编译。一次性构建 VScripts 可运行 `node node_scripts/build-vscripts.js`；持续开发使用下文的现有脚本。
+
+继承的 Source 2 已编译资源保留原始依赖元数据，部分仍记录旧 addon 的源路径；后续在 Dota 工坊工具中重新编译资源时生成新元数据。本次未进行 Dota 实机运行验证。
+
 
 基于 Solid.js 和 TypeScript 的 Dota 2 自定义游戏项目，使用现代化的前端技术栈开发 Panorama UI。
 
@@ -28,8 +45,8 @@ pnpm run generate:config
 
 此命令会自动生成：
 - `src/tsconfig.json` - Panorama UI 的 TypeScript 配置
-- `content/lonely_cannon/scripts/vscripts/tsconfig.json` - VScripts 的 TypeScript 配置
-- `content/lonely_cannon/scripts/vscripts/_config.ts` - 项目常量配置模块
+- `content/athena_tsbuild/scripts/vscripts/tsconfig.json` - VScripts 的 TypeScript 配置
+- `content/athena_tsbuild/scripts/vscripts/_config.ts` - 项目常量配置模块
 
 #### 3. 启动开发模式
 
@@ -57,7 +74,7 @@ pnpm run dev:vscripts
 ## 📦 项目结构
 
 ```
-lonely_cannon/
+athena_tsbuild/
 ├── src/                          # 前端源代码
 │   ├── ui/                       # Panorama UI 组件
 │   │   ├── hud_main/            # 主 HUD 界面
@@ -68,10 +85,10 @@ lonely_cannon/
 │   │   └── EOMDesign/           # EOM 设计系统组件库
 │   ├── polyfill/                # Panorama 兼容性补丁
 │   └── declarations/            # TypeScript 类型定义
-├── content/lonely_cannon/                  # 内容目录（编译输出）
+├── content/athena_tsbuild/                  # 内容目录（编译输出）
 │   ├── panorama/                # Panorama UI 编译输出
 │   └── scripts/vscripts/        # VScripts TypeScript 源代码
-├── game/lonely_cannon/                     # 游戏目录
+├── game/athena_tsbuild/                     # 游戏目录
 │   └── scripts/vscripts/        # VScripts 编译后的 Lua 文件
 ├── rollup/                      # 构建系统配置
 └── node_scripts/                # Node.js 构建脚本
@@ -130,7 +147,7 @@ pnpm run generate:image -- --prompt "一张可爱的治愈系插画"
 
 ### 编写 VScripts
 
-1. 在 `content/lonely_cannon/scripts/vscripts/` 目录下编写 TypeScript 代码
+1. 在 `content/athena_tsbuild/scripts/vscripts/` 目录下编写 TypeScript 代码
 2. 使用项目配置模块：
    ```typescript
    import { ADDON_NAME, GetDebugTag } from "./_config";
