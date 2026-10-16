@@ -125,14 +125,14 @@
   flow-children: down;
   margin-top: 16px;
 }
-.AthenaBattleBar {
+.AthenaBattleVote {
   horizontal-align: center;
   margin-top: 65px;
   padding: 12px 22px;
   flow-children: down;
   background-color: #151b27eb;
 }
-.AthenaBattleBar Label {
+.AthenaBattleVote Label {
   color: #e5dfd2;
   font-size: 20px;
   margin-bottom: 8px;
@@ -1206,14 +1206,14 @@
   flow-children: down;
   margin-top: 16px;
 }
-.AthenaBattleBar {
+.AthenaBattleVote {
   horizontal-align: center;
   margin-top: 65px;
   padding: 12px 22px;
   flow-children: down;
   background-color: #151b27eb;
 }
-.AthenaBattleBar Label {
+.AthenaBattleVote Label {
   color: #e5dfd2;
   font-size: 20px;
   margin-bottom: 8px;

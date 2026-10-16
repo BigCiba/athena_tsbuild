@@ -7,23 +7,23 @@ import { EOM_BaseButton } from "../../components/EOMDesign/Input/EOM_Button/EOM_
 import { createNetDataSignal, createPlayerNetDataSignal, createServiceNetData } from "../../utils/solid_utils";
 
 const menus: string[] = [
-	"setting",
+	// "setting",
 	// "mail",
-	"store",
-	"activity",
-	"draw",
-	"rank",
-	"hero",
-	"equipment",
-	"cosmetic",
-	"rune",
+	// "store",
+	// "activity",
+	// "draw",
+	// "rank",
+	// "hero",
+	// "equipment",
+	// "cosmetic",
+	// "rune",
 	// "profile",
-	"book",
-	"guide",
-	"community",
+	// "book",
+	// "guide",
+	// "community",
 	// "ladder",
 	// 这个永远是最后一个
-	"endscreen",
+	// "endscreen",
 ];
 
 

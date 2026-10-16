@@ -175,7 +175,7 @@ function HeroSelection(props) {
       }, _el$16),
       _el$18 = libs.createElement("Label", {
         get text() {
-          return libs.memo(() => !!preparing())() ? "00" : String(countdown() % 60).padStart(2, "0");
+          return String(countdown()).padStart(2, "0");
         }
       }, _el$17),
       _el$19 = libs.createElement("Panel", {
@@ -424,7 +424,7 @@ function HeroSelection(props) {
       }
     }));
     libs.effect(_p$ => {
-      const _v$5 = libs.memo(() => !!preparing())() ? "00" : String(countdown() % 60).padStart(2, "0"),
+      const _v$5 = String(countdown()).padStart(2, "0"),
         _v$6 = $.Localize("#Category_pet"),
         _v$7 = $.Localize("#Category_skin"),
         _v$8 = $.Localize("#Category_particle"),
@@ -457,8 +457,6 @@ function HeroSelection(props) {
 
 function HudMain() {
   const state = solid_utils.createNetDataSignal("common", "game_state");
-  const round = solid_utils.createNetDataSignal("common", "round_state");
-  const playerID = Players.GetLocalPlayer();
   const selecting = () => state()?.state === "GameState_Prepare" || state()?.state === "GameState_DiffSelection";
   return (() => {
     const _el$ = libs.createElement("Panel", {
@@ -479,34 +477,18 @@ function HudMain() {
     }), null);
     libs.insert(_el$, libs.createComponent(libs.Show, {
       get when() {
-        return state()?.state === "GameState_Battle";
+        return libs.memo(() => state()?.state === "GameState_Battle")() && state()?.vote;
       },
       get children() {
         const _el$2 = libs.createElement("Panel", {
-            "class": "AthenaBattleBar",
-            hittest: true
-          }, null),
-          _el$3 = libs.createElement("Label", {
-            get text() {
-              return `第 ${state()?.run_id} 局 · 难度 ${state()?.difficulty} · 第 ${round()?.round_number ?? 1} 波 · ${round()?.stage === "prepare" ? "备战" : "战斗"}`;
-            }
-          }, _el$2);
-        libs.insert(_el$2, libs.createComponent(EOM_Button.EOM_Button, {
-          size: "Small",
-          text: "放弃本局",
-          get enabled() {
-            return libs.memo(() => !!state()?.participants?.includes(playerID))() && !state()?.vote;
-          },
-          onactivate: () => GameVote.sendGameAction(state(), {
-            action: "abandon"
-          })
-        }), null);
+          "class": "AthenaBattleVote",
+          hittest: true
+        }, null);
         libs.insert(_el$2, libs.createComponent(GameVote.GameVote, {
           get snapshot() {
             return state();
           }
-        }), null);
-        libs.effect(_$p => libs.setProp(_el$3, "text", `第 ${state()?.run_id} 局 · 难度 ${state()?.difficulty} · 第 ${round()?.round_number ?? 1} 波 · ${round()?.stage === "prepare" ? "备战" : "战斗"}`, _$p));
+        }));
         return _el$2;
       }
     }), null);
@@ -515,30 +497,30 @@ function HudMain() {
         return state()?.state === "GameState_RunInit" || state()?.state === "GameState_Reset";
       },
       get children() {
-        const _el$4 = libs.createElement("Panel", {
+        const _el$3 = libs.createElement("Panel", {
             "class": "AthenaSessionCard",
             hittest: true
           }, null),
-          _el$5 = libs.createElement("Label", {
+          _el$4 = libs.createElement("Label", {
             "class": "AthenaTitle",
             get text() {
               return state()?.state === "GameState_Reset" ? "正在清理本局" : "正在初始化本局";
             }
-          }, _el$4);
-        libs.insert(_el$4, libs.createComponent(libs.Show, {
+          }, _el$3);
+        libs.insert(_el$3, libs.createComponent(libs.Show, {
           get when() {
             return state()?.error;
           },
           get children() {
             return [(() => {
-              const _el$6 = libs.createElement("Label", {
+              const _el$5 = libs.createElement("Label", {
                 "class": "AthenaError",
                 get text() {
                   return state()?.error;
                 }
               }, null);
-              libs.effect(_$p => libs.setProp(_el$6, "text", state()?.error, _$p));
-              return _el$6;
+              libs.effect(_$p => libs.setProp(_el$5, "text", state()?.error, _$p));
+              return _el$5;
             })(), libs.createComponent(EOM_Button.EOM_Button, {
               text: "重试清理",
               onactivate: () => GameVote.sendGameAction(state(), {
@@ -547,8 +529,8 @@ function HudMain() {
             })];
           }
         }), null);
-        libs.effect(_$p => libs.setProp(_el$5, "text", state()?.state === "GameState_Reset" ? "正在清理本局" : "正在初始化本局", _$p));
-        return _el$4;
+        libs.effect(_$p => libs.setProp(_el$4, "text", state()?.state === "GameState_Reset" ? "正在清理本局" : "正在初始化本局", _$p));
+        return _el$3;
       }
     }), null);
     return _el$;

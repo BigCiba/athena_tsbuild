@@ -8,17 +8,13 @@ import "./hud_main.less";
 
 function HudMain() {
 	const state = createNetDataSignal("common", "game_state");
-	const round = createNetDataSignal("common", "round_state");
-	const playerID = Players.GetLocalPlayer();
 	const selecting = () => state()?.state === "GameState_Prepare" || state()?.state === "GameState_DiffSelection";
 	return <Panel id="AthenaSessionRoot" hittest={false}>
 		<Show when={selecting()}>
 			<HeroSelection snapshot={state()} />
 		</Show>
-		<Show when={state()?.state === "GameState_Battle"}>
-			<Panel class="AthenaBattleBar" hittest={true}>
-				<Label text={`第 ${state()?.run_id} 局 · 难度 ${state()?.difficulty} · 第 ${round()?.round_number ?? 1} 波 · ${round()?.stage === "prepare" ? "备战" : "战斗"}`} />
-				<EOM_Button size="Small" text="放弃本局" enabled={state()?.participants?.includes(playerID) && !state()?.vote} onactivate={() => sendGameAction(state(), { action: "abandon" })} />
+		<Show when={state()?.state === "GameState_Battle" && state()?.vote}>
+			<Panel class="AthenaBattleVote" hittest={true}>
 				<GameVote snapshot={state()} />
 			</Panel>
 		</Show>

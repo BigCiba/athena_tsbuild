@@ -5,7 +5,7 @@ var EOM_RedMark = require('./EOM_RedMark.js');
 var EOM_Button = require('./EOM_Button.js');
 var solid_utils = require('./solid_utils.js');
 
-const menus = ["setting", "store", "activity", "draw", "rank", "hero", "equipment", "cosmetic", "rune", "book", "guide", "community", "endscreen"];
+const menus = [];
 const STATIC_MENU_LIST = {
   activity: {
     first_celebration: [],
