@@ -111,8 +111,8 @@ test('无间隔的 Boss 只生成一次，保留坐标、提示和音效', () =>
 test('结算停止、冻结和重置可重试；重载和重开隔离旧事件、计时器、预载及召唤物', () => {
 	const f = fixture(); f.start(); f.endRound(15); f.advance(0); const callbacks = [...f.timers.values()].map(timer => timer.callback);
 	const summon = f.entity('summon', 0); summon.owner = f.created[0]; f.fire('npc_spawned', { unit: summon }); const unrelated = f.entity('map_dummy', 0);
-	f.preloads[0].callback(100); f.session.state = 'GameState_Settle'; f.fire('game_end', { run_id: 1 }); assert.equal(f.timers.size, 0); assert.ok(f.created.every(unit => unit.buffs.includes('modifier_stunned')));
-	f.preloads[1].callback(101); assert.deepEqual(f.unloaded, [100, 101]); f.failCleanup(true); assert.equal(f.fire('game_reset', { runId: 1 }).length, 1);
+	f.preloads[0].callback(2); f.session.state = 'GameState_Settle'; f.fire('game_end', { run_id: 1 }); assert.equal(f.timers.size, 0); assert.ok(f.created.every(unit => unit.buffs.includes('modifier_stunned')));
+	f.preloads[1].callback(2); assert.deepEqual(f.unloaded, []); f.failCleanup(true); assert.equal(f.fire('game_reset', { runId: 1 }).length, 1);
 	f.failCleanup(false); assert.equal(f.fire('game_reset', { runId: 1 }), undefined); assert.equal(summon.valid, false); assert.equal(unrelated.valid, true); assert.equal(f.base.valid, true);
 	f.session.runId = 2; f.session.state = 'GameState_Battle'; f.start(); f.start(); f.module.init(true); assert.equal(f.listeners.size, 7);
 	f.fire('game_end', { run_id: 1 }); f.fire('game_reset', { runId: 1 }); callbacks.forEach(callback => callback()); const count = f.created.length;

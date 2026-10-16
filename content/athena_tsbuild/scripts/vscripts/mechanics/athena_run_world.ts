@@ -117,7 +117,8 @@ export class AthenaRunWorld {
 		}
 		for (const key of Object.keys(this.heroes)) {
 			const id = Number(key) as PlayerID;
-			const placeholder = this.CreatePlayerHero(id, "npc_dota_hero_phantom_assassin", 0);
+			// 待命沿用本局已加载的英雄，避免重开时临时加载另一个英雄及其饰品模型。
+			const placeholder = this.CreatePlayerHero(id, this.session!.players[id]!.hero, 0);
 			placeholder.AddNewModifier(placeholder, undefined, "modifier_invulnerable", {});
 			placeholder.AddNewModifier(placeholder, undefined, "modifier_stunned", {});
 			delete this.heroes[id];

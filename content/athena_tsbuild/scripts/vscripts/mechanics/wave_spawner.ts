@@ -32,20 +32,15 @@ export class RoundRunner {
 	private deadline = 0;
 	private active = false;
 	private enemies: number[] = [];
-	private spawnGroups: SpawnGroupHandle[] = [];
 	private spawnState: { spawned: number; champions: number; next: number; }[] = [];
 	constructor(private waves: WaveDefinition[], private host: WaveHost) { }
 	Start(now: number) { this.Stop(); this.active = true; this.index = 0; this.Prepare(now); }
-	/** 停止后不能继续刷怪，晚到的预载回调也会立即卸载。实体由所属对局清理。 */
-	Stop() { this.active = false; this.Unload(); }
+	/** 停止后不能继续刷怪。实体由所属对局清理。 */
+	Stop() { this.active = false; }
 	/** 波次怪召唤的敌人也计入清场条件。 */
 	TrackEnemy(entity: number) { if (this.active && this.stage === "battle" && this.enemies.indexOf(entity) < 0) this.enemies.push(entity); }
 	/** 调试暂停只清理当前波次敌人，保留已生成数量和后续批次进度。 */
 	ClearEnemies() { this.host.Clear?.(this.enemies.slice()); this.enemies = []; }
-	private Unload() {
-		for (const group of this.spawnGroups) UnloadSpawnGroupByHandle(group);
-		this.spawnGroups = [];
-	}
 	private Prepare(now: number) {
 		const wave = this.waves[this.index];
 		if (!wave) { this.active = false; this.host.Complete(); return; }
@@ -56,11 +51,8 @@ export class RoundRunner {
 			for (const name of [spawner.unit, spawner.championUnit]) {
 				if (!name || names.indexOf(name) >= 0) continue;
 				names.push(name);
-				PrecacheUnitByNameAsync(name, handle => {
-					const group = handle as SpawnGroupHandle;
-					if (this.active && this.waves[this.index] === wave && this.stage !== "end") this.spawnGroups.push(group);
-					else UnloadSpawnGroupByHandle(group);
-				});
+				// 单位预载编号不是本模块创建的地图 spawn group，资源由引擎随地图管理。
+				PrecacheUnitByNameAsync(name, () => {});
 			}
 		}
 		this.host.Publish(wave.number, this.stage, this.deadline);
@@ -100,7 +92,7 @@ export class RoundRunner {
 		const finishedSpawning = wave.spawners.every((spawner, i) => this.spawnState[i].spawned >= spawner.total);
 		if (expired || (finishedSpawning && this.enemies.length === 0)) {
 			this.host.Clear?.(this.enemies.slice());
-			this.stage = "end"; this.Unload(); this.host.Publish(wave.number, this.stage);
+			this.stage = "end"; this.host.Publish(wave.number, this.stage);
 		}
 	}
 }

@@ -32,18 +32,12 @@ function Precache(context: CScriptPrecacheContext) {
 		}
 	}
 
-	// const heroes = LoadKeyValues("scripts/npc/npc_heroes_custom.txt")
-	// for (const k in heroes) {
-	// 	if (k != "Version") {
-	// 		PrecacheUnitByNameSync(k, context);
-	// 	}
-	// }
-	// const units = LoadKeyValues("scripts/npc/npc_units_custom.txt");
-	// for (const k in units) {
-	// 	if (k != "Version") {
-	// 		PrecacheUnitByNameSync(k, context);
-	// 	}
-	// }
+	// 沿用 Athena 原版的地图级单位预载，确保直接创建和重开替换英雄时模型已驻留。
+	for (const units of [KeyValues.units, KeyValues.heroes]) {
+		for (const name in units) {
+			if (name !== "Version" && typeof units[name] === "object") PrecacheUnitByNameSync(name, context);
+		}
+	}
 
 	// for (const k in KeyValues.ItemsKv) {
 	// 	if (k != "Version") {

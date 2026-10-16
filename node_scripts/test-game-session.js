@@ -144,15 +144,15 @@ test('延迟开波仍从实际开始计算 WaitForTime，等待下一批时不�
 	runner.Tick(13); runner.Tick(17); assert.equal(count, 1); assert.deepEqual(stages, ['prepare', 'battle']);
 	runner.Tick(18); assert.equal(count, 2); assert.deepEqual(stages, ['prepare', 'battle', 'end']);
 });
-test('预载普通怪与精英去重，停止后晚到的资源必须卸载', () => {
+test('预载普通怪与精英去重，停止后的预载完成不能卸载地图 spawn group', () => {
 	const callbacks = [], names = [], unloaded = [];
 	const { RoundRunner } = loadWaves({ ...waveGlobals,
 		PrecacheUnitByNameAsync: (name, fn) => { names.push(name); callbacks.push(fn); }, UnloadSpawnGroupByHandle: id => unloaded.push(id),
 	});
 	const spawn = { unit: 'creep', championUnit: 'elite', anchor: 'spawn', total: 1, batch: 1, interval: 1, wait: 0 };
 	const runner = new RoundRunner([{ number: 1, prepare: 10, spawners: [spawn, spawn] }], { Spawn() {}, IsAlive() {}, Publish() {}, Complete() {} });
-	runner.Start(0); assert.deepEqual(names, ['creep', 'elite']); callbacks[0](101);
-	runner.Stop(); callbacks[1](102); runner.Tick(100); assert.deepEqual(unloaded, [101, 102]);
+	runner.Start(0); assert.deepEqual(names, ['creep', 'elite']); callbacks[0](2);
+	runner.Stop(); callbacks[1](2); runner.Tick(100); assert.deepEqual(unloaded, []);
 });
 test('刷怪保留精英单位、等级、朝向路径和零赏金，属性交给对应 modifier', () => {
 	const created = [], tracked = []; let rolled = false;
@@ -335,7 +335,7 @@ test('世界与波次模块独立持有实体；Event 结算、重置清理刷�
 	assert.equal(firstHero.removing, true); assert.equal(firstHero.valid, true, '安全移除应延迟释放实体');
 	for (const remove of safeRemovals) remove();
 	assert.equal(firstHero.valid, false); assert.equal(selected.get(0).valid, true); assert.equal(selected.get(0).controller, 0);
-	assert.equal(player.heroName, 'npc_dota_hero_phantom_assassin'); assert.equal(gold.get('0:true'), 0); assert.equal(gold.get('0:false'), 0);
+	assert.equal(player.heroName, 'hero_a', '待命英雄沿用已加载的本局英雄，不引入未预载的其他英雄和饰品'); assert.equal(gold.get('0:true'), 0); assert.equal(gold.get('0:false'), 0);
 	assert.equal(unrelated.valid, true); assert.equal(anchor.valid, true); assert.ok(owned.every(unit => !unit.valid));
 	const count = nextEntity; stale.forEach(fn => fn({ entindex_killed: owned[0].id })); assert.equal(nextEntity, count);
 	assert.equal(timers.size, 0); assert.equal(native.size, 0); assert.equal(internal.size, 5, '玩法模块的生命周期监听应常驻');

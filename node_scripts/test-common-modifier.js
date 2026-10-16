@@ -48,17 +48,24 @@ function fixture(difficulty = 4, randomFactors = [], server = true) {
 		},
 		SetMaximumGoldBounty() {}, SetMinimumGoldBounty() {}, SetDeathXP() {},
 	};
+	if (!server) {
+		// 客户端不提供这些服务端属性接口，也没有全局 RandomFloat。
+		for (const name of ['GetBaseDamageMin', 'GetBaseDamageMax', 'GetPhysicalArmorBaseValue', 'SetBaseDamageMin', 'SetBaseDamageMax', 'SetPhysicalArmorBaseValue', 'SetBaseMaxHealth', 'SetMaxHealth', 'SetHealth', 'ModifyHealth', 'SetMaxMana', 'SetMana']) delete engine[name];
+	}
+	const netTables = new Map();
 	const context = vm.createContext({ console, math: Math, tonumber: value => value === undefined ? undefined : Number(value), tostring: String,
 		// Lua 的 pairs(nil) 会报错，不能用空表回退掩盖生产装饰器的参数问题。
 		pairs: value => { assert.ok(value != null, "bad argument #1 to 'pairs' (table expected, got nil)"); return Object.entries(value); },
 		ipairs: value => (value ?? []).map((v, i) => [i + 1, v]),
 		IsServer: () => server, IsClient: () => !server, IsValid: value => value != null && value.valid !== false,
-		RandomFloat: min => { rolls++; return randomFactors.shift() ?? min; },
+		RandomFloat: server ? min => { rolls++; return randomFactors.shift() ?? min; } : undefined,
+		toFiniteNumber: (value, fallback) => Number.isFinite(Number(value)) ? Number(value) : fallback,
 		CModule: function () {}, PropertySystem: undefined, PropertyData: undefined, Game: undefined, CDOTA_BaseNPC: engine, C_DOTA_BaseNPC: engine,
 		modifierfunction: new Proxy({ MODIFIER_FUNCTION_LAST: 1000 }, { get: (target, key) => target[key] ?? key }),
 		modifierstate: {}, LuaModifierType: { LUA_MODIFIER_MOTION_NONE: 0 }, INTENSITY_FACTOR: 1,
 		KeyValues: { heroes: {}, units: {} }, GameRules: { GetGameTime: () => 0, GetDOTATime: () => 0, GetCustomGameDifficulty: () => difficulty },
-		CustomNetTables: { SetTableValue() {} }, StateSystem: { RemoveStaticState() {}, UnregisterDynamicState() {} },
+		CustomNetTables: { SetTableValue(table, key, value) { netTables.set(table + ':' + key, value); }, GetTableValue(table, key) { return netTables.get(table + ':' + key); } },
+		StateSystem: { RemoveStaticState() {}, UnregisterDynamicState() {} },
 		EntIndexToHScript: id => units.get(id), FireGameEventLocal() {},
 		Event: {
 			RegisterForOwner(name, fn) { const id = ++eventID; listeners.set(id, { name, fn }); return id; },
@@ -101,12 +108,51 @@ function fixture(difficulty = 4, randomFactors = [], server = true) {
 }
 const athena = { CustomStatusHealth: '200', StatusHealth: 10000, AttackDamage: '20', AttackDamageMin: 0, AttackDamageMax: 0, Armor: '3', StatusMana: '60', DamageReduction: '5', PhysicalCritChance: 10, PhysicalCritDamage: 150, MagicalCritChance: 5, MagicalCritDamage: 175 };
 
+test('地图预载同步持有全部单位和英雄资源，覆盖重开待命英雄', () => {
+	const loaded = [], precacheContext = {}, units = { athena: {}, wave_1: {}, Version: '1' }, heroes = { npc_dota_hero_antimage: {}, npc_dota_hero_phantom_assassin: {} };
+	const context = vm.createContext({ SendToServerConsole() {}, Convars: { SetBool() {} },
+		require: () => ({}), KeyValues: { units, heroes }, pairs: Object.entries,
+		PrecacheUnitByNameSync: (name, handle) => { assert.equal(handle, precacheContext); loaded.push(name); },
+	});
+	const code = ts.transpileModule(fs.readFileSync(path.join(source, 'addon_game_mode.ts'), 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2020 } }).outputText;
+	vm.runInContext(code, context); context.Precache(precacheContext);
+	assert.deepEqual(loaded.sort(), [...Object.keys(units).filter(name => name !== 'Version'), ...Object.keys(heroes)].sort());
+});
+
 test('服务端和客户端都能加载无参数注册的波次精英 modifier', () => {
 	for (const server of [true, false]) {
 		const { context } = fixture(4, [], server);
 		assert.equal(typeof context.modifier_champion.OnCreated, 'function');
 		assert.equal(typeof context.modifier_elite.OnCreated, 'function');
 	}
+});
+
+test('客户端出生不调用服务端随机/基础攻击接口，公共属性只读取服务端网表', () => {
+	const errors = [], clients = [];
+	for (const kv of [{}, { AttackDamageMin: 6, AttackDamageMax: 10 }, athena]) {
+		const f = fixture(4, [], false), unit = f.unit('client_unit', kv);
+		try { f.add(unit, 'modifier_common'); } catch (error) { errors.push(error.message); continue; }
+		clients.push({ f, unit });
+	}
+	assert.deepEqual(errors, []);
+	for (const { f, unit } of clients) {
+		assert.equal(Object.keys(unit.modifiers.modifier_common.StaticProperty()).length, 0);
+		assert.equal(f.context.PropertyData.unitStorage[unit.index], undefined);
+		f.context.CustomNetTables.SetTableValue('property_system', `${f.context.PropertyScope.UNIT}_${unit.index}`, { base_health: 200, base_mana: 60, base_attack: 8 });
+		assert.equal(unit.GetMaxHealth(), 200); assert.equal(unit.GetMaxMana(), 60); assert.equal(unit.GetAttackDamage(), 8);
+		unit.modifiers.modifier_common.OnRefresh({}); unit.modifiers.modifier_common.SyncStats(true);
+		assert.equal(unit.engineMax, 10000); assert.equal(unit.engineAttack, 7); assert.equal(f.rolls(), 0);
+	}
+});
+
+test('实际单位 KV 保留正数引擎出生生命，基地逻辑生命仍由公共 modifier 初始化', () => {
+	const { parseKV } = require('./kv-parser'), file = path.resolve(__dirname, '../game/athena_tsbuild/scripts/npc/npc_units_custom.txt');
+	const units = parseKV(fs.readFileSync(file, 'utf8'), file).data;
+	for (const [name, kv] of Object.entries(units)) if (kv && typeof kv === 'object' && kv.StatusHealth !== undefined) assert.ok(Number(kv.StatusHealth) > 0, name + ' starts dead before npc_spawned');
+	const f = fixture(), unit = f.unit('athena', units.athena);
+	unit.engineMax = Number(units.athena.StatusHealth); unit.engineHealth = unit.engineMax;
+	f.spawn(unit); assert.equal(unit.GetHealth(), 20); assert.equal(unit.IsAlive(), true);
+	unit.SetHealth(0); unit.modifiers.modifier_common.SyncStats(true); f.add(unit, 'modifier_elite'); assert.equal(unit.GetHealth(), 0);
 });
 
 test('Athena 字段优先，基地/英雄/召唤物和变身新单位共用出生入口', () => {

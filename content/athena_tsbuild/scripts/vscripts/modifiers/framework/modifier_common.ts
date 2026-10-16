@@ -17,6 +17,8 @@ export class modifier_common extends EOMModifier {
 	private initialized = false;
 
 	OnCreated() {
+		// 基础属性与随机攻击只在服务端初始化；客户端通过属性系统网表读取结果。
+		if (!IsServer()) return;
 		const unit = this.GetParent(), name = unit.GetUnitName();
 		const kv = KeyValues.heroes[name] ?? KeyValues.units[name] ?? {};
 		this.health = math.max(1, tonumber(kv.CustomStatusHealth) ?? tonumber(kv.StatusHealth) ?? unit.GetMaxHealth_Engine());
@@ -34,6 +36,7 @@ export class modifier_common extends EOMModifier {
 		this.spellCritDamage = tonumber(kv.MagicalCritDamage) ?? 0;
 	}
 	StaticProperty(): Partial<Record<PropertyFunction, number>> {
+		if (!IsServer()) return {};
 		return {
 			[PropertyFunction.BASE_HEALTH]: this.health,
 			[PropertyFunction.BASE_MANA]: this.mana,

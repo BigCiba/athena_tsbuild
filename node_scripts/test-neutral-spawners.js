@@ -116,10 +116,10 @@ test('GrowUp 保留原版逐次生成升级，重开等级恢复；旧事件和�
 	f.fire('game_end', { run_id: 1 }); f.fire('game_reset', { runId: 1 }); oldCallbacks.forEach(fn => fn()); assert.equal(f.timers.size, 1);
 	f.advance(0); assert.equal(f.created.at(-1).level, 1); assert.equal(f.created.length, 3);
 });
-test('停止后晚到预载卸载；清理失败可重试，地图和无关实体保持有效', () => {
+test('停止后晚到预载不卸载地图；清理失败可重试，地图和无关实体保持有效', () => {
 	const f = fixture(); f.start(); f.advance(0); const unrelated = f.globals.CreateUnitByName('map_dummy', 0);
-	f.preloads[0].callback(100); f.session.state = 'GameState_Settle'; f.fire('game_end', { run_id: 1 });
-	f.preloads[0].callback(101); assert.deepEqual(f.unloaded, [100, 101]);
+	f.preloads[0].callback(2); f.session.state = 'GameState_Settle'; f.fire('game_end', { run_id: 1 });
+	f.preloads[0].callback(2); assert.deepEqual(f.unloaded, []);
 	f.failCleanup(true); assert.equal(f.fire('game_reset', { runId: 1 }).length, 1);
 	f.failCleanup(false); assert.equal(f.fire('game_reset', { runId: 1 }), undefined); f.fire('game_reset', { runId: 1 });
 	assert.equal(unrelated.valid, true); assert.ok(f.created.slice(0, 3).every(unit => !unit.valid)); assert.equal(f.anchors.get('spawn_1'), 1000);

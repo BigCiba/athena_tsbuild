@@ -32,7 +32,6 @@ export class CNeutralSpawners extends CModule {
 	private running = false;
 	private camps: NeutralCamp[] = [];
 	private timers: string[] = [];
-	private spawnGroups: SpawnGroupHandle[] = [];
 	private units: { index: EntityIndex; unit: CDOTA_BaseNPC; }[] = [];
 
 	init(reload: boolean) {
@@ -82,10 +81,8 @@ export class CNeutralSpawners extends CModule {
 				for (const name of [camp.unit, camp.elite]) {
 					if (name === "" || names.indexOf(name) >= 0) continue;
 					names.push(name);
-					PrecacheUnitByNameAsync(name, handle => {
-						if (this.running && this.camps === camps) this.spawnGroups.push(handle as SpawnGroupHandle);
-						else UnloadSpawnGroupByHandle(handle as SpawnGroupHandle);
-					});
+					// 单位预载资源随地图管理，回调编号不能交给地图 spawn group 卸载接口。
+					PrecacheUnitByNameAsync(name, () => {});
 				}
 				this.timers.push(Timer.GameTimer(camp.wait, () => {
 					if (!this.running || this.camps !== camps || GameState.GetSession().runId !== runId || GameState.GetSession().state !== "GameState_Battle") return;
@@ -137,8 +134,6 @@ export class CNeutralSpawners extends CModule {
 		this.running = false;
 		for (const timer of this.timers) Timer.StopTimer(timer);
 		this.timers = [];
-		for (const group of this.spawnGroups) UnloadSpawnGroupByHandle(group);
-		this.spawnGroups = [];
 	}
 	private OnGameEnd(event: EventCallback["game_end"]) {
 		if (event.run_id !== this.runId) return;

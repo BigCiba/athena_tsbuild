@@ -28,7 +28,6 @@ export class CSpecialSpawner extends CModule {
 	private rushes: Record<string, SpecialRush> = {};
 	private started: Record<string, boolean> = {};
 	private timers: Record<string, string> = {};
-	private spawnGroups: SpawnGroupHandle[] = [];
 	private units: { index: EntityIndex; unit: CDOTA_BaseNPC; }[] = [];
 	private base?: CDOTA_BaseNPC;
 
@@ -72,11 +71,8 @@ export class CSpecialSpawner extends CModule {
 				this.rushes[name] = { round, pool, positions, interval, duration, offset: tonumber(entry.fSpawnOffset) ?? 0, sound: entry.sSoundName };
 			}
 			this.running = true;
-			const rushes = this.rushes;
-			for (const name of names) PrecacheUnitByNameAsync(name, handle => {
-				if (this.running && this.rushes === rushes) this.spawnGroups.push(handle as SpawnGroupHandle);
-				else UnloadSpawnGroupByHandle(handle as SpawnGroupHandle);
-			});
+			// 单位预载资源随地图管理，回调编号不能交给地图 spawn group 卸载接口。
+			for (const name of names) PrecacheUnitByNameAsync(name, () => {});
 		} catch (reason) { this.Stop(); GameState.FinishRun(session.runId, "error", tostring(reason)); }
 	}
 	private OnRoundStateChange(event: EventCallback["round_state_change"]) {
@@ -138,8 +134,6 @@ export class CSpecialSpawner extends CModule {
 		this.running = false;
 		for (const timer of Object.values(this.timers)) Timer.StopTimer(timer);
 		this.timers = {};
-		for (const group of this.spawnGroups) UnloadSpawnGroupByHandle(group);
-		this.spawnGroups = [];
 	}
 	private OnGameEnd(event: EventCallback["game_end"]) {
 		if (event.run_id !== this.runId) return;
