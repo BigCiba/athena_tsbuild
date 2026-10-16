@@ -83,7 +83,7 @@ export function HeroSelection(props: { snapshot: AthenaGameSnapshot | undefined;
 					</Panel>
 				</Panel>
 				<Panel class="MainPage">
-					<Panel class="TimerContent"><Label text={preparing() ? "00" : String(countdown() % 60).padStart(2, "0")} /></Panel>
+					<Panel class="TimerContent"><Label text={String(countdown()).padStart(2, "0")} /></Panel>
 					<Panel class="HeroListAndChat">
 						<Panel class="HeroList">
 							<For each={heroNames}>{name => <TabButton class="HeroCard Unlock" group="athenaHeroes" selected={name === heroName()} enabled={canPick()} onactivate={() => {

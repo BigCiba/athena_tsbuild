@@ -118,4 +118,11 @@ test('选人样式与 reborn 一致，仅组件作用域和资源路径不同', 
 	const original = migrated.slice(prefix.length, -3).replace('custom_game/hero_selection/triangle.png', 'custom_game/triangle.png');
 	assert.equal(require('crypto').createHash('sha256').update(original).digest('hex'), '071dec13e76a0a48d164fa7924eaf5f50e2611902a31f11e94345e60a93d5bfd');
 });
+test('未确认英雄时也显示服务端选人倒计时，确认英雄不改变剩余时间', () => {
+	for (const ready of [false, true]) {
+		const data = snapshot('GameState_Prepare', ready); data.end_time = 40;
+		const f = fixture(data), timer = f.nodes.find(n => n.props.class === 'TimerContent');
+		assert.equal(timer.children[0].props.text, '30'); f.dispose();
+	}
+});
 console.log(`Passed ${passed} hero selection checks.`);

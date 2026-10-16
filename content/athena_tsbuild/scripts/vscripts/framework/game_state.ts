@@ -105,6 +105,14 @@ export class CGameState extends CModule {
 	}
 	/** 开发工具也走同一条终局和清理流程，不直接全局 reset。 */
 	DebugRestart() { if (IsInToolsMode()) { if (this.session.state === "GameState_Battle") this.FinishRun(this.session.runId, "abandoned", "开发工具放弃本局"); else if (this.session.state === "GameState_Settle") this.SwitchState("GameState_Reset"); } }
+	/** 每局仅在选人期限结束后锁定名单，未确认英雄由服务器随机选择。 */
+	CompleteSelection(runId: number) {
+		if (runId !== this.session.runId || this.session.state !== "GameState_Prepare") return false;
+		this.RefreshPlayers();
+		const heroes = this.GetHeroList().filter(name => tonumber(KeyValues.heroes[name].IsHero) === 1 && KeyValues.heroes[name].UnitLabel !== "hide");
+		if (!this.session.FinalizeSelection(heroes, count => RandomInt(0, count - 1))) return false;
+		this.SwitchState("GameState_DiffSelection", runId); return true;
+	}
 	private OnAction(event: UIEventProperties<"athena_game_action">) {
 		this.RefreshPlayers();
 		if (!this.session.Matches(event.run_id, event.state_version)) { this.UpdateNetTable(); return; }
@@ -119,7 +127,6 @@ export class CGameState extends CModule {
 		if (event.action === "ready" && (typeof ready === "boolean" || ready === 0 || ready === 1)) {
 			if (!Login.IsPlayerRequiredLoginCompleted(id)) return;
 			this.session.SetReady(id, ready === true || ready === 1);
-			if (this.session.LockParticipants()) this.SwitchState("GameState_DiffSelection");
 		}
 		if (event.action === "difficulty" && typeof event.difficulty === "number") this.session.SetDifficulty(id, event.difficulty);
 		const now = Time();

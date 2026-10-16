@@ -53,6 +53,17 @@ export class RunSession {
 		if (!online.length || online.length > (this.mode === "solo" ? 1 : 4) || online.some(id => !this.players[id]!.ready)) return false;
 		this.participants = online; return true;
 	}
+	/** 选人倒计时结束后只替未确认的在线玩家随机选择，已确认英雄和难度票保持不变。 */
+	FinalizeSelection(heroes: string[], randomIndex: (count: number) => number) {
+		if (this.state !== "GameState_Prepare" || heroes.length === 0) return false;
+		const online = Object.keys(this.players).map(key => Number(key) as PlayerID).filter(id => this.players[id]!.online);
+		if (!online.length || online.length > (this.mode === "solo" ? 1 : 4)) return false;
+		for (const id of online) {
+			const player = this.players[id]!;
+			if (!player.ready) { player.hero = heroes[randomIndex(heroes.length)]; player.ready = true; }
+		}
+		return this.LockParticipants();
+	}
 	SetDifficulty(id: PlayerID, value: number) {
 		// 原版在选英雄前即可投难度；名单锁定后仍仅允许本局参战玩家修改。
 		if ((this.state !== "GameState_Prepare" && this.state !== "GameState_DiffSelection") || !this.players[id]?.online ||
