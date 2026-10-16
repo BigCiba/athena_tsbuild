@@ -2,19 +2,27 @@ local __TSTL_FILE_PATH__ = "framework/state_system/state_system"
 local ____lualib = require("lualib_bundle")
 local __TS__Class = ____lualib.__TS__Class
 local __TS__ClassExtends = ____lualib.__TS__ClassExtends
-local __TS__ArrayFindIndex = ____lualib.__TS__ArrayFindIndex
-local __TS__ArraySplice = ____lualib.__TS__ArraySplice
-local __TS__Delete = ____lualib.__TS__Delete
-local __TS__ArrayFind = ____lualib.__TS__ArrayFind
+local __TS__ArrayPushArray = ____lualib.__TS__ArrayPushArray
+local __TS__ArrayMap = ____lualib.__TS__ArrayMap
 local __TS__ArraySort = ____lualib.__TS__ArraySort
+local __TS__ArrayFind = ____lualib.__TS__ArrayFind
 local __TS__ObjectKeys = ____lualib.__TS__ObjectKeys
+local __TS__ArrayFilter = ____lualib.__TS__ArrayFilter
+local __TS__Delete = ____lualib.__TS__Delete
+local __TS__Number = ____lualib.__TS__Number
+local Set = ____lualib.Set
+local __TS__New = ____lualib.__TS__New
+local __TS__ArraySome = ____lualib.__TS__ArraySome
+local __TS__Iterator = ____lualib.__TS__Iterator
 local __TS__StringSplit = ____lualib.__TS__StringSplit
 local __TS__ObjectAssign = ____lualib.__TS__ObjectAssign
+local __TS__SparseArrayNew = ____lualib.__TS__SparseArrayNew
+local __TS__SparseArrayPush = ____lualib.__TS__SparseArrayPush
+local __TS__SparseArraySpread = ____lualib.__TS__SparseArraySpread
 local __TS__NumberToFixed = ____lualib.__TS__NumberToFixed
 local __TS__DecorateLegacy = ____lualib.__TS__DecorateLegacy
-local __TS__New = ____lualib.__TS__New
 local __TS__SourceMapTraceBack = ____lualib.__TS__SourceMapTraceBack
-__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["18"] = 3,["19"] = 3,["20"] = 8,["21"] = 8,["22"] = 9,["24"] = 9,["25"] = 11,["26"] = 12,["27"] = 13,["28"] = 16,["29"] = 8,["30"] = 18,["31"] = 19,["32"] = 20,["33"] = 22,["34"] = 23,["35"] = 24,["36"] = 25,["37"] = 26,["40"] = 30,["42"] = 32,["44"] = 18,["45"] = 36,["46"] = 37,["47"] = 36,["48"] = 40,["49"] = 41,["50"] = 40,["51"] = 46,["52"] = 47,["53"] = 48,["55"] = 46,["56"] = 73,["57"] = 78,["58"] = 78,["60"] = 81,["61"] = 82,["62"] = 83,["63"] = 85,["64"] = 86,["65"] = 87,["67"] = 91,["68"] = 91,["69"] = 91,["70"] = 91,["71"] = 92,["72"] = 94,["73"] = 95,["74"] = 96,["75"] = 97,["76"] = 98,["77"] = 99,["78"] = 100,["79"] = 101,["82"] = 110,["83"] = 111,["84"] = 111,["85"] = 111,["86"] = 111,["87"] = 111,["88"] = 111,["89"] = 111,["90"] = 118,["91"] = 119,["92"] = 120,["93"] = 121,["96"] = 130,["97"] = 132,["98"] = 132,["99"] = 133,["100"] = 73,["101"] = 142,["102"] = 147,["103"] = 148,["105"] = 151,["106"] = 152,["107"] = 152,["109"] = 153,["110"] = 154,["111"] = 155,["112"] = 156,["115"] = 159,["117"] = 142,["118"] = 163,["119"] = 168,["120"] = 169,["121"] = 170,["122"] = 172,["123"] = 172,["125"] = 174,["126"] = 174,["127"] = 174,["128"] = 174,["129"] = 175,["130"] = 176,["131"] = 177,["132"] = 179,["133"] = 180,["134"] = 181,["136"] = 183,["138"] = 186,["139"] = 187,["140"] = 188,["142"] = 196,["143"] = 198,["145"] = 201,["146"] = 163,["147"] = 211,["148"] = 217,["149"] = 218,["150"] = 219,["151"] = 221,["152"] = 221,["154"] = 223,["155"] = 223,["156"] = 223,["157"] = 223,["158"] = 224,["159"] = 225,["160"] = 226,["161"] = 227,["162"] = 228,["163"] = 229,["164"] = 230,["166"] = 238,["167"] = 240,["169"] = 243,["170"] = 211,["171"] = 247,["172"] = 248,["173"] = 249,["174"] = 250,["175"] = 252,["176"] = 252,["177"] = 253,["178"] = 254,["179"] = 254,["180"] = 255,["182"] = 258,["183"] = 247,["184"] = 261,["185"] = 262,["186"] = 263,["187"] = 264,["188"] = 266,["189"] = 267,["192"] = 272,["193"] = 272,["194"] = 272,["195"] = 273,["196"] = 274,["197"] = 275,["198"] = 272,["199"] = 272,["200"] = 279,["201"] = 280,["202"] = 281,["203"] = 282,["207"] = 287,["208"] = 287,["209"] = 287,["210"] = 287,["211"] = 261,["212"] = 304,["213"] = 309,["214"] = 309,["216"] = 312,["217"] = 313,["218"] = 314,["219"] = 316,["220"] = 317,["221"] = 318,["223"] = 321,["224"] = 321,["225"] = 321,["226"] = 321,["227"] = 322,["228"] = 324,["229"] = 325,["230"] = 326,["232"] = 329,["233"] = 329,["234"] = 329,["235"] = 329,["236"] = 329,["237"] = 329,["238"] = 329,["240"] = 338,["241"] = 339,["242"] = 340,["243"] = 343,["244"] = 344,["246"] = 352,["247"] = 354,["248"] = 354,["249"] = 355,["250"] = 304,["251"] = 364,["252"] = 369,["253"] = 370,["255"] = 373,["256"] = 374,["257"] = 374,["259"] = 375,["260"] = 376,["261"] = 377,["262"] = 378,["265"] = 381,["267"] = 364,["268"] = 385,["269"] = 390,["270"] = 391,["271"] = 392,["272"] = 394,["273"] = 394,["275"] = 396,["276"] = 396,["277"] = 396,["278"] = 396,["279"] = 397,["280"] = 398,["281"] = 399,["282"] = 401,["283"] = 402,["285"] = 405,["286"] = 406,["287"] = 408,["288"] = 409,["290"] = 417,["291"] = 419,["293"] = 422,["294"] = 385,["295"] = 426,["296"] = 427,["297"] = 428,["298"] = 431,["299"] = 432,["300"] = 433,["301"] = 433,["302"] = 434,["303"] = 434,["304"] = 435,["306"] = 439,["307"] = 442,["308"] = 442,["309"] = 442,["310"] = 442,["311"] = 447,["312"] = 447,["313"] = 448,["314"] = 426,["315"] = 455,["316"] = 456,["317"] = 457,["318"] = 458,["319"] = 461,["320"] = 461,["321"] = 461,["323"] = 461,["324"] = 455,["325"] = 464,["326"] = 465,["327"] = 466,["328"] = 467,["329"] = 469,["330"] = 470,["332"] = 474,["333"] = 474,["334"] = 474,["335"] = 475,["336"] = 476,["337"] = 477,["338"] = 474,["339"] = 474,["340"] = 481,["343"] = 487,["346"] = 483,["347"] = 484,["354"] = 482,["358"] = 491,["359"] = 464,["360"] = 495,["361"] = 496,["362"] = 498,["363"] = 499,["364"] = 500,["366"] = 502,["368"] = 495,["369"] = 509,["370"] = 510,["371"] = 511,["372"] = 512,["373"] = 514,["375"] = 517,["377"] = 509,["378"] = 525,["379"] = 526,["380"] = 527,["381"] = 528,["382"] = 525,["383"] = 533,["384"] = 534,["385"] = 534,["386"] = 534,["387"] = 534,["388"] = 534,["389"] = 534,["390"] = 534,["391"] = 534,["392"] = 539,["393"] = 539,["394"] = 539,["395"] = 540,["396"] = 541,["397"] = 539,["398"] = 539,["399"] = 544,["400"] = 533,["401"] = 547,["402"] = 548,["403"] = 549,["404"] = 549,["406"] = 550,["409"] = 552,["410"] = 555,["411"] = 557,["412"] = 559,["413"] = 560,["414"] = 561,["415"] = 563,["416"] = 564,["418"] = 566,["419"] = 566,["421"] = 569,["422"] = 570,["424"] = 573,["425"] = 574,["426"] = 575,["427"] = 575,["428"] = 547,["429"] = 581,["430"] = 582,["431"] = 583,["432"] = 583,["433"] = 583,["435"] = 583,["437"] = 583,["438"] = 585,["439"] = 586,["440"] = 587,["441"] = 588,["442"] = 591,["443"] = 592,["445"] = 596,["446"] = 581,["447"] = 600,["448"] = 601,["449"] = 602,["450"] = 603,["451"] = 605,["452"] = 606,["454"] = 609,["455"] = 600,["456"] = 613,["457"] = 618,["458"] = 619,["461"] = 623,["462"] = 625,["463"] = 625,["464"] = 625,["465"] = 626,["466"] = 627,["467"] = 628,["468"] = 629,["470"] = 631,["471"] = 625,["472"] = 625,["473"] = 613,["474"] = 642,["475"] = 644,["476"] = 647,["477"] = 642,["478"] = 651,["479"] = 652,["482"] = 654,["483"] = 655,["484"] = 651,["485"] = 658,["486"] = 659,["487"] = 660,["488"] = 661,["489"] = 661,["490"] = 661,["493"] = 662,["494"] = 662,["495"] = 662,["496"] = 662,["497"] = 662,["498"] = 662,["500"] = 658,["501"] = 665,["502"] = 666,["503"] = 667,["504"] = 668,["505"] = 669,["507"] = 665,["508"] = 674,["509"] = 675,["510"] = 677,["511"] = 678,["512"] = 679,["513"] = 680,["516"] = 684,["517"] = 674,["518"] = 687,["519"] = 688,["520"] = 689,["521"] = 689,["523"] = 690,["524"] = 691,["525"] = 691,["527"] = 692,["528"] = 693,["529"] = 693,["531"] = 694,["532"] = 687,["533"] = 698,["534"] = 699,["535"] = 699,["536"] = 699,["537"] = 700,["538"] = 701,["539"] = 699,["540"] = 699,["541"] = 704,["542"] = 698,["543"] = 708,["544"] = 709,["545"] = 709,["546"] = 709,["549"] = 710,["550"] = 711,["551"] = 712,["552"] = 708,["553"] = 722,["554"] = 724,["555"] = 724,["556"] = 724,["557"] = 725,["558"] = 724,["559"] = 724,["560"] = 724,["561"] = 724,["562"] = 729,["563"] = 729,["564"] = 729,["565"] = 730,["566"] = 729,["567"] = 729,["568"] = 729,["569"] = 729,["570"] = 734,["571"] = 734,["572"] = 734,["573"] = 735,["574"] = 741,["575"] = 734,["576"] = 734,["577"] = 734,["578"] = 734,["579"] = 745,["580"] = 745,["581"] = 745,["582"] = 746,["583"] = 747,["584"] = 748,["585"] = 749,["587"] = 751,["588"] = 752,["591"] = 756,["592"] = 757,["593"] = 758,["595"] = 745,["596"] = 745,["597"] = 745,["598"] = 745,["599"] = 763,["600"] = 763,["601"] = 763,["602"] = 764,["603"] = 765,["604"] = 763,["605"] = 763,["606"] = 763,["607"] = 763,["608"] = 768,["609"] = 722,["610"] = 771,["611"] = 772,["612"] = 773,["613"] = 773,["615"] = 775,["616"] = 776,["617"] = 776,["619"] = 778,["620"] = 779,["621"] = 780,["622"] = 781,["623"] = 771,["624"] = 784,["625"] = 785,["626"] = 786,["627"] = 790,["628"] = 791,["629"] = 792,["630"] = 793,["631"] = 794,["632"] = 784,["633"] = 799,["634"] = 800,["635"] = 801,["636"] = 802,["637"] = 807,["639"] = 810,["640"] = 799,["641"] = 819,["642"] = 820,["643"] = 820,["645"] = 823,["646"] = 824,["648"] = 827,["649"] = 819,["650"] = 830,["651"] = 831,["652"] = 830,["653"] = 834,["654"] = 836,["655"] = 837,["656"] = 834,["657"] = 840,["658"] = 841,["659"] = 842,["660"] = 840,["661"] = 845,["662"] = 846,["663"] = 845,["664"] = 849,["665"] = 850,["666"] = 849,["667"] = 856,["668"] = 857,["671"] = 859,["672"] = 860,["673"] = 860,["675"] = 861,["678"] = 863,["679"] = 864,["680"] = 865,["681"] = 866,["682"] = 866,["684"] = 867,["685"] = 856,["686"] = 8,["687"] = 877,["688"] = 877});
+__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["26"] = 3,["27"] = 3,["28"] = 8,["29"] = 8,["30"] = 9,["32"] = 9,["33"] = 11,["34"] = 12,["35"] = 13,["36"] = 16,["37"] = 8,["38"] = 18,["39"] = 19,["40"] = 20,["41"] = 22,["42"] = 23,["43"] = 24,["44"] = 25,["45"] = 26,["48"] = 30,["50"] = 32,["52"] = 18,["53"] = 36,["54"] = 37,["55"] = 36,["56"] = 40,["57"] = 41,["58"] = 40,["59"] = 46,["60"] = 47,["61"] = 48,["63"] = 46,["64"] = 64,["65"] = 65,["66"] = 66,["67"] = 64,["68"] = 69,["69"] = 70,["70"] = 70,["71"] = 71,["72"] = 71,["74"] = 72,["75"] = 73,["76"] = 73,["78"] = 74,["79"] = 74,["81"] = 75,["82"] = 75,["83"] = 75,["84"] = 76,["87"] = 80,["90"] = 78,["91"] = 79,["92"] = 79,["99"] = 81,["100"] = 75,["101"] = 75,["102"] = 83,["103"] = 83,["104"] = 83,["105"] = 84,["106"] = 84,["108"] = 85,["109"] = 83,["110"] = 83,["111"] = 87,["112"] = 87,["115"] = 92,["118"] = 89,["119"] = 89,["120"] = 89,["122"] = 89,["124"] = 89,["125"] = 91,["126"] = 91,["133"] = 88,["137"] = 94,["138"] = 69,["139"] = 97,["140"] = 98,["141"] = 98,["142"] = 99,["143"] = 99,["145"] = 100,["146"] = 101,["147"] = 101,["149"] = 102,["150"] = 103,["151"] = 103,["152"] = 103,["153"] = 103,["154"] = 104,["155"] = 104,["157"] = 106,["158"] = 106,["159"] = 106,["161"] = 106,["162"] = 106,["163"] = 106,["164"] = 107,["165"] = 107,["166"] = 107,["167"] = 107,["169"] = 106,["171"] = 109,["172"] = 97,["173"] = 112,["174"] = 112,["175"] = 112,["177"] = 113,["178"] = 113,["180"] = 114,["181"] = 114,["182"] = 115,["183"] = 115,["184"] = 115,["186"] = 115,["187"] = 116,["188"] = 116,["189"] = 116,["190"] = 116,["191"] = 117,["192"] = 117,["193"] = 117,["194"] = 117,["196"] = 118,["197"] = 118,["198"] = 118,["199"] = 118,["200"] = 118,["201"] = 118,["202"] = 118,["203"] = 118,["205"] = 119,["206"] = 119,["207"] = 120,["208"] = 121,["209"] = 112,["210"] = 124,["211"] = 125,["212"] = 125,["214"] = 126,["215"] = 127,["216"] = 127,["218"] = 128,["219"] = 129,["220"] = 130,["222"] = 131,["223"] = 131,["224"] = 131,["225"] = 131,["226"] = 131,["227"] = 131,["228"] = 132,["229"] = 132,["231"] = 133,["232"] = 133,["234"] = 133,["236"] = 134,["237"] = 134,["238"] = 134,["242"] = 136,["243"] = 124,["244"] = 139,["245"] = 140,["246"] = 140,["248"] = 141,["249"] = 141,["251"] = 141,["252"] = 141,["253"] = 141,["254"] = 141,["255"] = 141,["257"] = 141,["258"] = 142,["259"] = 142,["261"] = 143,["262"] = 143,["263"] = 143,["264"] = 144,["265"] = 144,["266"] = 139,["267"] = 147,["268"] = 148,["269"] = 148,["270"] = 149,["271"] = 147,["272"] = 152,["273"] = 152,["274"] = 152,["276"] = 153,["277"] = 153,["279"] = 154,["280"] = 154,["281"] = 155,["282"] = 155,["283"] = 155,["285"] = 155,["286"] = 156,["287"] = 156,["288"] = 156,["289"] = 156,["290"] = 157,["291"] = 157,["292"] = 157,["293"] = 157,["295"] = 158,["296"] = 158,["297"] = 158,["298"] = 158,["299"] = 158,["300"] = 158,["301"] = 158,["302"] = 158,["304"] = 159,["305"] = 159,["306"] = 160,["307"] = 161,["308"] = 152,["309"] = 164,["310"] = 165,["311"] = 165,["313"] = 166,["314"] = 167,["315"] = 167,["317"] = 168,["318"] = 169,["319"] = 170,["321"] = 171,["322"] = 171,["323"] = 171,["324"] = 171,["325"] = 171,["326"] = 171,["327"] = 172,["328"] = 172,["330"] = 173,["331"] = 173,["333"] = 173,["335"] = 174,["336"] = 174,["337"] = 174,["341"] = 176,["342"] = 164,["343"] = 179,["344"] = 180,["345"] = 180,["346"] = 181,["347"] = 179,["348"] = 184,["349"] = 185,["352"] = 186,["353"] = 187,["356"] = 188,["357"] = 189,["358"] = 189,["360"] = 184,["361"] = 192,["362"] = 193,["363"] = 193,["364"] = 194,["365"] = 194,["367"] = 195,["368"] = 195,["369"] = 195,["371"] = 195,["373"] = 195,["374"] = 192,["375"] = 198,["376"] = 199,["377"] = 200,["378"] = 200,["379"] = 201,["380"] = 201,["381"] = 201,["382"] = 201,["383"] = 202,["384"] = 202,["385"] = 202,["386"] = 202,["387"] = 202,["388"] = 202,["391"] = 203,["392"] = 203,["395"] = 198,["396"] = 206,["397"] = 207,["398"] = 207,["399"] = 207,["400"] = 207,["401"] = 207,["402"] = 207,["403"] = 207,["404"] = 207,["405"] = 208,["406"] = 208,["407"] = 208,["408"] = 208,["409"] = 208,["410"] = 208,["411"] = 208,["412"] = 206,["413"] = 210,["414"] = 211,["415"] = 212,["416"] = 213,["419"] = 214,["420"] = 216,["421"] = 217,["422"] = 218,["423"] = 219,["424"] = 219,["425"] = 219,["427"] = 219,["428"] = 219,["430"] = 221,["431"] = 221,["433"] = 222,["434"] = 222,["435"] = 222,["436"] = 210,["437"] = 225,["438"] = 226,["439"] = 227,["440"] = 227,["441"] = 227,["443"] = 227,["445"] = 227,["446"] = 228,["447"] = 229,["449"] = 230,["450"] = 230,["451"] = 230,["452"] = 230,["453"] = 230,["454"] = 230,["455"] = 231,["456"] = 231,["458"] = 232,["459"] = 232,["460"] = 232,["461"] = 232,["463"] = 232,["464"] = 233,["465"] = 233,["466"] = 233,["468"] = 234,["469"] = 234,["474"] = 236,["475"] = 236,["477"] = 225,["478"] = 239,["479"] = 240,["480"] = 240,["481"] = 240,["482"] = 240,["484"] = 240,["486"] = 240,["487"] = 239,["488"] = 244,["489"] = 249,["490"] = 250,["493"] = 254,["494"] = 256,["495"] = 256,["496"] = 256,["497"] = 257,["498"] = 258,["499"] = 259,["500"] = 260,["502"] = 262,["503"] = 256,["504"] = 256,["505"] = 244,["506"] = 273,["507"] = 274,["510"] = 275,["511"] = 276,["514"] = 277,["515"] = 277,["518"] = 277,["520"] = 277,["521"] = 277,["522"] = 277,["523"] = 277,["524"] = 278,["525"] = 279,["526"] = 280,["528"] = 281,["529"] = 282,["530"] = 282,["532"] = 283,["533"] = 283,["534"] = 283,["535"] = 283,["536"] = 284,["537"] = 284,["539"] = 285,["540"] = 285,["542"] = 285,["544"] = 286,["548"] = 289,["549"] = 289,["550"] = 289,["553"] = 273,["554"] = 294,["555"] = 295,["558"] = 297,["559"] = 298,["560"] = 294,["561"] = 301,["562"] = 302,["563"] = 303,["564"] = 304,["565"] = 304,["566"] = 304,["569"] = 305,["570"] = 305,["571"] = 305,["572"] = 305,["573"] = 305,["574"] = 305,["576"] = 301,["577"] = 308,["578"] = 309,["579"] = 310,["580"] = 311,["581"] = 312,["583"] = 308,["584"] = 317,["585"] = 318,["586"] = 320,["587"] = 321,["588"] = 322,["589"] = 323,["592"] = 327,["593"] = 317,["594"] = 330,["595"] = 331,["596"] = 332,["597"] = 332,["599"] = 333,["600"] = 334,["601"] = 334,["603"] = 335,["604"] = 336,["605"] = 336,["607"] = 337,["608"] = 330,["609"] = 341,["610"] = 342,["611"] = 342,["612"] = 342,["613"] = 343,["614"] = 344,["615"] = 342,["616"] = 342,["617"] = 347,["618"] = 341,["619"] = 351,["620"] = 352,["621"] = 352,["622"] = 352,["625"] = 353,["626"] = 354,["627"] = 355,["628"] = 351,["629"] = 365,["630"] = 367,["631"] = 367,["632"] = 367,["633"] = 368,["634"] = 367,["635"] = 367,["636"] = 367,["637"] = 367,["638"] = 372,["639"] = 372,["640"] = 372,["641"] = 373,["642"] = 372,["643"] = 372,["644"] = 372,["645"] = 372,["646"] = 377,["647"] = 377,["648"] = 377,["649"] = 378,["650"] = 384,["651"] = 377,["652"] = 377,["653"] = 377,["654"] = 377,["655"] = 388,["656"] = 388,["657"] = 388,["658"] = 389,["659"] = 390,["660"] = 391,["661"] = 392,["663"] = 394,["664"] = 395,["667"] = 399,["668"] = 400,["669"] = 401,["671"] = 388,["672"] = 388,["673"] = 388,["674"] = 388,["675"] = 406,["676"] = 406,["677"] = 406,["678"] = 407,["679"] = 408,["680"] = 406,["681"] = 406,["682"] = 406,["683"] = 406,["684"] = 411,["685"] = 365,["686"] = 414,["687"] = 415,["688"] = 416,["689"] = 416,["691"] = 418,["692"] = 419,["693"] = 419,["695"] = 421,["696"] = 422,["697"] = 423,["698"] = 424,["699"] = 414,["700"] = 427,["701"] = 428,["702"] = 429,["703"] = 433,["704"] = 434,["705"] = 435,["706"] = 436,["707"] = 437,["708"] = 427,["709"] = 442,["710"] = 443,["711"] = 444,["712"] = 445,["713"] = 450,["715"] = 453,["716"] = 442,["717"] = 462,["718"] = 463,["719"] = 463,["721"] = 466,["722"] = 467,["724"] = 470,["725"] = 462,["726"] = 473,["727"] = 474,["728"] = 473,["729"] = 477,["730"] = 479,["731"] = 480,["732"] = 477,["733"] = 483,["734"] = 484,["735"] = 485,["736"] = 483,["737"] = 488,["738"] = 489,["739"] = 488,["740"] = 492,["741"] = 493,["742"] = 492,["743"] = 499,["744"] = 500,["747"] = 502,["748"] = 503,["749"] = 503,["751"] = 506,["752"] = 507,["753"] = 508,["754"] = 509,["755"] = 509,["757"] = 510,["758"] = 499,["759"] = 8,["760"] = 520,["761"] = 520});
 local ____exports = {}
 local ____tstl_2Dutils = require("lib.tstl-utils")
 local reloadable = ____tstl_2Dutils.reloadable
@@ -54,298 +62,69 @@ function MStateSystem.prototype.InitializeCore(self)
         StateData = {unitStorage = {}, dirtyKeys = {}, lastSyncTime = 0, stats = {totalReads = 0, cacheHits = 0, totalWrites = 0, syncCount = 0}}
     end
 end
-function MStateSystem.prototype.AddStaticState(self, key, stateId, sourceId, value, priority, metadata)
-    if priority == nil then
-        priority = 0
-    end
-    local stateKey = self:NormalizeStateId(stateId)
-    local storage = self:GetStorage(key)
-    local stateList = storage.static[stateKey]
-    if not stateList then
-        stateList = {}
-        storage.static[stateKey] = stateList
-    end
-    local existingIndex = __TS__ArrayFindIndex(
-        stateList,
-        function(____, d) return d.sourceId == sourceId end
-    )
-    if existingIndex ~= -1 then
-        local oldValue = self:GetStaticStateValue(key, stateKey)
-        stateList[existingIndex + 1].value = value
-        stateList[existingIndex + 1].priority = priority
-        stateList[existingIndex + 1].metadata = metadata
-        self:RecalculateStaticState(key, stateKey)
-        local newValue = self:GetStaticStateValue(key, stateKey)
-        if oldValue ~= newValue then
-            Event:Fire("state_changed", {key = key, stateId = stateKey, oldValue = oldValue, newValue = newValue})
-        end
-    else
-        local oldValue = self:GetStaticStateValue(key, stateKey)
-        stateList[#stateList + 1] = {
-            sourceId = sourceId,
-            value = value,
-            priority = priority,
-            addedTime = self:GetCurrentTime(),
-            metadata = metadata
-        }
-        self:RecalculateStaticState(key, stateKey)
-        local newValue = self:GetStaticStateValue(key, stateKey)
-        if oldValue ~= newValue then
-            Event:Fire("state_changed", {key = key, stateId = stateKey, oldValue = oldValue, newValue = newValue})
-        end
-    end
-    self:MarkDirty(key, stateKey)
-    local ____StateData_stats_0, ____totalWrites_1 = StateData.stats, "totalWrites"
-    ____StateData_stats_0[____totalWrites_1] = ____StateData_stats_0[____totalWrites_1] + 1
-    return true
+function MStateSystem.prototype.NextRegistrationOrder(self)
+    StateData.nextRegistrationOrder = (StateData.nextRegistrationOrder or 0) + 1
+    return StateData.nextRegistrationOrder
 end
-function MStateSystem.prototype.RemoveStaticState(self, key, sourceId, stateId)
-    if stateId then
-        return self:RemoveSingleStaticState(key, sourceId, stateId)
-    else
-        local storage = StateData.unitStorage[key]
-        if not storage then
-            return false
-        end
-        local removed = false
-        for sid in pairs(storage.static) do
-            if self:RemoveSingleStaticState(key, sourceId, sid) then
-                removed = true
+function MStateSystem.prototype.ResolveStateValue(self, key, stateId, kind, params)
+    local stateKey = self:NormalizeStateId(stateId)
+    local storage = StateData.unitStorage[key]
+    if not storage then
+        return false
+    end
+    local sources = {}
+    if kind ~= "dynamic" then
+        __TS__ArrayPushArray(sources, storage.static[stateKey] or ({}))
+    end
+    if kind ~= "static" then
+        __TS__ArrayPushArray(sources, storage.dynamic[stateKey] or ({}))
+    end
+    local ranked = __TS__ArrayMap(
+        sources,
+        function(____, data)
+            local priority = 0
+            do
+                local function ____catch(____error)
+                    self:print("State priority failed", stateKey, data.sourceId, ____error)
+                end
+                local ____try, ____hasReturned = pcall(function()
+                    local value = type(data.priority) == "function" and data:priority() or data.priority
+                    if type(value) == "number" and value == value then
+                        priority = value
+                    end
+                end)
+                if not ____try then
+                    ____catch(____hasReturned)
+                end
             end
+            return {data = data, priority = priority}
         end
-        return removed
-    end
-end
-function MStateSystem.prototype.RemoveSingleStaticState(self, key, sourceId, stateId)
-    local stateKey = self:NormalizeStateId(stateId)
-    local storage = self:GetStorage(key)
-    local stateList = storage.static[stateKey]
-    if not stateList then
-        return false
-    end
-    local index = __TS__ArrayFindIndex(
-        stateList,
-        function(____, d) return d.sourceId == sourceId end
     )
-    if index ~= -1 then
-        local oldValue = self:GetStaticStateValue(key, stateKey)
-        __TS__ArraySplice(stateList, index, 1)
-        if #stateList == 0 then
-            __TS__Delete(storage.static, stateKey)
-            __TS__Delete(storage.cache, stateKey)
-        else
-            self:RecalculateStaticState(key, stateKey)
-        end
-        local newValue = self:GetStaticStateValue(key, stateKey)
-        if oldValue ~= newValue then
-            Event:Fire("state_changed", {key = key, stateId = stateKey, oldValue = oldValue, newValue = newValue})
-        end
-        self:MarkDirty(key, stateKey)
-        return true
-    end
-    return false
-end
-function MStateSystem.prototype.UpdateStaticStateValue(self, key, stateId, sourceId, newValue)
-    local stateKey = self:NormalizeStateId(stateId)
-    local storage = self:GetStorage(key)
-    local stateList = storage.static[stateKey]
-    if not stateList then
-        return false
-    end
-    local data = __TS__ArrayFind(
-        stateList,
-        function(____, d) return d.sourceId == sourceId end
-    )
-    if data then
-        local oldValue = self:GetStaticStateValue(key, stateKey)
-        data.value = newValue
-        self:RecalculateStaticState(key, stateKey)
-        local finalValue = self:GetStaticStateValue(key, stateKey)
-        if oldValue ~= finalValue then
-            Event:Fire("state_changed", {key = key, stateId = stateKey, oldValue = oldValue, newValue = finalValue})
-        end
-        self:MarkDirty(key, stateKey)
-        return true
-    end
-    return false
-end
-function MStateSystem.prototype.GetStaticStateValue(self, key, stateId)
-    local stateKey = self:NormalizeStateId(stateId)
-    local storage = self:GetStorage(key)
-    local cachedEntry = storage.cache[stateKey]
-    local ____StateData_stats_2, ____totalReads_3 = StateData.stats, "totalReads"
-    ____StateData_stats_2[____totalReads_3] = ____StateData_stats_2[____totalReads_3] + 1
-    if cachedEntry ~= nil then
-        local ____StateData_stats_4, ____cacheHits_5 = StateData.stats, "cacheHits"
-        ____StateData_stats_4[____cacheHits_5] = ____StateData_stats_4[____cacheHits_5] + 1
-        return cachedEntry.value
-    end
-    return false
-end
-function MStateSystem.prototype.RecalculateStaticState(self, key, stateId)
-    local stateKey = self:NormalizeStateId(stateId)
-    local storage = self:GetStorage(key)
-    local stateList = storage.static[stateKey]
-    if not stateList or #stateList == 0 then
-        __TS__Delete(storage.cache, stateKey)
-        return
-    end
-    local sortedList = __TS__ArraySort(
-        {unpack(stateList)},
+    __TS__ArraySort(
+        ranked,
         function(____, a, b)
-            local priorityA = type(a.priority) == "function" and a:priority() or a.priority
-            local priorityB = type(b.priority) == "function" and b:priority() or b.priority
-            return priorityA - priorityB
-        end
-    )
-    local result = false
-    for ____, data in ipairs(sortedList) do
-        if data.value == true then
-            result = true
-            break
-        end
-    end
-    storage.cache[stateKey] = {
-        value = result,
-        cachedAt = self:GetCurrentTime()
-    }
-end
-function MStateSystem.prototype.RegisterDynamicState(self, key, stateId, sourceId, callback, priority, metadata)
-    if priority == nil then
-        priority = 100
-    end
-    local stateKey = self:NormalizeStateId(stateId)
-    local storage = self:GetStorage(key)
-    local stateList = storage.dynamic[stateKey]
-    if not stateList then
-        stateList = {}
-        storage.dynamic[stateKey] = stateList
-    end
-    local existingIndex = __TS__ArrayFindIndex(
-        stateList,
-        function(____, d) return d.sourceId == sourceId end
-    )
-    if existingIndex ~= -1 then
-        stateList[existingIndex + 1].callback = callback
-        stateList[existingIndex + 1].priority = priority
-        stateList[existingIndex + 1].metadata = metadata
-    else
-        stateList[#stateList + 1] = {
-            sourceId = sourceId,
-            callback = callback,
-            priority = priority,
-            addedTime = self:GetCurrentTime(),
-            metadata = metadata
-        }
-    end
-    local oldValue = self:GetDynamicStateValueInternal(key, stateKey)
-    __TS__Delete(storage.cache, stateKey)
-    local newValue = self:GetDynamicStateValueInternal(key, stateKey)
-    if oldValue ~= newValue then
-        Event:Fire("state_changed", {key = key, stateId = stateKey, oldValue = oldValue, newValue = newValue})
-    end
-    self:MarkDirty(key, stateKey)
-    local ____StateData_stats_6, ____totalWrites_7 = StateData.stats, "totalWrites"
-    ____StateData_stats_6[____totalWrites_7] = ____StateData_stats_6[____totalWrites_7] + 1
-    return true
-end
-function MStateSystem.prototype.UnregisterDynamicState(self, key, sourceId, stateId)
-    if stateId then
-        return self:UnregisterSingleDynamicState(key, sourceId, stateId)
-    else
-        local storage = StateData.unitStorage[key]
-        if not storage then
-            return false
-        end
-        local removed = false
-        for sid in pairs(storage.dynamic) do
-            if self:UnregisterSingleDynamicState(key, sourceId, sid) then
-                removed = true
+            if a.priority ~= b.priority then
+                return b.priority - a.priority
             end
-        end
-        return removed
-    end
-end
-function MStateSystem.prototype.UnregisterSingleDynamicState(self, key, sourceId, stateId)
-    local stateKey = self:NormalizeStateId(stateId)
-    local storage = self:GetStorage(key)
-    local stateList = storage.dynamic[stateKey]
-    if not stateList then
-        return false
-    end
-    local index = __TS__ArrayFindIndex(
-        stateList,
-        function(____, d) return d.sourceId == sourceId end
-    )
-    if index ~= -1 then
-        local oldValue = self:GetDynamicStateValueInternal(key, stateKey)
-        __TS__ArraySplice(stateList, index, 1)
-        if #stateList == 0 then
-            __TS__Delete(storage.dynamic, stateKey)
-        end
-        __TS__Delete(storage.cache, stateKey)
-        local newValue = self:GetDynamicStateValueInternal(key, stateKey)
-        if oldValue ~= newValue then
-            Event:Fire("state_changed", {key = key, stateId = stateKey, oldValue = oldValue, newValue = newValue})
-        end
-        self:MarkDirty(key, stateKey)
-        return true
-    end
-    return false
-end
-function MStateSystem.prototype.GetDynamicStateValue(self, key, stateId, params)
-    local stateKey = self:NormalizeStateId(stateId)
-    local storage = self:GetStorage(key)
-    local cached = storage.cache[stateKey]
-    if cached ~= nil then
-        local ____StateData_stats_8, ____totalReads_9 = StateData.stats, "totalReads"
-        ____StateData_stats_8[____totalReads_9] = ____StateData_stats_8[____totalReads_9] + 1
-        local ____StateData_stats_10, ____cacheHits_11 = StateData.stats, "cacheHits"
-        ____StateData_stats_10[____cacheHits_11] = ____StateData_stats_10[____cacheHits_11] + 1
-        return cached.value
-    end
-    local value = self:CalculateDynamicStateValue(key, stateKey, params)
-    storage.cache[stateKey] = {
-        value = value,
-        cachedAt = self:GetCurrentTime()
-    }
-    local ____StateData_stats_12, ____totalReads_13 = StateData.stats, "totalReads"
-    ____StateData_stats_12[____totalReads_13] = ____StateData_stats_12[____totalReads_13] + 1
-    return value
-end
-function MStateSystem.prototype.GetDynamicStateValueInternal(self, key, stateId)
-    local stateKey = self:NormalizeStateId(stateId)
-    local storage = self:GetStorage(key)
-    local cached = storage.cache[stateKey]
-    local ____temp_16 = cached and cached.value
-    if ____temp_16 == nil then
-        ____temp_16 = false
-    end
-    return ____temp_16
-end
-function MStateSystem.prototype.CalculateDynamicStateValue(self, key, stateId, params)
-    local stateKey = self:NormalizeStateId(stateId)
-    local storage = self:GetStorage(key)
-    local stateList = storage.dynamic[stateKey]
-    if not stateList or #stateList == 0 then
-        return false
-    end
-    local sortedList = __TS__ArraySort(
-        {unpack(stateList)},
-        function(____, a, b)
-            local priorityA = type(a.priority) == "function" and a:priority() or a.priority
-            local priorityB = type(b.priority) == "function" and b:priority() or b.priority
-            return priorityA - priorityB
+            return (b.data.registrationOrder or 0) - (a.data.registrationOrder or 0)
         end
     )
-    for ____, data in ipairs(sortedList) do
+    for ____, ____value in ipairs(ranked) do
+        local data = ____value.data
         do
             local function ____catch(____error)
-                self:print((((("[Error] Dynamic state callback failed: " .. stateKey) .. " (") .. data.sourceId) .. "): ") .. tostring(____error))
+                self:print("State callback failed", stateKey, data.sourceId, ____error)
             end
             local ____try, ____hasReturned, ____returnValue = pcall(function()
-                if data:callback(params) == true then
-                    return true, true
+                local ____temp_0
+                if data.callback ~= nil then
+                    ____temp_0 = data:callback(params)
+                else
+                    ____temp_0 = data.value
+                end
+                local value = ____temp_0
+                if type(value) == "boolean" then
+                    return true, value
                 end
             end)
             if not ____try then
@@ -358,35 +137,269 @@ function MStateSystem.prototype.CalculateDynamicStateValue(self, key, stateId, p
     end
     return false
 end
-function MStateSystem.prototype.ClearDynamicStateCache(self, key, stateId)
+function MStateSystem.prototype.RefreshResolvedValue(self, key, stateId)
+    local stateKey = self:NormalizeStateId(stateId)
+    local storage = StateData.unitStorage[key]
+    if not storage then
+        return false
+    end
+    local previous = storage.cache[stateKey]
+    if not previous and not storage.static[stateKey] and not storage.dynamic[stateKey] then
+        return false
+    end
+    local value = self:ResolveStateValue(key, stateKey, "both")
+    storage.cache[stateKey] = {
+        value = value,
+        cachedAt = self:GetCurrentTime()
+    }
+    if not previous or previous.value ~= value then
+        self:MarkDirty(key, stateKey)
+    end
+    local ____temp_3 = previous and previous.value
+    if ____temp_3 == nil then
+        ____temp_3 = false
+    end
+    if ____temp_3 ~= value then
+        local ____Event_8 = Event
+        local ____Event_Fire_9 = Event.Fire
+        local ____key_7 = key
+        local ____temp_6 = previous and previous.value
+        if ____temp_6 == nil then
+            ____temp_6 = false
+        end
+        ____Event_Fire_9(____Event_8, "state_changed", {key = ____key_7, stateId = stateKey, oldValue = ____temp_6, newValue = value})
+    end
+    return value
+end
+function MStateSystem.prototype.AddStaticState(self, key, stateId, sourceId, value, priority, metadata)
+    if priority == nil then
+        priority = 0
+    end
+    if not IsServer() then
+        return false
+    end
+    local stateKey = self:NormalizeStateId(stateId)
     local storage = self:GetStorage(key)
-    if stateId then
-        local stateKey = self:NormalizeStateId(stateId)
-        __TS__Delete(storage.cache, stateKey)
+    local ____storage_static_10, ____stateKey_11 = storage.static, stateKey
+    if ____storage_static_10[____stateKey_11] == nil then
+        ____storage_static_10[____stateKey_11] = {}
+    end
+    local list = storage.static[stateKey]
+    local existing = __TS__ArrayFind(
+        list,
+        function(____, data) return data.sourceId == sourceId end
+    )
+    if existing then
+        existing.value = value
+        existing.priority = priority
+        existing.metadata = metadata
     else
-        storage.cache = {}
+        list[#list + 1] = {
+            sourceId = sourceId,
+            value = value,
+            priority = priority,
+            metadata = metadata,
+            addedTime = self:GetCurrentTime(),
+            registrationOrder = self:NextRegistrationOrder()
+        }
+    end
+    local ____StateData_stats_13, ____totalWrites_14 = StateData.stats, "totalWrites"
+    ____StateData_stats_13[____totalWrites_14] = ____StateData_stats_13[____totalWrites_14] + 1
+    self:RefreshResolvedValue(key, stateKey)
+    return true
+end
+function MStateSystem.prototype.RemoveStaticState(self, key, sourceId, stateId)
+    if not IsServer() then
+        return false
+    end
+    local storage = StateData.unitStorage[key]
+    if not storage then
+        return false
+    end
+    local ids = stateId ~= nil and ({self:NormalizeStateId(stateId)}) or __TS__ObjectKeys(storage.static)
+    local removed = false
+    for ____, id in ipairs(ids) do
+        do
+            local ____opt_15 = list
+            local list = storage.static[id]
+            local remaining = ____opt_15 and __TS__ArrayFilter(
+                list,
+                function(____, data) return data.sourceId ~= sourceId end
+            )
+            if not list or #remaining == #list then
+                goto __continue40
+            end
+            if #remaining > 0 then
+                storage.static[id] = remaining
+            else
+                __TS__Delete(storage.static, id)
+            end
+            removed = true
+            self:MarkDirty(key, id)
+            self:RefreshResolvedValue(key, id)
+        end
+        ::__continue40::
+    end
+    return removed
+end
+function MStateSystem.prototype.UpdateStaticStateValue(self, key, stateId, sourceId, newValue)
+    if not IsServer() then
+        return false
+    end
+    local ____opt_21 = StateData.unitStorage[key]
+    local ____opt_17 = ____opt_21 and ____opt_21.static[self:NormalizeStateId(stateId)]
+    if ____opt_17 ~= nil then
+        local ____opt_18 = StateData.unitStorage[key]
+        ____opt_17 = __TS__ArrayFind(
+            ____opt_18 and ____opt_18.static[self:NormalizeStateId(stateId)],
+            function(____, value) return value.sourceId == sourceId end
+        )
+    end
+    local data = ____opt_17
+    if not data then
+        return false
+    end
+    data.value = newValue
+    local ____StateData_stats_23, ____totalWrites_24 = StateData.stats, "totalWrites"
+    ____StateData_stats_23[____totalWrites_24] = ____StateData_stats_23[____totalWrites_24] + 1
+    self:RefreshResolvedValue(key, stateId)
+    return true
+end
+function MStateSystem.prototype.GetStaticStateValue(self, key, stateId)
+    local ____StateData_stats_25, ____totalReads_26 = StateData.stats, "totalReads"
+    ____StateData_stats_25[____totalReads_26] = ____StateData_stats_25[____totalReads_26] + 1
+    return self:ResolveStateValue(key, stateId, "static")
+end
+function MStateSystem.prototype.RegisterDynamicState(self, key, stateId, sourceId, callback, priority, metadata)
+    if priority == nil then
+        priority = 0
+    end
+    if not IsServer() then
+        return false
+    end
+    local stateKey = self:NormalizeStateId(stateId)
+    local storage = self:GetStorage(key)
+    local ____storage_dynamic_27, ____stateKey_28 = storage.dynamic, stateKey
+    if ____storage_dynamic_27[____stateKey_28] == nil then
+        ____storage_dynamic_27[____stateKey_28] = {}
+    end
+    local list = storage.dynamic[stateKey]
+    local existing = __TS__ArrayFind(
+        list,
+        function(____, data) return data.sourceId == sourceId end
+    )
+    if existing then
+        existing.callback = callback
+        existing.priority = priority
+        existing.metadata = metadata
+    else
+        list[#list + 1] = {
+            sourceId = sourceId,
+            callback = callback,
+            priority = priority,
+            metadata = metadata,
+            addedTime = self:GetCurrentTime(),
+            registrationOrder = self:NextRegistrationOrder()
+        }
+    end
+    local ____StateData_stats_30, ____totalWrites_31 = StateData.stats, "totalWrites"
+    ____StateData_stats_30[____totalWrites_31] = ____StateData_stats_30[____totalWrites_31] + 1
+    self:RefreshResolvedValue(key, stateKey)
+    return true
+end
+function MStateSystem.prototype.UnregisterDynamicState(self, key, sourceId, stateId)
+    if not IsServer() then
+        return false
+    end
+    local storage = StateData.unitStorage[key]
+    if not storage then
+        return false
+    end
+    local ids = stateId ~= nil and ({self:NormalizeStateId(stateId)}) or __TS__ObjectKeys(storage.dynamic)
+    local removed = false
+    for ____, id in ipairs(ids) do
+        do
+            local ____opt_32 = list
+            local list = storage.dynamic[id]
+            local remaining = ____opt_32 and __TS__ArrayFilter(
+                list,
+                function(____, data) return data.sourceId ~= sourceId end
+            )
+            if not list or #remaining == #list then
+                goto __continue59
+            end
+            if #remaining > 0 then
+                storage.dynamic[id] = remaining
+            else
+                __TS__Delete(storage.dynamic, id)
+            end
+            removed = true
+            self:MarkDirty(key, id)
+            self:RefreshResolvedValue(key, id)
+        end
+        ::__continue59::
+    end
+    return removed
+end
+function MStateSystem.prototype.GetDynamicStateValue(self, key, stateId, params)
+    local ____StateData_stats_34, ____totalReads_35 = StateData.stats, "totalReads"
+    ____StateData_stats_34[____totalReads_35] = ____StateData_stats_34[____totalReads_35] + 1
+    return self:ResolveStateValue(key, stateId, "dynamic", params)
+end
+function MStateSystem.prototype.ClearDynamicStateCache(self, key, stateId)
+    if not IsServer() then
+        return
+    end
+    local storage = StateData.unitStorage[key]
+    if not storage then
+        return
+    end
+    local ids = stateId ~= nil and ({self:NormalizeStateId(stateId)}) or __TS__ObjectKeys(storage.dynamic)
+    for ____, id in ipairs(ids) do
+        self:RefreshResolvedValue(key, id)
     end
 end
 function MStateSystem.prototype.GetStateValue(self, key, stateId, params)
-    if IsServer() then
-        local staticValue = self:GetStaticStateValue(key, stateId)
-        local dynamicValue = self:GetDynamicStateValue(key, stateId, params)
-        return staticValue or dynamicValue
-    else
+    local ____StateData_stats_36, ____totalReads_37 = StateData.stats, "totalReads"
+    ____StateData_stats_36[____totalReads_37] = ____StateData_stats_36[____totalReads_37] + 1
+    if not IsServer() then
         return self:GetStateValueFromNetTable(key, stateId)
     end
+    local ____temp_38
+    if params == nil then
+        ____temp_38 = self:RefreshResolvedValue(key, stateId)
+    else
+        ____temp_38 = self:ResolveStateValue(key, stateId, "both", params)
+    end
+    return ____temp_38
 end
-function MStateSystem.prototype.GetStateValueInternal(self, key, stateId)
-    local staticValue = self:GetStaticStateValue(key, stateId)
-    local dynamicValue = self:GetDynamicStateValueInternal(key, stateId)
-    return staticValue or dynamicValue
+function MStateSystem.prototype.RefreshLiveStates(self)
+    for ____, key in ipairs(__TS__ObjectKeys(StateData.unitStorage)) do
+        local index = __TS__Number(key)
+        local storage = StateData.unitStorage[index]
+        local ids = __TS__New(
+            Set,
+            __TS__ObjectKeys(storage.dynamic)
+        )
+        for ____, id in ipairs(__TS__ObjectKeys(storage.static)) do
+            if __TS__ArraySome(
+                storage.static[id],
+                function(____, data) return type(data.priority) == "function" end
+            ) then
+                ids:add(id)
+            end
+        end
+        for ____, id in __TS__Iterator(ids) do
+            self:RefreshResolvedValue(index, id)
+        end
+    end
 end
 function MStateSystem.prototype.InitializeNetTableSync(self)
     CustomNetTables:SetTableValue(
         self.NETTABLE_NAME,
         "init",
         {
-            version = 1,
+            version = 2,
             time = self:GetCurrentTime()
         }
     )
@@ -397,62 +410,81 @@ function MStateSystem.prototype.InitializeNetTableSync(self)
             return self.SYNC_INTERVAL
         end
     )
-    self:print("NetTable sync initialized")
 end
 function MStateSystem.prototype.SyncDirtyStates(self)
-    local dirtyKeysCount = 0
-    for _ in pairs(StateData.dirtyKeys) do
-        dirtyKeysCount = dirtyKeysCount + 1
-    end
-    if dirtyKeysCount == 0 then
+    self:RefreshLiveStates()
+    local dirtyArray = __TS__ObjectKeys(StateData.dirtyKeys)
+    if #dirtyArray == 0 then
         return
     end
-    local dirtyArray = __TS__ObjectKeys(StateData.dirtyKeys)
-    local groupedByEntity = {}
+    local groups = {}
     for ____, dirtyKey in ipairs(dirtyArray) do
-        local parts = __TS__StringSplit(dirtyKey, "|")
-        local key = tonumber(parts[1])
-        local entityKey = self:GetEntityKeyForNetTable(key)
-        if not groupedByEntity[entityKey] then
-            groupedByEntity[entityKey] = {}
+        __TS__Delete(StateData.dirtyKeys, dirtyKey)
+        local entityKey = self:GetEntityKeyForNetTable(__TS__Number(__TS__StringSplit(dirtyKey, "|")[1]))
+        local ____groups_39, ____entityKey_40 = groups, entityKey
+        if ____groups_39[____entityKey_40] == nil then
+            ____groups_39[____entityKey_40] = {}
         end
-        local ____groupedByEntity_entityKey_17 = groupedByEntity[entityKey]
-        ____groupedByEntity_entityKey_17[#____groupedByEntity_entityKey_17 + 1] = dirtyKey
+        local ____groups_entityKey_42 = groups[entityKey]
+        ____groups_entityKey_42[#____groups_entityKey_42 + 1] = dirtyKey
     end
-    for entityKey, keys in pairs(groupedByEntity) do
+    for entityKey, keys in pairs(groups) do
         self:SyncEntityBatch(entityKey, keys)
     end
-    StateData.dirtyKeys = {}
     StateData.lastSyncTime = self:GetCurrentTime()
-    local ____StateData_stats_18, ____syncCount_19 = StateData.stats, "syncCount"
-    ____StateData_stats_18[____syncCount_19] = ____StateData_stats_18[____syncCount_19] + 1
+    local ____StateData_stats_43, ____syncCount_44 = StateData.stats, "syncCount"
+    ____StateData_stats_43[____syncCount_44] = ____StateData_stats_43[____syncCount_44] + 1
 end
 function MStateSystem.prototype.SyncEntityBatch(self, entityKey, dirtyKeys)
-    local existingData = CustomNetTables:GetTableValue(self.NETTABLE_NAME, entityKey)
-    local ____existingData_20
-    if existingData then
-        ____existingData_20 = __TS__ObjectAssign({}, existingData)
+    local existing = CustomNetTables:GetTableValue(self.NETTABLE_NAME, entityKey)
+    local ____existing_45
+    if existing then
+        ____existing_45 = __TS__ObjectAssign({}, existing)
     else
-        ____existingData_20 = {}
+        ____existing_45 = {}
     end
-    local update = ____existingData_20
+    local update = ____existing_45
+    local changed = false
     for ____, dirtyKey in ipairs(dirtyKeys) do
-        local parts = __TS__StringSplit(dirtyKey, "|")
-        local key = tonumber(parts[1])
-        local stateId = parts[2]
-        local value = self:GetStateValueInternal(key, stateId)
-        update[stateId] = value
+        do
+            local key, stateId = unpack(
+                __TS__StringSplit(dirtyKey, "|"),
+                1,
+                2
+            )
+            local storage = StateData.unitStorage[__TS__Number(key)]
+            if not storage then
+                goto __continue90
+            end
+            local ____opt_46 = storage.cache[stateId]
+            local ____temp_48 = ____opt_46 and ____opt_46.value
+            if ____temp_48 == nil then
+                ____temp_48 = false
+            end
+            local value = ____temp_48
+            if update[stateId] ~= value then
+                update[stateId] = value
+                changed = true
+            end
+            if not storage.static[stateId] and not storage.dynamic[stateId] then
+                __TS__Delete(storage.cache, stateId)
+            end
+        end
+        ::__continue90::
     end
-    CustomNetTables:SetTableValue(self.NETTABLE_NAME, entityKey, update)
+    if changed then
+        CustomNetTables:SetTableValue(self.NETTABLE_NAME, entityKey, update)
+    end
 end
 function MStateSystem.prototype.GetStateValueFromNetTable(self, key, stateId)
-    local stateKey = self:NormalizeStateId(stateId)
-    local entityKey = self:GetEntityKeyForNetTable(key)
-    local data = CustomNetTables:GetTableValue(self.NETTABLE_NAME, entityKey)
-    if data and data[stateKey] ~= nil then
-        return data[stateKey]
+    local ____opt_49 = CustomNetTables:GetTableValue(
+        self.NETTABLE_NAME,
+        self:GetEntityKeyForNetTable(key)
+    )
+    if ____opt_49 ~= nil then
+        ____opt_49 = ____opt_49[self:NormalizeStateId(stateId)]
     end
-    return false
+    return ____opt_49 == true
 end
 function MStateSystem.prototype.ListenStateChange(self, key, stateId, callback)
     if IsServer() then
@@ -473,8 +505,52 @@ function MStateSystem.prototype.ListenStateChange(self, key, stateId, callback)
     )
 end
 function MStateSystem.prototype.CleanupSourceStates(self, key, sourceId)
-    self:RemoveStaticState(key, sourceId)
-    self:UnregisterDynamicState(key, sourceId)
+    if not IsServer() then
+        return
+    end
+    local storage = StateData.unitStorage[key]
+    if not storage then
+        return
+    end
+    local ____Set_52 = Set
+    local ____array_51 = __TS__SparseArrayNew(unpack(__TS__ObjectKeys(storage.static)))
+    __TS__SparseArrayPush(
+        ____array_51,
+        unpack(__TS__ObjectKeys(storage.dynamic))
+    )
+    local ids = __TS__New(
+        ____Set_52,
+        {__TS__SparseArraySpread(____array_51)}
+    )
+    for ____, id in __TS__Iterator(ids) do
+        local changed = false
+        for ____, layer in ipairs({storage.static, storage.dynamic}) do
+            do
+                local list = layer[id]
+                if not list then
+                    goto __continue105
+                end
+                local remaining = __TS__ArrayFilter(
+                    list,
+                    function(____, data) return data.sourceId ~= sourceId end
+                )
+                if #list == #remaining then
+                    goto __continue105
+                end
+                if #remaining == 0 then
+                    __TS__Delete(layer, id)
+                else
+                    layer[id] = remaining
+                end
+                changed = true
+            end
+            ::__continue105::
+        end
+        if changed then
+            self:MarkDirty(key, id)
+            self:RefreshResolvedValue(key, id)
+        end
+    end
 end
 function MStateSystem.prototype.CleanupUnitStates(self, unit)
     if not unit then
@@ -672,9 +748,6 @@ function MStateSystem.prototype.ForceSyncAllDirty(self)
     local dirtyCount = 0
     for _ in pairs(StateData.dirtyKeys) do
         dirtyCount = dirtyCount + 1
-    end
-    if dirtyCount == 0 then
-        return
     end
     self:print(("[ForceSyncAllDirty] Syncing " .. tostring(dirtyCount)) .. " dirty states...")
     self:SyncDirtyStates()

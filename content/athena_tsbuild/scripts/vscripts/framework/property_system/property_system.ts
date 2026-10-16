@@ -58,6 +58,7 @@ class MPropertySystem extends CModule {
 			this.print('Property System reloaded');
 		}
 		require("properties");
+	require("athena_property_map");
 	}
 
 	initPriority(): number {

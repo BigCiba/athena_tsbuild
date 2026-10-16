@@ -53,6 +53,8 @@ declare global {
 		pre_attack_event: { attacker: CDOTA_BaseNPC; position: Vector; };
 		/** 攻击事件 */
 		attack_event: { attacker: CDOTA_BaseNPC; position: Vector; };
+		/** 普通攻击弹道被攻击者状态阻止，沿用原版可供技能响应的事件。 */
+		attack_projectile_disabled: { unit: CDOTA_BaseNPC; target: CDOTA_BaseNPC; };
 		/** 护盾消耗事件 */
 		consume_shield: { damageEvent: DamageEvent, shield: number; };
 		/** 暴击事件 */

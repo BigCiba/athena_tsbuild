@@ -66,6 +66,8 @@
 		]
 	},
 	"scripts": {
+		"test:states": "node ./node_scripts/test-state-system.js",
+		"test:properties": "node ./node_scripts/test-common-modifier.js",
 		"test:hero-selection": "node ./node_scripts/test-hero-selection.js",
 		"test:session": "node ./node_scripts/test-game-session.js",		"test:ui-assets": "node ./node_scripts/test-panorama-images.js",
 		"generate:compiler": "node ./node_scripts/compiler.js",

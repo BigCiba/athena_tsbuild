@@ -366,8 +366,8 @@ export interface EOMModifier extends CDOTA_Modifier_Lua {
 	GetAbilitySpecialValue(): void;
 	StaticProperty(): Partial<Record<PropertyFunction, any>>;
 	DynamicProperty(): Partial<Record<PropertyFunction, DynamicPropertyFunction>>;
-	StaticState(): Partial<Record<StateEnum, any>>;
-	DynamicState(): Partial<Record<StateEnum, () => boolean>>;
+	StaticState(): Partial<Record<StateId, boolean>>;
+	DynamicState(): Partial<Record<StateId, DynamicStateCallback>>;
 	AddCustomTransmitterData(): any;
 	HandleCustomTransmitterData(data: any): void;
 	OnTransmitterDataUpdated(field: string, value: any): void;
@@ -377,6 +377,10 @@ export interface EOMModifier extends CDOTA_Modifier_Lua {
 export class EOMModifier extends BaseModifier {
 	protected _StaticProperty?: Partial<Record<PropertyFunction, any>>;
 	protected _DynamicProperty?: Partial<Record<PropertyFunction, DynamicPropertyFunction>>;
+	protected _RegisteredPropertyKeys?: Partial<Record<PropertyFunction, boolean>>;
+	protected __StateSourceId?: string;
+	protected __StaticStateIDs?: StateId[];
+	protected __DynamicStateIDs?: StateId[];
 	protected _bDestroyed?: boolean;
 	protected __EventIDList?: number[];
 	protected __AbilityValueEntries?: { propertyKey: string; specialValueKey: string; }[];
@@ -395,37 +399,42 @@ export class EOMModifier extends BaseModifier {
 		const sourceId = this.GetName();
 		const staticProperty = this.StaticProperty();
 		for (const [property, value] of pairs(staticProperty)) {
-			if (PROPERTY_MAP_REVERSE[property]) {
-				PropertySystem.AddStaticProperty(entIndex, PROPERTY_MAP_REVERSE[property], sourceId, value);
+			const id = PROPERTY_MAP_REVERSE[property];
+			if (id) {
+				this._RegisteredPropertyKeys ??= {}; this._RegisteredPropertyKeys[property] = true;
+				const key = PropertyData.configs[id].scope === PropertyScope.PLAYER ? this.GetParent().GetPlayerOwnerID() : entIndex;
+				PropertySystem.AddStaticProperty(key, id, sourceId, value);
 			}
 		}
 	}
 
-	// 为当前修饰器实例注册动态状态回调。
+	/** 状态按 modifier 实例持有来源，同名多实例销毁时不会互相清除。 */
+	protected GetStateSourceId(): string {
+		return this.__StateSourceId ??= DoUniqueString(this.GetName() + ":state");
+	}
+	// 为当前修饰器实例注册动态状态回调，刷新时释放不再声明的字段。
 	protected RegisterDynamicStates(): void {
-		if (this.DynamicState == undefined) {
-			return;
-		}
-
-		const entIndex = this.GetParent().entindex();
-		const sourceId = this.GetName();
-		const dynamicState = this.DynamicState();
+		if (!IsServer() || (this.DynamicState === undefined && this.__DynamicStateIDs === undefined)) return;
+		const entIndex = this.GetParent().entindex(), sourceId = this.GetStateSourceId();
+		const dynamicState = this.DynamicState?.() ?? {};
+		for (const state of this.__DynamicStateIDs ?? []) if (dynamicState[state] === undefined) StateSystem.UnregisterDynamicState(entIndex, sourceId, state);
+		this.__DynamicStateIDs = [];
 		for (const [state, func] of pairs(dynamicState)) {
-			StateSystem.RegisterDynamicState(entIndex, state, sourceId, func);
+			StateSystem.RegisterDynamicState(entIndex, state, sourceId, func, this.GetPriority());
+			this.__DynamicStateIDs.push(state);
 		}
 	}
 
 	// 按当前修饰器优先级注册静态状态。
 	protected RegisterStaticStates(): void {
-		if (this.StaticState == undefined) {
-			return;
-		}
-
-		const entIndex = this.GetParent().entindex();
-		const sourceId = this.GetName();
-		const staticState = this.StaticState();
+		if (!IsServer() || (this.StaticState === undefined && this.__StaticStateIDs === undefined)) return;
+		const entIndex = this.GetParent().entindex(), sourceId = this.GetStateSourceId();
+		const staticState = this.StaticState?.() ?? {};
+		for (const state of this.__StaticStateIDs ?? []) if (staticState[state] === undefined) StateSystem.RemoveStaticState(entIndex, sourceId, state);
+		this.__StaticStateIDs = [];
 		for (const [state, value] of pairs(staticState)) {
 			StateSystem.AddStaticState(entIndex, state, sourceId, value, this.GetPriority());
+			this.__StaticStateIDs.push(state);
 		}
 	}
 
@@ -437,8 +446,11 @@ export class EOMModifier extends BaseModifier {
 		if (this.DynamicProperty != undefined) {
 			const dynamicProperty = this.DynamicProperty();
 			for (const [property, func] of pairs(dynamicProperty)) {
-				if (PROPERTY_MAP_REVERSE[property]) {
-					PropertySystem.RegisterDynamicProperty(entIndex, PROPERTY_MAP_REVERSE[property], sourceId, func);
+				const id = PROPERTY_MAP_REVERSE[property];
+				if (id) {
+					this._RegisteredPropertyKeys ??= {}; this._RegisteredPropertyKeys[property] = true;
+					const key = PropertyData.configs[id].scope === PropertyScope.PLAYER ? this.GetParent().GetPlayerOwnerID() : entIndex;
+					PropertySystem.RegisterDynamicProperty(key, id, sourceId, func);
 				}
 			}
 		}
@@ -462,6 +474,7 @@ export class EOMModifier extends BaseModifier {
 
 		this.RegisterStaticProperties();
 		this.RegisterStaticStates();
+		this.RegisterDynamicStates();
 		this.RefreshParentStats();
 	}
 	OnStackCountChanged(stackCount: number): void {
@@ -469,6 +482,7 @@ export class EOMModifier extends BaseModifier {
 
 		this.RegisterStaticProperties();
 		this.RegisterStaticStates();
+		this.RegisterDynamicStates();
 		this.RefreshParentStats();
 	}
 	/** 完整注册/移除属性后统一同步，覆盖攻击和护甲等不发 property_changed 的属性。 */
@@ -483,11 +497,17 @@ export class EOMModifier extends BaseModifier {
 		let sourceId = this.GetName();
 		let entIndex = this.GetParent().entindex();
 
-		PropertySystem.RemoveStaticProperty(entIndex, sourceId);
-		PropertySystem.UnregisterDynamicProperty(entIndex, sourceId);
+		// 按登记时的作用域释放，不能把实体索引当成另一个玩家的 ID。
+		for (const property of Object.keys(this._RegisteredPropertyKeys ?? {})) {
+			const id = PROPERTY_MAP_REVERSE[Number(property) as PropertyFunction];
+			if (id) {
+				const key = PropertyData.configs[id].scope === PropertyScope.PLAYER ? this.GetParent().GetPlayerOwnerID() : entIndex;
+				PropertySystem.RemoveStaticProperty(key, sourceId, id);
+				PropertySystem.UnregisterDynamicProperty(key, sourceId, id);
+			}
+		}
 
-		StateSystem.RemoveStaticState(entIndex, sourceId);
-		StateSystem.UnregisterDynamicState(entIndex, sourceId);
+		if (IsServer()) StateSystem.CleanupSourceStates(entIndex, this.__StateSourceId ?? sourceId);
 
 		if (IsServer()) {
 			if (this.__EventIDList != undefined) {

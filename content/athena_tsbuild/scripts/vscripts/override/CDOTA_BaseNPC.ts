@@ -7,6 +7,9 @@ declare interface CDOTA_BaseNPC {
 	IsFriendly(target: CDOTA_BaseNPC): boolean;
 	/** 获取属性 */
 	GetProperty(property: PropertyFunction): number;
+	/** 旧版永久属性入口，实际数值由 PropertySystem 按来源存储。 */
+	AddPermanentAttribute(attribute: string, value: number, increase?: boolean): boolean;
+	GetPermanentAttribute(attribute: string): number;
 
 	GetAttackDamage_Engine(): number;
 	GetAttackDamage(): number;
@@ -40,7 +43,7 @@ declare interface CDOTA_BaseNPC {
 	GetMaxHealth(): number;
 	GetHealthPercent_Engine(): number;
 	GetHealthPercent(): number;
-	HasState(state: StateEnum): boolean;
+	HasState(state: StateId, params?: any): boolean;
 }
 
 enum KnockBackFlag {
@@ -70,11 +73,17 @@ BaseNPC.GetProperty = function (property) {
 	if (propertyId == undefined) return 0;
 	return PropertySystem.GetPropertyValueEx(propertyId, this.GetPlayerOwnerID(), this.entindex());
 };
+/** 自定义状态统一通过 StateSystem 查询；客户端读取服务端同步快照。 */
+BaseNPC.HasState = function (state, params) {
+	return StateSystem.GetStateValue(this.entindex(), state, params);
+};
 
 BaseNPC.GetAttackDamage_Engine ??= BaseNPC.GetAttackDamage;
 BaseNPC.GetAttackDamage = function () {
-	return (this.GetProperty(PropertyFunction.BASE_ATTACK) + this.GetProperty(PropertyFunction.ATTACK)) * (1 + this.GetProperty(PropertyFunction.ATTACK_AMPLIFY) / 100);
+	return GetAthenaAttack(this);
 };
+BaseNPC.AddPermanentAttribute = function (attribute, value, increase = false) { return UnitAttributes.AddPermanent(this, attribute, value, increase); };
+BaseNPC.GetPermanentAttribute = function (attribute) { return UnitAttributes.GetPermanent(this, attribute); };
 
 if (IsServer()) {
 	CDOTA_BaseNPC.GetHealth_Engine ??= CDOTA_BaseNPC.GetHealth;
@@ -116,12 +125,7 @@ BaseNPC.GiveMana = function (mana) {
 };
 BaseNPC.GetMaxHealth_Engine ??= BaseNPC.GetMaxHealth;
 BaseNPC.GetMaxHealth = function () {
-	const defenseIntensity = this.GetProperty(PropertyFunction.DEFENSE_INTENSITY) * (1 + this.GetProperty(PropertyFunction.DEFENSE_INTENSITY_BOOST) * 0.01);
-	return math.floor(
-		(this.GetProperty(PropertyFunction.BASE_HEALTH) + this.GetProperty(PropertyFunction.HEALTH))
-		* (1 + this.GetProperty(PropertyFunction.HEALTH_AMPLIFY) * 0.01)
-		* (1 + defenseIntensity * INTENSITY_FACTOR * 0.01)
-	);
+	return GetAthenaMaxHealth(this);
 };
 
 BaseNPC.GetHealthPercent_Engine ??= BaseNPC.GetHealthPercent;
@@ -130,9 +134,7 @@ BaseNPC.GetHealthPercent = function () {
 };
 BaseNPC.GetMaxMana_Engine ??= BaseNPC.GetMaxMana;
 BaseNPC.GetMaxMana = function () {
-	return math.floor(
-		(this.GetProperty(PropertyFunction.BASE_MANA) + this.GetProperty(PropertyFunction.MANA)) * (1 + this.GetProperty(PropertyFunction.MANA_AMPLIFY) * 0.01)
-	);
+	return GetAthenaMaxMana(this);
 };
 //********************************************************************************
 // Server

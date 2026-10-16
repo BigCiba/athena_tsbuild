@@ -1,0 +1,2282 @@
+{
+  "source": "athena-reborn",
+  "records": [
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_HEALTH_PERCENT_ENEMY",
+      "property": "HEALTH_PERCENT_ENEMY",
+      "aggregation": "MULTIPLY",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "生命百分比敌方"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ATTACK_DAMAGE_BASE",
+      "property": "BASE_ATTACK",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "基础攻击"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ATTACK_DAMAGE_BASE_STR",
+      "property": "ATTACK_DAMAGE_BASE_STR",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "攻击伤害基础力量派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ATTACK_DAMAGE_BASE_AGI",
+      "property": "ATTACK_DAMAGE_BASE_AGI",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "攻击伤害基础敏捷派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ATTACK_DAMAGE_BASE_INT",
+      "property": "ATTACK_DAMAGE_BASE_INT",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "攻击伤害基础智力派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ATTACK_DAMAGE_BONUS",
+      "property": "ATTACK",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "攻击力"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ATTACK_DAMAGE_BASE_PERCENTAGE",
+      "property": "ATTACK_DAMAGE_BASE_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%基础攻击"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ATTACK_DAMAGE_PERCENTAGE",
+      "property": "ATTACK_AMPLIFY",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%攻击力"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_BASE_ATTACK_TIME_CONSTANT_ADJUST",
+      "property": "BASE_ATTACK_TIME_CONSTANT_ADJUST",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "基础攻击间隔固定调整"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ATTACK_RANGE_BONUS",
+      "property": "ATTACK_RANGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "攻击距离"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ATTACK_RANGE_PERCENTAGE",
+      "property": "ATTACK_RANGE_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "攻击RANGE百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ARMOR_BASE",
+      "property": "PHYSICAL_ARMOR",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "物理护甲"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ARMOR_BASE_STR",
+      "property": "ARMOR_BASE_STR",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "护甲基础力量派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ARMOR_BASE_AGI",
+      "property": "ARMOR_BASE_AGI",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "护甲基础敏捷派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ARMOR_BASE_INT",
+      "property": "ARMOR_BASE_INT",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "护甲基础智力派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ARMOR_BONUS",
+      "property": "ARMOR_BONUS",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "额外护甲"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ARMOR_BASE_PERCENTAGE",
+      "property": "ARMOR_BASE_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%基础护甲"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ARMOR_PERCENTAGE",
+      "property": "ARMOR_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%总护甲"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_IGNORE_ARMOR",
+      "property": "IGNORE_ARMOR",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "固定无视护甲"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_IGNORE_ARMOR_PERCENTAGE",
+      "property": "IGNORE_ARMOR_PERCENTAGE",
+      "aggregation": "DECMUL",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "无视护甲百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_IGNORE_ARMOR_PERCENTAGE_UNIQUE",
+      "property": "IGNORE_ARMOR_PERCENTAGE_UNIQUE",
+      "aggregation": "MAX",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "无视护甲百分比独立"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_IGNORE_ARMOR_PERCENTAGE_TARGET",
+      "property": "IGNORE_ARMOR_PERCENTAGE_TARGET",
+      "aggregation": "DECMUL",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "无视护甲百分比目标"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_HEALTH_BASE_STR",
+      "property": "HEALTH_BASE_STR",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "生命基础力量派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_HEALTH_BONUS",
+      "property": "HEALTH",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "生命值"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_HEALTH_PERCENTAGE",
+      "property": "HEALTH_AMPLIFY",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%最大生命值"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_BASE_HEALTH_REGEN_CONSTANT_STR",
+      "property": "BASE_HEALTH_REGEN_CONSTANT_STR",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "基础生命恢复固定力量派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_BASE_HEALTH_REGEN_CONSTANT",
+      "property": "BASE_HEALTH_REGEN_CONSTANT",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "基础生命恢复固定"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT",
+      "property": "HEALTH_REGEN_CONSTANT",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "生命恢复固定"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE",
+      "property": "HEALTH_REGEN_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "生命恢复百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MANA_BASE_INT",
+      "property": "MANA_BASE_INT",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "魔法基础智力派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MANA_BONUS",
+      "property": "MANA",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "魔法值"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MANA_PERCENTAGE",
+      "property": "MANA_AMPLIFY",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%魔法值"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_BASE_MANA_REGEN_CONSTANT_INT",
+      "property": "BASE_MANA_REGEN_CONSTANT_INT",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "基础魔法恢复固定智力派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MANA_REGEN_CONSTANT",
+      "property": "MANA_REGEN_CONSTANT",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "魔法恢复固定"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MANA_REGEN_CONSTANT_UNIQUE",
+      "property": "MANA_REGEN_CONSTANT_UNIQUE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "魔法恢复固定独立"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MANA_REGEN_PERCENTAGE",
+      "property": "MANA_REGEN_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "魔法恢复百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING",
+      "property": "STATUS_RESISTANCE_STACKING",
+      "aggregation": "DECMUL",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "状态抗性叠加"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATUS_RESISTANCE_UNIQUE",
+      "property": "STATUS_RESISTANCE_UNIQUE",
+      "aggregation": "MAX",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "状态抗性独立"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATUS_RESISTANCE_CASTER",
+      "property": "STATUS_RESISTANCE_CASTER",
+      "aggregation": "MULTIPLY",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "状态抗性施法者"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_EVASION_CONSTANT",
+      "property": "EVASION",
+      "aggregation": "DECMUL",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%闪避"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_COOLDOWN_CONSTANT",
+      "property": "COOLDOWN_CONSTANT",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "冷却减少固定"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_COOLDOWN_PERCENTAGE",
+      "property": "COOLDOWN_REDUCTION",
+      "aggregation": "DECMUL",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%冷却缩减"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PHYSICAL_CRITICALSTRIKE_CHANCE",
+      "property": "PHYSICAL_CRITICALSTRIKE_CHANCE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%物理暴击率"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PHYSICAL_CRITICALSTRIKE_DAMAGE",
+      "property": "PHYSICAL_CRITICALSTRIKE_DAMAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%物理暴击伤害"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PHYSICAL_CRITICALSTRIKE_DAMAGE_AMPLIFY",
+      "property": "PHYSICAL_CRITICALSTRIKE_DAMAGE_AMPLIFY",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "物理暴击伤害增幅"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MAGICAL_CRITICALSTRIKE_CHANCE",
+      "property": "MAGICAL_CRITICALSTRIKE_CHANCE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%魔法暴击率"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MAGICAL_CRITICALSTRIKE_DAMAGE",
+      "property": "MAGICAL_CRITICALSTRIKE_DAMAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "%魔法暴击伤害"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MAGICAL_CRITICALSTRIKE_DAMAGE_AMPLIFY",
+      "property": "MAGICAL_CRITICALSTRIKE_DAMAGE_AMPLIFY",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "魔法暴击伤害增幅"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_CRITICALSTRIKE_SOUND",
+      "property": "CRITICALSTRIKE_SOUND",
+      "aggregation": "FIRST",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "暴击音效"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MAX_ATTACKSPEED_BONUS",
+      "property": "MAX_ATTACKSPEED_BONUS",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "最大攻速额外"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_OUTGOING_PHYSICAL_DAMAGE_PERCENTAGE",
+      "property": "OUTGOING_PHYSICAL_DAMAGE_PERCENTAGE",
+      "aggregation": "MULTIPLY",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "造成物理伤害百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_OUTGOING_PHYSICAL_DAMAGE_PERCENTAGE_AGI",
+      "property": "OUTGOING_PHYSICAL_DAMAGE_PERCENTAGE_AGI",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "造成物理伤害百分比敏捷派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_OUTGOING_MAGICAL_DAMAGE_PERCENTAGE",
+      "property": "OUTGOING_MAGICAL_DAMAGE_PERCENTAGE",
+      "aggregation": "MULTIPLY",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "造成魔法伤害百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_OUTGOING_MAGICAL_DAMAGE_PERCENTAGE_INT",
+      "property": "OUTGOING_MAGICAL_DAMAGE_PERCENTAGE_INT",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "造成魔法伤害百分比智力派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_OUTGOING_DAMAGE_PERCENTAGE",
+      "property": "OUTGOING_DAMAGE_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "造成伤害百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_INCOMING_PHYSICAL_DAMAGE_PERCENTAGE",
+      "property": "INCOMING_PHYSICAL_DAMAGE_PERCENTAGE",
+      "aggregation": "MULTIPLY",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "受到物理伤害百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_INCOMING_MAGICAL_DAMAGE_PERCENTAGE",
+      "property": "INCOMING_MAGICAL_DAMAGE_PERCENTAGE",
+      "aggregation": "MULTIPLY",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "受到魔法伤害百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE",
+      "property": "INCOMING_DAMAGE_PERCENTAGE",
+      "aggregation": "MULTIPLY",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "受到伤害百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE_STR",
+      "property": "INCOMING_DAMAGE_PERCENTAGE_STR",
+      "aggregation": "MULTIPLY",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "受到伤害百分比力量派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_IGNORE_DAMAGE",
+      "property": "IGNORE_DAMAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "伤害格挡"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_IGNORE_DAMAGE_AGI",
+      "property": "IGNORE_DAMAGE_AGI",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "无视伤害敏捷派生"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_ALL_BONUS",
+      "property": "STATS_ALL_BONUS",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性全属性额外"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_ALL_BASE",
+      "property": "STATS_ALL_BASE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性全属性基础"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_ALL_PERCENTAGE",
+      "property": "STATS_ALL_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性全属性百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_ALL_BASE_PERCENTAGE",
+      "property": "STATS_ALL_BASE_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性全属性基础百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_STRENGTH_BONUS",
+      "property": "STATS_STRENGTH_BONUS",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性力量额外"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_STRENGTH_BASE",
+      "property": "STATS_STRENGTH_BASE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性力量基础"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_STRENGTH_PERCENTAGE",
+      "property": "STATS_STRENGTH_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性力量百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_STRENGTH_BASE_PERCENTAGE",
+      "property": "STATS_STRENGTH_BASE_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性力量基础百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_AGILITY_BONUS",
+      "property": "STATS_AGILITY_BONUS",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性敏捷额外"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_AGILITY_BASE",
+      "property": "STATS_AGILITY_BASE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性敏捷基础"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_AGILITY_PERCENTAGE",
+      "property": "STATS_AGILITY_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性敏捷百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_AGILITY_BASE_PERCENTAGE",
+      "property": "STATS_AGILITY_BASE_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性敏捷基础百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_INTELLECT_BONUS",
+      "property": "STATS_INTELLECT_BONUS",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性智力额外"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_INTELLECT_BASE",
+      "property": "STATS_INTELLECT_BASE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性智力基础"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_INTELLECT_PERCENTAGE",
+      "property": "STATS_INTELLECT_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性智力百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_INTELLECT_BASE_PERCENTAGE",
+      "property": "STATS_INTELLECT_BASE_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性智力基础百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_STRENGTH_GAIN",
+      "property": "STATS_STRENGTH_GAIN",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性力量成长"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_AGILITY_GAIN",
+      "property": "STATS_AGILITY_GAIN",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性敏捷成长"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_STATS_INTELLECT_GAIN",
+      "property": "STATS_INTELLECT_GAIN",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "属性智力成长"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PHYSICAL_LIFESTEAL",
+      "property": "PHYSICAL_LIFESTEAL",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "物理吸血"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_MAGICAL_LIFESTEAL",
+      "property": "MAGICAL_LIFESTEAL",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "魔法吸血"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ALL_LIFESTEAL",
+      "property": "ALL_LIFESTEAL",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "全属性吸血"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_CLEAVE_DAMAGE",
+      "property": "CLEAVE_DAMAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "分裂伤害"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_CLEAVE_RADIUS",
+      "property": "CLEAVE_RADIUS",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "分裂范围"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PLAYER_KILL_SCORE_BONUS",
+      "property": "PLAYER_KILL_SCORE_BONUS",
+      "aggregation": "SUM",
+      "scope": "PLAYER",
+      "status": "属性来源已映射",
+      "description": "玩家击杀荣耀额外"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PLAYER_KILL_GOLD_PERCENTAGE",
+      "property": "PLAYER_KILL_GOLD_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "PLAYER",
+      "status": "属性来源已映射",
+      "description": "玩家击杀金币百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PLAYER_DROP_CHANCE_PERCENTAGE",
+      "property": "PLAYER_DROP_CHANCE_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "PLAYER",
+      "status": "属性来源已映射",
+      "description": "玩家掉宝几率百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_FISHING_CRIT_CHANCE",
+      "property": "FISHING_CRIT_CHANCE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "钓鱼暴击几率"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_ARMOR_REDUCTION_PERCENTAGE",
+      "property": "ARMOR_REDUCTION_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "护甲减免百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_DIG_CRIT_CHANCE",
+      "property": "DIG_CRIT_CHANCE",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "挖宝暴击几率"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_GOLD_MONSTER_BONUS",
+      "property": "GOLD_MONSTER_BONUS",
+      "aggregation": "SUM",
+      "scope": "UNIT",
+      "status": "属性来源已映射",
+      "description": "金币怪物额外"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PLAYER_GOLD_PER_SECOND",
+      "property": "PLAYER_GOLD_PER_SECOND",
+      "aggregation": "SUM",
+      "scope": "PLAYER",
+      "status": "属性来源已映射",
+      "description": "玩家金币每秒"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PLAYER_CRYSTAL_PER_SECOND",
+      "property": "PLAYER_CRYSTAL_PER_SECOND",
+      "aggregation": "SUM",
+      "scope": "PLAYER",
+      "status": "属性来源已映射",
+      "description": "玩家魂晶每秒"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PLAYER_SCORE_PER_SECOND",
+      "property": "PLAYER_SCORE_PER_SECOND",
+      "aggregation": "SUM",
+      "scope": "PLAYER",
+      "status": "属性来源已映射",
+      "description": "玩家荣耀每秒"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PLAYER_ATTRIBUTE_GAIN_PERCENTAGE",
+      "property": "PLAYER_ATTRIBUTE_GAIN_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "PLAYER",
+      "status": "属性来源已映射",
+      "description": "玩家属性成长百分比"
+    },
+    {
+      "kind": "modifier",
+      "old": "EOM_MODIFIER_PROPERTY_PLAYER_EXPERIENCE_GAIN_PERCENTAGE",
+      "property": "PLAYER_EXPERIENCE_GAIN_PERCENTAGE",
+      "aggregation": "SUM",
+      "scope": "PLAYER",
+      "status": "属性来源已映射",
+      "description": "玩家经验成长百分比"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK",
+      "property": "BASE_ATTACK",
+      "description": "攻击",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_SPEED",
+      "property": "ATTACKSPEED",
+      "description": "攻击速度",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_RANGE",
+      "property": "ATTACK_RANGE",
+      "description": "攻击距离",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_REDUCE_ARMOR",
+      "property": "ATTACK_REDUCE_ARMOR",
+      "description": "攻击减甲",
+      "status": "旧版无有效消费或被旧版错误覆盖，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_CLEAVE_DAMAGE",
+      "property": "CLEAVE_DAMAGE",
+      "description": "分裂伤害",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ARMOR_IGNORE",
+      "property": "ATHENA_ARMOR_IGNORE",
+      "description": "无视护甲",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_STRENGTH",
+      "property": "STATS_STRENGTH_BASE",
+      "description": "力量",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_AGILITY",
+      "property": "STATS_AGILITY_BASE",
+      "description": "敏捷",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_INTELLECT",
+      "property": "STATS_INTELLECT_BASE",
+      "description": "智力",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_STRENGTH_GAIN",
+      "property": "STATS_STRENGTH_GAIN",
+      "description": "力量成长",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_AGILITY_GAIN",
+      "property": "STATS_AGILITY_GAIN",
+      "description": "敏捷成长",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_INTELLECT_GAIN",
+      "property": "STATS_INTELLECT_GAIN",
+      "description": "智力成长",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ALL",
+      "property": "STATS_ALL_BASE",
+      "description": "全属性",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_HEALTH",
+      "property": "HEALTH",
+      "description": "生命",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_HEALTH_REGEN",
+      "property": "HEALTH_REGEN_PERCENTAGE",
+      "description": "生命回复",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_MANA",
+      "property": "PERMANENT_MANA",
+      "description": "魔法",
+      "status": "旧版无有效消费或被旧版错误覆盖，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_MANA_REGEN",
+      "property": "MANA_REGEN_CONSTANT",
+      "description": "魔法回复",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ARMOR",
+      "property": "PHYSICAL_ARMOR",
+      "description": "护甲",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_EVASION",
+      "property": "ATHENA_EVASION",
+      "description": "闪避",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_COOLDOWN_REDUCE",
+      "property": "ATHENA_COOLDOWN_REDUCTION",
+      "description": "冷却缩减",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_DAMAGE_IGNORE",
+      "property": "IGNORE_DAMAGE",
+      "description": "伤害格挡",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ALL_LIFESTEAL",
+      "property": "ALL_LIFESTEAL",
+      "description": "全能吸血",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_DAMAGE_REDUCE",
+      "property": "ATHENA_DAMAGE_REDUCE",
+      "description": "伤害减免",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_DAMAGE_REDUCE2",
+      "property": "ATHENA_DAMAGE_REDUCE2",
+      "description": "伤害再减免",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_PHYSICAL_DAMAGE",
+      "property": "ATHENA_PHYSICAL_DAMAGE",
+      "description": "物理伤害",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_MAGICAL_DAMAGE",
+      "property": "ATHENA_MAGICAL_DAMAGE",
+      "description": "魔法伤害",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_FINALLY_DAMAGE",
+      "property": "ATHENA_FINALLY_DAMAGE",
+      "description": "最终伤害",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_PHYSICAL_CRIT_CHANCE",
+      "property": "PHYSICAL_CRITICALSTRIKE_CHANCE",
+      "description": "物理暴击概率",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_PHYSICAL_CRIT_DAMAGE",
+      "property": "PHYSICAL_CRITICALSTRIKE_DAMAGE",
+      "description": "物理暴击伤害",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_MAGICAL_CRIT_CHANCE",
+      "property": "MAGICAL_CRITICALSTRIKE_CHANCE",
+      "description": "魔法暴击概率",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_MAGICAL_CRIT_DAMAGE",
+      "property": "MAGICAL_CRITICALSTRIKE_DAMAGE",
+      "description": "魔法暴击伤害",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_DROP_CHANCE",
+      "property": "PLAYER_DROP_CHANCE_PERCENTAGE",
+      "description": "掉宝",
+      "status": "属性来源已映射",
+      "scope": "PLAYER",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_KILL_SCORE",
+      "property": "PLAYER_KILL_SCORE_BONUS",
+      "description": "杀敌",
+      "status": "属性来源已映射",
+      "scope": "PLAYER",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_KILL_GOLD",
+      "property": "PLAYER_KILL_GOLD_PERCENTAGE",
+      "description": "资源",
+      "status": "属性来源已映射",
+      "scope": "PLAYER",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_EXPERIENCE",
+      "property": "PLAYER_EXPERIENCE_GAIN_PERCENTAGE",
+      "description": "经验",
+      "status": "属性来源已映射",
+      "scope": "PLAYER",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_PER_SEC",
+      "property": "ATTACK_PER_SEC",
+      "description": "每秒攻击",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_HEALTH_PER_SEC",
+      "property": "HEALTH_PER_SEC",
+      "description": "每秒生命",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ARMOR_PER_SEC",
+      "property": "ARMOR_PER_SEC",
+      "description": "每秒护甲",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ALL_PER_SEC",
+      "property": "ALL_PER_SEC",
+      "description": "每秒全属性",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_STRENGTH_PER_SEC",
+      "property": "STRENGTH_PER_SEC",
+      "description": "每秒力量",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_AGILITY_PER_SEC",
+      "property": "AGILITY_PER_SEC",
+      "description": "每秒敏捷",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_INTELLECT_PER_SEC",
+      "property": "INTELLECT_PER_SEC",
+      "description": "每秒智力",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_GOLD_PER_SEC",
+      "property": "GOLD_PER_SEC",
+      "description": "每秒金币",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_PHYSICAL_DAMAGE_PER_MIN",
+      "property": "PHYSICAL_DAMAGE_PER_MIN",
+      "description": "每分钟物理伤害",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_MAGICAL_DAMAGE_PER_MIN",
+      "property": "MAGICAL_DAMAGE_PER_MIN",
+      "description": "每分钟魔法伤害",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_PER_MIN",
+      "property": "ATTACK_PER_MIN",
+      "description": "每分钟攻击",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_HEALTH_PER_MIN",
+      "property": "HEALTH_PER_MIN",
+      "description": "每分钟生命",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ARMOR_PER_MIN",
+      "property": "ARMOR_PER_MIN",
+      "description": "每分钟护甲",
+      "status": "旧版无有效消费或被旧版错误覆盖，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ALL_PER_MIN",
+      "property": "ALL_PER_MIN",
+      "description": "每分钟全属性",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_STRENGTH_PER_MIN",
+      "property": "STRENGTH_PER_MIN",
+      "description": "每分钟力量",
+      "status": "旧版未登记，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_AGILITY_PER_MIN",
+      "property": "AGILITY_PER_MIN",
+      "description": "每分钟敏捷",
+      "status": "旧版未登记，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_INTELLECT_PER_MIN",
+      "property": "INTELLECT_PER_MIN",
+      "description": "每分钟智力",
+      "status": "旧版未登记，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_ATTACK",
+      "property": "ATTACK_ATTACK",
+      "description": "攻击攻击",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_HEALTH",
+      "property": "ATTACK_HEALTH",
+      "description": "攻击生命",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_ARMOR",
+      "property": "ATTACK_ARMOR",
+      "description": "攻击护甲",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_ALL",
+      "property": "ATTACK_ALL",
+      "description": "攻击全属性",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_STRENGTH",
+      "property": "ATTACK_STRENGTH",
+      "description": "攻击力量",
+      "status": "旧版未登记，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_AGILITY",
+      "property": "ATTACK_AGILITY",
+      "description": "攻击敏捷",
+      "status": "旧版未登记，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_ATTACK_INTELLECT",
+      "property": "ATTACK_INTELLECT",
+      "description": "攻击智力",
+      "status": "旧版未登记，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_KILL_ATTACK",
+      "property": "KILL_ATTACK",
+      "description": "击杀攻击",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_KILL_HEALTH",
+      "property": "KILL_HEALTH",
+      "description": "击杀生命",
+      "status": "旧版未登记，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_KILL_ARMOR",
+      "property": "KILL_ARMOR",
+      "description": "击杀护甲",
+      "status": "旧版未登记，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_KILL_ALL",
+      "property": "KILL_ALL",
+      "description": "击杀全属性",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_KILL_STRENGTH",
+      "property": "KILL_STRENGTH",
+      "description": "击杀力量",
+      "status": "旧版无有效消费或被旧版错误覆盖，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_KILL_AGILITY",
+      "property": "KILL_AGILITY",
+      "description": "击杀敏捷",
+      "status": "旧版未登记，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_KILL_INTELLECT",
+      "property": "KILL_INTELLECT",
+      "description": "击杀智力",
+      "status": "旧版未登记，保留数据定义",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "permanent",
+      "old": "CUSTOM_ATTRIBUTE_RESPAWN_TIME",
+      "property": "RESPAWN_TIME",
+      "description": "复活时间(降低)",
+      "status": "属性来源已映射",
+      "scope": "UNIT",
+      "aggregation": "SUM"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_damage",
+      "property": "ATTACK",
+      "description": "攻击力",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_speed",
+      "property": "ATTACKSPEED",
+      "description": "攻击速度",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_range",
+      "property": "ATTACK_RANGE",
+      "description": "攻击距离",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_rate",
+      "property": "BASE_ATTACK_TIME_CONSTANT_ADJUST",
+      "description": "攻击间隔",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_physical_damage",
+      "property": "ITEM_PHYSICAL_DAMAGE",
+      "description": "物理伤害增强",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_physical_damage_2",
+      "property": "ITEM_PHYSICAL_DAMAGE_2",
+      "description": "物理伤害再增强",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_magical_damage",
+      "property": "ITEM_MAGICAL_DAMAGE",
+      "description": "魔法伤害增强",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_magical_damage_2",
+      "property": "ITEM_MAGICAL_DAMAGE_2",
+      "description": "魔法伤害再增强",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_max_attack_speed",
+      "property": "MAX_ATTACKSPEED_BONUS",
+      "description": "最大攻击速度",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_movement_speed",
+      "property": "MOVESPEED",
+      "description": "移动速度",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_movement_speed_pct",
+      "property": "MOVESPEED_AMPLIFY",
+      "description": "移动速度百分比",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_health",
+      "property": "HEALTH",
+      "description": "生命值",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_health_pct",
+      "property": "HEALTH_AMPLIFY",
+      "description": "生命值百分比",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_mana",
+      "property": "MANA",
+      "description": "魔法值",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_armor",
+      "property": "ARMOR_BONUS",
+      "description": "防御力",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_health_regen",
+      "property": "HEALTH_REGEN_CONSTANT",
+      "description": "生命恢复",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_health_regen_pct",
+      "property": "HEALTH_REGEN_PERCENTAGE",
+      "description": "生命恢复百分比",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_mana_regen",
+      "property": "MANA_REGEN_CONSTANT",
+      "description": "魔法回复",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_mana_regen_pct",
+      "property": "MANA_REGEN_PERCENTAGE",
+      "description": "魔法回复百分比",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_physical_lifesteal",
+      "property": "PHYSICAL_LIFESTEAL",
+      "description": "物理吸血",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_magical_lifesteal",
+      "property": "MAGICAL_LIFESTEAL",
+      "description": "魔法吸血",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_all_lifesteal",
+      "property": "ALL_LIFESTEAL",
+      "description": "全能吸血",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_strength",
+      "property": "STATS_STRENGTH_BONUS",
+      "description": "力量",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_agility",
+      "property": "STATS_AGILITY_BONUS",
+      "description": "敏捷",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_intellect",
+      "property": "STATS_INTELLECT_BONUS",
+      "description": "智力",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_all_stats",
+      "property": "STATS_ALL_BONUS",
+      "description": "全属性",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_armor_ignore_pct",
+      "property": "ITEM_ARMOR_IGNORE_PCT",
+      "description": "忽视护甲百分比",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_incoming_damage",
+      "property": "ITEM_INCOMING_DAMAGE",
+      "description": "受到伤害",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_damage_reduce_physical",
+      "property": "ITEM_DAMAGE_REDUCE_PHYSICAL",
+      "description": "物理伤害减免",
+      "active": true,
+      "aggregation": "DECMUL",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_damage_reduce_magical",
+      "property": "ITEM_DAMAGE_REDUCE_MAGICAL",
+      "description": "魔法伤害减免",
+      "active": true,
+      "aggregation": "DECMUL",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_damage_reduce",
+      "property": "ITEM_DAMAGE_REDUCE",
+      "description": "伤害减免",
+      "active": true,
+      "aggregation": "DECMUL",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_damage_reduce_2",
+      "property": "ITEM_DAMAGE_REDUCE_2",
+      "description": "伤害再减免",
+      "active": true,
+      "aggregation": "DECMUL",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_outgoing_damage",
+      "property": "ITEM_OUTGOING_DAMAGE",
+      "description": "伤害增强",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_outgoing_damage_2",
+      "property": "ITEM_OUTGOING_DAMAGE_2",
+      "description": "伤害再增强",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_magical_crit_chance",
+      "property": "ITEM_MAGICAL_CRIT_CHANCE",
+      "description": "魔法暴击率",
+      "active": true,
+      "aggregation": "DECMUL",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_magical_crit_damage",
+      "property": "ITEM_MAGICAL_CRIT_DAMAGE",
+      "description": "魔法暴击伤害",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_magical_crit_damage_2",
+      "property": "ITEM_MAGICAL_CRIT_DAMAGE_2",
+      "description": "魔法暴击伤害增强",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_physical_crit_chance",
+      "property": "ITEM_PHYSICAL_CRIT_CHANCE",
+      "description": "物理暴击率",
+      "active": true,
+      "aggregation": "DECMUL",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_physical_crit_damage",
+      "property": "ITEM_PHYSICAL_CRIT_DAMAGE",
+      "description": "物理暴击伤害",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_physical_crit_damage_2",
+      "property": "ITEM_PHYSICAL_CRIT_DAMAGE_2",
+      "description": "物理暴击伤害增强",
+      "active": true,
+      "aggregation": "MULTIPLY",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_evasion",
+      "property": "ITEM_EVASION",
+      "description": "闪避",
+      "active": true,
+      "aggregation": "DECMUL",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_ignore_damage",
+      "property": "IGNORE_DAMAGE",
+      "description": "伤害格挡",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_status_resistance",
+      "property": "STATUS_RESISTANCE_STACKING",
+      "description": "状态抗性（没用到）",
+      "active": true,
+      "aggregation": "DECMUL",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_cooldown_reduction",
+      "property": "ITEM_COOLDOWN_REDUCTION",
+      "description": "冷却缩减",
+      "active": true,
+      "aggregation": "DECMUL",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_kill_score",
+      "property": "PLAYER_KILL_SCORE_BONUS",
+      "description": "击杀获得荣耀",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "PLAYER"
+    },
+    {
+      "kind": "item",
+      "old": "item_kill_gold_pct",
+      "property": "PLAYER_KILL_GOLD_PERCENTAGE",
+      "description": "击杀获得金币",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "PLAYER"
+    },
+    {
+      "kind": "item",
+      "old": "item_fishing_crit_chance",
+      "property": "ITEM_FISHING_CRIT_CHANCE",
+      "description": "钓鱼暴击几率TODO:没实现",
+      "active": false,
+      "aggregation": "SUM",
+      "status": "旧版未实现，保留数据定义",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_drop_chance",
+      "property": "PLAYER_DROP_CHANCE_PERCENTAGE",
+      "description": "掉宝加成",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "PLAYER"
+    },
+    {
+      "kind": "item",
+      "old": "item_dig_crit_chance",
+      "property": "ITEM_DIG_CRIT_CHANCE",
+      "description": "挖宝暴击几率TODO:没实现",
+      "active": false,
+      "aggregation": "SUM",
+      "status": "旧版未实现，保留数据定义",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_respawn_time",
+      "property": "RESPAWN_TIME",
+      "description": "复活时间",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_health",
+      "property": "ATTACK_HEALTH",
+      "description": "攻击增加生命",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_attack",
+      "property": "ATTACK_ATTACK",
+      "description": "攻击增加攻击",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_armor_reduce",
+      "property": "ATTACK_REDUCE_ARMOR",
+      "description": "攻击减少防御",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_armor_reduce_pct",
+      "property": "ITEM_ATTACK_ARMOR_REDUCE_PCT",
+      "description": "攻击减甲的效果提升",
+      "active": false,
+      "aggregation": "SUM",
+      "status": "旧版未实现，保留数据定义",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_all_attribute",
+      "property": "ATTACK_ALL",
+      "description": "攻击增加全属性",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_kill_all_attribute",
+      "property": "KILL_ALL",
+      "description": "击杀增加全属性",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_kill_attack",
+      "property": "KILL_ATTACK",
+      "description": "击杀增加攻击",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_kill_strength",
+      "property": "KILL_STRENGTH",
+      "description": "击杀增加力量",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_kill_gold",
+      "property": "KILL_GOLD_FLAT",
+      "description": "击杀增加金钱",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_cleave_radius",
+      "property": "CLEAVE_RADIUS",
+      "description": "分裂范围",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_cleave_damage",
+      "property": "CLEAVE_DAMAGE",
+      "description": "分裂伤害",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_gold_per_sec",
+      "property": "PLAYER_GOLD_PER_SECOND",
+      "description": "每秒金币",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "PLAYER"
+    },
+    {
+      "kind": "item",
+      "old": "item_health_per_sec",
+      "property": "HEALTH_PER_SEC",
+      "description": "每秒生命",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_soul_per_sec",
+      "property": "PLAYER_CRYSTAL_PER_SECOND",
+      "description": "每秒魂晶",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "PLAYER"
+    },
+    {
+      "kind": "item",
+      "old": "item_kill_per_sec",
+      "property": "PLAYER_SCORE_PER_SECOND",
+      "description": "每秒荣耀",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "PLAYER"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_per_sec",
+      "property": "ATTACK_PER_SEC",
+      "description": "每秒攻击",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_agility_per_sec",
+      "property": "AGILITY_PER_SEC",
+      "description": "每秒敏捷",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_armor_per_sec",
+      "property": "ARMOR_PER_SEC",
+      "description": "每秒护甲",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_all_attribute_per_sec",
+      "property": "ALL_PER_SEC",
+      "description": "每秒全属性",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_health_per_min",
+      "property": "HEALTH_PER_MIN",
+      "description": "每分钟生命",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_intellect_per_min",
+      "property": "ITEM_INTELLECT_PER_MIN",
+      "description": "每分钟智力",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_armor_per_min",
+      "property": "ITEM_ARMOR_PER_MIN",
+      "description": "每分钟护甲",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_attack_damage_pct_per_min",
+      "property": "PHYSICAL_DAMAGE_PER_MIN",
+      "description": "每分钟攻击伤害",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_magical_damage_pct_per_min",
+      "property": "MAGICAL_DAMAGE_PER_MIN",
+      "description": "每分钟法术伤害",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item",
+      "old": "item_all_attribute_per_min",
+      "property": "ALL_PER_MIN",
+      "description": "每分钟全属性",
+      "active": true,
+      "aggregation": "SUM",
+      "status": "属性来源已映射",
+      "scope": "UNIT"
+    },
+    {
+      "kind": "item_unlisted",
+      "old": "item_attack_damage_percent",
+      "property": "ATTACK_AMPLIFY",
+      "active": false,
+      "status": "旧版未登记，未启用",
+      "scope": "UNIT",
+      "aggregation": "SUM",
+      "description": "%攻击力"
+    },
+    {
+      "kind": "item_unlisted",
+      "old": "item_kill_soul",
+      "property": "KILL_CRYSTAL_FLAT",
+      "active": false,
+      "status": "旧版未登记，未启用"
+    }
+  ],
+  "referencedOnlyModifiers": [
+    "EOM_MODIFIER_PROPERTY_ACQUISITION_RANGE_BONUS",
+    "EOM_MODIFIER_PROPERTY_ATTACK_REDUCE_ARMOR",
+    "EOM_MODIFIER_PROPERTY_ATTACK_REDUCE_ARMOR_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE",
+    "EOM_MODIFIER_PROPERTY_BONUS_KILL",
+    "EOM_MODIFIER_PROPERTY_CRITICAL_CHANCE",
+    "EOM_MODIFIER_PROPERTY_DROP_CHANCE",
+    "EOM_MODIFIER_PROPERTY_FUNCTIONS",
+    "EOM_MODIFIER_PROPERTY_INCOMING_DAMAGE_FINAL_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_INDEXES",
+    "EOM_MODIFIER_PROPERTY_IS_PLAYER_DATA",
+    "EOM_MODIFIER_PROPERTY_LIFESTEAL",
+    "EOM_MODIFIER_PROPERTY_MAGICAL_ARMOR_BONUS",
+    "EOM_MODIFIER_PROPERTY_MAGICAL_CRITICAL_CHANCE",
+    "EOM_MODIFIER_PROPERTY_MAGICAL_CRITICAL_DAMAGE",
+    "EOM_MODIFIER_PROPERTY_NAME",
+    "EOM_MODIFIER_PROPERTY_OUTGOING_ATTACK_DAMAGE_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_OUTGOING_ATTACK_DAMAGE_SECONDARY_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_OUTGOING_CRIT_DAMAGE_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_OUTGOING_CRIT_DAMAGE_SECONDARY_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_OUTGOING_DAMAGE_FINAL_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_OUTGOING_MAGICAL_CRIT_DAMAGE_SECONDARY_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_OUTGOING_MAGICAL_DAMAGE_FIRST_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_OUTGOING_MAGICAL_DAMAGE_SECONDARY_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_OUTGOING_PHYSICAL_DAMAGE_SECONDARY_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_PHYSICAL_ARMOR_BASE",
+    "EOM_MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS",
+    "EOM_MODIFIER_PROPERTY_RESOURCE_PERCENTAGE",
+    "EOM_MODIFIER_PROPERTY_SPELL_AMPLIFY_BONUS",
+    "EOM_MODIFIER_PROPERTY_STATS_PRIMARY_BONUS",
+    "EOM_MODIFIER_PROPERTY_STATS_SECONDARY_BONUS"
+  ],
+  "sourceCommit": "5a058ffbe2936df69ddd6b7f707e8ac1bbf20e01"
+}

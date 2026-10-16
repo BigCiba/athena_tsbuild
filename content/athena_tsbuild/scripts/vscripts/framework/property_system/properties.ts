@@ -15,11 +15,11 @@ enum PropertyFunction {
 	HEAL_ROOM_START,
 	/** %进入房间时生命流失 */
 	HEALTH_COST_ROOM_START,
-	/** 基础怒气 */
+	/** 基础魔法 */
 	BASE_MANA,
-	/** <Fury:怒气上限/> */
+	/** 魔法值 */
 	MANA,
-	/** <Fury:怒气上限增幅/> */
+	/** %魔法值 */
 	MANA_AMPLIFY,
 	/** 基础攻击 */
 	BASE_ATTACK,
@@ -701,6 +701,336 @@ enum PropertyFunction {
 	ENGRAVING_4_STRENGTHEN,
 	/** %符文位于绝招时副属性<Subattribute:强化/> */
 	ENGRAVING_5_STRENGTHEN,
+	/** 生命百分比敌方 */
+	HEALTH_PERCENT_ENEMY,
+	/** 攻击伤害基础力量派生 */
+	ATTACK_DAMAGE_BASE_STR,
+	/** 攻击伤害基础敏捷派生 */
+	ATTACK_DAMAGE_BASE_AGI,
+	/** 攻击伤害基础智力派生 */
+	ATTACK_DAMAGE_BASE_INT,
+	/** %基础攻击 */
+	ATTACK_DAMAGE_BASE_PERCENTAGE,
+	/** 基础攻击间隔固定调整 */
+	BASE_ATTACK_TIME_CONSTANT_ADJUST,
+	/** 攻击RANGE百分比 */
+	ATTACK_RANGE_PERCENTAGE,
+	/** 护甲基础力量派生 */
+	ARMOR_BASE_STR,
+	/** 护甲基础敏捷派生 */
+	ARMOR_BASE_AGI,
+	/** 护甲基础智力派生 */
+	ARMOR_BASE_INT,
+	/** 额外护甲 */
+	ARMOR_BONUS,
+	/** %基础护甲 */
+	ARMOR_BASE_PERCENTAGE,
+	/** %总护甲 */
+	ARMOR_PERCENTAGE,
+	/** 固定无视护甲 */
+	IGNORE_ARMOR,
+	/** 无视护甲百分比 */
+	IGNORE_ARMOR_PERCENTAGE,
+	/** 无视护甲百分比独立 */
+	IGNORE_ARMOR_PERCENTAGE_UNIQUE,
+	/** 无视护甲百分比目标 */
+	IGNORE_ARMOR_PERCENTAGE_TARGET,
+	/** 生命基础力量派生 */
+	HEALTH_BASE_STR,
+	/** 基础生命恢复固定力量派生 */
+	BASE_HEALTH_REGEN_CONSTANT_STR,
+	/** 基础生命恢复固定 */
+	BASE_HEALTH_REGEN_CONSTANT,
+	/** 生命恢复固定 */
+	HEALTH_REGEN_CONSTANT,
+	/** 生命恢复百分比 */
+	HEALTH_REGEN_PERCENTAGE,
+	/** 魔法基础智力派生 */
+	MANA_BASE_INT,
+	/** 基础魔法恢复固定智力派生 */
+	BASE_MANA_REGEN_CONSTANT_INT,
+	/** 魔法恢复固定 */
+	MANA_REGEN_CONSTANT,
+	/** 魔法恢复固定独立 */
+	MANA_REGEN_CONSTANT_UNIQUE,
+	/** 魔法恢复百分比 */
+	MANA_REGEN_PERCENTAGE,
+	/** 状态抗性叠加 */
+	STATUS_RESISTANCE_STACKING,
+	/** 状态抗性独立 */
+	STATUS_RESISTANCE_UNIQUE,
+	/** 状态抗性施法者 */
+	STATUS_RESISTANCE_CASTER,
+	/** 冷却减少固定 */
+	COOLDOWN_CONSTANT,
+	/** %物理暴击率 */
+	PHYSICAL_CRITICALSTRIKE_CHANCE,
+	/** %物理暴击伤害 */
+	PHYSICAL_CRITICALSTRIKE_DAMAGE,
+	/** 物理暴击伤害增幅 */
+	PHYSICAL_CRITICALSTRIKE_DAMAGE_AMPLIFY,
+	/** %魔法暴击率 */
+	MAGICAL_CRITICALSTRIKE_CHANCE,
+	/** %魔法暴击伤害 */
+	MAGICAL_CRITICALSTRIKE_DAMAGE,
+	/** 魔法暴击伤害增幅 */
+	MAGICAL_CRITICALSTRIKE_DAMAGE_AMPLIFY,
+	/** 暴击音效 */
+	CRITICALSTRIKE_SOUND,
+	/** 最大攻速额外 */
+	MAX_ATTACKSPEED_BONUS,
+	/** 造成物理伤害百分比 */
+	OUTGOING_PHYSICAL_DAMAGE_PERCENTAGE,
+	/** 造成物理伤害百分比敏捷派生 */
+	OUTGOING_PHYSICAL_DAMAGE_PERCENTAGE_AGI,
+	/** 造成魔法伤害百分比 */
+	OUTGOING_MAGICAL_DAMAGE_PERCENTAGE,
+	/** 造成魔法伤害百分比智力派生 */
+	OUTGOING_MAGICAL_DAMAGE_PERCENTAGE_INT,
+	/** 造成伤害百分比 */
+	OUTGOING_DAMAGE_PERCENTAGE,
+	/** 受到物理伤害百分比 */
+	INCOMING_PHYSICAL_DAMAGE_PERCENTAGE,
+	/** 受到魔法伤害百分比 */
+	INCOMING_MAGICAL_DAMAGE_PERCENTAGE,
+	/** 受到伤害百分比 */
+	INCOMING_DAMAGE_PERCENTAGE,
+	/** 受到伤害百分比力量派生 */
+	INCOMING_DAMAGE_PERCENTAGE_STR,
+	/** 伤害格挡 */
+	IGNORE_DAMAGE,
+	/** 无视伤害敏捷派生 */
+	IGNORE_DAMAGE_AGI,
+	/** 属性全属性额外 */
+	STATS_ALL_BONUS,
+	/** 属性全属性基础 */
+	STATS_ALL_BASE,
+	/** 属性全属性百分比 */
+	STATS_ALL_PERCENTAGE,
+	/** 属性全属性基础百分比 */
+	STATS_ALL_BASE_PERCENTAGE,
+	/** 属性力量额外 */
+	STATS_STRENGTH_BONUS,
+	/** 属性力量基础 */
+	STATS_STRENGTH_BASE,
+	/** 属性力量百分比 */
+	STATS_STRENGTH_PERCENTAGE,
+	/** 属性力量基础百分比 */
+	STATS_STRENGTH_BASE_PERCENTAGE,
+	/** 属性敏捷额外 */
+	STATS_AGILITY_BONUS,
+	/** 属性敏捷基础 */
+	STATS_AGILITY_BASE,
+	/** 属性敏捷百分比 */
+	STATS_AGILITY_PERCENTAGE,
+	/** 属性敏捷基础百分比 */
+	STATS_AGILITY_BASE_PERCENTAGE,
+	/** 属性智力额外 */
+	STATS_INTELLECT_BONUS,
+	/** 属性智力基础 */
+	STATS_INTELLECT_BASE,
+	/** 属性智力百分比 */
+	STATS_INTELLECT_PERCENTAGE,
+	/** 属性智力基础百分比 */
+	STATS_INTELLECT_BASE_PERCENTAGE,
+	/** 属性力量成长 */
+	STATS_STRENGTH_GAIN,
+	/** 属性敏捷成长 */
+	STATS_AGILITY_GAIN,
+	/** 属性智力成长 */
+	STATS_INTELLECT_GAIN,
+	/** 物理吸血 */
+	PHYSICAL_LIFESTEAL,
+	/** 魔法吸血 */
+	MAGICAL_LIFESTEAL,
+	/** 全属性吸血 */
+	ALL_LIFESTEAL,
+	/** 分裂伤害 */
+	CLEAVE_DAMAGE,
+	/** 分裂范围 */
+	CLEAVE_RADIUS,
+	/** 玩家击杀荣耀额外 */
+	PLAYER_KILL_SCORE_BONUS,
+	/** 玩家击杀金币百分比 */
+	PLAYER_KILL_GOLD_PERCENTAGE,
+	/** 玩家掉宝几率百分比 */
+	PLAYER_DROP_CHANCE_PERCENTAGE,
+	/** 钓鱼暴击几率 */
+	FISHING_CRIT_CHANCE,
+	/** 护甲减免百分比 */
+	ARMOR_REDUCTION_PERCENTAGE,
+	/** 挖宝暴击几率 */
+	DIG_CRIT_CHANCE,
+	/** 金币怪物额外 */
+	GOLD_MONSTER_BONUS,
+	/** 玩家金币每秒 */
+	PLAYER_GOLD_PER_SECOND,
+	/** 玩家魂晶每秒 */
+	PLAYER_CRYSTAL_PER_SECOND,
+	/** 玩家荣耀每秒 */
+	PLAYER_SCORE_PER_SECOND,
+	/** 玩家属性成长百分比 */
+	PLAYER_ATTRIBUTE_GAIN_PERCENTAGE,
+	/** 玩家经验成长百分比 */
+	PLAYER_EXPERIENCE_GAIN_PERCENTAGE,
+	/** 攻击减甲 */
+	ATTACK_REDUCE_ARMOR,
+	/** 魔法 */
+	PERMANENT_MANA,
+	/** 伤害减免 */
+	ATHENA_DAMAGE_REDUCE,
+	/** 伤害再减免 */
+	ATHENA_DAMAGE_REDUCE2,
+	/** 物理伤害 */
+	ATHENA_PHYSICAL_DAMAGE,
+	/** 魔法伤害 */
+	ATHENA_MAGICAL_DAMAGE,
+	/** 最终伤害 */
+	ATHENA_FINALLY_DAMAGE,
+	/** 每秒攻击 */
+	ATTACK_PER_SEC,
+	/** 每秒生命 */
+	HEALTH_PER_SEC,
+	/** 每秒护甲 */
+	ARMOR_PER_SEC,
+	/** 每秒全属性 */
+	ALL_PER_SEC,
+	/** 每秒力量 */
+	STRENGTH_PER_SEC,
+	/** 每秒敏捷 */
+	AGILITY_PER_SEC,
+	/** 每秒智力 */
+	INTELLECT_PER_SEC,
+	/** 每秒金币 */
+	GOLD_PER_SEC,
+	/** 每分钟物理伤害 */
+	PHYSICAL_DAMAGE_PER_MIN,
+	/** 每分钟魔法伤害 */
+	MAGICAL_DAMAGE_PER_MIN,
+	/** 每分钟攻击 */
+	ATTACK_PER_MIN,
+	/** 每分钟生命 */
+	HEALTH_PER_MIN,
+	/** 每分钟护甲 */
+	ARMOR_PER_MIN,
+	/** 每分钟全属性 */
+	ALL_PER_MIN,
+	/** 每分钟力量 */
+	STRENGTH_PER_MIN,
+	/** 每分钟敏捷 */
+	AGILITY_PER_MIN,
+	/** 每分钟智力 */
+	INTELLECT_PER_MIN,
+	/** 攻击攻击 */
+	ATTACK_ATTACK,
+	/** 攻击生命 */
+	ATTACK_HEALTH,
+	/** 攻击护甲 */
+	ATTACK_ARMOR,
+	/** 攻击全属性 */
+	ATTACK_ALL,
+	/** 攻击力量 */
+	ATTACK_STRENGTH,
+	/** 攻击敏捷 */
+	ATTACK_AGILITY,
+	/** 攻击智力 */
+	ATTACK_INTELLECT,
+	/** 击杀攻击 */
+	KILL_ATTACK,
+	/** 击杀生命 */
+	KILL_HEALTH,
+	/** 击杀护甲 */
+	KILL_ARMOR,
+	/** 击杀全属性 */
+	KILL_ALL,
+	/** 击杀力量 */
+	KILL_STRENGTH,
+	/** 击杀敏捷 */
+	KILL_AGILITY,
+	/** 击杀智力 */
+	KILL_INTELLECT,
+	/** 复活时间(降低) */
+	RESPAWN_TIME,
+	/** 物理伤害增强 */
+	ITEM_PHYSICAL_DAMAGE,
+	/** 物理伤害再增强 */
+	ITEM_PHYSICAL_DAMAGE_2,
+	/** 魔法伤害增强 */
+	ITEM_MAGICAL_DAMAGE,
+	/** 魔法伤害再增强 */
+	ITEM_MAGICAL_DAMAGE_2,
+	/** 忽视护甲百分比 */
+	ITEM_ARMOR_IGNORE_PCT,
+	/** 受到伤害 */
+	ITEM_INCOMING_DAMAGE,
+	/** 物理伤害减免 */
+	ITEM_DAMAGE_REDUCE_PHYSICAL,
+	/** 魔法伤害减免 */
+	ITEM_DAMAGE_REDUCE_MAGICAL,
+	/** 伤害减免 */
+	ITEM_DAMAGE_REDUCE,
+	/** 伤害再减免 */
+	ITEM_DAMAGE_REDUCE_2,
+	/** 伤害增强 */
+	ITEM_OUTGOING_DAMAGE,
+	/** 伤害再增强 */
+	ITEM_OUTGOING_DAMAGE_2,
+	/** 魔法暴击率 */
+	ITEM_MAGICAL_CRIT_CHANCE,
+	/** 魔法暴击伤害 */
+	ITEM_MAGICAL_CRIT_DAMAGE,
+	/** 魔法暴击伤害增强 */
+	ITEM_MAGICAL_CRIT_DAMAGE_2,
+	/** 物理暴击率 */
+	ITEM_PHYSICAL_CRIT_CHANCE,
+	/** 物理暴击伤害 */
+	ITEM_PHYSICAL_CRIT_DAMAGE,
+	/** 物理暴击伤害增强 */
+	ITEM_PHYSICAL_CRIT_DAMAGE_2,
+	/** 闪避 */
+	ITEM_EVASION,
+	/** 冷却缩减 */
+	ITEM_COOLDOWN_REDUCTION,
+	/** 钓鱼暴击几率TODO:没实现 */
+	ITEM_FISHING_CRIT_CHANCE,
+	/** 挖宝暴击几率TODO:没实现 */
+	ITEM_DIG_CRIT_CHANCE,
+	/** 攻击减甲的效果提升 */
+	ITEM_ATTACK_ARMOR_REDUCE_PCT,
+	/** 击杀增加金钱 */
+	KILL_GOLD_FLAT,
+	/** 每分钟护甲 */
+	ITEM_ARMOR_PER_MIN,
+	/** 初始力量 */
+	BASE_STRENGTH,
+	/** 初始敏捷 */
+	BASE_AGILITY,
+	/** 初始智力 */
+	BASE_INTELLECT,
+	/** 原始力量成长 */
+	STRENGTH_GAIN,
+	/** 原始敏捷成长 */
+	AGILITY_GAIN,
+	/** 原始智力成长 */
+	INTELLECT_GAIN,
+	/** 基础生命恢复 */
+	BASE_HEALTH_REGEN,
+	/** 基础魔法恢复 */
+	BASE_MANA_REGEN,
+	/** 基础攻击间隔 */
+	BASE_ATTACK_TIME,
+	/** 基础攻击距离 */
+	BASE_ATTACK_RANGE,
+	/** 永久冷却缩减 */
+	ATHENA_COOLDOWN_REDUCTION,
+	/** 永久闪避 */
+	ATHENA_EVASION,
+	/** 永久无视护甲 */
+	ATHENA_ARMOR_IGNORE,
+	/** 基础闪避 */
+	BASE_EVASION,
+	/** 装备每分钟智力 */
+	ITEM_INTELLECT_PER_MIN,
 	LAST,
 }
 
@@ -1053,6 +1383,171 @@ const PROPERTY_MAP: Record<string, PropertyFunction> = {
 	engraving_3_strengthen: PropertyFunction.ENGRAVING_3_STRENGTHEN,
 	engraving_4_strengthen: PropertyFunction.ENGRAVING_4_STRENGTHEN,
 	engraving_5_strengthen: PropertyFunction.ENGRAVING_5_STRENGTHEN,
+	health_percent_enemy: PropertyFunction.HEALTH_PERCENT_ENEMY,
+	attack_damage_base_str: PropertyFunction.ATTACK_DAMAGE_BASE_STR,
+	attack_damage_base_agi: PropertyFunction.ATTACK_DAMAGE_BASE_AGI,
+	attack_damage_base_int: PropertyFunction.ATTACK_DAMAGE_BASE_INT,
+	attack_damage_base_percentage: PropertyFunction.ATTACK_DAMAGE_BASE_PERCENTAGE,
+	base_attack_time_constant_adjust: PropertyFunction.BASE_ATTACK_TIME_CONSTANT_ADJUST,
+	attack_range_percentage: PropertyFunction.ATTACK_RANGE_PERCENTAGE,
+	armor_base_str: PropertyFunction.ARMOR_BASE_STR,
+	armor_base_agi: PropertyFunction.ARMOR_BASE_AGI,
+	armor_base_int: PropertyFunction.ARMOR_BASE_INT,
+	armor_bonus: PropertyFunction.ARMOR_BONUS,
+	armor_base_percentage: PropertyFunction.ARMOR_BASE_PERCENTAGE,
+	armor_percentage: PropertyFunction.ARMOR_PERCENTAGE,
+	ignore_armor: PropertyFunction.IGNORE_ARMOR,
+	ignore_armor_percentage: PropertyFunction.IGNORE_ARMOR_PERCENTAGE,
+	ignore_armor_percentage_unique: PropertyFunction.IGNORE_ARMOR_PERCENTAGE_UNIQUE,
+	ignore_armor_percentage_target: PropertyFunction.IGNORE_ARMOR_PERCENTAGE_TARGET,
+	health_base_str: PropertyFunction.HEALTH_BASE_STR,
+	base_health_regen_constant_str: PropertyFunction.BASE_HEALTH_REGEN_CONSTANT_STR,
+	base_health_regen_constant: PropertyFunction.BASE_HEALTH_REGEN_CONSTANT,
+	health_regen_constant: PropertyFunction.HEALTH_REGEN_CONSTANT,
+	health_regen_percentage: PropertyFunction.HEALTH_REGEN_PERCENTAGE,
+	mana_base_int: PropertyFunction.MANA_BASE_INT,
+	base_mana_regen_constant_int: PropertyFunction.BASE_MANA_REGEN_CONSTANT_INT,
+	mana_regen_constant: PropertyFunction.MANA_REGEN_CONSTANT,
+	mana_regen_constant_unique: PropertyFunction.MANA_REGEN_CONSTANT_UNIQUE,
+	mana_regen_percentage: PropertyFunction.MANA_REGEN_PERCENTAGE,
+	status_resistance_stacking: PropertyFunction.STATUS_RESISTANCE_STACKING,
+	status_resistance_unique: PropertyFunction.STATUS_RESISTANCE_UNIQUE,
+	status_resistance_caster: PropertyFunction.STATUS_RESISTANCE_CASTER,
+	cooldown_constant: PropertyFunction.COOLDOWN_CONSTANT,
+	physical_criticalstrike_chance: PropertyFunction.PHYSICAL_CRITICALSTRIKE_CHANCE,
+	physical_criticalstrike_damage: PropertyFunction.PHYSICAL_CRITICALSTRIKE_DAMAGE,
+	physical_criticalstrike_damage_amplify: PropertyFunction.PHYSICAL_CRITICALSTRIKE_DAMAGE_AMPLIFY,
+	magical_criticalstrike_chance: PropertyFunction.MAGICAL_CRITICALSTRIKE_CHANCE,
+	magical_criticalstrike_damage: PropertyFunction.MAGICAL_CRITICALSTRIKE_DAMAGE,
+	magical_criticalstrike_damage_amplify: PropertyFunction.MAGICAL_CRITICALSTRIKE_DAMAGE_AMPLIFY,
+	criticalstrike_sound: PropertyFunction.CRITICALSTRIKE_SOUND,
+	max_attackspeed_bonus: PropertyFunction.MAX_ATTACKSPEED_BONUS,
+	outgoing_physical_damage_percentage: PropertyFunction.OUTGOING_PHYSICAL_DAMAGE_PERCENTAGE,
+	outgoing_physical_damage_percentage_agi: PropertyFunction.OUTGOING_PHYSICAL_DAMAGE_PERCENTAGE_AGI,
+	outgoing_magical_damage_percentage: PropertyFunction.OUTGOING_MAGICAL_DAMAGE_PERCENTAGE,
+	outgoing_magical_damage_percentage_int: PropertyFunction.OUTGOING_MAGICAL_DAMAGE_PERCENTAGE_INT,
+	outgoing_damage_percentage: PropertyFunction.OUTGOING_DAMAGE_PERCENTAGE,
+	incoming_physical_damage_percentage: PropertyFunction.INCOMING_PHYSICAL_DAMAGE_PERCENTAGE,
+	incoming_magical_damage_percentage: PropertyFunction.INCOMING_MAGICAL_DAMAGE_PERCENTAGE,
+	incoming_damage_percentage: PropertyFunction.INCOMING_DAMAGE_PERCENTAGE,
+	incoming_damage_percentage_str: PropertyFunction.INCOMING_DAMAGE_PERCENTAGE_STR,
+	ignore_damage: PropertyFunction.IGNORE_DAMAGE,
+	ignore_damage_agi: PropertyFunction.IGNORE_DAMAGE_AGI,
+	stats_all_bonus: PropertyFunction.STATS_ALL_BONUS,
+	stats_all_base: PropertyFunction.STATS_ALL_BASE,
+	stats_all_percentage: PropertyFunction.STATS_ALL_PERCENTAGE,
+	stats_all_base_percentage: PropertyFunction.STATS_ALL_BASE_PERCENTAGE,
+	stats_strength_bonus: PropertyFunction.STATS_STRENGTH_BONUS,
+	stats_strength_base: PropertyFunction.STATS_STRENGTH_BASE,
+	stats_strength_percentage: PropertyFunction.STATS_STRENGTH_PERCENTAGE,
+	stats_strength_base_percentage: PropertyFunction.STATS_STRENGTH_BASE_PERCENTAGE,
+	stats_agility_bonus: PropertyFunction.STATS_AGILITY_BONUS,
+	stats_agility_base: PropertyFunction.STATS_AGILITY_BASE,
+	stats_agility_percentage: PropertyFunction.STATS_AGILITY_PERCENTAGE,
+	stats_agility_base_percentage: PropertyFunction.STATS_AGILITY_BASE_PERCENTAGE,
+	stats_intellect_bonus: PropertyFunction.STATS_INTELLECT_BONUS,
+	stats_intellect_base: PropertyFunction.STATS_INTELLECT_BASE,
+	stats_intellect_percentage: PropertyFunction.STATS_INTELLECT_PERCENTAGE,
+	stats_intellect_base_percentage: PropertyFunction.STATS_INTELLECT_BASE_PERCENTAGE,
+	stats_strength_gain: PropertyFunction.STATS_STRENGTH_GAIN,
+	stats_agility_gain: PropertyFunction.STATS_AGILITY_GAIN,
+	stats_intellect_gain: PropertyFunction.STATS_INTELLECT_GAIN,
+	physical_lifesteal: PropertyFunction.PHYSICAL_LIFESTEAL,
+	magical_lifesteal: PropertyFunction.MAGICAL_LIFESTEAL,
+	all_lifesteal: PropertyFunction.ALL_LIFESTEAL,
+	cleave_damage: PropertyFunction.CLEAVE_DAMAGE,
+	cleave_radius: PropertyFunction.CLEAVE_RADIUS,
+	player_kill_score_bonus: PropertyFunction.PLAYER_KILL_SCORE_BONUS,
+	player_kill_gold_percentage: PropertyFunction.PLAYER_KILL_GOLD_PERCENTAGE,
+	player_drop_chance_percentage: PropertyFunction.PLAYER_DROP_CHANCE_PERCENTAGE,
+	fishing_crit_chance: PropertyFunction.FISHING_CRIT_CHANCE,
+	armor_reduction_percentage: PropertyFunction.ARMOR_REDUCTION_PERCENTAGE,
+	dig_crit_chance: PropertyFunction.DIG_CRIT_CHANCE,
+	gold_monster_bonus: PropertyFunction.GOLD_MONSTER_BONUS,
+	player_gold_per_second: PropertyFunction.PLAYER_GOLD_PER_SECOND,
+	player_crystal_per_second: PropertyFunction.PLAYER_CRYSTAL_PER_SECOND,
+	player_score_per_second: PropertyFunction.PLAYER_SCORE_PER_SECOND,
+	player_attribute_gain_percentage: PropertyFunction.PLAYER_ATTRIBUTE_GAIN_PERCENTAGE,
+	player_experience_gain_percentage: PropertyFunction.PLAYER_EXPERIENCE_GAIN_PERCENTAGE,
+	attack_reduce_armor: PropertyFunction.ATTACK_REDUCE_ARMOR,
+	permanent_mana: PropertyFunction.PERMANENT_MANA,
+	athena_damage_reduce: PropertyFunction.ATHENA_DAMAGE_REDUCE,
+	athena_damage_reduce2: PropertyFunction.ATHENA_DAMAGE_REDUCE2,
+	athena_physical_damage: PropertyFunction.ATHENA_PHYSICAL_DAMAGE,
+	athena_magical_damage: PropertyFunction.ATHENA_MAGICAL_DAMAGE,
+	athena_finally_damage: PropertyFunction.ATHENA_FINALLY_DAMAGE,
+	attack_per_sec: PropertyFunction.ATTACK_PER_SEC,
+	health_per_sec: PropertyFunction.HEALTH_PER_SEC,
+	armor_per_sec: PropertyFunction.ARMOR_PER_SEC,
+	all_per_sec: PropertyFunction.ALL_PER_SEC,
+	strength_per_sec: PropertyFunction.STRENGTH_PER_SEC,
+	agility_per_sec: PropertyFunction.AGILITY_PER_SEC,
+	intellect_per_sec: PropertyFunction.INTELLECT_PER_SEC,
+	gold_per_sec: PropertyFunction.GOLD_PER_SEC,
+	physical_damage_per_min: PropertyFunction.PHYSICAL_DAMAGE_PER_MIN,
+	magical_damage_per_min: PropertyFunction.MAGICAL_DAMAGE_PER_MIN,
+	attack_per_min: PropertyFunction.ATTACK_PER_MIN,
+	health_per_min: PropertyFunction.HEALTH_PER_MIN,
+	armor_per_min: PropertyFunction.ARMOR_PER_MIN,
+	all_per_min: PropertyFunction.ALL_PER_MIN,
+	strength_per_min: PropertyFunction.STRENGTH_PER_MIN,
+	agility_per_min: PropertyFunction.AGILITY_PER_MIN,
+	intellect_per_min: PropertyFunction.INTELLECT_PER_MIN,
+	attack_attack: PropertyFunction.ATTACK_ATTACK,
+	attack_health: PropertyFunction.ATTACK_HEALTH,
+	attack_armor: PropertyFunction.ATTACK_ARMOR,
+	attack_all: PropertyFunction.ATTACK_ALL,
+	attack_strength: PropertyFunction.ATTACK_STRENGTH,
+	attack_agility: PropertyFunction.ATTACK_AGILITY,
+	attack_intellect: PropertyFunction.ATTACK_INTELLECT,
+	kill_attack: PropertyFunction.KILL_ATTACK,
+	kill_health: PropertyFunction.KILL_HEALTH,
+	kill_armor: PropertyFunction.KILL_ARMOR,
+	kill_all: PropertyFunction.KILL_ALL,
+	kill_strength: PropertyFunction.KILL_STRENGTH,
+	kill_agility: PropertyFunction.KILL_AGILITY,
+	kill_intellect: PropertyFunction.KILL_INTELLECT,
+	respawn_time: PropertyFunction.RESPAWN_TIME,
+	item_physical_damage: PropertyFunction.ITEM_PHYSICAL_DAMAGE,
+	item_physical_damage_2: PropertyFunction.ITEM_PHYSICAL_DAMAGE_2,
+	item_magical_damage: PropertyFunction.ITEM_MAGICAL_DAMAGE,
+	item_magical_damage_2: PropertyFunction.ITEM_MAGICAL_DAMAGE_2,
+	item_armor_ignore_pct: PropertyFunction.ITEM_ARMOR_IGNORE_PCT,
+	item_incoming_damage: PropertyFunction.ITEM_INCOMING_DAMAGE,
+	item_damage_reduce_physical: PropertyFunction.ITEM_DAMAGE_REDUCE_PHYSICAL,
+	item_damage_reduce_magical: PropertyFunction.ITEM_DAMAGE_REDUCE_MAGICAL,
+	item_damage_reduce: PropertyFunction.ITEM_DAMAGE_REDUCE,
+	item_damage_reduce_2: PropertyFunction.ITEM_DAMAGE_REDUCE_2,
+	item_outgoing_damage: PropertyFunction.ITEM_OUTGOING_DAMAGE,
+	item_outgoing_damage_2: PropertyFunction.ITEM_OUTGOING_DAMAGE_2,
+	item_magical_crit_chance: PropertyFunction.ITEM_MAGICAL_CRIT_CHANCE,
+	item_magical_crit_damage: PropertyFunction.ITEM_MAGICAL_CRIT_DAMAGE,
+	item_magical_crit_damage_2: PropertyFunction.ITEM_MAGICAL_CRIT_DAMAGE_2,
+	item_physical_crit_chance: PropertyFunction.ITEM_PHYSICAL_CRIT_CHANCE,
+	item_physical_crit_damage: PropertyFunction.ITEM_PHYSICAL_CRIT_DAMAGE,
+	item_physical_crit_damage_2: PropertyFunction.ITEM_PHYSICAL_CRIT_DAMAGE_2,
+	item_evasion: PropertyFunction.ITEM_EVASION,
+	item_cooldown_reduction: PropertyFunction.ITEM_COOLDOWN_REDUCTION,
+	item_fishing_crit_chance: PropertyFunction.ITEM_FISHING_CRIT_CHANCE,
+	item_dig_crit_chance: PropertyFunction.ITEM_DIG_CRIT_CHANCE,
+	item_attack_armor_reduce_pct: PropertyFunction.ITEM_ATTACK_ARMOR_REDUCE_PCT,
+	kill_gold_flat: PropertyFunction.KILL_GOLD_FLAT,
+	item_armor_per_min: PropertyFunction.ITEM_ARMOR_PER_MIN,
+	base_strength: PropertyFunction.BASE_STRENGTH,
+	base_agility: PropertyFunction.BASE_AGILITY,
+	base_intellect: PropertyFunction.BASE_INTELLECT,
+	strength_gain: PropertyFunction.STRENGTH_GAIN,
+	agility_gain: PropertyFunction.AGILITY_GAIN,
+	intellect_gain: PropertyFunction.INTELLECT_GAIN,
+	base_health_regen: PropertyFunction.BASE_HEALTH_REGEN,
+	base_mana_regen: PropertyFunction.BASE_MANA_REGEN,
+	base_attack_time: PropertyFunction.BASE_ATTACK_TIME,
+	base_attack_range: PropertyFunction.BASE_ATTACK_RANGE,
+	athena_cooldown_reduction: PropertyFunction.ATHENA_COOLDOWN_REDUCTION,
+	athena_evasion: PropertyFunction.ATHENA_EVASION,
+	athena_armor_ignore: PropertyFunction.ATHENA_ARMOR_IGNORE,
+	base_evasion: PropertyFunction.BASE_EVASION,
+	item_intellect_per_min: PropertyFunction.ITEM_INTELLECT_PER_MIN,
 };
 const PROPERTY_MAP_REVERSE: Partial<Record<PropertyFunction, string>> = {};
 for (const [k, v] of pairs(PROPERTY_MAP)) {
@@ -1407,6 +1902,171 @@ PropertySystem.RegisterProperty({ id: "engraving_2_strengthen", scope: PropertyS
 PropertySystem.RegisterProperty({ id: "engraving_3_strengthen", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, enableCache: false });
 PropertySystem.RegisterProperty({ id: "engraving_4_strengthen", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, enableCache: false });
 PropertySystem.RegisterProperty({ id: "engraving_5_strengthen", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, enableCache: false });
+PropertySystem.RegisterProperty({ id: "health_percent_enemy", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_damage_base_str", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_damage_base_agi", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_damage_base_int", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_damage_base_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_attack_time_constant_adjust", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_range_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "armor_base_str", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "armor_base_agi", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "armor_base_int", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "armor_bonus", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "armor_base_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "armor_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "ignore_armor", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "ignore_armor_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "ignore_armor_percentage_unique", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MAX, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "ignore_armor_percentage_target", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "health_base_str", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_health_regen_constant_str", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_health_regen_constant", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "health_regen_constant", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "health_regen_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "mana_base_int", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_mana_regen_constant_int", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "mana_regen_constant", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "mana_regen_constant_unique", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "mana_regen_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "status_resistance_stacking", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "status_resistance_unique", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MAX, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "status_resistance_caster", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "cooldown_constant", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "physical_criticalstrike_chance", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "physical_criticalstrike_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "physical_criticalstrike_damage_amplify", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "magical_criticalstrike_chance", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "magical_criticalstrike_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "magical_criticalstrike_damage_amplify", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "criticalstrike_sound", scope: PropertyScope.UNIT, valueType: PropertyValueType.CUSTOM, aggregation: AggregationStrategy.FIRST, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "max_attackspeed_bonus", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "outgoing_physical_damage_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "outgoing_physical_damage_percentage_agi", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "outgoing_magical_damage_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "outgoing_magical_damage_percentage_int", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "outgoing_damage_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "incoming_physical_damage_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "incoming_magical_damage_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "incoming_damage_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "incoming_damage_percentage_str", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "ignore_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "ignore_damage_agi", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_all_bonus", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_all_base", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_all_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_all_base_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_strength_bonus", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_strength_base", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_strength_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_strength_base_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_agility_bonus", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_agility_base", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_agility_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_agility_base_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_intellect_bonus", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_intellect_base", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_intellect_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_intellect_base_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_strength_gain", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_agility_gain", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "stats_intellect_gain", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "physical_lifesteal", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "magical_lifesteal", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "all_lifesteal", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "cleave_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "cleave_radius", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "player_kill_score_bonus", scope: PropertyScope.PLAYER, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "player_kill_gold_percentage", scope: PropertyScope.PLAYER, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "player_drop_chance_percentage", scope: PropertyScope.PLAYER, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "fishing_crit_chance", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "armor_reduction_percentage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "dig_crit_chance", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "gold_monster_bonus", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "player_gold_per_second", scope: PropertyScope.PLAYER, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "player_crystal_per_second", scope: PropertyScope.PLAYER, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "player_score_per_second", scope: PropertyScope.PLAYER, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "player_attribute_gain_percentage", scope: PropertyScope.PLAYER, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "player_experience_gain_percentage", scope: PropertyScope.PLAYER, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_reduce_armor", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "permanent_mana", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "athena_damage_reduce", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "athena_damage_reduce2", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "athena_physical_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "athena_magical_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "athena_finally_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_per_sec", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "health_per_sec", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "armor_per_sec", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "all_per_sec", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "strength_per_sec", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "agility_per_sec", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "intellect_per_sec", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "gold_per_sec", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "physical_damage_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "magical_damage_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "health_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "armor_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "all_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "strength_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "agility_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "intellect_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_attack", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_health", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_armor", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_all", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_strength", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_agility", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "attack_intellect", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "kill_attack", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "kill_health", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "kill_armor", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "kill_all", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "kill_strength", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "kill_agility", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "kill_intellect", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "respawn_time", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_physical_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_physical_damage_2", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_magical_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_magical_damage_2", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_armor_ignore_pct", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_incoming_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_damage_reduce_physical", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_damage_reduce_magical", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_damage_reduce", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_damage_reduce_2", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_outgoing_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_outgoing_damage_2", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_magical_crit_chance", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_magical_crit_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_magical_crit_damage_2", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_physical_crit_chance", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_physical_crit_damage", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_physical_crit_damage_2", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.MULTIPLY, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_evasion", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_cooldown_reduction", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.DECMUL, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_fishing_crit_chance", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_dig_crit_chance", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_attack_armor_reduce_pct", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "kill_gold_flat", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_armor_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_strength", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_agility", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_intellect", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "strength_gain", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "agility_gain", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "intellect_gain", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_health_regen", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_mana_regen", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_attack_time", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_attack_range", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, notify: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "athena_cooldown_reduction", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "athena_evasion", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "athena_armor_ignore", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "base_evasion", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, enableCache: false });
+PropertySystem.RegisterProperty({ id: "item_intellect_per_min", scope: PropertyScope.UNIT, valueType: PropertyValueType.NUMBER, aggregation: AggregationStrategy.SUM, syncToClient: true, enableCache: false });
 
 /** 生命值 */
 function GetHealth(unit: CDOTA_BaseNPC, params?: any) {
@@ -1428,15 +2088,15 @@ function GetHealRoomStart(unit: CDOTA_BaseNPC, params?: any) {
 function GetHealthCostRoomStart(unit: CDOTA_BaseNPC, params?: any) {
 	return PropertySystem.GetPropertyValue(unit.entindex(), "health_cost_room_start", params);
 }
-/** 基础怒气 */
+/** 基础魔法 */
 function GetBaseMana(unit: CDOTA_BaseNPC, params?: any) {
 	return PropertySystem.GetPropertyValue(unit.entindex(), "base_mana", params);
 }
-/** <Fury:怒气上限/> */
+/** 魔法值 */
 function GetMana(unit: CDOTA_BaseNPC, params?: any) {
 	return PropertySystem.GetPropertyValue(unit.entindex(), "mana", params);
 }
-/** <Fury:怒气上限增幅/> */
+/** %魔法值 */
 function GetManaAmplify(unit: CDOTA_BaseNPC, params?: any) {
 	return PropertySystem.GetPropertyValue(unit.entindex(), "mana_amplify", params);
 }
@@ -2580,6 +3240,654 @@ function GetEngraving4Strengthen(unit: CDOTA_BaseNPC, params?: any) {
 function GetEngraving5Strengthen(unit: CDOTA_BaseNPC, params?: any) {
 	return PropertySystem.GetPropertyValue(unit.entindex(), "engraving_5_strengthen", params);
 }
+/** 生命百分比敌方 */
+function GetHealthPercentEnemy(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "health_percent_enemy", params);
+}
+/** 攻击伤害基础力量派生 */
+function GetAttackDamageBaseStr(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_damage_base_str", params);
+}
+/** 攻击伤害基础敏捷派生 */
+function GetAttackDamageBaseAgi(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_damage_base_agi", params);
+}
+/** 攻击伤害基础智力派生 */
+function GetAttackDamageBaseInt(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_damage_base_int", params);
+}
+/** %基础攻击 */
+function GetAttackDamageBasePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_damage_base_percentage", params);
+}
+/** 基础攻击间隔固定调整 */
+function GetBaseAttackTimeConstantAdjust(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_attack_time_constant_adjust", params);
+}
+/** 攻击RANGE百分比 */
+function GetAttackRangePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_range_percentage", params);
+}
+/** 护甲基础力量派生 */
+function GetArmorBaseStr(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "armor_base_str", params);
+}
+/** 护甲基础敏捷派生 */
+function GetArmorBaseAgi(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "armor_base_agi", params);
+}
+/** 护甲基础智力派生 */
+function GetArmorBaseInt(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "armor_base_int", params);
+}
+/** 额外护甲 */
+function GetArmorBonus(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "armor_bonus", params);
+}
+/** %基础护甲 */
+function GetArmorBasePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "armor_base_percentage", params);
+}
+/** %总护甲 */
+function GetArmorPercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "armor_percentage", params);
+}
+/** 固定无视护甲 */
+function GetIgnoreArmor(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "ignore_armor", params);
+}
+/** 无视护甲百分比 */
+function GetIgnoreArmorPercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "ignore_armor_percentage", params);
+}
+/** 无视护甲百分比独立 */
+function GetIgnoreArmorPercentageUnique(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "ignore_armor_percentage_unique", params);
+}
+/** 无视护甲百分比目标 */
+function GetIgnoreArmorPercentageTarget(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "ignore_armor_percentage_target", params);
+}
+/** 生命基础力量派生 */
+function GetHealthBaseStr(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "health_base_str", params);
+}
+/** 基础生命恢复固定力量派生 */
+function GetBaseHealthRegenConstantStr(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_health_regen_constant_str", params);
+}
+/** 基础生命恢复固定 */
+function GetBaseHealthRegenConstant(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_health_regen_constant", params);
+}
+/** 生命恢复固定 */
+function GetHealthRegenConstant(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "health_regen_constant", params);
+}
+/** 生命恢复百分比 */
+function GetHealthRegenPercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "health_regen_percentage", params);
+}
+/** 魔法基础智力派生 */
+function GetManaBaseInt(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "mana_base_int", params);
+}
+/** 基础魔法恢复固定智力派生 */
+function GetBaseManaRegenConstantInt(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_mana_regen_constant_int", params);
+}
+/** 魔法恢复固定 */
+function GetManaRegenConstant(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "mana_regen_constant", params);
+}
+/** 魔法恢复固定独立 */
+function GetManaRegenConstantUnique(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "mana_regen_constant_unique", params);
+}
+/** 魔法恢复百分比 */
+function GetManaRegenPercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "mana_regen_percentage", params);
+}
+/** 状态抗性叠加 */
+function GetStatusResistanceStacking(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "status_resistance_stacking", params);
+}
+/** 状态抗性独立 */
+function GetStatusResistanceUnique(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "status_resistance_unique", params);
+}
+/** 状态抗性施法者 */
+function GetStatusResistanceCaster(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "status_resistance_caster", params);
+}
+/** 冷却减少固定 */
+function GetCooldownConstant(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "cooldown_constant", params);
+}
+/** %物理暴击率 */
+function GetPhysicalCriticalstrikeChance(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "physical_criticalstrike_chance", params);
+}
+/** %物理暴击伤害 */
+function GetPhysicalCriticalstrikeDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "physical_criticalstrike_damage", params);
+}
+/** 物理暴击伤害增幅 */
+function GetPhysicalCriticalstrikeDamageAmplify(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "physical_criticalstrike_damage_amplify", params);
+}
+/** %魔法暴击率 */
+function GetMagicalCriticalstrikeChance(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "magical_criticalstrike_chance", params);
+}
+/** %魔法暴击伤害 */
+function GetMagicalCriticalstrikeDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "magical_criticalstrike_damage", params);
+}
+/** 魔法暴击伤害增幅 */
+function GetMagicalCriticalstrikeDamageAmplify(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "magical_criticalstrike_damage_amplify", params);
+}
+/** 暴击音效 */
+function GetCriticalstrikeSound(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "criticalstrike_sound", params);
+}
+/** 最大攻速额外 */
+function GetMaxAttackspeedBonus(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "max_attackspeed_bonus", params);
+}
+/** 造成物理伤害百分比 */
+function GetOutgoingPhysicalDamagePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "outgoing_physical_damage_percentage", params);
+}
+/** 造成物理伤害百分比敏捷派生 */
+function GetOutgoingPhysicalDamagePercentageAgi(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "outgoing_physical_damage_percentage_agi", params);
+}
+/** 造成魔法伤害百分比 */
+function GetOutgoingMagicalDamagePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "outgoing_magical_damage_percentage", params);
+}
+/** 造成魔法伤害百分比智力派生 */
+function GetOutgoingMagicalDamagePercentageInt(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "outgoing_magical_damage_percentage_int", params);
+}
+/** 造成伤害百分比 */
+function GetOutgoingDamagePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "outgoing_damage_percentage", params);
+}
+/** 受到物理伤害百分比 */
+function GetIncomingPhysicalDamagePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "incoming_physical_damage_percentage", params);
+}
+/** 受到魔法伤害百分比 */
+function GetIncomingMagicalDamagePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "incoming_magical_damage_percentage", params);
+}
+/** 受到伤害百分比 */
+function GetIncomingDamagePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "incoming_damage_percentage", params);
+}
+/** 受到伤害百分比力量派生 */
+function GetIncomingDamagePercentageStr(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "incoming_damage_percentage_str", params);
+}
+/** 伤害格挡 */
+function GetIgnoreDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "ignore_damage", params);
+}
+/** 无视伤害敏捷派生 */
+function GetIgnoreDamageAgi(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "ignore_damage_agi", params);
+}
+/** 属性全属性额外 */
+function GetStatsAllBonus(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_all_bonus", params);
+}
+/** 属性全属性基础 */
+function GetStatsAllBase(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_all_base", params);
+}
+/** 属性全属性百分比 */
+function GetStatsAllPercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_all_percentage", params);
+}
+/** 属性全属性基础百分比 */
+function GetStatsAllBasePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_all_base_percentage", params);
+}
+/** 属性力量额外 */
+function GetStatsStrengthBonus(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_strength_bonus", params);
+}
+/** 属性力量基础 */
+function GetStatsStrengthBase(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_strength_base", params);
+}
+/** 属性力量百分比 */
+function GetStatsStrengthPercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_strength_percentage", params);
+}
+/** 属性力量基础百分比 */
+function GetStatsStrengthBasePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_strength_base_percentage", params);
+}
+/** 属性敏捷额外 */
+function GetStatsAgilityBonus(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_agility_bonus", params);
+}
+/** 属性敏捷基础 */
+function GetStatsAgilityBase(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_agility_base", params);
+}
+/** 属性敏捷百分比 */
+function GetStatsAgilityPercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_agility_percentage", params);
+}
+/** 属性敏捷基础百分比 */
+function GetStatsAgilityBasePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_agility_base_percentage", params);
+}
+/** 属性智力额外 */
+function GetStatsIntellectBonus(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_intellect_bonus", params);
+}
+/** 属性智力基础 */
+function GetStatsIntellectBase(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_intellect_base", params);
+}
+/** 属性智力百分比 */
+function GetStatsIntellectPercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_intellect_percentage", params);
+}
+/** 属性智力基础百分比 */
+function GetStatsIntellectBasePercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_intellect_base_percentage", params);
+}
+/** 属性力量成长 */
+function GetStatsStrengthGain(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_strength_gain", params);
+}
+/** 属性敏捷成长 */
+function GetStatsAgilityGain(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_agility_gain", params);
+}
+/** 属性智力成长 */
+function GetStatsIntellectGain(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "stats_intellect_gain", params);
+}
+/** 物理吸血 */
+function GetPhysicalLifesteal(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "physical_lifesteal", params);
+}
+/** 魔法吸血 */
+function GetMagicalLifesteal(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "magical_lifesteal", params);
+}
+/** 全属性吸血 */
+function GetAllLifesteal(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "all_lifesteal", params);
+}
+/** 分裂伤害 */
+function GetCleaveDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "cleave_damage", params);
+}
+/** 分裂范围 */
+function GetCleaveRadius(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "cleave_radius", params);
+}
+/** 玩家击杀荣耀额外 */
+function GetPlayerKillScoreBonus(playerID: PlayerID, params?: any) {
+	return PropertySystem.GetPropertyValue(playerID, "player_kill_score_bonus", params);
+}
+/** 玩家击杀金币百分比 */
+function GetPlayerKillGoldPercentage(playerID: PlayerID, params?: any) {
+	return PropertySystem.GetPropertyValue(playerID, "player_kill_gold_percentage", params);
+}
+/** 玩家掉宝几率百分比 */
+function GetPlayerDropChancePercentage(playerID: PlayerID, params?: any) {
+	return PropertySystem.GetPropertyValue(playerID, "player_drop_chance_percentage", params);
+}
+/** 钓鱼暴击几率 */
+function GetFishingCritChance(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "fishing_crit_chance", params);
+}
+/** 护甲减免百分比 */
+function GetArmorReductionPercentage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "armor_reduction_percentage", params);
+}
+/** 挖宝暴击几率 */
+function GetDigCritChance(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "dig_crit_chance", params);
+}
+/** 金币怪物额外 */
+function GetGoldMonsterBonus(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "gold_monster_bonus", params);
+}
+/** 玩家金币每秒 */
+function GetPlayerGoldPerSecond(playerID: PlayerID, params?: any) {
+	return PropertySystem.GetPropertyValue(playerID, "player_gold_per_second", params);
+}
+/** 玩家魂晶每秒 */
+function GetPlayerCrystalPerSecond(playerID: PlayerID, params?: any) {
+	return PropertySystem.GetPropertyValue(playerID, "player_crystal_per_second", params);
+}
+/** 玩家荣耀每秒 */
+function GetPlayerScorePerSecond(playerID: PlayerID, params?: any) {
+	return PropertySystem.GetPropertyValue(playerID, "player_score_per_second", params);
+}
+/** 玩家属性成长百分比 */
+function GetPlayerAttributeGainPercentage(playerID: PlayerID, params?: any) {
+	return PropertySystem.GetPropertyValue(playerID, "player_attribute_gain_percentage", params);
+}
+/** 玩家经验成长百分比 */
+function GetPlayerExperienceGainPercentage(playerID: PlayerID, params?: any) {
+	return PropertySystem.GetPropertyValue(playerID, "player_experience_gain_percentage", params);
+}
+/** 攻击减甲 */
+function GetAttackReduceArmor(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_reduce_armor", params);
+}
+/** 魔法 */
+function GetPermanentMana(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "permanent_mana", params);
+}
+/** 伤害减免 */
+function GetAthenaDamageReduce(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "athena_damage_reduce", params);
+}
+/** 伤害再减免 */
+function GetAthenaDamageReduce2(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "athena_damage_reduce2", params);
+}
+/** 物理伤害 */
+function GetAthenaPhysicalDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "athena_physical_damage", params);
+}
+/** 魔法伤害 */
+function GetAthenaMagicalDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "athena_magical_damage", params);
+}
+/** 最终伤害 */
+function GetAthenaFinallyDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "athena_finally_damage", params);
+}
+/** 每秒攻击 */
+function GetAttackPerSec(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_per_sec", params);
+}
+/** 每秒生命 */
+function GetHealthPerSec(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "health_per_sec", params);
+}
+/** 每秒护甲 */
+function GetArmorPerSec(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "armor_per_sec", params);
+}
+/** 每秒全属性 */
+function GetAllPerSec(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "all_per_sec", params);
+}
+/** 每秒力量 */
+function GetStrengthPerSec(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "strength_per_sec", params);
+}
+/** 每秒敏捷 */
+function GetAgilityPerSec(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "agility_per_sec", params);
+}
+/** 每秒智力 */
+function GetIntellectPerSec(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "intellect_per_sec", params);
+}
+/** 每秒金币 */
+function GetGoldPerSec(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "gold_per_sec", params);
+}
+/** 每分钟物理伤害 */
+function GetPhysicalDamagePerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "physical_damage_per_min", params);
+}
+/** 每分钟魔法伤害 */
+function GetMagicalDamagePerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "magical_damage_per_min", params);
+}
+/** 每分钟攻击 */
+function GetAttackPerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_per_min", params);
+}
+/** 每分钟生命 */
+function GetHealthPerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "health_per_min", params);
+}
+/** 每分钟护甲 */
+function GetArmorPerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "armor_per_min", params);
+}
+/** 每分钟全属性 */
+function GetAllPerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "all_per_min", params);
+}
+/** 每分钟力量 */
+function GetStrengthPerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "strength_per_min", params);
+}
+/** 每分钟敏捷 */
+function GetAgilityPerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "agility_per_min", params);
+}
+/** 每分钟智力 */
+function GetIntellectPerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "intellect_per_min", params);
+}
+/** 攻击攻击 */
+function GetAttackAttack(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_attack", params);
+}
+/** 攻击生命 */
+function GetAttackHealth(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_health", params);
+}
+/** 攻击护甲 */
+function GetAttackArmor(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_armor", params);
+}
+/** 攻击全属性 */
+function GetAttackAll(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_all", params);
+}
+/** 攻击力量 */
+function GetAttackStrength(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_strength", params);
+}
+/** 攻击敏捷 */
+function GetAttackAgility(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_agility", params);
+}
+/** 攻击智力 */
+function GetAttackIntellect(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "attack_intellect", params);
+}
+/** 击杀攻击 */
+function GetKillAttack(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "kill_attack", params);
+}
+/** 击杀生命 */
+function GetKillHealth(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "kill_health", params);
+}
+/** 击杀护甲 */
+function GetKillArmor(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "kill_armor", params);
+}
+/** 击杀全属性 */
+function GetKillAll(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "kill_all", params);
+}
+/** 击杀力量 */
+function GetKillStrength(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "kill_strength", params);
+}
+/** 击杀敏捷 */
+function GetKillAgility(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "kill_agility", params);
+}
+/** 击杀智力 */
+function GetKillIntellect(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "kill_intellect", params);
+}
+/** 复活时间(降低) */
+function GetRespawnTime(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "respawn_time", params);
+}
+/** 物理伤害增强 */
+function GetItemPhysicalDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_physical_damage", params);
+}
+/** 物理伤害再增强 */
+function GetItemPhysicalDamage2(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_physical_damage_2", params);
+}
+/** 魔法伤害增强 */
+function GetItemMagicalDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_magical_damage", params);
+}
+/** 魔法伤害再增强 */
+function GetItemMagicalDamage2(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_magical_damage_2", params);
+}
+/** 忽视护甲百分比 */
+function GetItemArmorIgnorePct(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_armor_ignore_pct", params);
+}
+/** 受到伤害 */
+function GetItemIncomingDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_incoming_damage", params);
+}
+/** 物理伤害减免 */
+function GetItemDamageReducePhysical(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_damage_reduce_physical", params);
+}
+/** 魔法伤害减免 */
+function GetItemDamageReduceMagical(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_damage_reduce_magical", params);
+}
+/** 伤害减免 */
+function GetItemDamageReduce(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_damage_reduce", params);
+}
+/** 伤害再减免 */
+function GetItemDamageReduce2(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_damage_reduce_2", params);
+}
+/** 伤害增强 */
+function GetItemOutgoingDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_outgoing_damage", params);
+}
+/** 伤害再增强 */
+function GetItemOutgoingDamage2(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_outgoing_damage_2", params);
+}
+/** 魔法暴击率 */
+function GetItemMagicalCritChance(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_magical_crit_chance", params);
+}
+/** 魔法暴击伤害 */
+function GetItemMagicalCritDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_magical_crit_damage", params);
+}
+/** 魔法暴击伤害增强 */
+function GetItemMagicalCritDamage2(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_magical_crit_damage_2", params);
+}
+/** 物理暴击率 */
+function GetItemPhysicalCritChance(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_physical_crit_chance", params);
+}
+/** 物理暴击伤害 */
+function GetItemPhysicalCritDamage(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_physical_crit_damage", params);
+}
+/** 物理暴击伤害增强 */
+function GetItemPhysicalCritDamage2(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_physical_crit_damage_2", params);
+}
+/** 闪避 */
+function GetItemEvasion(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_evasion", params);
+}
+/** 冷却缩减 */
+function GetItemCooldownReduction(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_cooldown_reduction", params);
+}
+/** 钓鱼暴击几率TODO:没实现 */
+function GetItemFishingCritChance(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_fishing_crit_chance", params);
+}
+/** 挖宝暴击几率TODO:没实现 */
+function GetItemDigCritChance(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_dig_crit_chance", params);
+}
+/** 攻击减甲的效果提升 */
+function GetItemAttackArmorReducePct(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_attack_armor_reduce_pct", params);
+}
+/** 击杀增加金钱 */
+function GetKillGoldFlat(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "kill_gold_flat", params);
+}
+/** 每分钟护甲 */
+function GetItemArmorPerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_armor_per_min", params);
+}
+/** 初始力量 */
+function GetBaseStrength(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_strength", params);
+}
+/** 初始敏捷 */
+function GetBaseAgility(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_agility", params);
+}
+/** 初始智力 */
+function GetBaseIntellect(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_intellect", params);
+}
+/** 原始力量成长 */
+function GetStrengthGain(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "strength_gain", params);
+}
+/** 原始敏捷成长 */
+function GetAgilityGain(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "agility_gain", params);
+}
+/** 原始智力成长 */
+function GetIntellectGain(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "intellect_gain", params);
+}
+/** 基础生命恢复 */
+function GetBaseHealthRegen(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_health_regen", params);
+}
+/** 基础魔法恢复 */
+function GetBaseManaRegen(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_mana_regen", params);
+}
+/** 基础攻击间隔 */
+function GetBaseAttackTime(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_attack_time", params);
+}
+/** 基础攻击距离 */
+function GetBaseAttackRange(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_attack_range", params);
+}
+/** 基础闪避 */
+function GetBaseEvasion(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "base_evasion", params);
+}
+/** 装备每分钟智力 */
+function GetItemIntellectPerMin(unit: CDOTA_BaseNPC, params?: any) {
+	return PropertySystem.GetPropertyValue(unit.entindex(), "item_intellect_per_min", params);
+}
 
 const PROPERTY_FUNCTION_MAP: Record<string, (this: void, unit: any, params?: any) => number> = {
 	health: GetHealth,
@@ -2875,4 +4183,166 @@ const PROPERTY_FUNCTION_MAP: Record<string, (this: void, unit: any, params?: any
 	engraving_3_strengthen: GetEngraving3Strengthen,
 	engraving_4_strengthen: GetEngraving4Strengthen,
 	engraving_5_strengthen: GetEngraving5Strengthen,
+	health_percent_enemy: GetHealthPercentEnemy,
+	attack_damage_base_str: GetAttackDamageBaseStr,
+	attack_damage_base_agi: GetAttackDamageBaseAgi,
+	attack_damage_base_int: GetAttackDamageBaseInt,
+	attack_damage_base_percentage: GetAttackDamageBasePercentage,
+	base_attack_time_constant_adjust: GetBaseAttackTimeConstantAdjust,
+	attack_range_percentage: GetAttackRangePercentage,
+	armor_base_str: GetArmorBaseStr,
+	armor_base_agi: GetArmorBaseAgi,
+	armor_base_int: GetArmorBaseInt,
+	armor_bonus: GetArmorBonus,
+	armor_base_percentage: GetArmorBasePercentage,
+	armor_percentage: GetArmorPercentage,
+	ignore_armor: GetIgnoreArmor,
+	ignore_armor_percentage: GetIgnoreArmorPercentage,
+	ignore_armor_percentage_unique: GetIgnoreArmorPercentageUnique,
+	ignore_armor_percentage_target: GetIgnoreArmorPercentageTarget,
+	health_base_str: GetHealthBaseStr,
+	base_health_regen_constant_str: GetBaseHealthRegenConstantStr,
+	base_health_regen_constant: GetBaseHealthRegenConstant,
+	health_regen_constant: GetHealthRegenConstant,
+	health_regen_percentage: GetHealthRegenPercentage,
+	mana_base_int: GetManaBaseInt,
+	base_mana_regen_constant_int: GetBaseManaRegenConstantInt,
+	mana_regen_constant: GetManaRegenConstant,
+	mana_regen_constant_unique: GetManaRegenConstantUnique,
+	mana_regen_percentage: GetManaRegenPercentage,
+	status_resistance_stacking: GetStatusResistanceStacking,
+	status_resistance_unique: GetStatusResistanceUnique,
+	status_resistance_caster: GetStatusResistanceCaster,
+	cooldown_constant: GetCooldownConstant,
+	physical_criticalstrike_chance: GetPhysicalCriticalstrikeChance,
+	physical_criticalstrike_damage: GetPhysicalCriticalstrikeDamage,
+	physical_criticalstrike_damage_amplify: GetPhysicalCriticalstrikeDamageAmplify,
+	magical_criticalstrike_chance: GetMagicalCriticalstrikeChance,
+	magical_criticalstrike_damage: GetMagicalCriticalstrikeDamage,
+	magical_criticalstrike_damage_amplify: GetMagicalCriticalstrikeDamageAmplify,
+	criticalstrike_sound: GetCriticalstrikeSound,
+	max_attackspeed_bonus: GetMaxAttackspeedBonus,
+	outgoing_physical_damage_percentage: GetOutgoingPhysicalDamagePercentage,
+	outgoing_physical_damage_percentage_agi: GetOutgoingPhysicalDamagePercentageAgi,
+	outgoing_magical_damage_percentage: GetOutgoingMagicalDamagePercentage,
+	outgoing_magical_damage_percentage_int: GetOutgoingMagicalDamagePercentageInt,
+	outgoing_damage_percentage: GetOutgoingDamagePercentage,
+	incoming_physical_damage_percentage: GetIncomingPhysicalDamagePercentage,
+	incoming_magical_damage_percentage: GetIncomingMagicalDamagePercentage,
+	incoming_damage_percentage: GetIncomingDamagePercentage,
+	incoming_damage_percentage_str: GetIncomingDamagePercentageStr,
+	ignore_damage: GetIgnoreDamage,
+	ignore_damage_agi: GetIgnoreDamageAgi,
+	stats_all_bonus: GetStatsAllBonus,
+	stats_all_base: GetStatsAllBase,
+	stats_all_percentage: GetStatsAllPercentage,
+	stats_all_base_percentage: GetStatsAllBasePercentage,
+	stats_strength_bonus: GetStatsStrengthBonus,
+	stats_strength_base: GetStatsStrengthBase,
+	stats_strength_percentage: GetStatsStrengthPercentage,
+	stats_strength_base_percentage: GetStatsStrengthBasePercentage,
+	stats_agility_bonus: GetStatsAgilityBonus,
+	stats_agility_base: GetStatsAgilityBase,
+	stats_agility_percentage: GetStatsAgilityPercentage,
+	stats_agility_base_percentage: GetStatsAgilityBasePercentage,
+	stats_intellect_bonus: GetStatsIntellectBonus,
+	stats_intellect_base: GetStatsIntellectBase,
+	stats_intellect_percentage: GetStatsIntellectPercentage,
+	stats_intellect_base_percentage: GetStatsIntellectBasePercentage,
+	stats_strength_gain: GetStatsStrengthGain,
+	stats_agility_gain: GetStatsAgilityGain,
+	stats_intellect_gain: GetStatsIntellectGain,
+	physical_lifesteal: GetPhysicalLifesteal,
+	magical_lifesteal: GetMagicalLifesteal,
+	all_lifesteal: GetAllLifesteal,
+	cleave_damage: GetCleaveDamage,
+	cleave_radius: GetCleaveRadius,
+	player_kill_score_bonus: GetPlayerKillScoreBonus,
+	player_kill_gold_percentage: GetPlayerKillGoldPercentage,
+	player_drop_chance_percentage: GetPlayerDropChancePercentage,
+	fishing_crit_chance: GetFishingCritChance,
+	armor_reduction_percentage: GetArmorReductionPercentage,
+	dig_crit_chance: GetDigCritChance,
+	gold_monster_bonus: GetGoldMonsterBonus,
+	player_gold_per_second: GetPlayerGoldPerSecond,
+	player_crystal_per_second: GetPlayerCrystalPerSecond,
+	player_score_per_second: GetPlayerScorePerSecond,
+	player_attribute_gain_percentage: GetPlayerAttributeGainPercentage,
+	player_experience_gain_percentage: GetPlayerExperienceGainPercentage,
+	attack_reduce_armor: GetAttackReduceArmor,
+	permanent_mana: GetPermanentMana,
+	athena_damage_reduce: GetAthenaDamageReduce,
+	athena_damage_reduce2: GetAthenaDamageReduce2,
+	athena_physical_damage: GetAthenaPhysicalDamage,
+	athena_magical_damage: GetAthenaMagicalDamage,
+	athena_finally_damage: GetAthenaFinallyDamage,
+	attack_per_sec: GetAttackPerSec,
+	health_per_sec: GetHealthPerSec,
+	armor_per_sec: GetArmorPerSec,
+	all_per_sec: GetAllPerSec,
+	strength_per_sec: GetStrengthPerSec,
+	agility_per_sec: GetAgilityPerSec,
+	intellect_per_sec: GetIntellectPerSec,
+	gold_per_sec: GetGoldPerSec,
+	physical_damage_per_min: GetPhysicalDamagePerMin,
+	magical_damage_per_min: GetMagicalDamagePerMin,
+	attack_per_min: GetAttackPerMin,
+	health_per_min: GetHealthPerMin,
+	armor_per_min: GetArmorPerMin,
+	all_per_min: GetAllPerMin,
+	strength_per_min: GetStrengthPerMin,
+	agility_per_min: GetAgilityPerMin,
+	intellect_per_min: GetIntellectPerMin,
+	attack_attack: GetAttackAttack,
+	attack_health: GetAttackHealth,
+	attack_armor: GetAttackArmor,
+	attack_all: GetAttackAll,
+	attack_strength: GetAttackStrength,
+	attack_agility: GetAttackAgility,
+	attack_intellect: GetAttackIntellect,
+	kill_attack: GetKillAttack,
+	kill_health: GetKillHealth,
+	kill_armor: GetKillArmor,
+	kill_all: GetKillAll,
+	kill_strength: GetKillStrength,
+	kill_agility: GetKillAgility,
+	kill_intellect: GetKillIntellect,
+	respawn_time: GetRespawnTime,
+	item_physical_damage: GetItemPhysicalDamage,
+	item_physical_damage_2: GetItemPhysicalDamage2,
+	item_magical_damage: GetItemMagicalDamage,
+	item_magical_damage_2: GetItemMagicalDamage2,
+	item_armor_ignore_pct: GetItemArmorIgnorePct,
+	item_incoming_damage: GetItemIncomingDamage,
+	item_damage_reduce_physical: GetItemDamageReducePhysical,
+	item_damage_reduce_magical: GetItemDamageReduceMagical,
+	item_damage_reduce: GetItemDamageReduce,
+	item_damage_reduce_2: GetItemDamageReduce2,
+	item_outgoing_damage: GetItemOutgoingDamage,
+	item_outgoing_damage_2: GetItemOutgoingDamage2,
+	item_magical_crit_chance: GetItemMagicalCritChance,
+	item_magical_crit_damage: GetItemMagicalCritDamage,
+	item_magical_crit_damage_2: GetItemMagicalCritDamage2,
+	item_physical_crit_chance: GetItemPhysicalCritChance,
+	item_physical_crit_damage: GetItemPhysicalCritDamage,
+	item_physical_crit_damage_2: GetItemPhysicalCritDamage2,
+	item_evasion: GetItemEvasion,
+	item_cooldown_reduction: GetItemCooldownReduction,
+	item_fishing_crit_chance: GetItemFishingCritChance,
+	item_dig_crit_chance: GetItemDigCritChance,
+	item_attack_armor_reduce_pct: GetItemAttackArmorReducePct,
+	kill_gold_flat: GetKillGoldFlat,
+	item_armor_per_min: GetItemArmorPerMin,
+	base_strength: GetBaseStrength,
+	base_agility: GetBaseAgility,
+	base_intellect: GetBaseIntellect,
+	strength_gain: GetStrengthGain,
+	agility_gain: GetAgilityGain,
+	intellect_gain: GetIntellectGain,
+	base_health_regen: GetBaseHealthRegen,
+	base_mana_regen: GetBaseManaRegen,
+	base_attack_time: GetBaseAttackTime,
+	base_attack_range: GetBaseAttackRange,
+	base_evasion: GetBaseEvasion,
+	item_intellect_per_min: GetItemIntellectPerMin,
 };

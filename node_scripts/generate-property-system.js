@@ -452,9 +452,23 @@ function shouldDebouncedTrigger(filePath, debounceMs) {
 	fs.writeFileSync(polyfillPath, polyfillContent);
 	console.log(`✅ 生成文件: ${polyfillPath}`);
 
+	// 旧项目字段只是入口映射；数值、聚合、作用域仍全部由 properties.kv 定义。
+	let migration = '/** 由 generate-property-system.js 从 properties.kv 生成，请勿手改。 */\n';
+	for (const [field, name] of [['legacy_modifier', 'ATHENA_MODIFIER_PROPERTIES'], ['legacy_attribute', 'ATHENA_PERMANENT_PROPERTIES'], ['legacy_item', 'ATHENA_ITEM_PROPERTIES']]) {
+		migration += `const ${name}: Record<string, PropertyFunction> = {\n`;
+		for (const [key, data] of Object.entries(properties)) {
+			for (const alias of (data[field] || '').split('|').filter(Boolean)) migration += `\t"${alias}": PropertyFunction.${key},\n`;
+		}
+		migration += '};\n';
+	}
+	fs.writeFileSync(path.join(ROOT_DIR, `content/${PROJECT_NAME}/scripts/vscripts/framework/property_system/athena_property_map.ts`), migration);
+	let itemAggregations = 'const ATHENA_ITEM_AGGREGATIONS: Record<string, AggregationStrategy> = {\n';
+	for (const data of Object.values(properties)) if (data.legacy_item) itemAggregations += `\t"${data.legacy_item}": AggregationStrategy.${data.legacy_item_aggregation || data.aggregation || 'SUM'},\n`;
+	fs.appendFileSync(path.join(ROOT_DIR, `content/${PROJECT_NAME}/scripts/vscripts/framework/property_system/athena_property_map.ts`), itemAggregations + '};\n');
+
 	console.log('\n🎉 PropertySystem 代码生成完成！');
 
-	if (shouldDebouncedTrigger(TS_RELOAD_DEBOUNCE_FILE, TS_RELOAD_DEBOUNCE_MS)) {
+	if (!process.argv.includes('--no-editor-reload') && shouldDebouncedTrigger(TS_RELOAD_DEBOUNCE_FILE, TS_RELOAD_DEBOUNCE_MS)) {
 		const ok = runVSCodeCommand('typescript.restartTsServer');
 		if (ok) {
 			console.log('🔄 已触发 TypeScript: Reload Projects');

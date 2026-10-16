@@ -23,6 +23,7 @@ for (const [i, v] of ipairs([
 // framework
 for (const [i, v] of ipairs([
 	"modifier_common",
+	"modifier_no_health_bar",
 	"modifier_npc"
 ])) {
 	require("modifiers.framework." + v);

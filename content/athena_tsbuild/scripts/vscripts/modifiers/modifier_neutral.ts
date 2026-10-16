@@ -1,8 +1,8 @@
-import { BaseModifier, registerModifier } from "../lib/dota_ts_adapter";
+import { EOMModifier, registerEOMModifier } from "./eom_modifier/eom_modifier";
 
 /** 原版营地返回规则：追击离出生点超过 400 持续 5 秒后返回，空闲时自动回营。 */
-@registerModifier()
-export class modifier_neutral extends BaseModifier {
+@registerEOMModifier()
+export class modifier_neutral extends EOMModifier {
 	private camp?: Vector;
 	private returnAt?: number;
 	IsHidden() { return true; }
@@ -10,6 +10,7 @@ export class modifier_neutral extends BaseModifier {
 	RemoveOnDeath() { return false; }
 	GetPriority() { return modifierpriority.MODIFIER_PRIORITY_HIGH; }
 	CheckState() { return { [modifierstate.MODIFIER_STATE_NO_HEALTH_BAR]: false }; }
+	StaticState() { return { [StateEnum.NO_HEALTH_BAR]: true }; }
 	OnCreated() {
 		if (IsServer() && this.GetParent().HasMovementCapability()) {
 			this.camp = this.GetParent().GetAbsOrigin(); this.StartIntervalThink(0.1);
@@ -17,7 +18,7 @@ export class modifier_neutral extends BaseModifier {
 	}
 	OnIntervalThink() {
 		const unit = this.GetParent();
-		if (this.camp === undefined || !unit.IsAlive() || unit.IsFeared() || unit.IsStunned()) { this.returnAt = undefined; return; }
+		if (this.camp === undefined || !unit.IsAlive() || unit.IsFeared() || unit.HasState(StateEnum.FEAR) || unit.IsStunned()) { this.returnAt = undefined; return; }
 		const distance = ((unit.GetAbsOrigin() - this.camp) as Vector).Length2D();
 		if (IsValid(unit.GetAggroTarget())) {
 			if (distance > 400) {

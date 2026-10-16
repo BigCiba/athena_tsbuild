@@ -29,6 +29,16 @@ enum StateEnum {
 	BLIND,
 	/** 迷雾免疫 */
 	SMOKE_IMMUNE,
+	/** 雅典娜：目标免疫物理/魔法暴击，与攻击者 NO_CRIT 区分。 */
+	CRITICAL_IMMUNE,
+	/** 雅典娜：禁止创建该攻击者的普通攻击弹道。 */
+	ATTACK_PROJECTILE_DISABLED,
+	/** 雅典娜预留：冲锋无效，待冲锋玩法接入。 */
+	DASH_DISABLE,
+	/** 雅典娜预留：传送无效，待公共传送入口接入。 */
+	TELEPORT_DISABLE,
+	/** 雅典娜：自定义恐惧标记，AI 同时尊重此状态和引擎 IsFeared。 */
+	FEAR,
 }
 
 /** 支付类型 */
@@ -108,7 +118,9 @@ enum EOM_DAMAGE_FLAGS {
 	/** 背刺伤害 */
 	Backstab = 1 << 26,
 	/** 不触发触电效果 */
-	NO_EXPOSE = 1 << 27
+	NO_EXPOSE = 1 << 27,
+	/** 生命消耗等伤害禁止吸血。 */
+	NO_LIFESTEAL = 1 << 28,
 }
 
 /** 攻击状态 */

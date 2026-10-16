@@ -41,7 +41,7 @@ declare interface CScriptBindingPR_Entities {
 	 * @param unitEntIndex 
 	 * @param stateId 
 	 */
-	HasState(unitEntIndex: EntityIndex, stateId: StateEnum): boolean;
+	HasState(unitEntIndex: EntityIndex, stateId: StateEnum | string): boolean;
 	/**
 	 * 获取最大怒气
 	 * @param unitEntIndex 单位

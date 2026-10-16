@@ -21,7 +21,7 @@ const CUSTOM_PAUSE_CD = 60;
 const GRID_SIZE = 384;
 
 const MINIMUM_ATTACK_SPEED = 20; // 最小攻击速度
-const MAXIMUM_ATTACK_SPEED = 600; // 最大攻击速度
+const MAXIMUM_ATTACK_SPEED = 700; // 雅典娜原版最大攻击速度
 
 const BULLET_WIDTH = 32;	// 普通子弹宽度
 

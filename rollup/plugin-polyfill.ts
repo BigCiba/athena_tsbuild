@@ -118,7 +118,7 @@ function compilePolyfills(rootDir: string, entries: string[], banner?: string): 
 	return { files: compiled, missing, code };
 }
 
-function buildPolyfillBundle(options: PolyfillConfigOptions): PolyfillCompileResult {
+export function buildPolyfillBundle(options: PolyfillConfigOptions): PolyfillCompileResult {
 	const entries = loadPolyfillEntries(options.packageFile);
 	const result = compilePolyfills(options.rootDir, entries, options.banner);
 

@@ -18,12 +18,14 @@ type StatePriority = number | (() => number);
 /**
  * 动态状态回调函数
  */
-type DynamicStateCallback = (params?: any) => boolean;
+type DynamicStateCallback = (params?: any) => boolean | undefined;
 
 /**
  * 静态状态数据（直接存储布尔值）
  */
 interface StaticStateData {
+	/** 同优先级按登记顺序决胜，刷新同一来源不改变顺序。 */
+	registrationOrder: number;
 	/** 状态来源的唯一标识（如 "item_sword", "ability_crit", "buff_root"） */
 	sourceId: string;
 
@@ -44,6 +46,8 @@ interface StaticStateData {
  * 动态状态数据（通过回调函数获取值）
  */
 interface DynamicStateData {
+	/** 与静态来源共享登记顺序。 */
+	registrationOrder: number;
 	/** 状态来源的唯一标识 */
 	sourceId: string;
 
@@ -81,7 +85,7 @@ interface StateStorage {
 	/** 动态状态存储：stateId -> DynamicStateData[] */
 	dynamic: Partial<Record<string, DynamicStateData[]>>;
 
-	/** 状态缓存：stateId -> StateCacheEntry */
+	/** 上次聚合快照，仅用于变更通知和同步，不用于跳过动态计算。 */
 	cache: Partial<Record<string, StateCacheEntry>>;
 }
 
@@ -99,6 +103,8 @@ interface StateChangeEventData {
  * 全局状态系统数据
  */
 interface StateSystemData {
+	/** 跨静态/动态来源的登记序号。 */
+	nextRegistrationOrder?: number;
 	/** 单位级别状态存储 */
 	unitStorage: Partial<Record<EntityIndex, StateStorage>>;
 

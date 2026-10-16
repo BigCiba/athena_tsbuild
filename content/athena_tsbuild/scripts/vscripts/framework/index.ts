@@ -22,4 +22,5 @@ if (IsServer()) {
 	require("npc");
 	require("settings");
 	require("unit_manager");
+	require("unit_attributes");
 }

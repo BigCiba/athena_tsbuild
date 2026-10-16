@@ -1,14 +1,14 @@
-import { BaseModifier, registerModifier } from "../lib/dota_ts_adapter";
 import { EOMModifier, registerEOMModifier } from "./eom_modifier/eom_modifier";
 
 /** 普通波次标记。原版自定义血条尚未迁移，先保留可见的引擎血条。 */
-@registerModifier()
-export class modifier_wave extends BaseModifier {
+@registerEOMModifier()
+export class modifier_wave extends EOMModifier {
 	IsHidden() { return true; }
 	IsPurgable() { return false; }
 	RemoveOnDeath() { return false; }
 	GetPriority() { return modifierpriority.MODIFIER_PRIORITY_HIGH; }
 	CheckState() { return { [modifierstate.MODIFIER_STATE_NO_HEALTH_BAR]: false }; }
+	StaticState() { return { [StateEnum.NO_HEALTH_BAR]: true }; }
 }
 
 /** 两种精英共用行为；各 modifier 以自身名称持有独立百分比来源。 */

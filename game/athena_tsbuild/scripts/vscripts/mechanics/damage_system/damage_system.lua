@@ -5,7 +5,7 @@ local __TS__ClassExtends = ____lualib.__TS__ClassExtends
 local __TS__New = ____lualib.__TS__New
 local __TS__DecorateLegacy = ____lualib.__TS__DecorateLegacy
 local __TS__SourceMapTraceBack = ____lualib.__TS__SourceMapTraceBack
-__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["9"] = 1,["10"] = 1,["11"] = 2,["12"] = 2,["13"] = 4,["20"] = 27,["21"] = 27,["22"] = 28,["24"] = 28,["25"] = 35,["26"] = 36,["27"] = 37,["28"] = 38,["29"] = 27,["30"] = 42,["31"] = 43,["34"] = 46,["35"] = 46,["36"] = 46,["37"] = 47,["38"] = 46,["39"] = 46,["40"] = 53,["41"] = 54,["42"] = 55,["43"] = 56,["44"] = 57,["45"] = 58,["46"] = 59,["47"] = 60,["48"] = 61,["49"] = 46,["50"] = 46,["51"] = 63,["52"] = 64,["53"] = 65,["54"] = 66,["55"] = 42,["56"] = 73,["57"] = 74,["58"] = 75,["59"] = 77,["60"] = 78,["62"] = 81,["65"] = 85,["66"] = 86,["67"] = 86,["68"] = 87,["71"] = 91,["72"] = 92,["73"] = 92,["74"] = 92,["75"] = 93,["76"] = 94,["77"] = 95,["78"] = 96,["79"] = 98,["80"] = 99,["81"] = 100,["82"] = 101,["83"] = 101,["84"] = 101,["85"] = 101,["86"] = 101,["87"] = 101,["88"] = 101,["89"] = 101,["90"] = 101,["91"] = 110,["92"] = 111,["95"] = 114,["96"] = 115,["98"] = 118,["99"] = 119,["100"] = 119,["101"] = 119,["102"] = 119,["105"] = 92,["106"] = 92,["107"] = 73,["108"] = 129,["109"] = 130,["110"] = 131,["111"] = 132,["113"] = 135,["114"] = 136,["115"] = 137,["116"] = 138,["117"] = 139,["119"] = 143,["121"] = 144,["122"] = 144,["123"] = 145,["124"] = 144,["127"] = 148,["128"] = 129,["129"] = 152,["130"] = 153,["131"] = 153,["133"] = 154,["134"] = 154,["136"] = 155,["137"] = 155,["139"] = 156,["140"] = 156,["142"] = 157,["143"] = 157,["145"] = 158,["146"] = 158,["148"] = 159,["149"] = 159,["151"] = 160,["152"] = 152,["153"] = 163,["154"] = 164,["155"] = 163,["156"] = 167,["157"] = 168,["158"] = 167,["159"] = 171,["160"] = 171,["161"] = 171,["165"] = 173,["166"] = 174,["167"] = 175,["168"] = 176,["169"] = 177,["171"] = 179,["172"] = 180,["174"] = 182,["175"] = 183,["177"] = 185,["178"] = 186,["179"] = 187,["180"] = 188,["181"] = 189,["184"] = 192,["185"] = 192,["187"] = 193,["188"] = 193,["190"] = 194,["191"] = 194,["193"] = 195,["194"] = 195,["197"] = 197,["198"] = 199,["199"] = 200,["200"] = 201,["201"] = 204,["202"] = 207,["203"] = 208,["204"] = 209,["205"] = 210,["206"] = 211,["207"] = 212,["208"] = 213,["210"] = 215,["211"] = 216,["212"] = 217,["213"] = 218,["214"] = 219,["216"] = 221,["219"] = 226,["220"] = 227,["221"] = 228,["224"] = 234,["225"] = 236,["226"] = 237,["227"] = 238,["228"] = 239,["229"] = 240,["230"] = 240,["231"] = 240,["232"] = 240,["233"] = 240,["234"] = 240,["235"] = 240,["236"] = 242,["239"] = 246,["240"] = 247,["241"] = 248,["242"] = 249,["243"] = 250,["244"] = 250,["245"] = 250,["246"] = 250,["247"] = 250,["248"] = 250,["249"] = 250,["250"] = 252,["254"] = 258,["255"] = 259,["256"] = 260,["257"] = 261,["258"] = 262,["260"] = 265,["261"] = 268,["262"] = 270,["263"] = 273,["265"] = 281,["266"] = 282,["267"] = 283,["269"] = 299,["270"] = 300,["271"] = 301,["272"] = 302,["274"] = 304,["275"] = 305,["277"] = 307,["280"] = 311,["281"] = 312,["283"] = 314,["284"] = 316,["285"] = 317,["286"] = 318,["288"] = 320,["289"] = 321,["290"] = 322,["291"] = 323,["293"] = 325,["295"] = 342,["296"] = 343,["298"] = 345,["299"] = 346,["300"] = 346,["301"] = 346,["302"] = 346,["303"] = 346,["304"] = 347,["305"] = 348,["306"] = 349,["307"] = 349,["308"] = 349,["309"] = 349,["310"] = 349,["311"] = 349,["312"] = 349,["313"] = 349,["314"] = 349,["318"] = 368,["319"] = 369,["326"] = 172,["329"] = 171,["330"] = 374,["331"] = 375,["332"] = 374,["333"] = 378,["334"] = 379,["335"] = 378,["336"] = 382,["337"] = 383,["338"] = 382,["339"] = 386,["340"] = 387,["341"] = 388,["342"] = 389,["343"] = 390,["344"] = 391,["346"] = 393,["347"] = 386,["348"] = 396,["349"] = 397,["350"] = 398,["351"] = 399,["352"] = 400,["353"] = 401,["355"] = 403,["356"] = 404,["357"] = 396,["358"] = 407,["359"] = 408,["360"] = 407,["361"] = 411,["362"] = 412,["363"] = 411,["364"] = 30,["365"] = 32,["366"] = 34,["367"] = 27,["368"] = 420,["369"] = 420});
+__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["9"] = 1,["10"] = 1,["11"] = 2,["12"] = 2,["13"] = 4,["20"] = 27,["21"] = 27,["22"] = 28,["24"] = 28,["25"] = 35,["26"] = 36,["27"] = 37,["28"] = 38,["29"] = 27,["30"] = 42,["31"] = 43,["34"] = 46,["35"] = 46,["36"] = 46,["37"] = 47,["38"] = 46,["39"] = 46,["40"] = 53,["41"] = 54,["42"] = 55,["43"] = 56,["44"] = 57,["45"] = 58,["46"] = 59,["47"] = 60,["48"] = 61,["49"] = 46,["50"] = 46,["51"] = 63,["52"] = 64,["53"] = 65,["54"] = 66,["55"] = 42,["56"] = 73,["57"] = 74,["58"] = 75,["59"] = 77,["60"] = 78,["62"] = 81,["65"] = 85,["66"] = 86,["67"] = 86,["68"] = 87,["71"] = 91,["72"] = 92,["73"] = 92,["74"] = 92,["75"] = 93,["76"] = 94,["77"] = 95,["78"] = 96,["79"] = 98,["80"] = 99,["81"] = 100,["82"] = 101,["83"] = 101,["84"] = 101,["85"] = 101,["86"] = 101,["87"] = 101,["88"] = 101,["89"] = 101,["90"] = 101,["91"] = 110,["92"] = 111,["95"] = 114,["96"] = 115,["98"] = 118,["99"] = 119,["100"] = 119,["101"] = 119,["102"] = 119,["105"] = 92,["106"] = 92,["107"] = 73,["108"] = 129,["109"] = 130,["110"] = 131,["111"] = 132,["113"] = 135,["114"] = 136,["115"] = 137,["116"] = 138,["117"] = 139,["119"] = 143,["121"] = 144,["122"] = 144,["123"] = 145,["124"] = 144,["127"] = 148,["128"] = 129,["129"] = 152,["130"] = 153,["131"] = 153,["133"] = 154,["134"] = 154,["136"] = 155,["137"] = 155,["139"] = 156,["140"] = 156,["142"] = 157,["143"] = 157,["145"] = 158,["146"] = 158,["148"] = 159,["149"] = 159,["151"] = 160,["152"] = 152,["153"] = 163,["154"] = 164,["155"] = 163,["156"] = 167,["157"] = 168,["158"] = 167,["159"] = 171,["160"] = 171,["161"] = 171,["165"] = 173,["166"] = 174,["167"] = 175,["168"] = 176,["169"] = 177,["170"] = 178,["172"] = 180,["173"] = 181,["175"] = 183,["176"] = 184,["178"] = 186,["179"] = 187,["180"] = 188,["181"] = 189,["182"] = 190,["185"] = 193,["186"] = 193,["188"] = 194,["189"] = 194,["191"] = 195,["192"] = 195,["194"] = 196,["195"] = 196,["198"] = 198,["199"] = 200,["200"] = 201,["201"] = 201,["203"] = 202,["204"] = 203,["205"] = 204,["206"] = 207,["207"] = 210,["208"] = 211,["209"] = 212,["210"] = 213,["211"] = 214,["212"] = 215,["213"] = 216,["215"] = 218,["216"] = 219,["217"] = 220,["218"] = 221,["219"] = 222,["221"] = 224,["224"] = 229,["225"] = 230,["226"] = 231,["227"] = 232,["228"] = 232,["231"] = 234,["232"] = 235,["235"] = 241,["236"] = 243,["237"] = 244,["238"] = 245,["239"] = 246,["240"] = 247,["241"] = 247,["242"] = 247,["243"] = 247,["244"] = 247,["245"] = 247,["246"] = 247,["247"] = 249,["250"] = 253,["251"] = 254,["252"] = 255,["253"] = 256,["254"] = 257,["255"] = 257,["256"] = 257,["257"] = 257,["258"] = 257,["259"] = 257,["260"] = 257,["261"] = 259,["265"] = 265,["266"] = 266,["267"] = 267,["268"] = 268,["269"] = 269,["271"] = 272,["272"] = 275,["273"] = 276,["274"] = 278,["275"] = 279,["276"] = 280,["277"] = 281,["278"] = 281,["279"] = 281,["280"] = 281,["282"] = 285,["284"] = 293,["285"] = 294,["286"] = 295,["288"] = 311,["289"] = 312,["290"] = 313,["291"] = 314,["293"] = 316,["294"] = 317,["296"] = 319,["299"] = 323,["300"] = 324,["302"] = 326,["303"] = 327,["304"] = 328,["305"] = 329,["306"] = 329,["308"] = 331,["309"] = 332,["310"] = 333,["312"] = 335,["313"] = 336,["314"] = 337,["315"] = 338,["317"] = 340,["319"] = 357,["320"] = 358,["322"] = 360,["323"] = 361,["324"] = 361,["325"] = 361,["326"] = 361,["327"] = 361,["328"] = 362,["329"] = 363,["330"] = 364,["331"] = 364,["332"] = 364,["333"] = 364,["334"] = 364,["335"] = 364,["336"] = 364,["337"] = 364,["338"] = 364,["342"] = 383,["343"] = 384,["350"] = 172,["353"] = 171,["354"] = 388,["355"] = 389,["356"] = 389,["357"] = 389,["358"] = 390,["359"] = 391,["360"] = 391,["361"] = 391,["364"] = 392,["365"] = 394,["366"] = 395,["367"] = 396,["368"] = 396,["371"] = 388,["372"] = 400,["373"] = 401,["374"] = 402,["375"] = 402,["376"] = 402,["379"] = 403,["380"] = 403,["381"] = 404,["384"] = 405,["385"] = 405,["386"] = 405,["387"] = 405,["388"] = 405,["389"] = 405,["390"] = 405,["391"] = 405,["392"] = 405,["393"] = 405,["394"] = 405,["395"] = 408,["396"] = 408,["397"] = 408,["398"] = 408,["399"] = 408,["400"] = 408,["401"] = 408,["402"] = 408,["403"] = 408,["404"] = 408,["405"] = 408,["408"] = 400,["409"] = 415,["410"] = 416,["411"] = 415,["412"] = 420,["413"] = 421,["414"] = 420,["415"] = 424,["416"] = 425,["417"] = 424,["418"] = 428,["419"] = 429,["420"] = 430,["421"] = 431,["422"] = 432,["423"] = 433,["425"] = 435,["426"] = 428,["427"] = 438,["428"] = 439,["429"] = 440,["430"] = 441,["431"] = 442,["432"] = 443,["434"] = 445,["435"] = 446,["436"] = 438,["437"] = 449,["438"] = 450,["439"] = 449,["440"] = 453,["441"] = 454,["442"] = 453,["443"] = 30,["444"] = 32,["445"] = 34,["446"] = 27,["447"] = 462,["448"] = 462});
 local ____exports = {}
 local ____object_pool = require("class.object_pool")
 local ObjectPool = ____object_pool.ObjectPool
@@ -166,6 +166,7 @@ function CDamageSystem.prototype.DealDamage(self, params, shouldRelease)
             params.extraProperties = nil
             local attacker = params.attacker
             local target = params.target
+            local originalDamage = params.damage
             if not IsValid(attacker) or not IsValid(target) then
                 return true
             end
@@ -196,7 +197,11 @@ function CDamageSystem.prototype.DealDamage(self, params, shouldRelease)
             end
             --- 是否闪避标记
             local isEvasionFlag = false
-            if self:hasCrit(params) then
+            local canCrit = self:hasCrit(params)
+            if not canCrit then
+                params.is_crit = false
+            end
+            if canCrit then
                 local fCritChance = self:getCritChance(params)
                 local fCritDamage = self:getCritDamage(params)
                 local fCritDamageReduce = 0
@@ -218,6 +223,12 @@ function CDamageSystem.prototype.DealDamage(self, params, shouldRelease)
                     end
                 end
                 if params.is_crit then
+                    if params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK and params.damage_type == EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL then
+                        local sound = GetCriticalstrikeSound(attacker, params)
+                        if type(sound) == "string" and sound ~= "" then
+                            EmitSoundOn(sound, attacker)
+                        end
+                    end
                     Event:Fire("crit_event", params)
                     params.damage = params.damage * (fCritDamage * 0.01)
                 end
@@ -260,7 +271,15 @@ function CDamageSystem.prototype.DealDamage(self, params, shouldRelease)
             end
             params.damage = params.damage + GetDamageProcTarget(target, params)
             params.damage = params.damage * (1 + GetOutgoingDamagePercent(nil, attacker, params) * 0.01)
+            params.damage = params.damage * GetAthenaOutgoingMultiplier(attacker, params)
             params.damage = params.damage * (1 + GetIncomingDamagePercent(nil, target, params) * 0.01)
+            params.damage = params.damage * GetAthenaIncomingMultiplier(target, params)
+            if params.damage_type == EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL or params.damage_type == EOM_DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL then
+                params.damage = math.max(
+                    0,
+                    params.damage - GetAthenaDamageBlock(target, params)
+                )
+            end
             if self:hasAdjust(params) then
             end
             if GetAvoidDamage(params.target, params) > 0 then
@@ -282,6 +301,11 @@ function CDamageSystem.prototype.DealDamage(self, params, shouldRelease)
                 return true
             end
             params.health_before_damage = currentHealth
+            self:ApplyLifesteal(params)
+            self:ApplyCleave(params, originalDamage)
+            if not IsValid(params.target) then
+                return true
+            end
             Event:Fire("damage_event", params)
             if not IsValid(params.target) then
                 return true
@@ -328,8 +352,63 @@ function CDamageSystem.prototype.DealDamage(self, params, shouldRelease)
         end
     end
 end
+function CDamageSystem.prototype.ApplyLifesteal(self, params)
+    local ____params_1 = params
+    local attacker = ____params_1.attacker
+    local target = ____params_1.target
+    if not IsValid(attacker) or not attacker:IsAlive() or target == attacker or target:IsBuilding() or target:IsOther() or bit.band(
+        params.damage_flags or 0,
+        bit.bor(EOM_DAMAGE_FLAGS.NO_LIFESTEAL, EOM_DAMAGE_FLAGS.REFLECT_DAMAGE)
+    ) ~= 0 then
+        return
+    end
+    local value = params.damage_type == EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL and GetPhysicalLifesteal(attacker, params) or (params.damage_type == EOM_DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL and GetMagicalLifesteal(attacker, params) or 0)
+    if params.damage_type == EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL or params.damage_type == EOM_DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL then
+        local lifesteal = value + GetAllLifesteal(attacker, params)
+        if lifesteal > 0 and params.damage > 0 then
+            attacker:Heal(params.damage * lifesteal * 0.01, params.ability)
+        end
+    end
+end
+function CDamageSystem.prototype.ApplyCleave(self, params, originalDamage)
+    if not IsValid(params.attacker) or params.damage_category ~= DOTA_DAMAGE_CATEGORY_ATTACK or bit.band(
+        params.attack_states or 0,
+        bit.bor(ATTACK_STATES.NOT_PROCESSPROCS, ATTACK_STATES.NO_CLEAVE)
+    ) ~= 0 then
+        return
+    end
+    local radius = GetCleaveRadius(params.attacker, params)
+    local percent = GetCleaveDamage(params.attacker, params)
+    if radius <= 0 or percent <= 0 then
+        return
+    end
+    local targets = FindUnitsInRadius(
+        params.attacker:GetTeamNumber(),
+        params.target:GetAbsOrigin(),
+        nil,
+        radius,
+        DOTA_UNIT_TARGET_TEAM_ENEMY,
+        DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC,
+        DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE,
+        FIND_ANY_ORDER,
+        false
+    )
+    for ____, target in ipairs(targets) do
+        if target ~= params.target and IsValid(target) and IsValid(params.attacker) then
+            self:DealDamage({
+                attacker = params.attacker,
+                target = target,
+                damage = originalDamage * percent * 0.01,
+                damage_type = EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL,
+                damage_category = DOTA_DAMAGE_CATEGORY_SPELL,
+                damage_flags = EOM_DAMAGE_FLAGS.NO_CRIT,
+                attack_states = bit.bor(ATTACK_STATES.NO_CLEAVE, ATTACK_STATES.SKIPCOUNTING)
+            })
+        end
+    end
+end
 function CDamageSystem.prototype.hasCrit(self, params)
-    return bit.band(params and params.damage_flags or 0, EOM_DAMAGE_FLAGS.NO_CRIT) ~= EOM_DAMAGE_FLAGS.NO_CRIT
+    return bit.band(params.damage_flags or 0, EOM_DAMAGE_FLAGS.NO_CRIT) ~= EOM_DAMAGE_FLAGS.NO_CRIT and not params.target:HasState(StateEnum.CRITICAL_IMMUNE) and not params.attacker:HasState(StateEnum.NO_CRIT)
 end
 function CDamageSystem.prototype.hasEvasion(self, params)
     return true
@@ -338,7 +417,7 @@ function CDamageSystem.prototype.hasAdjust(self, params)
     return true
 end
 function CDamageSystem.prototype.getCritChance(self, params)
-    local chance = GetCritChance(params.attacker, params)
+    local chance = GetCritChance(params.attacker, params) + GetAthenaCritChance(params.attacker, params)
     if params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
         chance = chance + GetAttackCritChance(params.attacker, params)
     elseif params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
@@ -347,7 +426,7 @@ function CDamageSystem.prototype.getCritChance(self, params)
     return chance
 end
 function CDamageSystem.prototype.getCritDamage(self, params)
-    local fCritDamage = GetCritDamage(params.attacker, params)
+    local fCritDamage = GetCritDamage(params.attacker, params) + GetAthenaCritDamage(params.attacker, params)
     if params.damage_category == DOTA_DAMAGE_CATEGORY_ATTACK then
         fCritDamage = fCritDamage + GetAttackCritDamage(params.attacker, params)
     elseif params.damage_category == DOTA_DAMAGE_CATEGORY_SPELL then
@@ -357,7 +436,7 @@ function CDamageSystem.prototype.getCritDamage(self, params)
     return fCritDamage
 end
 function CDamageSystem.prototype.getEvasionChance(self, params)
-    return GetEvasion(params.target, params)
+    return GetAthenaEvasion(params.target, params)
 end
 function CDamageSystem.prototype.getMissChance(self, params)
     return 0

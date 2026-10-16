@@ -59,554 +59,185 @@ class MStateSystem extends CModule {
 		}
 	}
 
-	// ==================== 静态状态 API ====================
 
-	/**
-	 * 添加静态状态
-	 * @param key 目标键（entityIndex）
-	 * @param stateId 状态 ID
-	 * @param sourceId 状态来源的唯一标识（如 "item_sword", "ability_root", "buff_stun"）
-	 * @param value 状态值（true/false）
-	 * @param priority 优先级（静态数值或返回数值的函数）
-	 * @param metadata 可选的元数据
-	 */
-	AddStaticState(
-		key: StateSystemKey,
-		stateId: StateId,
-		sourceId: string,
-		value: boolean,
-		priority: StatePriority = 0,
-		metadata?: Record<string, any>
-	): boolean {
-		const stateKey = this.NormalizeStateId(stateId);
-		const storage = this.GetStorage(key);
-		let stateList = storage.static[stateKey];
-
-		if (!stateList) {
-			stateList = [];
-			storage.static[stateKey] = stateList;
-		}
-
-		// 检查是否已存在相同 sourceId
-		const existingIndex = stateList.findIndex(d => d.sourceId === sourceId);
-		if (existingIndex !== -1) {
-			// 更新现有状态
-			const oldValue = this.GetStaticStateValue(key, stateKey);
-			stateList[existingIndex].value = value;
-			stateList[existingIndex].priority = priority;
-			stateList[existingIndex].metadata = metadata;
-			this.RecalculateStaticState(key, stateKey);
-			const newValue = this.GetStaticStateValue(key, stateKey);
-			if (oldValue !== newValue) {
-				Event.Fire('state_changed', {
-					key,
-					stateId: stateKey,
-					oldValue,
-					newValue
-				});
-			}
-		} else {
-			// 添加新状态
-			const oldValue = this.GetStaticStateValue(key, stateKey);
-			stateList.push({
-				sourceId,
-				value,
-				priority,
-				addedTime: this.GetCurrentTime(),
-				metadata,
-			});
-			this.RecalculateStaticState(key, stateKey);
-			const newValue = this.GetStaticStateValue(key, stateKey);
-			if (oldValue !== newValue) {
-				Event.Fire('state_changed', {
-					key,
-					stateId: stateKey,
-					oldValue,
-					newValue
-				});
-			}
-		}
-
-		this.MarkDirty(key, stateKey);
-
-		StateData.stats.totalWrites++;
-		return true;
+	/** 注册来源时分配顺序；同优先级后登记者优先，刷新已有来源不改变顺序。 */
+	private NextRegistrationOrder(): number {
+		StateData.nextRegistrationOrder = (StateData.nextRegistrationOrder ?? 0) + 1;
+		return StateData.nextRegistrationOrder;
 	}
-
-	/**
-	 * 移除静态状态
-	 * @param key 目标键
-	 * @param sourceId 状态来源 ID
-	 * @param stateId 状态 ID（可选，不传则移除该 sourceId 的所有状态）
-	 */
-	RemoveStaticState(
-		key: StateSystemKey,
-		sourceId: string,
-		stateId?: StateId
-	): boolean {
-		if (stateId) {
-			return this.RemoveSingleStaticState(key, sourceId, stateId);
-		} else {
-			// 移除该 sourceId 的所有状态
-			const storage = StateData.unitStorage[key];
-			if (!storage) return false;
-			let removed = false;
-			for (const [sid] of pairs(storage.static)) {
-				if (this.RemoveSingleStaticState(key, sourceId, sid as StateId)) {
-					removed = true;
-				}
-			}
-			return removed;
-		}
-	}
-
-	private RemoveSingleStaticState(
-		key: StateSystemKey,
-		sourceId: string,
-		stateId: StateId
-	): boolean {
-		const stateKey = this.NormalizeStateId(stateId);
-		const storage = this.GetStorage(key);
-		const stateList = storage.static[stateKey];
-
-		if (!stateList) return false;
-
-		const index = stateList.findIndex(d => d.sourceId === sourceId);
-		if (index !== -1) {
-			const oldValue = this.GetStaticStateValue(key, stateKey);
-			stateList.splice(index, 1);
-
-			if (stateList.length === 0) {
-				delete storage.static[stateKey];
-				delete storage.cache[stateKey];
-			} else {
-				this.RecalculateStaticState(key, stateKey);
-			}
-
-			const newValue = this.GetStaticStateValue(key, stateKey);
-			if (oldValue !== newValue) {
-				Event.Fire('state_changed', {
-					key,
-					stateId: stateKey,
-					oldValue,
-					newValue
-				});
-			}
-
-			this.MarkDirty(key, stateKey);
-
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * 更新静态状态值
-	 * @param key 目标键
-	 * @param stateId 状态 ID
-	 * @param sourceId 状态来源 ID
-	 * @param newValue 新值
-	 */
-	UpdateStaticStateValue(
-		key: StateSystemKey,
-		stateId: StateId,
-		sourceId: string,
-		newValue: boolean
-	): boolean {
-		const stateKey = this.NormalizeStateId(stateId);
-		const storage = this.GetStorage(key);
-		const stateList = storage.static[stateKey];
-
-		if (!stateList) return false;
-
-		const data = stateList.find(d => d.sourceId === sourceId);
-		if (data) {
-			const oldValue = this.GetStaticStateValue(key, stateKey);
-			data.value = newValue;
-			this.RecalculateStaticState(key, stateKey);
-			const finalValue = this.GetStaticStateValue(key, stateKey);
-			if (oldValue !== finalValue) {
-				Event.Fire('state_changed', {
-					key,
-					stateId: stateKey,
-					oldValue,
-					newValue: finalValue
-				});
-			}
-
-			this.MarkDirty(key, stateKey);
-
-			return true;
-		}
-
-		return false;
-	}
-
-	/** 获取静态状态值 */
-	GetStaticStateValue(key: StateSystemKey, stateId: StateId): boolean {
-		const stateKey = this.NormalizeStateId(stateId);
-		const storage = this.GetStorage(key);
-		const cachedEntry = storage.cache[stateKey];
-
-		StateData.stats.totalReads++;
-		if (cachedEntry !== undefined) {
-			StateData.stats.cacheHits++;
-			return cachedEntry.value;
-		}
-
-		return false;
-	}
-
-	private RecalculateStaticState(key: StateSystemKey, stateId: StateId): void {
-		const stateKey = this.NormalizeStateId(stateId);
-		const storage = this.GetStorage(key);
-		const stateList = storage.static[stateKey];
-
-		if (!stateList || stateList.length === 0) {
-			delete storage.cache[stateKey];
-			return;
-		}
-
-		// 按优先级排序（优先级数值越小越优先）
-		const sortedList = [...stateList].sort((a, b) => {
-			const priorityA = typeof a.priority === 'function' ? a.priority() : a.priority;
-			const priorityB = typeof b.priority === 'function' ? b.priority() : b.priority;
-			return priorityA - priorityB;
+	/** 静态与动态来源使用同一套优先级：数值越大越优先，明确 false 也能胜出。 */
+	private ResolveStateValue(key: StateSystemKey, stateId: StateId, kind: "static" | "dynamic" | "both", params?: any): boolean {
+		const stateKey = this.NormalizeStateId(stateId), storage = StateData.unitStorage[key];
+		if (!storage) return false;
+		const sources: (StaticStateData | DynamicStateData)[] = [];
+		if (kind !== "dynamic") sources.push(...(storage.static[stateKey] ?? []));
+		if (kind !== "static") sources.push(...(storage.dynamic[stateKey] ?? []));
+		const ranked = sources.map(data => {
+			let priority = 0;
+			try {
+				const value = typeof data.priority === "function" ? data.priority() : data.priority;
+				if (typeof value === "number" && value === value) priority = value;
+			} catch (error) { this.print("State priority failed", stateKey, data.sourceId, error); }
+			return { data, priority };
 		});
-
-		// 找到第一个值为 true 的项
-		let result = false;
-		for (const data of sortedList) {
-			if (data.value === true) {
-				result = true;
-				break;
-			}
+		ranked.sort((a, b) => {
+			if (a.priority !== b.priority) return b.priority - a.priority;
+			return (b.data.registrationOrder ?? 0) - (a.data.registrationOrder ?? 0);
+		});
+		for (const { data } of ranked) {
+			try {
+				const value = "callback" in data ? data.callback(params) : data.value;
+				// undefined 表示此来源当前不声明该状态，继续查询下一优先级。
+				if (typeof value === "boolean") return value;
+			} catch (error) { this.print("State callback failed", stateKey, data.sourceId, error); }
 		}
-
-		storage.cache[stateKey] = {
-			value: result,
-			cachedAt: this.GetCurrentTime()
-		};
-	}
-
-	// ==================== 动态状态 API ====================
-
-	/**
-	 * 注册动态状态
-	 * @param key 目标键
-	 * @param stateId 状态 ID
-	 * @param sourceId 状态来源的唯一标识
-	 * @param callback 回调函数（返回状态值）
-	 * @param priority 优先级（静态数值或返回数值的函数）
-	 * @param metadata 可选的元数据
-	 */
-	RegisterDynamicState(
-		key: StateSystemKey,
-		stateId: StateId,
-		sourceId: string,
-		callback: DynamicStateCallback,
-		priority: StatePriority = 100,
-		metadata?: Record<string, any>
-	): boolean {
-		const stateKey = this.NormalizeStateId(stateId);
-		const storage = this.GetStorage(key);
-		let stateList = storage.dynamic[stateKey];
-
-		if (!stateList) {
-			stateList = [];
-			storage.dynamic[stateKey] = stateList;
-		}
-
-		const existingIndex = stateList.findIndex(d => d.sourceId === sourceId);
-		if (existingIndex !== -1) {
-			// 更新现有的
-			stateList[existingIndex].callback = callback;
-			stateList[existingIndex].priority = priority;
-			stateList[existingIndex].metadata = metadata;
-		} else {
-			// 添加新的
-			stateList.push({
-				sourceId,
-				callback,
-				priority,
-				addedTime: this.GetCurrentTime(),
-				metadata,
-			});
-		}
-
-		const oldValue = this.GetDynamicStateValueInternal(key, stateKey);
-		delete storage.cache[stateKey];
-		const newValue = this.GetDynamicStateValueInternal(key, stateKey);
-
-		// 发送状态变更事件
-		if (oldValue !== newValue) {
-			Event.Fire('state_changed', {
-				key,
-				stateId: stateKey,
-				oldValue,
-				newValue
-			});
-		}
-
-		this.MarkDirty(key, stateKey);
-
-		StateData.stats.totalWrites++;
-		return true;
-	}
-
-	/**
-	 * 注销动态状态
-	 * @param key 目标键
-	 * @param sourceId 状态来源 ID
-	 * @param stateId 状态 ID（可选）
-	 */
-	UnregisterDynamicState(
-		key: StateSystemKey,
-		sourceId: string,
-		stateId?: StateId
-	): boolean {
-		if (stateId) {
-			return this.UnregisterSingleDynamicState(key, sourceId, stateId);
-		} else {
-			// 移除该 sourceId 的所有动态状态
-			const storage = StateData.unitStorage[key];
-			if (!storage) return false;
-			let removed = false;
-			for (const [sid] of pairs(storage.dynamic)) {
-				if (this.UnregisterSingleDynamicState(key, sourceId, sid as StateId)) {
-					removed = true;
-				}
-			}
-			return removed;
-		}
-	}
-
-	private UnregisterSingleDynamicState(
-		key: StateSystemKey,
-		sourceId: string,
-		stateId: StateId
-	): boolean {
-		const stateKey = this.NormalizeStateId(stateId);
-		const storage = this.GetStorage(key);
-		const stateList = storage.dynamic[stateKey];
-
-		if (!stateList) return false;
-
-		const index = stateList.findIndex(d => d.sourceId === sourceId);
-		if (index !== -1) {
-			const oldValue = this.GetDynamicStateValueInternal(key, stateKey);
-			stateList.splice(index, 1);
-
-			if (stateList.length === 0) {
-				delete storage.dynamic[stateKey];
-			}
-
-			delete storage.cache[stateKey];
-			const newValue = this.GetDynamicStateValueInternal(key, stateKey);
-
-			if (oldValue !== newValue) {
-				Event.Fire('state_changed', {
-					key,
-					stateId: stateKey,
-					oldValue,
-					newValue
-				});
-			}
-
-			this.MarkDirty(key, stateKey);
-
-			return true;
-		}
-
 		return false;
 	}
-
-	/** 获取动态状态值（带缓存） */
-	GetDynamicStateValue(key: StateSystemKey, stateId: StateId, params?: any): boolean {
-		const stateKey = this.NormalizeStateId(stateId);
-		const storage = this.GetStorage(key);
-
-		// 检查缓存
-		const cached = storage.cache[stateKey];
-		if (cached !== undefined) {
-			StateData.stats.totalReads++;
-			StateData.stats.cacheHits++;
-			return cached.value;
-		}
-
-		// 计算新值
-		const value = this.CalculateDynamicStateValue(key, stateKey, params);
-
-		// 更新缓存
-		storage.cache[stateKey] = {
-			value,
-			cachedAt: this.GetCurrentTime()
-		};
-
-		StateData.stats.totalReads++;
+	/** cache 只保留上次聚合结果供事件与同步比较，绝不阻止动态回调重新执行。 */
+	private RefreshResolvedValue(key: StateSystemKey, stateId: StateId): boolean {
+		const stateKey = this.NormalizeStateId(stateId), storage = StateData.unitStorage[key];
+		if (!storage) return false;
+		const previous = storage.cache[stateKey];
+		if (!previous && !storage.static[stateKey] && !storage.dynamic[stateKey]) return false;
+		const value = this.ResolveStateValue(key, stateKey, "both");
+		storage.cache[stateKey] = { value, cachedAt: this.GetCurrentTime() };
+		if (!previous || previous.value !== value) this.MarkDirty(key, stateKey);
+		// 先更新快照再发事件，监听器再次查询时不会重复触发同一个变化。
+		if ((previous?.value ?? false) !== value) Event.Fire("state_changed", {
+			key, stateId: stateKey, oldValue: previous?.value ?? false, newValue: value,
+		});
 		return value;
 	}
-
-	/**
-	 * 内部获取动态状态值（不触发副作用回调，用于系统同步）
-	 * 直接返回缓存值，如果没有缓存则返回默认值
-	 */
-	private GetDynamicStateValueInternal(key: StateSystemKey, stateId: StateId): boolean {
-		const stateKey = this.NormalizeStateId(stateId);
-		const storage = this.GetStorage(key);
-		const cached = storage.cache[stateKey];
-
-		// 如果有缓存就返回缓存，否则返回默认值（不触发回调计算）
-		return cached?.value ?? false;
+	/** 添加或刷新静态状态；只覆盖指定来源，保留其登记顺序。 */
+	AddStaticState(key: StateSystemKey, stateId: StateId, sourceId: string, value: boolean, priority: StatePriority = 0, metadata?: Record<string, any>): boolean {
+		if (!IsServer()) return false;
+		const stateKey = this.NormalizeStateId(stateId), storage = this.GetStorage(key);
+		const list = storage.static[stateKey] ??= [];
+		const existing = list.find(data => data.sourceId === sourceId);
+		if (existing) { existing.value = value; existing.priority = priority; existing.metadata = metadata; }
+		else list.push({ sourceId, value, priority, metadata, addedTime: this.GetCurrentTime(), registrationOrder: this.NextRegistrationOrder() });
+		StateData.stats.totalWrites++;
+		this.RefreshResolvedValue(key, stateKey);
+		return true;
 	}
-
-	private CalculateDynamicStateValue(key: StateSystemKey, stateId: StateId, params?: any): boolean {
-		const stateKey = this.NormalizeStateId(stateId);
-		const storage = this.GetStorage(key);
-		const stateList = storage.dynamic[stateKey];
-
-		if (!stateList || stateList.length === 0) {
-			return false;
+	/** 移除来源的一个或全部静态状态，0 是有效的状态编号。 */
+	RemoveStaticState(key: StateSystemKey, sourceId: string, stateId?: StateId): boolean {
+		if (!IsServer()) return false;
+		const storage = StateData.unitStorage[key];
+		if (!storage) return false;
+		const ids = stateId !== undefined ? [this.NormalizeStateId(stateId)] : Object.keys(storage.static);
+		let removed = false;
+		for (const id of ids) {
+			const list = storage.static[id], remaining = list?.filter(data => data.sourceId !== sourceId);
+			if (!list || remaining!.length === list.length) continue;
+			if (remaining!.length > 0) storage.static[id] = remaining; else delete storage.static[id];
+			removed = true; this.MarkDirty(key, id); this.RefreshResolvedValue(key, id);
 		}
-
-		// 按优先级排序
-		const sortedList = [...stateList].sort((a, b) => {
-			const priorityA = typeof a.priority === 'function' ? a.priority() : a.priority;
-			const priorityB = typeof b.priority === 'function' ? b.priority() : b.priority;
-			return priorityA - priorityB;
-		});
-
-		// 找到第一个返回 true 的回调
-		for (const data of sortedList) {
-			try {
-				if (data.callback(params) === true) {
-					return true;
-				}
-			} catch (error) {
-				this.print(`[Error] Dynamic state callback failed: ${stateKey} (${data.sourceId}): ${error}`);
-			}
-		}
-
-		return false;
+		return removed;
 	}
-
-	/** 清除动态状态缓存 */
+	/** 修改已有静态来源，不改变其优先级和登记顺序。 */
+	UpdateStaticStateValue(key: StateSystemKey, stateId: StateId, sourceId: string, newValue: boolean): boolean {
+		if (!IsServer()) return false;
+		const data = StateData.unitStorage[key]?.static[this.NormalizeStateId(stateId)]?.find(value => value.sourceId === sourceId);
+		if (!data) return false;
+		data.value = newValue; StateData.stats.totalWrites++;
+		this.RefreshResolvedValue(key, stateId); return true;
+	}
+	/** 仅查询静态层；不与动态层共用读取缓存。 */
+	GetStaticStateValue(key: StateSystemKey, stateId: StateId): boolean {
+		StateData.stats.totalReads++;
+		return this.ResolveStateValue(key, stateId, "static");
+	}
+	/** 注册动态来源。回调返回 false 是明确声明，返回 undefined 才是让出优先级。 */
+	RegisterDynamicState(key: StateSystemKey, stateId: StateId, sourceId: string, callback: DynamicStateCallback, priority: StatePriority = 0, metadata?: Record<string, any>): boolean {
+		if (!IsServer()) return false;
+		const stateKey = this.NormalizeStateId(stateId), storage = this.GetStorage(key);
+		const list = storage.dynamic[stateKey] ??= [];
+		const existing = list.find(data => data.sourceId === sourceId);
+		if (existing) { existing.callback = callback; existing.priority = priority; existing.metadata = metadata; }
+		else list.push({ sourceId, callback, priority, metadata, addedTime: this.GetCurrentTime(), registrationOrder: this.NextRegistrationOrder() });
+		StateData.stats.totalWrites++;
+		this.RefreshResolvedValue(key, stateKey);
+		return true;
+	}
+	/** 移除来源的一个或全部动态状态。 */
+	UnregisterDynamicState(key: StateSystemKey, sourceId: string, stateId?: StateId): boolean {
+		if (!IsServer()) return false;
+		const storage = StateData.unitStorage[key];
+		if (!storage) return false;
+		const ids = stateId !== undefined ? [this.NormalizeStateId(stateId)] : Object.keys(storage.dynamic);
+		let removed = false;
+		for (const id of ids) {
+			const list = storage.dynamic[id], remaining = list?.filter(data => data.sourceId !== sourceId);
+			if (!list || remaining!.length === list.length) continue;
+			if (remaining!.length > 0) storage.dynamic[id] = remaining; else delete storage.dynamic[id];
+			removed = true; this.MarkDirty(key, id); this.RefreshResolvedValue(key, id);
+		}
+		return removed;
+	}
+	/** 仅查询动态层，每次执行最新条件，不污染默认聚合快照。 */
+	GetDynamicStateValue(key: StateSystemKey, stateId: StateId, params?: any): boolean {
+		StateData.stats.totalReads++;
+		return this.ResolveStateValue(key, stateId, "dynamic", params);
+	}
+	/** 兼容旧调用方的主动刷新入口；不丢失上次结果和来源信息。 */
 	ClearDynamicStateCache(key: StateSystemKey, stateId?: StateId): void {
-		const storage = this.GetStorage(key);
-
-		if (stateId) {
-			const stateKey = this.NormalizeStateId(stateId);
-			delete storage.cache[stateKey];
-		} else {
-			storage.cache = {};
-		}
+		if (!IsServer()) return;
+		const storage = StateData.unitStorage[key];
+		if (!storage) return;
+		const ids = stateId !== undefined ? [this.NormalizeStateId(stateId)] : Object.keys(storage.dynamic);
+		for (const id of ids) this.RefreshResolvedValue(key, id);
 	}
-
-	// ==================== 通用状态值获取 ====================
-
-	/** 获取状态值（静态 + 动态，优先级综合） */
+	/** 服务端实时聚合，客户端读取服务器快照；带上下文的查询不覆盖默认同步值。 */
 	GetStateValue(key: StateSystemKey, stateId: StateId, params?: any): boolean {
-		if (IsServer()) {
-			const staticValue = this.GetStaticStateValue(key, stateId);
-			const dynamicValue = this.GetDynamicStateValue(key, stateId, params);
-			// 只要有一个为 true，状态就为 true
-			return staticValue || dynamicValue;
-		} else {
-			// 客户端从网表获取
-			return this.GetStateValueFromNetTable(key, stateId);
+		StateData.stats.totalReads++;
+		if (!IsServer()) return this.GetStateValueFromNetTable(key, stateId);
+		return params === undefined ? this.RefreshResolvedValue(key, stateId) : this.ResolveStateValue(key, stateId, "both", params);
+	}
+	/** 同步前轮询动态条件与动态优先级，不依赖玩法先查询状态。 */
+	private RefreshLiveStates(): void {
+		for (const key of Object.keys(StateData.unitStorage)) {
+			const index = Number(key) as EntityIndex, storage = StateData.unitStorage[index]!;
+			const ids = new Set(Object.keys(storage.dynamic));
+			for (const id of Object.keys(storage.static)) if (storage.static[id]!.some(data => typeof data.priority === "function")) ids.add(id);
+			for (const id of ids) this.RefreshResolvedValue(index, id);
 		}
 	}
-
-	/**
-	 * 内部获取状态值（不触发副作用，用于系统同步）
-	 * @internal
-	 */
-	private GetStateValueInternal(key: StateSystemKey, stateId: StateId): boolean {
-		const staticValue = this.GetStaticStateValue(key, stateId);
-		const dynamicValue = this.GetDynamicStateValueInternal(key, stateId);
-		return staticValue || dynamicValue;
-	}
-
-	// ==================== 网表同步 ====================
-
 	private InitializeNetTableSync(): void {
-		CustomNetTables.SetTableValue(this.NETTABLE_NAME, 'init', {
-			version: 1,
-			time: this.GetCurrentTime(),
-		});
-
-		Timer.GameTimer(this.SYNC_INTERVAL, () => {
-			this.SyncDirtyStates();
-			return this.SYNC_INTERVAL;
-		});
-
-		this.print('NetTable sync initialized');
+		CustomNetTables.SetTableValue(this.NETTABLE_NAME, "init", { version: 2, time: this.GetCurrentTime() });
+		Timer.GameTimer(this.SYNC_INTERVAL, () => { this.SyncDirtyStates(); return this.SYNC_INTERVAL; });
 	}
-
 	private SyncDirtyStates(): void {
-		let dirtyKeysCount = 0;
-		for (const [_] of pairs(StateData.dirtyKeys)) { dirtyKeysCount++; }
-		if (dirtyKeysCount === 0) return;
-
+		this.RefreshLiveStates();
 		const dirtyArray = Object.keys(StateData.dirtyKeys);
-
-		// 按 key 分组（每个单位一个网表 key）
-		const groupedByEntity: Record<string, string[]> = {};
-
+		if (dirtyArray.length === 0) return;
+		const groups: Record<string, string[]> = {};
+		// 只消费本轮快照，发布过程中产生的新脏标记留到下一轮。
 		for (const dirtyKey of dirtyArray) {
-			// dirtyKey 格式: "key|stateId"
-			const parts = dirtyKey.split('|');
-			const key = tonumber(parts[0]) as StateSystemKey;
-			const entityKey = this.GetEntityKeyForNetTable(key);
-
-			if (!groupedByEntity[entityKey]) {
-				groupedByEntity[entityKey] = [];
-			}
-			groupedByEntity[entityKey].push(dirtyKey);
+			delete StateData.dirtyKeys[dirtyKey];
+			const entityKey = this.GetEntityKeyForNetTable(Number(dirtyKey.split("|")[0]) as EntityIndex);
+			(groups[entityKey] ??= []).push(dirtyKey);
 		}
-
-		for (const [entityKey, keys] of pairs(groupedByEntity)) {
-			this.SyncEntityBatch(entityKey as string, keys as string[]);
-		}
-
-		StateData.dirtyKeys = {};
-		StateData.lastSyncTime = this.GetCurrentTime();
-		StateData.stats.syncCount++;
+		for (const [entityKey, keys] of pairs(groups)) this.SyncEntityBatch(entityKey, keys);
+		StateData.lastSyncTime = this.GetCurrentTime(); StateData.stats.syncCount++;
 	}
-
-	/**
-	 * 同步单个实体的状态（按网表文档建议：每个单位一个 key）
-	 */
+	/** 每个实体一份完整快照；相同值不重复写网表，移除来源明确发布 false。 */
 	private SyncEntityBatch(entityKey: string, dirtyKeys: string[]): void {
-		const existingData = CustomNetTables.GetTableValue(this.NETTABLE_NAME, entityKey);
-		const update: Record<string, boolean> = existingData ? { ...existingData } : {};
-
+		const existing = CustomNetTables.GetTableValue(this.NETTABLE_NAME, entityKey);
+		const update: Record<string, boolean> = existing ? { ...existing } : {};
+		let changed = false;
 		for (const dirtyKey of dirtyKeys) {
-			const parts = dirtyKey.split('|');
-			const key = tonumber(parts[0]) as StateSystemKey;
-			const stateId = parts[1];
-
-			// 使用内部方法获取值，不触发副作用
-			const value = this.GetStateValueInternal(key, stateId);
-			update[stateId] = value;
+			const [key, stateId] = dirtyKey.split("|"), storage = StateData.unitStorage[Number(key) as EntityIndex];
+			if (!storage) continue;
+			const value = storage.cache[stateId]?.value ?? false;
+			if (update[stateId] !== value) { update[stateId] = value; changed = true; }
+			if (!storage.static[stateId] && !storage.dynamic[stateId]) delete storage.cache[stateId];
 		}
-
-		// 使用实体专属的 key（例如：unit_0）
-		CustomNetTables.SetTableValue(this.NETTABLE_NAME, entityKey, update);
+		if (changed) CustomNetTables.SetTableValue(this.NETTABLE_NAME, entityKey, update);
 	}
-
-	/** 从网表获取状态值（服务器和客户端都可用） */
+	/** 服务器和客户端共用的网表读取。 */
 	GetStateValueFromNetTable(key: StateSystemKey, stateId: StateId): boolean {
-		const stateKey = this.NormalizeStateId(stateId);
-		const entityKey = this.GetEntityKeyForNetTable(key);
-		const data = CustomNetTables.GetTableValue(this.NETTABLE_NAME, entityKey);
-
-		if (data && data[stateKey] !== undefined) {
-			return data[stateKey] as boolean;
-		}
-
-		return false;
+		return CustomNetTables.GetTableValue(this.NETTABLE_NAME, this.GetEntityKeyForNetTable(key))?.[this.NormalizeStateId(stateId)] === true;
 	}
 
 	/** 客户端：监听状态变化（使用定时器轮询） */
@@ -640,11 +271,23 @@ class MStateSystem extends CModule {
 	 * @param sourceId 来源 ID
 	 */
 	CleanupSourceStates(key: StateSystemKey, sourceId: string): void {
-		// 清理静态状态
-		this.RemoveStaticState(key, sourceId);
-
-		// 清理动态状态
-		this.UnregisterDynamicState(key, sourceId);
+		if (!IsServer()) return;
+		const storage = StateData.unitStorage[key];
+		if (!storage) return;
+		const ids = new Set([...Object.keys(storage.static), ...Object.keys(storage.dynamic)]);
+		for (const id of ids) {
+			let changed = false;
+			for (const layer of [storage.static, storage.dynamic]) {
+				const list = layer[id];
+				if (!list) continue;
+				const remaining = list.filter(data => data.sourceId !== sourceId);
+				if (list.length === remaining.length) continue;
+				if (remaining.length === 0) delete layer[id]; else layer[id] = remaining as any;
+				changed = true;
+			}
+			// 同一个来源的两层一起释放，只通知最终状态，避免中途闪烁。
+			if (changed) { this.MarkDirty(key, id); this.RefreshResolvedValue(key, id); }
+		}
 	}
 
 	/** 清理单位的所有状态 */
@@ -858,7 +501,7 @@ class MStateSystem extends CModule {
 
 		let dirtyCount = 0;
 		for (const [_] of pairs(StateData.dirtyKeys)) { dirtyCount++; }
-		if (dirtyCount === 0) return;
+		// 即使没有显式脏标记，也要检查动态条件变化。
 
 		this.print(`[ForceSyncAllDirty] Syncing ${dirtyCount} dirty states...`);
 		this.SyncDirtyStates();

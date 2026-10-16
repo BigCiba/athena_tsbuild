@@ -145,21 +145,22 @@ test('实际 23 组/27 条目首轮共 54 只，单位与 solo/team 地图锚点
 });
 
 test('营地返回：越界追击 5 秒、回营取消、恐惧/眩晕不下令，空闲按附近敌人行动', () => {
-	let now = 0, position = 0, feared = false, stunned = false, aggro = {}, targets = [];
+	let now = 0, position = 0, feared = false, customFear = false, stunned = false, aggro = {}, targets = [];
 	const orders = [], unit = { HasMovementCapability: () => true, GetAbsOrigin: () => position, IsAlive: () => true,
-		IsFeared: () => feared, IsStunned: () => stunned, GetAggroTarget: () => aggro, GetTeamNumber: () => 3, Script_GetAttackRange: () => 125,
+		IsFeared: () => feared, HasState: () => customFear, IsStunned: () => stunned, GetAggroTarget: () => aggro, GetTeamNumber: () => 3, Script_GetAttackRange: () => 125,
 		MoveToPosition: position => orders.push(['move', position]), MoveToPositionAggressive: position => orders.push(['attack', position]),
 	};
 	const { modifier_neutral } = load('modifiers/modifier_neutral', {
-		IsServer: () => true, IsValid: Boolean, GameRules: { GetGameTime: () => now }, FindUnitsInRadius: () => targets,
+		IsServer: () => true, IsValid: Boolean, StateEnum: { FEAR: 1 }, GameRules: { GetGameTime: () => now }, FindUnitsInRadius: () => targets,
 		DOTA_UNIT_TARGET_TEAM: { DOTA_UNIT_TARGET_TEAM_ENEMY: 1 }, DOTA_UNIT_TARGET_TYPE: { DOTA_UNIT_TARGET_BASIC: 1, DOTA_UNIT_TARGET_HERO: 2 },
 		DOTA_UNIT_TARGET_FLAGS: { DOTA_UNIT_TARGET_FLAG_NONE: 0 }, FindOrder: { FIND_CLOSEST: 0 },
-	}, { '../lib/dota_ts_adapter': { BaseModifier: class {}, registerModifier: () => value => value } });
+	}, { './eom_modifier/eom_modifier': { EOMModifier: class {}, registerEOMModifier: () => value => value } });
 	const modifier = new modifier_neutral(); modifier.GetParent = () => unit; modifier.StartIntervalThink = interval => assert.equal(interval, 0.1); modifier.OnCreated();
 	position = 500; modifier.OnIntervalThink(); now = 4.9; modifier.OnIntervalThink(); assert.equal(orders.length, 0);
 	now = 5; modifier.OnIntervalThink(); assert.deepEqual(orders.pop(), ['move', 0]);
 	modifier.OnIntervalThink(); position = 100; modifier.OnIntervalThink(); position = 500; now = 10; modifier.OnIntervalThink(); assert.equal(orders.length, 0);
 	feared = true; now = 20; modifier.OnIntervalThink(); feared = false; stunned = true; modifier.OnIntervalThink(); assert.equal(orders.length, 0);
+	stunned = false; customFear = true; now = 25; modifier.OnIntervalThink(); assert.equal(orders.length, 0); customFear = false;
 	stunned = false; aggro = undefined; position = 100; modifier.OnIntervalThink(); assert.deepEqual(orders.pop(), ['move', 0]);
 	targets = [{}]; modifier.OnIntervalThink(); assert.deepEqual(orders.pop(), ['attack', 100]);
 });

@@ -1,5 +1,6 @@
 
 // 攻击
+require("athena_properties");
 function GetAttackDamage(unit: CDOTA_BaseNPC): number {
 	return unit.GetAttackDamage();
 }

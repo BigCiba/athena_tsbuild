@@ -173,6 +173,7 @@ class CDamageSystem extends CModule {
 			params.extraProperties = undefined;
 			const attacker = params.attacker;
 			const target = params.target;
+			const originalDamage = params.damage;
 			if (!IsValid(attacker) || !IsValid(target)) {
 				return;
 			}
@@ -196,7 +197,9 @@ class CDamageSystem extends CModule {
 			/** 是否闪避标记 */
 			let isEvasionFlag = false;
 			// 暴击处理
-			if (this.hasCrit(params)) {
+			const canCrit = this.hasCrit(params);
+			if (!canCrit) params.is_crit = false;
+			if (canCrit) {
 				let fCritChance = this.getCritChance(params);
 				let fCritDamage = this.getCritDamage(params);
 
@@ -224,6 +227,10 @@ class CDamageSystem extends CModule {
 
 
 				if (params.is_crit) {
+					if (params.damage_category === DamageCategory_t.DOTA_DAMAGE_CATEGORY_ATTACK && params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL) {
+						const sound = GetCriticalstrikeSound(attacker, params) as any;
+						if (typeof sound === "string" && sound !== "") EmitSoundOn(sound, attacker);
+					}
 					Event.Fire("crit_event", params as DamageEvent);
 					params.damage *= fCritDamage * 0.01;
 				}
@@ -266,8 +273,13 @@ class CDamageSystem extends CModule {
 
 			// 伤害放大
 			params.damage *= (1 + GetOutgoingDamagePercent(attacker, params) * 0.01);
+			params.damage *= GetAthenaOutgoingMultiplier(attacker, params);
 			// 伤害减免
 			params.damage *= (1 + GetIncomingDamagePercent(target, params) * 0.01);
+			params.damage *= GetAthenaIncomingMultiplier(target, params);
+			if (params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL || params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL) {
+				params.damage = math.max(0, params.damage - GetAthenaDamageBlock(target, params));
+			}
 
 			// 伤害调整
 			if (this.hasAdjust(params)) {
@@ -312,6 +324,9 @@ class CDamageSystem extends CModule {
 				return;
 			}
 			(params as any).health_before_damage = currentHealth;
+			this.ApplyLifesteal(params);
+			this.ApplyCleave(params, originalDamage);
+			if (!IsValid(params.target)) return;
 
 			Event.Fire("damage_event", params as DamageEvent);
 			if (!IsValid(params.target)) {
@@ -370,9 +385,36 @@ class CDamageSystem extends CModule {
 			}
 		}
 	}
+	private ApplyLifesteal(params: DamageInfo) {
+		const { attacker, target } = params;
+		if (!IsValid(attacker) || !attacker.IsAlive() || target === attacker || target.IsBuilding() || target.IsOther()
+			|| ((params.damage_flags ?? 0) & (EOM_DAMAGE_FLAGS.NO_LIFESTEAL | EOM_DAMAGE_FLAGS.REFLECT_DAMAGE)) !== 0) return;
+		const value = params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL ? GetPhysicalLifesteal(attacker, params)
+			: params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL ? GetMagicalLifesteal(attacker, params) : 0;
+		if (params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL || params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL) {
+			const lifesteal = value + GetAllLifesteal(attacker, params);
+			if (lifesteal > 0 && params.damage > 0) attacker.Heal(params.damage * lifesteal * 0.01, params.ability);
+		}
+	}
+	/** 分裂以本次原始攻击伤害为基数；跳过暴击和攻击计数，禁止再次分裂。 */
+	private ApplyCleave(params: DamageInfo, originalDamage: number) {
+		if (!IsValid(params.attacker) || params.damage_category !== DamageCategory_t.DOTA_DAMAGE_CATEGORY_ATTACK
+			|| ((params.attack_states ?? 0) & (ATTACK_STATES.NOT_PROCESSPROCS | ATTACK_STATES.NO_CLEAVE)) !== 0) return;
+		const radius = GetCleaveRadius(params.attacker, params), percent = GetCleaveDamage(params.attacker, params);
+		if (radius <= 0 || percent <= 0) return;
+		const targets = FindUnitsInRadius(params.attacker.GetTeamNumber(), params.target.GetAbsOrigin(), undefined, radius,
+			DOTA_UNIT_TARGET_TEAM.DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_BASIC,
+			DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE, FindOrder.FIND_ANY_ORDER, false);
+		for (const target of targets) if (target !== params.target && IsValid(target) && IsValid(params.attacker)) this.DealDamage({
+			attacker: params.attacker, target, damage: originalDamage * percent * 0.01,
+			damage_type: EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL, damage_category: DamageCategory_t.DOTA_DAMAGE_CATEGORY_SPELL,
+			damage_flags: EOM_DAMAGE_FLAGS.NO_CRIT, attack_states: ATTACK_STATES.NO_CLEAVE | ATTACK_STATES.SKIPCOUNTING,
+		});
+	}
 	/** 是否可以暴击 */
 	hasCrit(params: DamageInfo) {
-		return ((params?.damage_flags ?? 0) & EOM_DAMAGE_FLAGS.NO_CRIT) != EOM_DAMAGE_FLAGS.NO_CRIT;
+		return ((params.damage_flags ?? 0) & EOM_DAMAGE_FLAGS.NO_CRIT) !== EOM_DAMAGE_FLAGS.NO_CRIT
+			&& !params.target.HasState(StateEnum.CRITICAL_IMMUNE) && !params.attacker.HasState(StateEnum.NO_CRIT);
 	}
 	/** 是否可以闪避 */
 	hasEvasion(params: DamageInfo) {
@@ -384,7 +426,7 @@ class CDamageSystem extends CModule {
 	}
 	/** 获取暴击率 */
 	getCritChance(params: DamageInfo) {
-		let chance = GetCritChance(params.attacker, params);
+		let chance = GetCritChance(params.attacker, params) + GetAthenaCritChance(params.attacker, params);
 		if (params.damage_category == DamageCategory_t.DOTA_DAMAGE_CATEGORY_ATTACK) {
 			chance += GetAttackCritChance(params.attacker, params);
 		} else if (params.damage_category == DamageCategory_t.DOTA_DAMAGE_CATEGORY_SPELL) {
@@ -394,7 +436,7 @@ class CDamageSystem extends CModule {
 	}
 	/** 获取暴击伤害 */
 	getCritDamage(params: DamageInfo) {
-		let fCritDamage = GetCritDamage(params.attacker, params);
+		let fCritDamage = GetCritDamage(params.attacker, params) + GetAthenaCritDamage(params.attacker, params);
 		if (params.damage_category == DamageCategory_t.DOTA_DAMAGE_CATEGORY_ATTACK) {
 			fCritDamage += GetAttackCritDamage(params.attacker, params);
 		} else if (params.damage_category == DamageCategory_t.DOTA_DAMAGE_CATEGORY_SPELL) {
@@ -405,7 +447,7 @@ class CDamageSystem extends CModule {
 	}
 	/** 获取闪避率 */
 	getEvasionChance(params: DamageInfo) {
-		return GetEvasion(params.target, params);
+		return GetAthenaEvasion(params.target, params);
 	}
 	/** 获取丢失率 */
 	getMissChance(params: DamageInfo) {

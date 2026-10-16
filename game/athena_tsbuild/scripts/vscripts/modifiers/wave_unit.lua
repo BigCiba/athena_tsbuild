@@ -7,11 +7,8 @@ local __TS__SparseArrayNew = ____lualib.__TS__SparseArrayNew
 local __TS__SparseArrayPush = ____lualib.__TS__SparseArrayPush
 local __TS__SparseArraySpread = ____lualib.__TS__SparseArraySpread
 local __TS__SourceMapTraceBack = ____lualib.__TS__SourceMapTraceBack
-__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["11"] = 1,["12"] = 1,["13"] = 1,["14"] = 2,["15"] = 2,["16"] = 2,["18"] = 5,["19"] = 6,["20"] = 5,["21"] = 6,["22"] = 7,["23"] = 7,["24"] = 7,["25"] = 8,["26"] = 8,["27"] = 8,["28"] = 9,["29"] = 9,["30"] = 9,["31"] = 10,["32"] = 10,["33"] = 10,["34"] = 11,["35"] = 11,["36"] = 11,["37"] = 6,["38"] = 5,["39"] = 6,["41"] = 6,["43"] = 15,["44"] = 15,["45"] = 15,["46"] = 16,["47"] = 16,["48"] = 16,["49"] = 17,["50"] = 17,["51"] = 17,["52"] = 18,["53"] = 18,["54"] = 18,["55"] = 19,["56"] = 20,["57"] = 20,["58"] = 20,["60"] = 19,["61"] = 22,["62"] = 23,["63"] = 24,["64"] = 25,["65"] = 22,["66"] = 27,["67"] = 28,["68"] = 29,["69"] = 29,["70"] = 29,["71"] = 29,["72"] = 29,["74"] = 27,["75"] = 31,["76"] = 31,["77"] = 31,["78"] = 32,["79"] = 32,["80"] = 32,["81"] = 33,["82"] = 33,["83"] = 33,["84"] = 36,["85"] = 37,["86"] = 36,["87"] = 37,["88"] = 37,["89"] = 36,["90"] = 37,["92"] = 37,["94"] = 40,["95"] = 41,["96"] = 40,["97"] = 41,["98"] = 42,["99"] = 41,["100"] = 44,["101"] = 45,["102"] = 45,["103"] = 45,["104"] = 45,["105"] = 45,["106"] = 46,["107"] = 46,["108"] = 46,["109"] = 46,["110"] = 46,["111"] = 46,["112"] = 46,["113"] = 46,["115"] = 42,["116"] = 49,["117"] = 41,["118"] = 49,["119"] = 49,["120"] = 49,["121"] = 50,["122"] = 50,["123"] = 50,["124"] = 41,["125"] = 40,["126"] = 41,["128"] = 41});
+__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["11"] = 1,["12"] = 1,["13"] = 1,["15"] = 4,["16"] = 5,["17"] = 4,["18"] = 5,["19"] = 6,["20"] = 6,["21"] = 6,["22"] = 7,["23"] = 7,["24"] = 7,["25"] = 8,["26"] = 8,["27"] = 8,["28"] = 9,["29"] = 9,["30"] = 9,["31"] = 10,["32"] = 10,["33"] = 10,["34"] = 11,["35"] = 11,["36"] = 11,["37"] = 5,["38"] = 4,["39"] = 5,["41"] = 5,["43"] = 15,["44"] = 15,["45"] = 15,["46"] = 16,["47"] = 16,["48"] = 16,["49"] = 17,["50"] = 17,["51"] = 17,["52"] = 18,["53"] = 18,["54"] = 18,["55"] = 19,["56"] = 20,["57"] = 20,["58"] = 20,["60"] = 19,["61"] = 22,["62"] = 23,["63"] = 24,["64"] = 25,["65"] = 22,["66"] = 27,["67"] = 28,["68"] = 29,["69"] = 29,["70"] = 29,["71"] = 29,["72"] = 29,["74"] = 27,["75"] = 31,["76"] = 31,["77"] = 31,["78"] = 32,["79"] = 32,["80"] = 32,["81"] = 33,["82"] = 33,["83"] = 33,["84"] = 36,["85"] = 37,["86"] = 36,["87"] = 37,["88"] = 37,["89"] = 36,["90"] = 37,["92"] = 37,["94"] = 40,["95"] = 41,["96"] = 40,["97"] = 41,["98"] = 42,["99"] = 41,["100"] = 44,["101"] = 45,["102"] = 45,["103"] = 45,["104"] = 45,["105"] = 45,["106"] = 46,["107"] = 46,["108"] = 46,["109"] = 46,["110"] = 46,["111"] = 46,["112"] = 46,["113"] = 46,["115"] = 42,["116"] = 49,["117"] = 41,["118"] = 49,["119"] = 49,["120"] = 49,["121"] = 50,["122"] = 50,["123"] = 50,["124"] = 41,["125"] = 40,["126"] = 41,["128"] = 41});
 local ____exports = {}
-local ____dota_ts_adapter = require("lib.dota_ts_adapter")
-local BaseModifier = ____dota_ts_adapter.BaseModifier
-local registerModifier = ____dota_ts_adapter.registerModifier
 local ____eom_modifier = require("modifiers.eom_modifier.eom_modifier")
 local EOMModifier = ____eom_modifier.EOMModifier
 local registerEOMModifier = ____eom_modifier.registerEOMModifier
@@ -19,7 +16,7 @@ local registerEOMModifier = ____eom_modifier.registerEOMModifier
 ____exports.modifier_wave = __TS__Class()
 local modifier_wave = ____exports.modifier_wave
 modifier_wave.name = "modifier_wave"
-__TS__ClassExtends(modifier_wave, BaseModifier)
+__TS__ClassExtends(modifier_wave, EOMModifier)
 function modifier_wave.prototype.IsHidden(self)
     return true
 end
@@ -35,8 +32,11 @@ end
 function modifier_wave.prototype.CheckState(self)
     return {[MODIFIER_STATE_NO_HEALTH_BAR] = false}
 end
+function modifier_wave.prototype.StaticState(self)
+    return {[StateEnum.NO_HEALTH_BAR] = true}
+end
 modifier_wave = __TS__DecorateLegacy(
-    {registerModifier(__TSTL_FILE_PATH__)},
+    {registerEOMModifier(__TSTL_FILE_PATH__)},
     modifier_wave
 )
 ____exports.modifier_wave = modifier_wave
