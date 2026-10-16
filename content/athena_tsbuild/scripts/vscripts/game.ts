@@ -1,4 +1,5 @@
 import { reloadable } from "./lib/tstl-utils";
+import type { modifier_common } from "./modifiers/framework/modifier_common";
 
 @reloadable
 class MGame extends CModule {
@@ -22,6 +23,14 @@ class MGame extends CModule {
 		GameEvent("npc_spawned", function (...args) { return this.OnNPCSpawned(...args); }, this);
 		GameEvent("custom_npc_first_spawned", function (...args) { return this.OnNPCFirstSpawned(...args); }, this);
 		GameEvent("entity_killed", function (...args) { return this.OnEntityKilled(...args); }, this);
+		GameEvent("dota_player_gained_level", event => {
+			const hero = EntIndexToHScript(event.hero_entindex) as CDOTA_BaseNPC_Hero;
+			if (!IsValid(hero) || !hero.IsRealHero()) return;
+			const level = hero.GetLevel(), oldLevel = hero.__lastPublishedLevel ?? level - 1;
+			if (level <= oldLevel) return;
+			hero.__lastPublishedLevel = level;
+			Event.Fire("hero_level_up", { unit: hero, level, old_level: oldLevel });
+		}, this);
 		CustomUIEvent("CustomTogglePause", function (...args) { return this.OnCustomTogglePause(...args); }, this);
 
 		if (!reload) {
@@ -173,7 +182,7 @@ class MGame extends CModule {
 		}
 
 		if (spawnedUnit.GetUnitName() != "npc_dota_thinker") {
-			if ((_G as AnyTable).modifier_common !== undefined && !spawnedUnit.HasModifier("modifier_common")) {
+			if (!spawnedUnit.HasModifier("modifier_common")) {
 				spawnedUnit.AddNewModifier(spawnedUnit, undefined, "modifier_common", undefined);
 			}
 			if ((_G as AnyTable).modifier_hero !== undefined && spawnedUnit.IsRealHero() && !spawnedUnit.HasModifier("modifier_hero")) {
@@ -185,6 +194,7 @@ class MGame extends CModule {
 		}
 
 		if (!spawnedUnit.__isNotFirstSpawn) {
+			if (spawnedUnit.IsRealHero()) spawnedUnit.__lastPublishedLevel = spawnedUnit.GetLevel();
 			spawnedUnit.SetMaximumGoldBounty(0);
 			spawnedUnit.SetMinimumGoldBounty(0);
 			spawnedUnit.SetDeathXP(0);
@@ -194,11 +204,8 @@ class MGame extends CModule {
 		}
 
 		if (spawnedUnit.GetUnitName() != "npc_dota_thinker") {
-			if (spawnedUnit.HasModifier("modifier_common")) {
-				spawnedUnit.CalculateGenericBonuses();
-				LargeNumberHealth.Refresh(spawnedUnit);
-				spawnedUnit.SetMana(spawnedUnit.GetMaxMana());
-			}
+			const common = spawnedUnit.FindModifierByName("modifier_common") as modifier_common;
+			if (IsValid(common)) common.SyncStats(true);
 		}
 
 		Event.Fire("npc_spawned", { unit: spawnedUnit });
@@ -262,6 +269,7 @@ class MGame extends CModule {
 	private OnEntityKilled(event: EventProperties<"entity_killed">) {
 		const killedUnit = EntIndexToHScript(event.entindex_killed) as CDOTA_BaseNPC;
 		if (!IsValid(killedUnit)) return;
+		Event.Fire("entity_killed", { victim: killedUnit, attacker: EntIndexToHScript(event.entindex_attacker ?? -1) as CDOTA_BaseNPC });
 		if (killedUnit.IsRealHero()) return;
 		if (killedUnit.UnitCanRespawn()) return;
 		killedUnit.GameTimer("RecyclingUnit", 8, () => {

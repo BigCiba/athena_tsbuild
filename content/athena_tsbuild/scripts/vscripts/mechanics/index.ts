@@ -15,6 +15,10 @@ require("ability_upgrade");
 if (IsServer()) {
 	// 服务器端初始化
 	require("base");
+	require("task");
+	require("wave_spawner");
+	require("neutral_spawners");
+	require("special_spawner");
 	require("bullet");
 	require("damage_system/damage_counter");
 	require("damage_system/damage_system");

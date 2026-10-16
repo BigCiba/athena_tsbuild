@@ -1,13 +1,13 @@
 import { CGameStateBase } from "../class/game_state_class";
 import { reloadable } from "../lib/tstl-utils";
 
-/** 战斗的计时器与刷怪都由阶段持有，退出后不再推进旧波次。 */
+/** 战斗阶段准备基地/英雄，再通知玩法模块开始本局。 */
 @reloadable
 export class GameState_Battle extends CGameStateBase {
 	OnStateStart() {
 		const runId = GameState.GetSession().runId;
-		Event.Fire("game_start", { runId });
 		GameState.GetWorld().StartBattle(this);
+		Event.Fire("game_start", { runId });
 	}
 	OnStateEnd() { GameState.GetWorld().Freeze(); }
 }

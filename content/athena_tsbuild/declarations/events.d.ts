@@ -37,6 +37,11 @@ declare interface NotificationHelpData {
 	[x: string]: any;
 }
 declare interface CustomGameEventDeclarations {
+	npc_interact: { npc: EntityIndex; runId: number; };
+	task_remove: { taskname: string; runId: number; };
+	task_mark: { taskname: string; runId: number; };
+	task_claim: { taskname: string; runId: number; };
+	task_dialog: { npc: EntityIndex; text: string; runId: number; };
 	athena_game_action: AthenaGameAction;
 	DemoEvent: {
 		event_name: string,

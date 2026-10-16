@@ -21,6 +21,7 @@ class CDemo extends CModule {
 	damage_counter: boolean = false;
 	performance_heatmap: boolean = false;
 	free_spells: boolean = false;
+	private creeps = true;
 	avoid_damage: boolean = false;
 	huge_damage: boolean = false;
 	force_dash_auto_cast: boolean = false;
@@ -65,13 +66,14 @@ class CDemo extends CModule {
 	}
 
 	init(bReload: boolean): void {
+		this.creeps ??= true;
 		if (!bReload) {
 			this.demoAttributeValues = {};
 			SendToServerConsole("sv_cheats 1");
 			SendToServerConsole("dota_ability_debug 0");
 			Event.Register("dash_end", (event) => this.OnForceDashEnd(event), this);
-			this.UpdateSettings();
 		}
+		this.UpdateSettings();
 
 		GameEvent("player_chat", function (...args) { return this.OnPlayerChat(...args); }, this);
 		GameEvent("game_rules_state_change", function (...args) { return this.OnGameRulesStateChange(...args); }, this);
@@ -140,6 +142,7 @@ class CDemo extends CModule {
 	UpdateSettings() {
 		const settings = {
 			free_spells: this.free_spells,
+			creeps: this.creeps ? 1 : 0,
 			lock_mouse: this.lock_mouse,
 			avoid_damage: this.avoid_damage,
 			huge_damage: this.huge_damage,
@@ -193,6 +196,15 @@ class CDemo extends CModule {
 	ChangeHostTimescale(data: DemoEvents) {
 		SendToServerConsole("host_timescale " + data.str);
 	}
+	IsCreepsEnabled() { return this.creeps ?? true; }
+	/** 原版调试开关：关闭时清空当前波次并暂停，恢复后继续当前波次。 */
+	NoCreepsButtonPressed(data: DemoEvents) {
+		this.creeps = !this.IsCreepsEnabled();
+		this.UpdateSettings();
+		Event.Fire("demo_creeps_changed", { enabled: this.creeps });
+	}
+	/** 调试请求也通过事件进入 Task，不对外暴露分步任务流程。 */
+	StartTask(data: DemoEvents) { Event.Fire("task_debug_start", { playerID: data.playerID, taskName: data.str }); }
 
 	Standby(data: DemoEvents) {
 

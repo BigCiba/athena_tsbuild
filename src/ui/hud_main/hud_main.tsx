@@ -5,11 +5,13 @@ import { GameVote, sendGameAction } from "../../components/game_lifecycle/GameVo
 import { HeroSelection } from "../../components/hero_selection/HeroSelection";
 import { createNetDataSignal } from "../../utils/solid_utils";
 import "./hud_main.less";
+import { TaskPanel } from "../../components/task/TaskPanel";
 
 function HudMain() {
 	const state = createNetDataSignal("common", "game_state");
 	const selecting = () => state()?.state === "GameState_Prepare" || state()?.state === "GameState_DiffSelection";
 	return <Panel id="AthenaSessionRoot" hittest={false}>
+		<Show when={state()?.state === "GameState_Battle"}><TaskPanel runId={state()?.run_id ?? 0} /></Show>
 		<Show when={selecting()}>
 			<HeroSelection snapshot={state()} />
 		</Show>

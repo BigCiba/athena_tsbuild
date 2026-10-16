@@ -14,6 +14,7 @@ declare interface CDOTA_Item {
 	_expiry_time?: number;
 }
 declare interface CDOTA_BaseNPC {
+	__lastPublishedLevel?: number;
 	__counter_ready__: boolean;
 	GetCaster(): CDOTA_BaseNPC | undefined;
 	GetDieTime(): unknown;
@@ -21,6 +22,7 @@ declare interface CDOTA_BaseNPC {
 	hModifierCommon: CDOTA_Buff | undefined;
 	iKillerPlayerID: PlayerID | undefined;
 	iRoundNumber: number | undefined;
+	iDefendingTeamNumber?: DOTATeam_t;
 	bLevelDrawTraced: boolean | undefined;
 	/**
 	 * 获取单位的unit_state技能

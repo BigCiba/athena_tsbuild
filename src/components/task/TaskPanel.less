@@ -1,0 +1,193 @@
+.TaskRoot {
+	width: 100%;
+	height: 100%;
+}
+
+#TaskMain {
+	// align: left top;
+	// width: 400px;
+	// box-shadow: 0px 0px 24px #00000066;
+	margin-top: 60px;
+	flow-children: down;
+	width: 180px;
+	height: 40px;
+	background-color: gradient(linear, 0% 0%, 90% 100%, from(#101010), color-stop(0.5, #101010), to(#101010ee));
+	transition-property: width, height, background-color;
+	transition-duration: 0.2s;
+}
+
+#TaskMain.Expand {
+	width: 350px;
+	height: 410px;
+	background-color: gradient(linear, 0% 0%, 40% 100%, from(#101010d6), color-stop(0.5, #10101099), to(#10101000));
+
+	.TaskTitle .ExpandButton {
+		pre-transform-rotate2d: 0deg;
+	}
+}
+
+.TaskTitle {
+	height: 40px;
+	background-color: gradient(linear, 0% 0%, 90% 100%, from(#15294Fcc), color-stop(0.5, #24344c88), to(#24344c00));
+	width: 100%;
+
+	Label {
+		margin-top: 2px;
+		margin-left: 24px;
+		color: #ffffff;
+		font-size: 20px;
+		vertical-align: center;
+		max-height: 28px;
+		font-family: titleFont;
+		text-shadow: 0px 0px 16px 1.0 #7299DB;
+		overflow: noclip;
+		text-overflow: shrink;
+	}
+
+	.ExpandButton {
+		width: 24px;
+		height: 24px;
+		horizontal-align: right;
+
+		background-size: 100%;
+		vertical-align: center;
+		margin-right: 10px;
+		wash-color: gray;
+		transition-property: wash-color, pre-transform-rotate2d;
+		transition-duration: 0.2s;
+		pre-transform-rotate2d: 180deg;
+
+		.TickBox {
+			opacity: 0;
+		}
+
+		&:hover {
+			wash-color: none;
+		}
+
+		// &:selected {
+		// 	pre-transform-rotate2d: 180deg;
+		// }
+	}
+}
+
+.TaskList {
+	width: 100%;
+	// padding-top: 10px;
+	// padding-left: 24px;
+	flow-children: down;
+	overflow: squish scroll;
+}
+
+.TaskContainer {
+	width: 100%;
+	// height: 80px;
+	// margin-top: 4px;
+	margin-bottom: 4px;
+	background-color: gradient(linear, 100% 0%, 0% 0%, from(#424a4f00), to(#2a2d42ff));
+
+	&.Complete {
+		background-color: gradient(linear, 100% 0%, 0% 0%, from(#424f4800), to(rgb(42, 66, 49)));
+	}
+
+	.SelectedBar {
+		width: 4px;
+		height: 100%;
+		background-color: #c8e7e7;
+	}
+
+	.EntryTitles {
+		margin-left: 16px;
+		width: 100%;
+		// height: 100%;
+		margin-right: 20px;
+		padding-top: 7px;
+		padding-bottom: 4px;
+		flow-children: down;
+	}
+
+	.TaskName {
+		color: #e5e5e5;
+		font-size: 16px;
+	}
+
+	.TaskTag {
+		color: black;
+		font-size: 12px;
+		text-shadow: 0px 0px 1px 1.0 #000000;
+		vertical-align: center;
+		background-color: gradient(linear, 0% 0%, 0% 100%, from(#C2974E), to(#bf9d6e));
+		padding: 1px;
+		border-radius: 2px;
+		margin-left: 4px;
+		text-overflow: shrink;
+		height: 16px;
+		// font-family: titleFont;
+	}
+
+	.TaskButtonList {
+		horizontal-align: right;
+		flow-children: right;
+	}
+
+	.TaskRemvoe {
+		width: fit-children;
+		height: 20px;
+		padding-left: 4px;
+		padding-right: 4px;
+		margin-left: 4px;
+
+		Label {
+			font-size: 14px;
+		}
+	}
+
+	.TaskRequireTitle {
+		color: #5b6872;
+		font-size: 14px;
+		margin-top: 4px;
+	}
+
+	.TaskRequireRow {
+		width: 100%;
+	}
+
+	.TaskRequire {
+		color: #c8e7e7;
+		font-size: 15px;
+	}
+
+	.TaskProgress {
+		horizontal-align: right;
+		color: #c8e7e7;
+		font-size: 15px;
+	}
+
+	.TaskRewardRow {
+		flow-children: right-wrap;
+		width: 100%;
+
+		.TaskReward_Item {
+			width: 44px;
+			height: 32px;
+		}
+
+		.TaskReward_Attribute {
+			color: #748090;
+			font-weight: semibold;
+			text-shadow: 2px 2px 0px 1.0 #00000088;
+			width: 100%;
+		}
+
+		Label .GameplayVariable {
+			color: #e1e1e1;
+			font-weight: semibold;
+			color: #e1e1e1;
+		}
+	}
+}
+.TaskRewardError { color: #e6aa70; font-size: 14px; width: 100%; }
+.TaskNPCDialog { horizontal-align: center; vertical-align: bottom; margin-bottom: 190px; width: 480px; padding: 20px; flow-children: down; background-color: #152033ee; border: 1px solid #647b96; }
+.TaskNPCName { color: #e4c586; font-size: 22px; margin-bottom: 8px; }
+.TaskNPCText { color: #e5e5e5; font-size: 18px; width: 100%; }
+.TaskNPCActions { flow-children: right; margin-top: 12px; .EOM_Button { margin-right: 10px; } }

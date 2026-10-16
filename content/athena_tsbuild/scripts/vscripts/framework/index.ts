@@ -19,6 +19,7 @@ require('state_system/state_system');
 if (IsServer()) {
 	require('game_state');
 	require("demo");
+	require("npc");
 	require("settings");
 	require("unit_manager");
 }

@@ -1,11 +1,15 @@
 local __TSTL_FILE_PATH__ = "mechanics/index"
 local ____lualib = require("lualib_bundle")
 local __TS__SourceMapTraceBack = ____lualib.__TS__SourceMapTraceBack
-__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["4"] = 12,["5"] = 13,["6"] = 15,["7"] = 17,["8"] = 18,["9"] = 19,["10"] = 20});
+__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["4"] = 12,["5"] = 13,["6"] = 15,["7"] = 17,["8"] = 18,["9"] = 19,["10"] = 20,["11"] = 21,["12"] = 22,["13"] = 23,["14"] = 24});
 require("mechanics.kv")
 require("mechanics.ability_upgrade")
 if IsServer() then
     require("mechanics.base")
+    require("mechanics.task")
+    require("mechanics.wave_spawner")
+    require("mechanics.neutral_spawners")
+    require("mechanics.special_spawner")
     require("mechanics.bullet")
     require("mechanics.damage_system.damage_counter")
     require("mechanics.damage_system.damage_system")

@@ -9,10 +9,26 @@ declare global {
 	interface EventCallback {
 		/** 游戏可以初始化，一次 */
 		game_init: {};
-		/** 游戏开始，每次英雄选择时 */
+		/** 本局进入战斗，基地与英雄已就绪。 */
 		game_start: { runId?: number; };
 		/** 本局结果已冻结，只发送一次；后端奖励须以会话标识 + run_id 实现幂等。 */
 		game_end: AthenaRunResult;
+		/** 清理本局玩法数据；各模块只清理自身持有的资源。 */
+		game_reset: { runId: number; };
+		/** 波次状态变化，特殊进攻等玩法自行订阅。 */
+		round_state_change: { runId: number; round_number: number; stage: "prepare" | "battle" | "end"; };
+		/** 普通波次全部完成，交由特殊进攻处理最终首领和胜利。 */
+		waves_complete: { runId: number; };
+		/** HUD Demo 刷怪开关；仅控制普通波次，沿用原版范围。 */
+		demo_creeps_changed: { enabled: boolean; };
+		/** NPC 只发布交互事实，接取、交付和任务顺序由 Task 决定。 */
+		npc_interact: { playerID: PlayerID; npc: CDOTA_BaseNPC; runId: number; };
+		/** 调试专用入口，正常玩法使用出生、升级、击杀和 NPC 交互事件。 */
+		task_debug_start: { playerID: PlayerID; taskName: string; };
+		task_completed: { playerID: PlayerID; taskName: string; runId: number; };
+		task_reward_received: { playerID: PlayerID; taskName: string; runId: number; };
+		/** 对应玩法先检查 handled，同步执行成功后置 true；未处理的奖励保留待领取。 */
+		task_reward: AthenaTaskReward & { playerID: PlayerID; taskName: string; runId: number; handled: boolean; };
 		/** 全部登录完成 */
 		finish_login: {};
 		/** 玩家设置变更 */

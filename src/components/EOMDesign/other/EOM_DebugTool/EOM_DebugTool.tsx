@@ -447,9 +447,8 @@ export const DemoToggle: ParentComponent<{
 	selected?: boolean,
 	text: string;
 }> = (props) => {
-	const selected = props.selected ?? false;
 	return (
-		<ToggleButton id={props.eventName} class="HotKeyValid FireEvent" selected={selected} onactivate={self => { FireEvent(props.eventName, self.IsSelected() ? "1" : "0"); }} text={props.text} />
+		<ToggleButton id={props.eventName} class="HotKeyValid FireEvent" selected={props.selected ?? false} onactivate={self => { FireEvent(props.eventName, self.IsSelected() ? "1" : "0"); }} text={props.text} />
 	);
 };
 // 文本输入按钮

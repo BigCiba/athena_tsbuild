@@ -77,7 +77,7 @@ interface easyModifierReturn {
 	GetStatusEffectName: string,
 	StatusEffectPriority: number,
 }
-export const registerEOMModifier = function (this: string | undefined | void, param?: Partial<easyModifierReturn>) {
+export const registerEOMModifier = function (this: string | undefined | void, param: Partial<easyModifierReturn> = {}) {
 	let name = param?.name;
 	/** NOTE:tstl的插件会将this改为当前文件路径 */
 	let fileName = this;
@@ -432,7 +432,6 @@ export class EOMModifier extends BaseModifier {
 	OnCreated(params: object): void {
 		if (this._bDestroyed == true) return;
 
-		let calculateGenericBonuses = false;
 		let entIndex = this.GetParent().entindex();
 		let sourceId = this.GetName();
 		if (this.DynamicProperty != undefined) {
@@ -448,10 +447,6 @@ export class EOMModifier extends BaseModifier {
 		this.RegisterStaticStates();
 
 		if (IsServer()) {
-			if (calculateGenericBonuses) {
-				const parent = this.GetParent();
-				parent.IsHero() ? parent.CalculateStatBonus(true) : parent.CalculateGenericBonuses();
-			}
 			if (this.EventListener != undefined) {
 				this.__EventIDList ??= [];
 				for (const [event, listener] of pairs(this.EventListener())) {
@@ -460,43 +455,31 @@ export class EOMModifier extends BaseModifier {
 				}
 			}
 		}
+		this.RefreshParentStats();
 	}
 	OnRefresh(params: object): void {
 		if (this._bDestroyed == true) return;
 
-		let calculateGenericBonuses = false;
-		let sourceId = this.GetName();
-
 		this.RegisterStaticProperties();
 		this.RegisterStaticStates();
-		if (IsServer()) {
-			if (calculateGenericBonuses) {
-				const parent = this.GetParent();
-				parent.IsHero() ? parent.CalculateStatBonus(true) : parent.CalculateGenericBonuses();
-			}
-		}
+		this.RefreshParentStats();
 	}
 	OnStackCountChanged(stackCount: number): void {
 		if (this._bDestroyed == true) return;
 
-		let calculateGenericBonuses = false;
-		let sourceId = this.GetName();
-
 		this.RegisterStaticProperties();
 		this.RegisterStaticStates();
-		if (IsServer()) {
-			if (calculateGenericBonuses) {
-				const parent = this.GetParent();
-				parent.IsHero() ? parent.CalculateStatBonus(true) : parent.CalculateGenericBonuses();
-			}
-		}
+		this.RefreshParentStats();
+	}
+	/** 完整注册/移除属性后统一同步，覆盖攻击和护甲等不发 property_changed 的属性。 */
+	protected RefreshParentStats(): void {
+		if (!IsServer() || !IsValid(this.GetParent())) return;
+		const common = this.GetParent().FindModifierByName("modifier_common") as EOMModifier & { SyncStats(): void; } | undefined;
+		if (IsValid(common) && !common._bDestroyed) common.SyncStats();
 	}
 	OnDestroy(): void {
 		this._bDestroyed = true;
 
-		let calculateGenericBonuses = false;
-
-		let parent = this.GetParent();
 		let sourceId = this.GetName();
 		let entIndex = this.GetParent().entindex();
 
@@ -507,9 +490,6 @@ export class EOMModifier extends BaseModifier {
 		StateSystem.UnregisterDynamicState(entIndex, sourceId);
 
 		if (IsServer()) {
-			if (calculateGenericBonuses && IsValid(parent)) {
-				parent.IsHero() ? parent.CalculateStatBonus(true) : parent.CalculateGenericBonuses();
-			}
 			if (this.__EventIDList != undefined) {
 				for (const [i, v] of ipairs(this.__EventIDList)) {
 					Event.Unregister(v);
@@ -517,6 +497,7 @@ export class EOMModifier extends BaseModifier {
 				this.__EventIDList = undefined;
 			}
 		}
+		this.RefreshParentStats();
 	}
 }
 export interface EOMModifierMotionHorizontal extends CDOTA_Modifier_Lua_Horizontal_Motion { }

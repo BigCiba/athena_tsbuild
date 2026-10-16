@@ -10,15 +10,15 @@ local ____game_state_class = require("class.game_state_class")
 local CGameStateBase = ____game_state_class.CGameStateBase
 local ____tstl_2Dutils = require("lib.tstl-utils")
 local reloadable = ____tstl_2Dutils.reloadable
---- 战斗的计时器与刷怪都由阶段持有，退出后不再推进旧波次。
+--- 战斗阶段准备基地/英雄，再通知玩法模块开始本局。
 ____exports.GameState_Battle = __TS__Class()
 local GameState_Battle = ____exports.GameState_Battle
 GameState_Battle.name = "GameState_Battle"
 __TS__ClassExtends(GameState_Battle, CGameStateBase)
 function GameState_Battle.prototype.OnStateStart(self)
     local runId = GameState:GetSession().runId
-    Event:Fire("game_start", {runId = runId})
     GameState:GetWorld():StartBattle(self)
+    Event:Fire("game_start", {runId = runId})
 end
 function GameState_Battle.prototype.OnStateEnd(self)
     GameState:GetWorld():Freeze()

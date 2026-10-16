@@ -781,31 +781,34 @@ const DemoButton = props => {
   })();
 };
 const DemoToggle = props => {
-  const selected = props.selected ?? false;
   return (() => {
     const _el$26 = libs.createElement("ToggleButton", {
       get id() {
         return props.eventName;
       },
       "class": "HotKeyValid FireEvent",
-      selected: selected,
+      get selected() {
+        return props.selected ?? false;
+      },
       get text() {
         return props.text;
       }
     }, null);
-    libs.setProp(_el$26, "selected", selected);
     libs.setProp(_el$26, "onactivate", self => {
       FireEvent(props.eventName, self.IsSelected() ? "1" : "0");
     });
     libs.effect(_p$ => {
       const _v$0 = props.eventName,
-        _v$1 = props.text;
+        _v$1 = props.selected ?? false,
+        _v$10 = props.text;
       _v$0 !== _p$._v$0 && (_p$._v$0 = libs.setProp(_el$26, "id", _v$0, _p$._v$0));
-      _v$1 !== _p$._v$1 && (_p$._v$1 = libs.setProp(_el$26, "text", _v$1, _p$._v$1));
+      _v$1 !== _p$._v$1 && (_p$._v$1 = libs.setProp(_el$26, "selected", _v$1, _p$._v$1));
+      _v$10 !== _p$._v$10 && (_p$._v$10 = libs.setProp(_el$26, "text", _v$10, _p$._v$10));
       return _p$;
     }, {
       _v$0: undefined,
-      _v$1: undefined
+      _v$1: undefined,
+      _v$10: undefined
     });
     return _el$26;
   })();
@@ -847,14 +850,14 @@ const DemoTextEntry = props => {
       $.DispatchEvent("DropInputFocus", self);
     });
     libs.effect(_p$ => {
-      const _v$10 = props.text,
-        _v$11 = props.defaultValue;
-      _v$10 !== _p$._v$10 && (_p$._v$10 = libs.setProp(_el$27, "text", _v$10, _p$._v$10));
-      _v$11 !== _p$._v$11 && (_p$._v$11 = libs.setProp(_el$28, "text", _v$11, _p$._v$11));
+      const _v$11 = props.text,
+        _v$12 = props.defaultValue;
+      _v$11 !== _p$._v$11 && (_p$._v$11 = libs.setProp(_el$27, "text", _v$11, _p$._v$11));
+      _v$12 !== _p$._v$12 && (_p$._v$12 = libs.setProp(_el$28, "text", _v$12, _p$._v$12));
       return _p$;
     }, {
-      _v$10: undefined,
-      _v$11: undefined
+      _v$11: undefined,
+      _v$12: undefined
     });
     return _el$27;
   })();
@@ -881,14 +884,14 @@ const DemoSelectionButton = props => {
       marginRight: "4px"
     }));
     libs.effect(_p$ => {
-      const _v$15 = props.eventName,
-        _v$16 = props.text;
-      _v$15 !== _p$._v$15 && (_p$._v$15 = libs.setProp(_el$34, "id", _v$15, _p$._v$15));
-      _v$16 !== _p$._v$16 && (_p$._v$16 = libs.setProp(_el$34, "text", _v$16, _p$._v$16));
+      const _v$16 = props.eventName,
+        _v$17 = props.text;
+      _v$16 !== _p$._v$16 && (_p$._v$16 = libs.setProp(_el$34, "id", _v$16, _p$._v$16));
+      _v$17 !== _p$._v$17 && (_p$._v$17 = libs.setProp(_el$34, "text", _v$17, _p$._v$17));
       return _p$;
     }, {
-      _v$15: undefined,
-      _v$16: undefined
+      _v$16: undefined,
+      _v$17: undefined
     });
     return _el$34;
   })();
@@ -1188,28 +1191,28 @@ const SelectionContainer = props => {
     }), null);
     libs.insert(_el$51, resolvedChildren);
     libs.effect(_p$ => {
-      const _v$17 = local.eventName,
-        _v$18 = libs.classNames("SelectionContainer", {
+      const _v$18 = local.eventName,
+        _v$19 = libs.classNames("SelectionContainer", {
           LockWindow: lock()
         }),
-        _v$19 = size().width,
-        _v$20 = size().height,
-        _v$21 = local.title,
-        _v$22 = local.canScroll ? "squish scroll" : "clip";
-      _v$17 !== _p$._v$17 && (_p$._v$17 = libs.setProp(_el$35, "id", _v$17, _p$._v$17));
-      _v$18 !== _p$._v$18 && (_p$._v$18 = libs.setProp(_el$35, "class", _v$18, _p$._v$18));
-      _v$19 !== _p$._v$19 && (_p$._v$19 = libs.setProp(_el$35, "width", _v$19, _p$._v$19));
-      _v$20 !== _p$._v$20 && (_p$._v$20 = libs.setProp(_el$35, "height", _v$20, _p$._v$20));
-      _v$21 !== _p$._v$21 && (_p$._v$21 = libs.setProp(_el$38, "text", _v$21, _p$._v$21));
-      _v$22 !== _p$._v$22 && (_p$._v$22 = libs.setProp(_el$51, "overflow", _v$22, _p$._v$22));
+        _v$20 = size().width,
+        _v$21 = size().height,
+        _v$22 = local.title,
+        _v$23 = local.canScroll ? "squish scroll" : "clip";
+      _v$18 !== _p$._v$18 && (_p$._v$18 = libs.setProp(_el$35, "id", _v$18, _p$._v$18));
+      _v$19 !== _p$._v$19 && (_p$._v$19 = libs.setProp(_el$35, "class", _v$19, _p$._v$19));
+      _v$20 !== _p$._v$20 && (_p$._v$20 = libs.setProp(_el$35, "width", _v$20, _p$._v$20));
+      _v$21 !== _p$._v$21 && (_p$._v$21 = libs.setProp(_el$35, "height", _v$21, _p$._v$21));
+      _v$22 !== _p$._v$22 && (_p$._v$22 = libs.setProp(_el$38, "text", _v$22, _p$._v$22));
+      _v$23 !== _p$._v$23 && (_p$._v$23 = libs.setProp(_el$51, "overflow", _v$23, _p$._v$23));
       return _p$;
     }, {
-      _v$17: undefined,
       _v$18: undefined,
       _v$19: undefined,
       _v$20: undefined,
       _v$21: undefined,
-      _v$22: undefined
+      _v$22: undefined,
+      _v$23: undefined
     });
     return _el$35;
   })();
@@ -1257,7 +1260,13 @@ function Demo() {
             tabIndex: 0,
             title: "游戏",
             get children() {
-              return [libs.createComponent(DemoTextEntry, {
+              return [libs.createComponent(DemoToggle, {
+                eventName: "NoCreepsButtonPressed",
+                text: "暂停刷怪",
+                get selected() {
+                  return demoSetting()?.creeps === 0;
+                }
+              }), libs.createComponent(DemoTextEntry, {
                 eventName: "ChangeHostTimescale",
                 text: "主机速度"
               }), libs.createComponent(DemoButton, {

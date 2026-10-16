@@ -30,6 +30,7 @@ function Demo() {
 			}>
 				{/* 常用 */}
 				<EOM_DebugTool_Category tabIndex={0} title="游戏" >
+					<DemoToggle eventName="NoCreepsButtonPressed" text="暂停刷怪" selected={demoSetting()?.creeps === 0} />
 					<DemoTextEntry eventName="ChangeHostTimescale" text="主机速度" />
 					<DemoButton eventName="Standby" text="测试按钮" />
 				</EOM_DebugTool_Category>
