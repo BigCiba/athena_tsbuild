@@ -41,6 +41,8 @@ interface DamageInfo {
 	is_crit?: boolean,
 	/** 是否背刺 */
 	is_backstab?: boolean,
+	/** 分裂派生伤害；沿用原版跳过来源增伤，但仍计算目标减免和格挡。 */
+	is_cleave?: boolean,
 	/** 属性系统本次计算的额外属性表 */
 	extraProperties?: ExtraPropertyTable,
 }

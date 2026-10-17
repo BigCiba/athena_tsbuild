@@ -29,6 +29,18 @@
 - 收益类属性已定义并可查询，经验增益已接入引擎，永久属性收益加成已接入成长。完整掉落、击杀基础奖励、魂晶/荣耀账户、钓鱼/挖宝、吞噬玩法和旧英雄/装备技能脚本不属于属性框架，仍由相应玩法移植时消费这些字段。
 - 旧版属性面板尚未移植；客户端已有 PropertySystem 网表字段与本地化，不代表旧版 HUD 已完成。
 
+## 整体复核后的运行时合同
+
+- EOM 属性来源按 modifier 实例分配唯一 ID，刷新和叠层复用；同名实例及同玩家不同单位的 PLAYER 属性不会互相覆盖或清除。
+- 静态属性刷新时省略字段仍保留原值，明确沿用旧版限制；销毁时仍释放本实例登记过的全部字段。
+- 禁用读取缓存的动态属性也保存无参数同步快照；同步周期主动检查默认值变化。带伤害/技能上下文的查询不复用或覆盖默认快照，相同结果不重复发事件或写网表。
+- `IgnoreCooldownReduction=1` 的技能同时排除百分比和固定冷却缩减。
+- 闪避只作用于普攻；分裂用 `is_cleave` 标记跳过来源增伤，仍计算目标减免与格挡，且不再次分裂/计算攻击次数。标记随伤害对象回池清除。
+- 纯粹伤害沿用旧版固定格挡，百分比减免后的伤害最低扣至 0，不产生治疗。
+- 击杀只由原生死亡事件入口发布一次；属性成长和任务原有去重保护继续保留。有效施法事件对所有携带 common 的单位声明，保持原版单位范围。
+
+专项回归：`npm.cmd run test:migration`。生成 Lua 后，用 Lua 兼容运行时执行 `node_scripts/test-migration-regressions.lua`，补充验证动态快照与状态原子刷新的实际产物。Dota 实机验收仍单独进行。
+
 ## 使用与生成
 
 新 modifier 使用 `StaticProperty()` / `DynamicProperty()` 返回 `PropertyFunction`，不恢复旧 EDeclareFunctions 存储。旧字段可查自动生成的 `ATHENA_MODIFIER_PROPERTIES`、`ATHENA_PERMANENT_PROPERTIES` 和 `ATHENA_ITEM_PROPERTIES`。

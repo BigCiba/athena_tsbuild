@@ -66,6 +66,8 @@
 		]
 	},
 	"scripts": {
+		"test:migration": "node ./node_scripts/test-migration-regressions.js",
+		"test:events": "node ./node_scripts/test-event-system.js",
 		"test:states": "node ./node_scripts/test-state-system.js",
 		"test:properties": "node ./node_scripts/test-common-modifier.js",
 		"test:hero-selection": "node ./node_scripts/test-hero-selection.js",

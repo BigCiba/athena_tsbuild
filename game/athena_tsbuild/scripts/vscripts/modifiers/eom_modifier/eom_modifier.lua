@@ -3,10 +3,14 @@ local ____lualib = require("lualib_bundle")
 local __TS__ArrayIncludes = ____lualib.__TS__ArrayIncludes
 local __TS__Class = ____lualib.__TS__Class
 local __TS__ClassExtends = ____lualib.__TS__ClassExtends
+local __TS__SparseArrayNew = ____lualib.__TS__SparseArrayNew
+local __TS__SparseArrayPush = ____lualib.__TS__SparseArrayPush
+local __TS__SparseArraySpread = ____lualib.__TS__SparseArraySpread
+local __TS__ArrayPushArray = ____lualib.__TS__ArrayPushArray
 local __TS__Number = ____lualib.__TS__Number
 local __TS__ObjectKeys = ____lualib.__TS__ObjectKeys
 local __TS__SourceMapTraceBack = ____lualib.__TS__SourceMapTraceBack
-__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["10"] = 1,["11"] = 1,["12"] = 2,["13"] = 2,["14"] = 2,["15"] = 2,["16"] = 2,["17"] = 2,["18"] = 4,["19"] = 6,["20"] = 7,["21"] = 8,["22"] = 9,["23"] = 10,["24"] = 11,["26"] = 13,["27"] = 14,["29"] = 6,["30"] = 18,["31"] = 19,["32"] = 20,["33"] = 21,["34"] = 22,["35"] = 23,["36"] = 24,["37"] = 25,["38"] = 26,["39"] = 27,["43"] = 31,["45"] = 33,["46"] = 18,["48"] = 39,["49"] = 40,["50"] = 41,["51"] = 42,["52"] = 43,["54"] = 40,["55"] = 39,["56"] = 80,["57"] = 80,["58"] = 80,["60"] = 81,["62"] = 83,["63"] = 84,["64"] = 85,["65"] = 87,["67"] = 89,["69"] = 92,["70"] = 93,["71"] = 95,["72"] = 96,["73"] = 98,["74"] = 99,["75"] = 100,["76"] = 101,["77"] = 102,["78"] = 103,["80"] = 105,["81"] = 106,["83"] = 108,["84"] = 109,["86"] = 111,["87"] = 112,["90"] = 116,["92"] = 119,["93"] = 120,["94"] = 121,["95"] = 122,["96"] = 123,["97"] = 124,["98"] = 125,["99"] = 126,["100"] = 127,["101"] = 128,["102"] = 129,["103"] = 130,["104"] = 131,["106"] = 133,["108"] = 134,["109"] = 134,["110"] = 135,["111"] = 136,["112"] = 134,["116"] = 139,["117"] = 140,["119"] = 142,["120"] = 143,["122"] = 145,["123"] = 146,["125"] = 123,["126"] = 149,["127"] = 150,["128"] = 151,["129"] = 152,["130"] = 153,["132"] = 154,["133"] = 154,["134"] = 155,["135"] = 156,["136"] = 154,["140"] = 159,["141"] = 160,["143"] = 162,["144"] = 163,["146"] = 165,["147"] = 166,["149"] = 150,["150"] = 169,["151"] = 170,["152"] = 171,["154"] = 172,["155"] = 172,["156"] = 173,["157"] = 174,["158"] = 172,["162"] = 177,["163"] = 178,["165"] = 180,["166"] = 181,["168"] = 183,["169"] = 184,["171"] = 170,["172"] = 187,["173"] = 188,["174"] = 189,["175"] = 190,["177"] = 192,["178"] = 193,["180"] = 188,["181"] = 196,["182"] = 197,["183"] = 243,["184"] = 244,["186"] = 246,["187"] = 197,["188"] = 255,["189"] = 256,["190"] = 257,["191"] = 258,["192"] = 257,["195"] = 263,["196"] = 264,["197"] = 265,["198"] = 266,["199"] = 266,["200"] = 266,["202"] = 266,["204"] = 266,["205"] = 267,["206"] = 268,["208"] = 270,["209"] = 271,["211"] = 273,["212"] = 265,["213"] = 275,["214"] = 276,["215"] = 277,["216"] = 278,["217"] = 279,["218"] = 281,["219"] = 282,["220"] = 283,["221"] = 284,["222"] = 285,["225"] = 288,["226"] = 289,["227"] = 290,["233"] = 296,["234"] = 297,["236"] = 276,["238"] = 303,["239"] = 304,["240"] = 306,["241"] = 307,["243"] = 309,["244"] = 310,["245"] = 311,["247"] = 313,["248"] = 315,["249"] = 316,["250"] = 317,["251"] = 318,["252"] = 319,["253"] = 318,["255"] = 322,["256"] = 323,["257"] = 322,["263"] = 306,["264"] = 330,["265"] = 331,["266"] = 332,["268"] = 334,["269"] = 335,["270"] = 336,["272"] = 339,["273"] = 340,["274"] = 341,["276"] = 342,["277"] = 342,["278"] = 343,["279"] = 344,["281"] = 345,["282"] = 345,["283"] = 346,["284"] = 347,["287"] = 345,["290"] = 351,["291"] = 352,["293"] = 342,["296"] = 355,["297"] = 340,["299"] = 359,["300"] = 360,["302"] = 84,["303"] = 80,["304"] = 377,["305"] = 377,["306"] = 377,["307"] = 377,["308"] = 393,["309"] = 394,["312"] = 398,["313"] = 399,["314"] = 400,["315"] = 401,["316"] = 402,["317"] = 403,["318"] = 404,["319"] = 404,["321"] = 404,["322"] = 405,["323"] = 406,["326"] = 393,["327"] = 412,["328"] = 413,["329"] = 413,["330"] = 413,["332"] = 413,["333"] = 412,["334"] = 416,["335"] = 417,["338"] = 418,["339"] = 418,["340"] = 419,["341"] = 419,["342"] = 420,["343"] = 420,["344"] = 420,["347"] = 421,["348"] = 422,["349"] = 423,["350"] = 423,["351"] = 423,["352"] = 423,["353"] = 423,["354"] = 423,["355"] = 423,["356"] = 424,["357"] = 424,["359"] = 416,["360"] = 429,["361"] = 430,["364"] = 431,["365"] = 431,["366"] = 432,["367"] = 432,["368"] = 433,["369"] = 433,["370"] = 433,["373"] = 434,["374"] = 435,["375"] = 436,["376"] = 436,["377"] = 436,["378"] = 436,["379"] = 436,["380"] = 436,["381"] = 436,["382"] = 437,["383"] = 437,["385"] = 429,["386"] = 441,["387"] = 442,["390"] = 444,["391"] = 445,["392"] = 446,["393"] = 447,["394"] = 448,["395"] = 449,["396"] = 450,["397"] = 451,["398"] = 451,["400"] = 451,["401"] = 452,["402"] = 453,["406"] = 457,["407"] = 458,["408"] = 459,["409"] = 461,["410"] = 462,["411"] = 463,["412"] = 463,["414"] = 464,["415"] = 466,["416"] = 466,["417"] = 466,["418"] = 466,["419"] = 466,["420"] = 466,["424"] = 470,["425"] = 441,["426"] = 472,["427"] = 473,["430"] = 475,["431"] = 476,["432"] = 477,["433"] = 478,["434"] = 472,["435"] = 480,["436"] = 481,["439"] = 483,["440"] = 484,["441"] = 485,["442"] = 486,["443"] = 480,["444"] = 489,["445"] = 490,["448"] = 491,["449"] = 492,["450"] = 492,["452"] = 489,["453"] = 494,["454"] = 495,["455"] = 497,["456"] = 498,["457"] = 501,["458"] = 502,["459"] = 503,["460"] = 504,["461"] = 505,["462"] = 506,["465"] = 510,["466"] = 510,["468"] = 512,["469"] = 513,["470"] = 514,["471"] = 515,["473"] = 517,["476"] = 520,["477"] = 494,["478"] = 524,["479"] = 524,["480"] = 524,["481"] = 524,["482"] = 527,["483"] = 527,["484"] = 527,["485"] = 527,["486"] = 530,["487"] = 530,["488"] = 530,["489"] = 530});
+__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["14"] = 1,["15"] = 1,["16"] = 2,["17"] = 2,["18"] = 2,["19"] = 2,["20"] = 2,["21"] = 2,["22"] = 4,["23"] = 6,["24"] = 7,["25"] = 8,["26"] = 9,["27"] = 10,["28"] = 11,["30"] = 13,["31"] = 14,["33"] = 6,["34"] = 18,["35"] = 19,["36"] = 20,["37"] = 21,["38"] = 22,["39"] = 23,["40"] = 24,["41"] = 25,["42"] = 26,["43"] = 27,["47"] = 31,["49"] = 33,["50"] = 18,["52"] = 39,["53"] = 40,["54"] = 41,["55"] = 42,["56"] = 43,["58"] = 40,["59"] = 39,["60"] = 80,["61"] = 80,["62"] = 80,["64"] = 81,["66"] = 83,["67"] = 84,["68"] = 85,["69"] = 87,["71"] = 89,["73"] = 92,["74"] = 93,["75"] = 95,["76"] = 96,["77"] = 98,["78"] = 99,["79"] = 100,["80"] = 101,["81"] = 102,["82"] = 103,["84"] = 105,["85"] = 106,["87"] = 108,["88"] = 109,["90"] = 111,["91"] = 112,["94"] = 116,["96"] = 119,["97"] = 120,["98"] = 121,["99"] = 122,["100"] = 123,["101"] = 124,["102"] = 125,["103"] = 126,["104"] = 127,["105"] = 128,["106"] = 129,["107"] = 130,["108"] = 131,["110"] = 133,["112"] = 134,["113"] = 134,["114"] = 135,["115"] = 136,["116"] = 134,["120"] = 139,["121"] = 140,["123"] = 142,["124"] = 143,["126"] = 145,["127"] = 146,["129"] = 123,["130"] = 149,["131"] = 150,["132"] = 151,["133"] = 152,["134"] = 153,["136"] = 154,["137"] = 154,["138"] = 155,["139"] = 156,["140"] = 154,["144"] = 159,["145"] = 160,["147"] = 162,["148"] = 163,["150"] = 165,["151"] = 166,["153"] = 150,["154"] = 169,["155"] = 170,["156"] = 171,["158"] = 172,["159"] = 172,["160"] = 173,["161"] = 174,["162"] = 172,["166"] = 177,["167"] = 178,["169"] = 180,["170"] = 181,["172"] = 183,["173"] = 184,["175"] = 170,["176"] = 187,["177"] = 188,["178"] = 189,["179"] = 190,["181"] = 192,["182"] = 193,["184"] = 188,["185"] = 196,["186"] = 197,["187"] = 243,["188"] = 244,["190"] = 246,["191"] = 197,["192"] = 255,["193"] = 256,["194"] = 257,["195"] = 258,["196"] = 257,["199"] = 263,["200"] = 264,["201"] = 265,["202"] = 266,["203"] = 266,["204"] = 266,["206"] = 266,["208"] = 266,["209"] = 267,["210"] = 268,["212"] = 270,["213"] = 271,["215"] = 273,["216"] = 265,["217"] = 275,["218"] = 276,["219"] = 277,["220"] = 278,["221"] = 279,["222"] = 281,["223"] = 282,["224"] = 283,["225"] = 284,["226"] = 285,["229"] = 288,["230"] = 289,["231"] = 290,["237"] = 296,["238"] = 297,["240"] = 276,["242"] = 303,["243"] = 304,["244"] = 306,["245"] = 307,["247"] = 309,["248"] = 310,["249"] = 311,["251"] = 313,["252"] = 315,["253"] = 316,["254"] = 317,["255"] = 318,["256"] = 319,["257"] = 318,["259"] = 322,["260"] = 323,["261"] = 322,["267"] = 306,["268"] = 330,["269"] = 331,["270"] = 332,["272"] = 334,["273"] = 335,["274"] = 336,["276"] = 339,["277"] = 340,["278"] = 341,["280"] = 342,["281"] = 342,["282"] = 343,["283"] = 344,["285"] = 345,["286"] = 345,["287"] = 346,["288"] = 347,["291"] = 345,["294"] = 351,["295"] = 352,["297"] = 342,["300"] = 355,["301"] = 340,["303"] = 359,["304"] = 360,["306"] = 84,["307"] = 80,["308"] = 378,["309"] = 378,["310"] = 378,["311"] = 378,["312"] = 393,["313"] = 394,["316"] = 398,["317"] = 399,["318"] = 400,["319"] = 401,["320"] = 402,["321"] = 403,["322"] = 404,["323"] = 404,["325"] = 404,["326"] = 405,["327"] = 406,["330"] = 393,["331"] = 412,["332"] = 413,["333"] = 413,["334"] = 413,["336"] = 413,["337"] = 412,["338"] = 416,["339"] = 417,["340"] = 417,["341"] = 417,["343"] = 417,["344"] = 416,["345"] = 420,["346"] = 421,["349"] = 422,["350"] = 422,["352"] = 422,["353"] = 422,["355"] = 423,["358"] = 423,["360"] = 423,["363"] = 423,["364"] = 423,["366"] = 422,["367"] = 422,["368"] = 422,["369"] = 422,["370"] = 420,["371"] = 426,["372"] = 427,["375"] = 429,["376"] = 430,["377"] = 431,["378"] = 432,["379"] = 433,["380"] = 434,["381"] = 435,["382"] = 436,["383"] = 436,["385"] = 436,["386"] = 437,["387"] = 438,["391"] = 442,["392"] = 443,["393"] = 445,["394"] = 446,["395"] = 447,["396"] = 447,["398"] = 448,["399"] = 448,["400"] = 448,["401"] = 448,["402"] = 448,["403"] = 448,["404"] = 448,["405"] = 448,["407"] = 450,["408"] = 451,["409"] = 451,["411"] = 452,["412"] = 454,["413"] = 454,["414"] = 454,["415"] = 454,["416"] = 454,["417"] = 454,["421"] = 458,["422"] = 426,["423"] = 460,["424"] = 461,["427"] = 463,["428"] = 464,["429"] = 465,["430"] = 460,["431"] = 467,["432"] = 468,["435"] = 470,["436"] = 471,["437"] = 472,["438"] = 467,["439"] = 475,["440"] = 476,["443"] = 477,["444"] = 478,["445"] = 478,["447"] = 475,["448"] = 480,["449"] = 481,["450"] = 483,["451"] = 484,["452"] = 487,["453"] = 488,["454"] = 489,["455"] = 490,["456"] = 491,["457"] = 492,["460"] = 496,["461"] = 496,["463"] = 498,["464"] = 499,["465"] = 500,["466"] = 501,["468"] = 503,["471"] = 506,["472"] = 480,["473"] = 510,["474"] = 510,["475"] = 510,["476"] = 510,["477"] = 513,["478"] = 513,["479"] = 513,["480"] = 513,["481"] = 516,["482"] = 516,["483"] = 516,["484"] = 516});
 local ____exports = {}
 local ____eom_ability = require("abilities.eom_ability")
 local collectAbilityValueEntries = ____eom_ability.collectAbilityValueEntries
@@ -311,7 +315,7 @@ function EOMModifier.prototype.RegisterStaticProperties(self)
         return
     end
     local entIndex = self:GetParent():entindex()
-    local sourceId = self:GetName()
+    local sourceId = self:GetPropertySourceId()
     local staticProperty = self:StaticProperty()
     for property, value in pairs(staticProperty) do
         local id = PROPERTY_MAP_REVERSE[property]
@@ -325,71 +329,52 @@ function EOMModifier.prototype.RegisterStaticProperties(self)
         end
     end
 end
+function EOMModifier.prototype.GetPropertySourceId(self)
+    local ____self_3, ____PropertySourceId_4 = self, "__PropertySourceId"
+    if ____self_3[____PropertySourceId_4] == nil then
+        ____self_3[____PropertySourceId_4] = DoUniqueString(self:GetName() .. ":property")
+    end
+    return self.__PropertySourceId
+end
 function EOMModifier.prototype.GetStateSourceId(self)
-    local ____self_3, ____StateSourceId_4 = self, "__StateSourceId"
-    if ____self_3[____StateSourceId_4] == nil then
-        ____self_3[____StateSourceId_4] = DoUniqueString(self:GetName() .. ":state")
+    local ____self_6, ____StateSourceId_7 = self, "__StateSourceId"
+    if ____self_6[____StateSourceId_7] == nil then
+        ____self_6[____StateSourceId_7] = DoUniqueString(self:GetName() .. ":state")
     end
     return self.__StateSourceId
 end
-function EOMModifier.prototype.RegisterDynamicStates(self)
-    if not IsServer() or self.DynamicState == nil and self.__DynamicStateIDs == nil then
+function EOMModifier.prototype.RegisterStates(self)
+    if not IsServer() or self.StaticState == nil and self.DynamicState == nil and self.__StateSourceId == nil then
         return
     end
-    local entIndex = self:GetParent():entindex()
-    local sourceId = self:GetStateSourceId()
-    local ____opt_6 = self.DynamicState
-    local dynamicState = ____opt_6 and ____opt_6(self) or ({})
-    for ____, state in ipairs(self.__DynamicStateIDs or ({})) do
-        if dynamicState[state] == nil then
-            StateSystem:UnregisterDynamicState(entIndex, sourceId, state)
-        end
-    end
-    self.__DynamicStateIDs = {}
-    for state, func in pairs(dynamicState) do
-        StateSystem:RegisterDynamicState(
-            entIndex,
-            state,
-            sourceId,
-            func,
-            self:GetPriority()
-        )
-        local ____self___DynamicStateIDs_8 = self.__DynamicStateIDs
-        ____self___DynamicStateIDs_8[#____self___DynamicStateIDs_8 + 1] = state
-    end
-end
-function EOMModifier.prototype.RegisterStaticStates(self)
-    if not IsServer() or self.StaticState == nil and self.__StaticStateIDs == nil then
-        return
-    end
-    local entIndex = self:GetParent():entindex()
-    local sourceId = self:GetStateSourceId()
+    local ____StateSystem_14 = StateSystem
+    local ____StateSystem_ReplaceSourceStates_15 = StateSystem.ReplaceSourceStates
+    local ____array_13 = __TS__SparseArrayNew(
+        self:GetParent():entindex(),
+        self:GetStateSourceId()
+    )
     local ____opt_9 = self.StaticState
-    local staticState = ____opt_9 and ____opt_9(self) or ({})
-    for ____, state in ipairs(self.__StaticStateIDs or ({})) do
-        if staticState[state] == nil then
-            StateSystem:RemoveStaticState(entIndex, sourceId, state)
-        end
-    end
-    self.__StaticStateIDs = {}
-    for state, value in pairs(staticState) do
-        StateSystem:AddStaticState(
-            entIndex,
-            state,
-            sourceId,
-            value,
-            self:GetPriority()
-        )
-        local ____self___StaticStateIDs_11 = self.__StaticStateIDs
-        ____self___StaticStateIDs_11[#____self___StaticStateIDs_11 + 1] = state
-    end
+    __TS__SparseArrayPush(
+        ____array_13,
+        ____opt_9 and ____opt_9(self) or ({})
+    )
+    local ____opt_11 = self.DynamicState
+    __TS__SparseArrayPush(
+        ____array_13,
+        ____opt_11 and ____opt_11(self) or ({}),
+        self:GetPriority()
+    )
+    ____StateSystem_ReplaceSourceStates_15(
+        ____StateSystem_14,
+        __TS__SparseArraySpread(____array_13)
+    )
 end
 function EOMModifier.prototype.OnCreated(self, params)
     if self._bDestroyed == true then
         return
     end
     local entIndex = self:GetParent():entindex()
-    local sourceId = self:GetName()
+    local sourceId = self:GetPropertySourceId()
     if self.DynamicProperty ~= nil then
         local dynamicProperty = self:DynamicProperty()
         for property, func in pairs(dynamicProperty) do
@@ -405,16 +390,28 @@ function EOMModifier.prototype.OnCreated(self, params)
         end
     end
     self:RegisterStaticProperties()
-    self:RegisterDynamicStates()
-    self:RegisterStaticStates()
+    self:RegisterStates()
     if IsServer() then
+        if self.UnitEventListener ~= nil then
+            if self.__EventIDList == nil then
+                self.__EventIDList = {}
+            end
+            __TS__ArrayPushArray(
+                self.__EventIDList,
+                Event:RegisterUnitListeners(
+                    self:UnitEventListener(),
+                    self:GetParent(),
+                    self
+                )
+            )
+        end
         if self.EventListener ~= nil then
             if self.__EventIDList == nil then
                 self.__EventIDList = {}
             end
             for event, listener in pairs(self:EventListener()) do
-                local ____self___EventIDList_12 = self.__EventIDList
-                ____self___EventIDList_12[#____self___EventIDList_12 + 1] = Event:RegisterForOwner(
+                local ____self___EventIDList_16 = self.__EventIDList
+                ____self___EventIDList_16[#____self___EventIDList_16 + 1] = Event:RegisterForOwner(
                     event,
                     listener,
                     self:GetParent()
@@ -429,8 +426,7 @@ function EOMModifier.prototype.OnRefresh(self, params)
         return
     end
     self:RegisterStaticProperties()
-    self:RegisterStaticStates()
-    self:RegisterDynamicStates()
+    self:RegisterStates()
     self:RefreshParentStats()
 end
 function EOMModifier.prototype.OnStackCountChanged(self, stackCount)
@@ -438,8 +434,7 @@ function EOMModifier.prototype.OnStackCountChanged(self, stackCount)
         return
     end
     self:RegisterStaticProperties()
-    self:RegisterStaticStates()
-    self:RegisterDynamicStates()
+    self:RegisterStates()
     self:RefreshParentStats()
 end
 function EOMModifier.prototype.RefreshParentStats(self)
@@ -453,7 +448,7 @@ function EOMModifier.prototype.RefreshParentStats(self)
 end
 function EOMModifier.prototype.OnDestroy(self)
     self._bDestroyed = true
-    local sourceId = self:GetName()
+    local sourceId = self.__PropertySourceId or self:GetName()
     local entIndex = self:GetParent():entindex()
     for ____, property in ipairs(__TS__ObjectKeys(self._RegisteredPropertyKeys or ({}))) do
         local id = PROPERTY_MAP_REVERSE[__TS__Number(property)]

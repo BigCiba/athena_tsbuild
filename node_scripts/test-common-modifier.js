@@ -9,8 +9,8 @@ let passed = 0;
 function test(name, check) { check(); passed++; console.log('PASS ' + name); }
 function near(actual, expected) { assert.ok(Math.abs(actual - expected) < Math.max(1, Math.abs(expected)) * 1e-9, `${actual} != ${expected}`); }
 function fixture(difficulty = 4, randomFactors = [], server = true) {
-	let index = 0, eventID = 0, rolls = 0, uniqueID = 0;
-	const listeners = new Map(), units = new Map(), timers = new Map(), gold = [];
+	let index = 0, rolls = 0, uniqueID = 0;
+	const units = new Map(), timers = new Map(), gold = [];
 	const session = { runId: 1, state: 'GameState_Battle', participants: [0] };
 	function BaseModifier() {}
 	Object.assign(BaseModifier.prototype, {
@@ -76,12 +76,9 @@ function fixture(difficulty = 4, randomFactors = [], server = true) {
 		CustomNetTables: { SetTableValue(table, key, value) { netTables.set(table + ':' + key, value); }, GetTableValue(table, key) { return netTables.get(table + ':' + key); } },
 		StateSystem: undefined, StateData: undefined,
 		EntIndexToHScript: id => units.get(id), FireGameEventLocal() {},
-		Event: {
-			RegisterWithPriority(name, fn) { const id = ++eventID; listeners.set(id, { name, fn }); return id; },
-			Register(name, fn) { const id = ++eventID; listeners.set(id, { name, fn }); return id; }, UnregisterContext() {},
-			RegisterForOwner(name, fn) { const id = ++eventID; listeners.set(id, { name, fn }); return id; },
-			Unregister: id => listeners.delete(id), Fire(name, data) { for (const listener of [...listeners.values()]) if (listener.name === name) listener.fn(data); },
-		},
+		Event: undefined, GameTime: undefined,
+		table: { insert: (a, i, v) => a.splice(i - 1, 0, v), remove: (a, i) => a.splice(i - 1, 1) }, print() {}, traceback: x => x,
+		xpcall: (fn, _handler, context, data) => { try { fn.call(context, data); return [true]; } catch (e) { return [false, String(e)]; } },
 	});
 	context._G = context;
 	context.CModule.prototype.print = function () {};
@@ -95,6 +92,7 @@ function fixture(difficulty = 4, randomFactors = [], server = true) {
 		vm.runInContext(Object.keys(imports).length > 0 ? '(function () {\n' + code + '\n})()' : code, context, { filename: file }); return context.module.exports;
 	}
 	const reload = { reloadable: value => value };
+	load('framework/event', { '../lib/tstl-utils': reload });
 	load('framework/enums');
 	load('framework/state_system/state_system', { '../../lib/tstl-utils': reload });
 	context.StateSystem.InitializeCore();
@@ -109,6 +107,7 @@ function fixture(difficulty = 4, randomFactors = [], server = true) {
 	const eom = load('modifiers/eom_modifier/eom_modifier', { '../../abilities/eom_ability': { collectAbilityValueEntries: () => [] }, '../../lib/dota_ts_adapter': adapter });
 	const common = load('modifiers/framework/modifier_common', { '../eom_modifier/eom_modifier': eom });
 	load('framework/unit_attributes', { '../lib/tstl-utils': reload, '../modifiers/framework/modifier_common': common });
+	load('framework/game_time', { '../lib/tstl-utils': reload }); context.GameTime.init(false);
 	load('modifiers/enemy/modifier_enemy_scaling', { '../eom_modifier/eom_modifier': eom });
 	load('modifiers/wave_unit', { './eom_modifier/eom_modifier': eom, '../lib/dota_ts_adapter': adapter });
 	load('modifiers/modifier_original_health_bar', { './eom_modifier/eom_modifier': eom });
@@ -126,8 +125,9 @@ function fixture(difficulty = 4, randomFactors = [], server = true) {
 		remove(unit, name) { unit.modifiers[name].OnDestroy(); delete unit.modifiers[name]; },
 		storage: unit => context.PropertyData.unitStorage[unit.index], rolls: () => rolls,
 		value: (unit, property) => unit.GetProperty(context.PropertyFunction[property]),
-		tick() { for (const fn of [...timers.values()]) fn(); }, session, gold, eom, load, units,
+		tick() { for (const fn of [...timers.values()]) fn(); }, session, gold, eom, load, units, timers,
 		loadDamage(targets = []) {
+			const objectPool = load('class/object_pool');
 			Object.assign(context, { DamageSystem: undefined, Service: { GetPlayerSetting: () => false },
 				// 原有 C1 增伤入口在这里不参与；新增的雅典娜公式和真实 DealDamage 完整执行。
 				GetOutgoingDamagePercent: () => 0, GetIncomingDamagePercent: () => 0, PRD: (_unit, chance) => chance >= 100,
@@ -135,7 +135,7 @@ function fixture(difficulty = 4, randomFactors = [], server = true) {
 				DOTA_UNIT_TARGET_TEAM: {}, DOTA_UNIT_TARGET_TYPE: {}, DOTA_UNIT_TARGET_FLAGS: {}, FindOrder: {}, FindUnitsInRadius: () => targets,
 			});
 			context.ATTACK_STATES.NO_CLEAVE = 256; context.ATTACK_STATES.NOT_PROCESSPROCS = 4;
-			load('mechanics/damage_system/damage_system', { '../../class/object_pool': {}, '../../lib/tstl-utils': reload, damage_system_type: {} });
+			load('mechanics/damage_system/damage_system', { '../../class/object_pool': objectPool, '../../lib/tstl-utils': reload, damage_system_type: {} });
 			return context.DamageSystem;
 		},
 	};
@@ -199,7 +199,8 @@ test('Athena 字段优先，基地/英雄/召唤物和变身新单位共用出�
 		assert.equal(f.value(unit, 'PHYSICAL_CRITICALSTRIKE_CHANCE'), 10); assert.equal(f.value(unit, 'PHYSICAL_CRITICALSTRIKE_DAMAGE'), 150);
 		assert.equal(f.value(unit, 'MAGICAL_CRITICALSTRIKE_CHANCE'), 5); assert.equal(f.value(unit, 'MAGICAL_CRITICALSTRIKE_DAMAGE'), 175);
 		assert.equal(f.value(unit, 'ATTACK_CRIT_CHANCE'), 0); assert.equal(f.value(unit, 'SPELL_CRIT_CHANCE'), 0);
-		assert.deepEqual(Array.from(f.storage(unit).static.base_health, entry => entry.sourceId), ['modifier_common']);
+		const baseSources = Array.from(f.storage(unit).static.base_health, entry => entry.sourceId);
+		assert.equal(baseSources.length, 1); assert.match(baseSources[0], /^modifier_common:property:/);
 	}
 });
 test('兼容 c1/Dota KV 与引擎默认值，零攻击和零魔法不被回退值覆盖', () => {

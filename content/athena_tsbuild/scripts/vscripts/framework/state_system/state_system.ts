@@ -108,6 +108,39 @@ class MStateSystem extends CModule {
 		});
 		return value;
 	}
+	/** 原子替换一个来源的完整声明；先提交所有状态，再发布最终值，跨类型保留登记顺序。 */
+	ReplaceSourceStates(key: StateSystemKey, sourceId: string, staticStates: Partial<Record<StateId, boolean>>,
+		dynamicStates: Partial<Record<StateId, DynamicStateCallback>>, priority: StatePriority = 0): void {
+		if (!IsServer()) return;
+		const ids = new Set([...Object.keys(staticStates), ...Object.keys(dynamicStates)]);
+		const previous = StateData.unitStorage[key];
+		if (previous) for (const layer of [previous.static, previous.dynamic]) {
+			for (const id of Object.keys(layer)) if (layer[id]!.some(data => data.sourceId === sourceId)) ids.add(id);
+		}
+		if (ids.size === 0) return;
+		const storage = this.GetStorage(key);
+		for (const id of ids) {
+			const oldStatic = storage.static[id]?.find(data => data.sourceId === sourceId);
+			const oldDynamic = storage.dynamic[id]?.find(data => data.sourceId === sourceId);
+			const statics = (storage.static[id] ?? []).filter(data => data.sourceId !== sourceId);
+			const dynamics = (storage.dynamic[id] ?? []).filter(data => data.sourceId !== sourceId);
+			const value = staticStates[id], callback = dynamicStates[id];
+			// 新来源的两层同时声明时仍沿用创建顺序：动态先登记，静态后登记。
+			if (callback !== undefined) dynamics.push({ sourceId, callback, priority,
+				registrationOrder: oldDynamic?.registrationOrder ?? (value === undefined ? oldStatic?.registrationOrder : undefined) ?? this.NextRegistrationOrder(),
+				addedTime: oldDynamic?.addedTime ?? oldStatic?.addedTime ?? this.GetCurrentTime(), metadata: oldDynamic?.metadata,
+			});
+			if (value !== undefined) statics.push({ sourceId, value, priority,
+				registrationOrder: oldStatic?.registrationOrder ?? (callback === undefined ? oldDynamic?.registrationOrder : undefined) ?? this.NextRegistrationOrder(),
+				addedTime: oldStatic?.addedTime ?? oldDynamic?.addedTime ?? this.GetCurrentTime(), metadata: oldStatic?.metadata,
+			});
+			if (statics.length > 0) storage.static[id] = statics; else delete storage.static[id];
+			if (dynamics.length > 0) storage.dynamic[id] = dynamics; else delete storage.dynamic[id];
+			StateData.stats.totalWrites++;
+		}
+		for (const id of ids) { this.MarkDirty(key, id); this.RefreshResolvedValue(key, id); }
+	}
+
 	/** 添加或刷新静态状态；只覆盖指定来源，保留其登记顺序。 */
 	AddStaticState(key: StateSystemKey, stateId: StateId, sourceId: string, value: boolean, priority: StatePriority = 0, metadata?: Record<string, any>): boolean {
 		if (!IsServer()) return false;

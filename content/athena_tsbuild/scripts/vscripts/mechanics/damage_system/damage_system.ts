@@ -58,6 +58,7 @@ class CDamageSystem extends CModule {
 			params.record = undefined;
 			params.is_crit = undefined;
 			params.is_backstab = undefined;
+			params.is_cleave = undefined;
 			params.extraProperties = undefined;
 		});
 		this.damageMessages = [];
@@ -231,7 +232,10 @@ class CDamageSystem extends CModule {
 						const sound = GetCriticalstrikeSound(attacker, params) as any;
 						if (typeof sound === "string" && sound !== "") EmitSoundOn(sound, attacker);
 					}
-					Event.Fire("crit_event", params as DamageEvent);
+					// 原版 OnCritical 仅通知非普攻；现有 C1 普通订阅仍接收所有暴击。
+					if (params.damage_category !== DamageCategory_t.DOTA_DAMAGE_CATEGORY_ATTACK
+						&& (params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL || params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL)) Event.FireUnit("crit_event", params as DamageEvent, attacker);
+					else Event.Fire("crit_event", params as DamageEvent);
 					params.damage *= fCritDamage * 0.01;
 				}
 			}
@@ -272,14 +276,15 @@ class CDamageSystem extends CModule {
 			params.damage += GetDamageProcTarget(target, params);
 
 			// 伤害放大
-			params.damage *= (1 + GetOutgoingDamagePercent(attacker, params) * 0.01);
-			params.damage *= GetAthenaOutgoingMultiplier(attacker, params);
+			if (!params.is_cleave) {
+				params.damage *= (1 + GetOutgoingDamagePercent(attacker, params) * 0.01);
+				params.damage *= GetAthenaOutgoingMultiplier(attacker, params);
+			}
 			// 伤害减免
 			params.damage *= (1 + GetIncomingDamagePercent(target, params) * 0.01);
 			params.damage *= GetAthenaIncomingMultiplier(target, params);
-			if (params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL || params.damage_type === EOM_DAMAGE_TYPES.DAMAGE_TYPE_MAGICAL) {
-				params.damage = math.max(0, params.damage - GetAthenaDamageBlock(target, params));
-			}
+			// 原版格挡对纯粹伤害同样生效，始终在百分比减免之后扣除。
+			params.damage = math.max(0, params.damage - GetAthenaDamageBlock(target, params));
 
 			// 伤害调整
 			if (this.hasAdjust(params)) {
@@ -333,10 +338,7 @@ class CDamageSystem extends CModule {
 				return;
 			}
 			if (!params.target.IsAlive()) {
-				Event.Fire("entity_killed", { attacker: params.attacker, victim: params.target });
-				if (!IsValid(params.target)) {
-					return;
-				}
+				// Kill 已由 game.OnEntityKilled 接收原生死亡事件并发布，禁止重复结算。
 				LargeNumberHealth.Clear(params.target);
 			}
 			// if (currentHealth > damage) {
@@ -402,14 +404,18 @@ class CDamageSystem extends CModule {
 			|| ((params.attack_states ?? 0) & (ATTACK_STATES.NOT_PROCESSPROCS | ATTACK_STATES.NO_CLEAVE)) !== 0) return;
 		const radius = GetCleaveRadius(params.attacker, params), percent = GetCleaveDamage(params.attacker, params);
 		if (radius <= 0 || percent <= 0) return;
-		const targets = FindUnitsInRadius(params.attacker.GetTeamNumber(), params.target.GetAbsOrigin(), undefined, radius,
+		const center = params.target.GetAbsOrigin(), damage = originalDamage * percent * 0.01;
+		const targets = FindUnitsInRadius(params.attacker.GetTeamNumber(), center, undefined, radius,
 			DOTA_UNIT_TARGET_TEAM.DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_TYPE.DOTA_UNIT_TARGET_BASIC,
 			DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAGS.DOTA_UNIT_TARGET_FLAG_NOT_ATTACK_IMMUNE, FindOrder.FIND_ANY_ORDER, false);
 		for (const target of targets) if (target !== params.target && IsValid(target) && IsValid(params.attacker)) this.DealDamage({
-			attacker: params.attacker, target, damage: originalDamage * percent * 0.01,
+			attacker: params.attacker, target, damage,
 			damage_type: EOM_DAMAGE_TYPES.DAMAGE_TYPE_PHYSICAL, damage_category: DamageCategory_t.DOTA_DAMAGE_CATEGORY_SPELL,
-			damage_flags: EOM_DAMAGE_FLAGS.NO_CRIT, attack_states: ATTACK_STATES.NO_CLEAVE | ATTACK_STATES.SKIPCOUNTING,
+			damage_flags: EOM_DAMAGE_FLAGS.NO_CRIT, attack_states: ATTACK_STATES.NO_CLEAVE | ATTACK_STATES.SKIPCOUNTING, is_cleave: true,
 		});
+		if (IsValid(params.attacker) && IsValid(params.target)) Event.FireUnit("cleave", {
+			attacker: params.attacker, target: params.target, center, radius, damage, tTargets: targets,
+		}, params.attacker, params.target);
 	}
 	/** 是否可以暴击 */
 	hasCrit(params: DamageInfo) {
@@ -418,7 +424,7 @@ class CDamageSystem extends CModule {
 	}
 	/** 是否可以闪避 */
 	hasEvasion(params: DamageInfo) {
-		return true;
+		return params.damage_category === DamageCategory_t.DOTA_DAMAGE_CATEGORY_ATTACK;
 	}
 	/** 是否可以护盾易伤调整伤害 */
 	hasAdjust(params: DamageInfo) {

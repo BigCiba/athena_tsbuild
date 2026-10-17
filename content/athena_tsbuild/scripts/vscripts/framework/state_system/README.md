@@ -49,6 +49,10 @@ DynamicState() {
 
 EOM 自动管理创建、刷新、叠层和销毁；刷新后省略的字段会释放旧来源。原生 modifier 的 `CheckState()` 与这里的自定义状态分开声明。
 
+EOM 的状态刷新通过 `StateSystem.ReplaceSourceStates` 整批提交静态和动态声明，再比较最终结果。静态 true 切换为动态 true 不会发出中间 false；同级来源的登记顺序跨类型保留。一次刷新涉及多个状态时，监听器重读也能看到完整的新声明。此合同只适用于状态；静态属性省略字段仍沿用原版的保留限制。
+
 修改共享枚举后运行 `npm.cmd run sync:enums`、`npm.cmd run build:polyfill`；服务端最终产物使用 `node node_scripts/build-vscripts.js --incremental false` 完整生成，避免增量缓存跳过曾经只做类型检查的文件。回归入口是 `npm.cmd run test:states`。
 
 本轮 22 项状态检查通过，包含生产 StateSystem、EOM 注册器、NPC 查询、伤害入口、攻击弹道过滤器与 Panorama 状态读取；另有 101 项现有属性、对局、选人、任务、刷怪与图片资源检查通过。Lua 完整编译及客户端共享代码编译通过。Dota VConsole 当前未连接，实际引擎回调、多人客户端及血条表现尚未实测。
+
+后续整体复核的回归入口为 `npm.cmd run test:migration`，补充静态/动态状态互换、同级顺序与多字段原子刷新的验证；`node_scripts/test-migration-regressions.lua` 对实际 Lua 产物验证同一合同。

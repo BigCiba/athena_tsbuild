@@ -363,6 +363,7 @@ export const registerEOMModifier = function (this: string | undefined | void, pa
 
 export interface EOMModifier extends CDOTA_Modifier_Lua {
 	EventListener(): Partial<EventListenerMap>;
+	UnitEventListener(): Partial<UnitEventListenerMap>;
 	GetAbilitySpecialValue(): void;
 	StaticProperty(): Partial<Record<PropertyFunction, any>>;
 	DynamicProperty(): Partial<Record<PropertyFunction, DynamicPropertyFunction>>;
@@ -378,9 +379,8 @@ export class EOMModifier extends BaseModifier {
 	protected _StaticProperty?: Partial<Record<PropertyFunction, any>>;
 	protected _DynamicProperty?: Partial<Record<PropertyFunction, DynamicPropertyFunction>>;
 	protected _RegisteredPropertyKeys?: Partial<Record<PropertyFunction, boolean>>;
+	protected __PropertySourceId?: string;
 	protected __StateSourceId?: string;
-	protected __StaticStateIDs?: StateId[];
-	protected __DynamicStateIDs?: StateId[];
 	protected _bDestroyed?: boolean;
 	protected __EventIDList?: number[];
 	protected __AbilityValueEntries?: { propertyKey: string; specialValueKey: string; }[];
@@ -396,7 +396,7 @@ export class EOMModifier extends BaseModifier {
 		}
 
 		const entIndex = this.GetParent().entindex();
-		const sourceId = this.GetName();
+		const sourceId = this.GetPropertySourceId();
 		const staticProperty = this.StaticProperty();
 		for (const [property, value] of pairs(staticProperty)) {
 			const id = PROPERTY_MAP_REVERSE[property];
@@ -408,41 +408,26 @@ export class EOMModifier extends BaseModifier {
 		}
 	}
 
+	/** 属性与状态分别由实例持有来源，刷新/叠层复用，同名实例互不覆盖。 */
+	protected GetPropertySourceId(): string {
+		return this.__PropertySourceId ??= DoUniqueString(this.GetName() + ":property");
+	}
 	/** 状态按 modifier 实例持有来源，同名多实例销毁时不会互相清除。 */
 	protected GetStateSourceId(): string {
 		return this.__StateSourceId ??= DoUniqueString(this.GetName() + ":state");
 	}
-	// 为当前修饰器实例注册动态状态回调，刷新时释放不再声明的字段。
-	protected RegisterDynamicStates(): void {
-		if (!IsServer() || (this.DynamicState === undefined && this.__DynamicStateIDs === undefined)) return;
-		const entIndex = this.GetParent().entindex(), sourceId = this.GetStateSourceId();
-		const dynamicState = this.DynamicState?.() ?? {};
-		for (const state of this.__DynamicStateIDs ?? []) if (dynamicState[state] === undefined) StateSystem.UnregisterDynamicState(entIndex, sourceId, state);
-		this.__DynamicStateIDs = [];
-		for (const [state, func] of pairs(dynamicState)) {
-			StateSystem.RegisterDynamicState(entIndex, state, sourceId, func, this.GetPriority());
-			this.__DynamicStateIDs.push(state);
-		}
-	}
-
-	// 按当前修饰器优先级注册静态状态。
-	protected RegisterStaticStates(): void {
-		if (!IsServer() || (this.StaticState === undefined && this.__StaticStateIDs === undefined)) return;
-		const entIndex = this.GetParent().entindex(), sourceId = this.GetStateSourceId();
-		const staticState = this.StaticState?.() ?? {};
-		for (const state of this.__StaticStateIDs ?? []) if (staticState[state] === undefined) StateSystem.RemoveStaticState(entIndex, sourceId, state);
-		this.__StaticStateIDs = [];
-		for (const [state, value] of pairs(staticState)) {
-			StateSystem.AddStaticState(entIndex, state, sourceId, value, this.GetPriority());
-			this.__StaticStateIDs.push(state);
-		}
+	/** 状态整批替换，省略字段释放；与保留省略字段的静态属性合同分开。 */
+	protected RegisterStates(): void {
+		if (!IsServer() || (this.StaticState === undefined && this.DynamicState === undefined && this.__StateSourceId === undefined)) return;
+		StateSystem.ReplaceSourceStates(this.GetParent().entindex(), this.GetStateSourceId(),
+			this.StaticState?.() ?? {}, this.DynamicState?.() ?? {}, this.GetPriority());
 	}
 
 	OnCreated(params: object): void {
 		if (this._bDestroyed == true) return;
 
 		let entIndex = this.GetParent().entindex();
-		let sourceId = this.GetName();
+		let sourceId = this.GetPropertySourceId();
 		if (this.DynamicProperty != undefined) {
 			const dynamicProperty = this.DynamicProperty();
 			for (const [property, func] of pairs(dynamicProperty)) {
@@ -455,10 +440,13 @@ export class EOMModifier extends BaseModifier {
 			}
 		}
 		this.RegisterStaticProperties();
-		this.RegisterDynamicStates();
-		this.RegisterStaticStates();
+		this.RegisterStates();
 
 		if (IsServer()) {
+			if (this.UnitEventListener !== undefined) {
+				this.__EventIDList ??= [];
+				this.__EventIDList.push(...Event.RegisterUnitListeners(this.UnitEventListener(), this.GetParent(), this));
+			}
 			if (this.EventListener != undefined) {
 				this.__EventIDList ??= [];
 				for (const [event, listener] of pairs(this.EventListener())) {
@@ -473,16 +461,14 @@ export class EOMModifier extends BaseModifier {
 		if (this._bDestroyed == true) return;
 
 		this.RegisterStaticProperties();
-		this.RegisterStaticStates();
-		this.RegisterDynamicStates();
+		this.RegisterStates();
 		this.RefreshParentStats();
 	}
 	OnStackCountChanged(stackCount: number): void {
 		if (this._bDestroyed == true) return;
 
 		this.RegisterStaticProperties();
-		this.RegisterStaticStates();
-		this.RegisterDynamicStates();
+		this.RegisterStates();
 		this.RefreshParentStats();
 	}
 	/** 完整注册/移除属性后统一同步，覆盖攻击和护甲等不发 property_changed 的属性。 */
@@ -494,7 +480,7 @@ export class EOMModifier extends BaseModifier {
 	OnDestroy(): void {
 		this._bDestroyed = true;
 
-		let sourceId = this.GetName();
+		let sourceId = this.__PropertySourceId ?? this.GetName();
 		let entIndex = this.GetParent().entindex();
 
 		// 按登记时的作用域释放，不能把实体索引当成另一个玩家的 ID。

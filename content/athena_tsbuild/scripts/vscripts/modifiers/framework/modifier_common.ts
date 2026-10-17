@@ -105,6 +105,7 @@ export class modifier_common extends EOMModifier {
 			modifierfunction.MODIFIER_PROPERTY_BASE_ATTACK_TIME_CONSTANT, modifierfunction.MODIFIER_PROPERTY_RESPAWNTIME_STACKING,
 			modifierfunction.MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT, modifierfunction.MODIFIER_PROPERTY_COOLDOWN_REDUCTION_CONSTANT,
 			modifierfunction.MODIFIER_PROPERTY_ATTACKSPEED_BASE_OVERRIDE,
+			modifierfunction.MODIFIER_EVENT_ON_ABILITY_EXECUTED,
 		];
 		if (this.GetParent().IsRealHero()) functions.push(
 			modifierfunction.MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_TARGET, modifierfunction.MODIFIER_EVENT_ON_ABILITY_FULLY_CAST,
@@ -125,7 +126,12 @@ export class modifier_common extends EOMModifier {
 	GetModifierAttackSpeedBonus_Constant() { return GetAttackspeed(this.GetParent()); }
 	GetModifierAttackSpeedPercentage() { return -GetAttackspeedReduction(this.GetParent()); }
 	GetModifierEvasion_Constant() { return GetAthenaEvasion(this.GetParent()); }
-	GetModifierPercentageCooldown() { return GetAthenaCooldownReduction(this.GetParent()); }
+	/** 原版只检查技能 KV；物品和没有参数的查询沿用普通减 CD。 */
+	private IgnoresCooldownReduction(params?: { ability?: CDOTABaseAbility; }) {
+		const ability = params?.ability;
+		return IsValid(ability) && tonumber(KeyValues.abilities?.[ability.GetAbilityName()]?.IgnoreCooldownReduction) === 1;
+	}
+	GetModifierPercentageCooldown(params?: { ability?: CDOTABaseAbility; }) { return this.IgnoresCooldownReduction(params) ? 0 : GetAthenaCooldownReduction(this.GetParent()); }
 	GetModifierConstantManaRegen() { return GetAthenaManaRegen(this.GetParent()); }
 	GetModifierConstantHealthRegen() { return LargeNumberHealth.IsActive(this.GetParent()) ? 0 : GetAthenaHealthRegen(this.GetParent()); }
 	/** 大数值单位由逻辑生命代理恢复，禁止只恢复引擎代理值造成血条与逻辑不一致。 */
@@ -133,7 +139,7 @@ export class modifier_common extends EOMModifier {
 		const unit = this.GetParent();
 		if (IsServer() && unit.IsAlive() && LargeNumberHealth.IsActive(unit)) unit.Heal(GetAthenaHealthRegen(unit) * 0.1, undefined);
 	}
-	GetModifierCooldownReduction_Constant() { return GetCooldownConstant(this.GetParent()); }
+	GetModifierCooldownReduction_Constant(params?: { ability?: CDOTABaseAbility; }) { return this.IgnoresCooldownReduction(params) ? 0 : GetCooldownConstant(this.GetParent(), params); }
 	GetModifierAttackSpeedBaseOverride() { return math.min((MAXIMUM_ATTACK_SPEED + GetMaxAttackspeedBonus(this.GetParent())) * 0.01, math.max(MINIMUM_ATTACK_SPEED * 0.01, 1 + this.GetParent().GetIncreasedAttackSpeed(true))); }
 	GetModifierPercentageExpRateBoost() { return GetPlayerExperienceGainPercentage(this.GetParent().GetPlayerOwnerID()); }
 	GetModifierStatusResistanceStacking() { return (1 - (1 - GetStatusResistanceStacking(this.GetParent()) * 0.01) * (1 - GetStatusResistanceUnique(this.GetParent()) * 0.01)) * 100; }
@@ -146,6 +152,13 @@ export class modifier_common extends EOMModifier {
 	}
 	OnAbilityStart(event: ModifierAbilityEvent) {
 		if (event.unit === this.GetParent()) Event.Fire("ability_cast_start", { ability: event.ability, caster: event.unit, position: event.ability.GetCursorPosition(), abilityTag: event.ability.GetAbilityTag() });
+	}
+	/** 原版在执行阶段通知，不以 FULLY_CAST 或冷却/被动判断替代。 */
+	OnAbilityExecuted(event: ModifierAbilityEvent) {
+		if (!IsServer() || event.unit !== this.GetParent() || !IsValid(event.ability)) return;
+		if (!event.ability.IsItem() && !event.ability.IsToggle() && event.ability.ProcsMagicStick()) {
+			Event.FireUnit("valid_ability_executed", event, event.unit, event.target);
+		}
 	}
 	OnAbilityFullyCast(event: ModifierAbilityEvent) {
 		if (event.unit !== this.GetParent()) return;

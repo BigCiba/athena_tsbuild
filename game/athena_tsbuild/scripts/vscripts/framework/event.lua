@@ -3,11 +3,14 @@ local ____lualib = require("lualib_bundle")
 local __TS__Class = ____lualib.__TS__Class
 local __TS__ClassExtends = ____lualib.__TS__ClassExtends
 local __TS__Delete = ____lualib.__TS__Delete
+local __TS__ArrayFind = ____lualib.__TS__ArrayFind
+local __TS__ArraySlice = ____lualib.__TS__ArraySlice
+local __TS__ArraySort = ____lualib.__TS__ArraySort
 local __TS__ObjectKeys = ____lualib.__TS__ObjectKeys
 local __TS__DecorateLegacy = ____lualib.__TS__DecorateLegacy
 local __TS__New = ____lualib.__TS__New
 local __TS__SourceMapTraceBack = ____lualib.__TS__SourceMapTraceBack
-__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["11"] = 1,["12"] = 1,["13"] = 184,["14"] = 184,["15"] = 185,["17"] = 185,["18"] = 186,["19"] = 187,["20"] = 184,["21"] = 189,["22"] = 190,["23"] = 189,["24"] = 193,["25"] = 194,["27"] = 196,["29"] = 193,["30"] = 199,["31"] = 199,["32"] = 207,["33"] = 208,["34"] = 209,["36"] = 210,["37"] = 210,["38"] = 211,["39"] = 212,["41"] = 212,["43"] = 212,["44"] = 213,["46"] = 210,["49"] = 218,["50"] = 219,["53"] = 207,["54"] = 228,["55"] = 235,["56"] = 235,["57"] = 235,["59"] = 237,["60"] = 237,["61"] = 237,["62"] = 237,["63"] = 238,["64"] = 245,["65"] = 245,["66"] = 246,["67"] = 228,["68"] = 253,["69"] = 259,["70"] = 261,["71"] = 266,["72"] = 267,["73"] = 267,["75"] = 268,["76"] = 269,["77"] = 270,["78"] = 270,["80"] = 272,["81"] = 276,["83"] = 278,["84"] = 269,["85"] = 280,["86"] = 266,["88"] = 285,["89"] = 253,["90"] = 292,["91"] = 295,["92"] = 295,["94"] = 298,["95"] = 298,["96"] = 298,["98"] = 300,["99"] = 300,["100"] = 300,["101"] = 300,["102"] = 301,["103"] = 308,["104"] = 311,["106"] = 312,["107"] = 312,["108"] = 313,["109"] = 314,["110"] = 315,["113"] = 312,["116"] = 320,["117"] = 321,["118"] = 292,["119"] = 327,["120"] = 329,["122"] = 330,["123"] = 330,["124"] = 331,["125"] = 332,["126"] = 335,["127"] = 336,["129"] = 339,["131"] = 330,["135"] = 344,["136"] = 327,["137"] = 350,["138"] = 351,["139"] = 353,["141"] = 354,["142"] = 354,["143"] = 355,["144"] = 356,["145"] = 357,["147"] = 354,["150"] = 361,["151"] = 362,["154"] = 366,["155"] = 350,["156"] = 372,["157"] = 373,["158"] = 374,["159"] = 374,["161"] = 376,["162"] = 377,["163"] = 378,["164"] = 372,["165"] = 384,["166"] = 385,["167"] = 386,["168"] = 384,["169"] = 392,["170"] = 393,["171"] = 394,["172"] = 394,["174"] = 398,["175"] = 399,["176"] = 400,["178"] = 402,["179"] = 392,["180"] = 408,["181"] = 412,["182"] = 413,["185"] = 418,["187"] = 420,["188"] = 420,["190"] = 421,["191"] = 424,["192"] = 425,["193"] = 426,["195"] = 428,["196"] = 429,["198"] = 433,["199"] = 440,["200"] = 441,["201"] = 441,["203"] = 442,["204"] = 447,["208"] = 420,["211"] = 452,["212"] = 453,["214"] = 456,["215"] = 408,["216"] = 462,["217"] = 467,["218"] = 469,["219"] = 470,["220"] = 471,["221"] = 469,["222"] = 474,["223"] = 475,["224"] = 462,["225"] = 484,["226"] = 489,["227"] = 490,["228"] = 491,["229"] = 491,["230"] = 491,["231"] = 491,["232"] = 491,["233"] = 491,["234"] = 491,["235"] = 491,["237"] = 484,["238"] = 502,["239"] = 508,["240"] = 509,["241"] = 510,["243"] = 508,["244"] = 514,["245"] = 502,["246"] = 520,["247"] = 521,["250"] = 523,["251"] = 524,["252"] = 525,["253"] = 526,["254"] = 527,["255"] = 529,["256"] = 530,["257"] = 532,["258"] = 533,["260"] = 533,["264"] = 533,["266"] = 533,["267"] = 533,["268"] = 534,["270"] = 534,["272"] = 534,["274"] = 533,["275"] = 535,["276"] = 537,["278"] = 539,["280"] = 542,["281"] = 520,["282"] = 548,["283"] = 549,["284"] = 550,["285"] = 552,["286"] = 553,["287"] = 554,["289"] = 557,["290"] = 548,["291"] = 184,["292"] = 567,["293"] = 567});
+__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["14"] = 1,["15"] = 1,["16"] = 210,["17"] = 210,["18"] = 211,["20"] = 211,["21"] = 212,["22"] = 213,["23"] = 210,["24"] = 215,["25"] = 216,["26"] = 215,["27"] = 219,["28"] = 220,["30"] = 222,["32"] = 219,["33"] = 225,["34"] = 225,["35"] = 233,["36"] = 234,["37"] = 235,["39"] = 236,["40"] = 236,["41"] = 237,["42"] = 238,["44"] = 238,["46"] = 238,["47"] = 239,["48"] = 240,["50"] = 236,["53"] = 245,["54"] = 246,["57"] = 233,["58"] = 255,["59"] = 262,["60"] = 262,["61"] = 262,["63"] = 264,["64"] = 264,["65"] = 264,["66"] = 264,["67"] = 265,["68"] = 272,["69"] = 272,["70"] = 273,["71"] = 255,["72"] = 277,["73"] = 280,["74"] = 281,["75"] = 281,["76"] = 281,["77"] = 281,["78"] = 282,["79"] = 282,["80"] = 283,["81"] = 277,["82"] = 287,["83"] = 288,["84"] = 289,["85"] = 290,["86"] = 291,["87"] = 292,["88"] = 292,["89"] = 292,["90"] = 292,["91"] = 292,["92"] = 292,["93"] = 292,["94"] = 292,["98"] = 295,["99"] = 287,["100"] = 302,["101"] = 308,["102"] = 310,["103"] = 315,["104"] = 316,["105"] = 316,["107"] = 317,["108"] = 318,["109"] = 319,["110"] = 319,["112"] = 321,["113"] = 325,["115"] = 327,["116"] = 318,["117"] = 329,["118"] = 315,["120"] = 334,["121"] = 302,["122"] = 341,["123"] = 344,["124"] = 344,["126"] = 347,["127"] = 347,["128"] = 347,["130"] = 349,["131"] = 349,["132"] = 349,["133"] = 349,["134"] = 350,["135"] = 357,["136"] = 360,["138"] = 361,["139"] = 361,["140"] = 362,["141"] = 363,["142"] = 364,["145"] = 361,["148"] = 369,["149"] = 370,["150"] = 341,["151"] = 376,["152"] = 378,["154"] = 379,["155"] = 379,["156"] = 380,["157"] = 381,["158"] = 382,["159"] = 385,["160"] = 386,["162"] = 389,["164"] = 379,["168"] = 394,["169"] = 376,["170"] = 400,["171"] = 401,["172"] = 403,["174"] = 404,["175"] = 404,["176"] = 405,["177"] = 406,["178"] = 407,["179"] = 408,["181"] = 404,["184"] = 412,["185"] = 413,["188"] = 417,["189"] = 400,["190"] = 423,["191"] = 424,["192"] = 425,["193"] = 425,["195"] = 427,["196"] = 428,["197"] = 428,["199"] = 429,["200"] = 430,["201"] = 423,["202"] = 436,["203"] = 437,["204"] = 438,["205"] = 436,["206"] = 444,["207"] = 445,["208"] = 446,["209"] = 446,["211"] = 450,["212"] = 451,["213"] = 452,["215"] = 454,["216"] = 444,["217"] = 460,["218"] = 465,["219"] = 466,["222"] = 472,["223"] = 472,["224"] = 472,["225"] = 473,["226"] = 473,["227"] = 473,["228"] = 474,["229"] = 475,["230"] = 475,["232"] = 476,["233"] = 477,["234"] = 477,["236"] = 478,["237"] = 473,["238"] = 473,["239"] = 480,["240"] = 482,["242"] = 483,["243"] = 483,["245"] = 484,["246"] = 485,["247"] = 485,["249"] = 486,["250"] = 486,["253"] = 490,["254"] = 491,["255"] = 492,["258"] = 493,["259"] = 490,["260"] = 490,["261"] = 490,["262"] = 497,["263"] = 498,["264"] = 498,["266"] = 499,["267"] = 504,["272"] = 508,["273"] = 460,["274"] = 512,["275"] = 513,["276"] = 512,["277"] = 519,["278"] = 524,["279"] = 526,["280"] = 527,["281"] = 528,["282"] = 526,["283"] = 531,["284"] = 532,["285"] = 519,["286"] = 541,["287"] = 546,["288"] = 547,["289"] = 548,["290"] = 548,["291"] = 548,["292"] = 548,["293"] = 548,["294"] = 548,["295"] = 548,["296"] = 548,["298"] = 541,["299"] = 559,["300"] = 565,["301"] = 566,["302"] = 567,["304"] = 565,["305"] = 571,["306"] = 559,["307"] = 577,["308"] = 578,["311"] = 580,["312"] = 581,["313"] = 582,["314"] = 583,["315"] = 584,["316"] = 586,["317"] = 587,["318"] = 589,["319"] = 590,["321"] = 590,["325"] = 590,["327"] = 590,["328"] = 590,["329"] = 591,["331"] = 591,["333"] = 591,["335"] = 590,["336"] = 592,["337"] = 594,["339"] = 596,["341"] = 599,["342"] = 577,["343"] = 605,["344"] = 606,["345"] = 607,["346"] = 609,["347"] = 610,["348"] = 611,["350"] = 614,["351"] = 605,["352"] = 210,["353"] = 624,["354"] = 624});
 local ____exports = {}
 local ____tstl_2Dutils = require("lib.tstl-utils")
 local reloadable = ____tstl_2Dutils.reloadable
@@ -42,6 +45,7 @@ function MEvent.prototype.cleanupModuleListeners(self)
                     ____opt_0 = ____opt_0.isModule
                 end
                 if ____opt_0 == true then
+                    listener.removed = true
                     table.remove(listeners, i + 1)
                 end
                 i = i - 1
@@ -65,6 +69,34 @@ function MEvent.prototype.Register(self, eventType, callback, context, filter)
     local ____self_eventIdMap_eventType_7 = self.eventIdMap[eventType]
     ____self_eventIdMap_eventType_7[#____self_eventIdMap_eventType_7 + 1] = listener
     return eventID
+end
+function MEvent.prototype.RegisterUnit(self, eventType, callback, role, unit, context)
+    local eventID = self:Register(eventType, callback, context)
+    local listener = __TS__ArrayFind(
+        self.eventIdMap[eventType],
+        function(____, entry) return entry.eventID == eventID end
+    )
+    listener.unitRole = role
+    listener.unit = unit
+    return eventID
+end
+function MEvent.prototype.RegisterUnitListeners(self, listeners, owner, context)
+    local ids = {}
+    for eventType, roles in pairs(listeners) do
+        for ____, role in ipairs({"source", "target", "global"}) do
+            local callback = roles[role]
+            if callback then
+                ids[#ids + 1] = self:RegisterUnit(
+                    eventType,
+                    callback,
+                    role,
+                    owner,
+                    context
+                )
+            end
+        end
+    end
+    return ids
 end
 function MEvent.prototype.RegisterForOwner(self, eventType, callback, owner, context)
     local filter
@@ -123,6 +155,7 @@ function MEvent.prototype.Unregister(self, eventId)
             local i = #listeners - 1
             while i >= 0 do
                 if listeners[i + 1].eventID == eventId then
+                    listeners[i + 1].removed = true
                     table.remove(listeners, i + 1)
                     if #listeners == 0 then
                         __TS__Delete(self.eventIdMap, eventType)
@@ -142,6 +175,7 @@ function MEvent.prototype.UnregisterContext(self, context)
             local i = #listeners - 1
             while i >= 0 do
                 if listeners[i + 1].context == context then
+                    listeners[i + 1].removed = true
                     table.remove(listeners, i + 1)
                     count = count + 1
                 end
@@ -160,6 +194,9 @@ function MEvent.prototype.UnregisterAll(self, eventType)
         return 0
     end
     local count = #listeners
+    for ____, listener in ipairs(listeners) do
+        listener.removed = true
+    end
     __TS__Delete(self.eventIdMap, eventType)
     return count
 end
@@ -178,47 +215,71 @@ function MEvent.prototype.GetListenerCount(self, eventType)
     end
     return total
 end
-function MEvent.prototype.Fire(self, eventType, data)
+function MEvent.prototype.Fire(self, eventType, data, route)
     local listeners = self.eventIdMap[eventType]
     if not listeners or #listeners == 0 then
         return
     end
+    local function group(____, listener)
+        return listener.unitRole == "source" and 0 or (listener.unitRole == "target" and 1 or 2)
+    end
+    local snapshot = __TS__ArraySort(
+        __TS__ArraySlice(listeners),
+        function(____, a, b)
+            local groupOrder = group(nil, a) - group(nil, b)
+            if groupOrder ~= 0 then
+                return groupOrder
+            end
+            local priorityOrder = (b.priority or 100) - (a.priority or 100)
+            if priorityOrder ~= 0 then
+                return priorityOrder
+            end
+            return b.eventID - a.eventID
+        end
+    )
     local errors
-    do
-        local i = #listeners - 1
-        while i >= 0 do
-            do
-                local listener = listeners[i + 1]
-                if not listener or not listener.callback then
-                    table.remove(listeners, i + 1)
-                    goto __continue46
+    for ____, listener in ipairs(snapshot) do
+        do
+            if listener.removed or not listener.callback then
+                goto __continue58
+            end
+            if listener.unitRole then
+                if not route then
+                    goto __continue58
                 end
-                if listener.filter ~= nil and not listener:filter(data) then
-                    goto __continue46
-                end
-                local success, errorMsg = xpcall(listener.callback, traceback, listener.context, data)
-                if not success then
-                    if errors == nil then
-                        errors = {}
-                    end
-                    errors[#errors + 1] = {eventID = listener.eventID, error = errorMsg}
-                    print((((("Event listener error:\nType: " .. eventType) .. "\nID: ") .. tostring(listener.eventID)) .. "\nError: ") .. tostring(errorMsg))
+                if listener.unitRole ~= "global" and (not IsValid(listener.unit) or listener.unit ~= route[listener.unitRole]) then
+                    goto __continue58
                 end
             end
-            ::__continue46::
-            i = i - 1
+            local success, errorMsg = xpcall(
+                function()
+                    if listener.filter and not listener:filter(data) then
+                        return
+                    end
+                    listener.callback(listener.context, data)
+                end,
+                traceback
+            )
+            if not success then
+                if errors == nil then
+                    errors = {}
+                end
+                errors[#errors + 1] = {eventID = listener.eventID, error = errorMsg}
+                print((((("Event listener error:\nType: " .. eventType) .. "\nID: ") .. tostring(listener.eventID)) .. "\nError: ") .. tostring(errorMsg))
+            end
         end
-    end
-    if #listeners == 0 then
-        __TS__Delete(self.eventIdMap, eventType)
+        ::__continue58::
     end
     return errors
+end
+function MEvent.prototype.FireUnit(self, eventType, data, source, target)
+    return self:Fire(eventType, data, {source = source, target = target})
 end
 function MEvent.prototype.Once(self, eventType, callback, context)
     local eventID
     local function wrappedCallback(____, data)
-        callback(context, data)
         self:Unregister(eventID)
+        callback(context, data)
     end
     eventID = self:Register(eventType, wrappedCallback, context)
     return eventID

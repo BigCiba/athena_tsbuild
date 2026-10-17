@@ -5,8 +5,31 @@ declare global {
 
 	/** 事件监听器映射类型 */
 	type EventListenerMap = { [K in keyof EventCallback]: (data: EventCallback[K]) => void };
+	/** 原版 EDeclareFunctions：来源、目标精确匹配实体，全局监听不限制单位。 */
+	type UnitEventRole = "source" | "target" | "global";
+	type UnitEventName = "valid_ability_executed" | "cleave" | "ability_charge_changed" | "reborn" | "item_devoured" | "tick_time" | "crit_event" | "attack_projectile_disabled" | "scepter_levelup" | "attack_start_custom";
+	type UnitEventListenerMap = { [K in UnitEventName]: Partial<Record<UnitEventRole, (data: EventCallback[K]) => void>> };
+	interface UnitEventRoute { source?: CDOTA_BaseNPC; target?: CDOTA_BaseNPC; }
 
 	interface EventCallback {
+		/** 原版 OnAbilityExecuted 阶段；排除物品、toggle 和不触发魔棒的技能。 */
+		valid_ability_executed: ModifierAbilityEvent;
+		/** 一次分裂结算完成；tTargets 保留原版查询列表，包含主目标。 */
+		cleave: { attacker: CDOTA_BaseNPC; target: CDOTA_BaseNPC; center: Vector; radius: number; damage: number; tTargets: CDOTA_BaseNPC[]; };
+		ability_charge_changed: { unit: CDOTA_BaseNPC; ability: CDOTABaseAbility; charge: number; old_charge: number; };
+		/** 转生玩法尚未移植；再次出生沿用原版通知，此时没有 level。 */
+		reborn: { unit: CDOTA_BaseNPC; level?: number; };
+		/** 预留：吞噬成功、属性刷新后发布；不同于销毁/消耗物品。 */
+		item_devoured: { unit: CDOTA_BaseNPC; item: CDOTA_Item; };
+		/** 公共时钟每秒一次、每分钟额外一次；runId/tick 用于防止重复结算。 */
+		tick_time: { tick_time: 1 | 60; runId: number; tick: number; };
+		/** 原版仅声明未发出的事件，暂不生成触发点。 */
+		scepter_levelup: { unit: CDOTA_BaseNPC; level: number; };
+		attack_start_custom: { attacker: CDOTA_BaseNPC; target?: CDOTA_BaseNPC; };
+		/** 原版全局事件预留：目前没有对应玩法消费者，不伪造连接/背包触发。 */
+		player_first_spawned: { PlayerID: PlayerID; userid: number; };
+		player_reconnect: { PlayerID: PlayerID; userid: number; };
+		inventory_contents_changed: { EntityIndex: EntityIndex; EventType?: number; DropItemIndex?: EntityIndex; PickItemIndex?: EntityIndex; };
 		/** 游戏可以初始化，一次 */
 		game_init: {};
 		/** 本局进入战斗，基地与英雄已就绪。 */
@@ -54,7 +77,7 @@ declare global {
 		/** 攻击事件 */
 		attack_event: { attacker: CDOTA_BaseNPC; position: Vector; };
 		/** 普通攻击弹道被攻击者状态阻止，沿用原版可供技能响应的事件。 */
-		attack_projectile_disabled: { unit: CDOTA_BaseNPC; target: CDOTA_BaseNPC; };
+		attack_projectile_disabled: { unit: CDOTA_BaseNPC; target?: CDOTA_BaseNPC; };
 		/** 护盾消耗事件 */
 		consume_shield: { damageEvent: DamageEvent, shield: number; };
 		/** 暴击事件 */
@@ -175,6 +198,9 @@ declare global {
 		callback: Function;
 		filter?: Function;
 		priority?: number;  // ✅ 新增优先级字段
+		removed?: boolean;
+		unitRole?: UnitEventRole;
+		unit?: CDOTA_BaseNPC;
 	}
 
 	type EventFilter<K extends keyof EventCallback> = (data: EventCallback[K]) => boolean;
@@ -210,6 +236,7 @@ class MEvent extends CModule {
 			for (let i = listeners.length - 1; i >= 0; i--) {
 				const listener = listeners[i];
 				if (listener.context?.isModule === true) {
+					listener.removed = true;
 					table.remove(listeners, i + 1);
 				}
 			}
@@ -244,6 +271,28 @@ class MEvent extends CModule {
 
 		this.eventIdMap[eventType].push(listener);
 		return eventID;
+	}
+
+	/** 使用与普通事件相同的注册表；单位监听只能由 FireUnit 的明确路由触发。 */
+	RegisterUnit<K extends UnitEventName, TContext extends {}>(eventType: K,
+		callback: (this: TContext, data: EventCallback[K]) => void, role: UnitEventRole,
+		unit?: CDOTA_BaseNPC, context?: TContext): number {
+		const eventID = this.Register(eventType, callback, context);
+		const listener = this.eventIdMap[eventType].find(entry => entry.eventID === eventID)!;
+		listener.unitRole = role; listener.unit = unit;
+		return eventID;
+	}
+
+	/** Modifier/技能声明式注册，返回的 ID 由各自销毁生命周期释放。 */
+	RegisterUnitListeners<TContext extends {}>(listeners: Partial<UnitEventListenerMap>, owner: CDOTA_BaseNPC, context: TContext): number[] {
+		const ids: number[] = [];
+		for (const [eventType, roles] of pairs(listeners)) {
+			for (const role of ["source", "target", "global"] as UnitEventRole[]) {
+				const callback = roles[role];
+				if (callback) ids.push(this.RegisterUnit(eventType, callback as any, role, owner, context));
+			}
+		}
+		return ids;
 	}
 
 	/**
@@ -329,6 +378,7 @@ class MEvent extends CModule {
 		for (const [eventType, listeners] of pairs(this.eventIdMap)) {
 			for (let i = listeners.length - 1; i >= 0; i--) {
 				if (listeners[i].eventID === eventId) {
+					listeners[i].removed = true;
 					table.remove(listeners, i + 1);
 
 					// 清理空的事件类型
@@ -353,6 +403,7 @@ class MEvent extends CModule {
 		for (const [eventType, listeners] of pairs(this.eventIdMap)) {
 			for (let i = listeners.length - 1; i >= 0; i--) {
 				if (listeners[i].context === context) {
+					listeners[i].removed = true;
 					table.remove(listeners, i + 1);
 					count++;
 				}
@@ -374,6 +425,7 @@ class MEvent extends CModule {
 		if (!listeners) return 0;
 
 		const count = listeners.length;
+		for (const listener of listeners) listener.removed = true;
 		delete this.eventIdMap[eventType];
 		return count;
 	}
@@ -407,34 +459,39 @@ class MEvent extends CModule {
 	 */
 	Fire<K extends keyof EventCallback>(
 		eventType: K,
-		data: EventCallback[K]
+		data: EventCallback[K],
+		route?: UnitEventRoute
 	) {
 		const listeners = this.eventIdMap[eventType];
 		if (!listeners || listeners.length === 0) {
 			return;
 		}
 
-		// ✅ 改进：清理无效监听器 + 错误收集
+		// 固定本次快照：新增监听下次参与，注销通过 removed 即时生效。
+		// 原版先来源、再目标、最后全局；各组同优先级后注册先执行。
+		const group = (listener: EventListenerData) => listener.unitRole === "source" ? 0 : listener.unitRole === "target" ? 1 : 2;
+		const snapshot = listeners.slice().sort((a, b) => {
+			const groupOrder = group(a) - group(b);
+			if (groupOrder !== 0) return groupOrder;
+			const priorityOrder = (b.priority ?? 100) - (a.priority ?? 100);
+			if (priorityOrder !== 0) return priorityOrder;
+			return b.eventID - a.eventID;
+		});
 		let errors: Array<{ eventID: number; error: string; }> | undefined;
 
-		for (let i = listeners.length - 1; i >= 0; i--) {
-			const listener = listeners[i];
-
-			// 检查监听器是否仍然有效
-			if (!listener || !listener.callback) {
-				table.remove(listeners, i + 1);
-				continue;
-			}
-			if (listener.filter !== undefined && !listener.filter(data)) {
-				continue;
+		for (const listener of snapshot) {
+			if (listener.removed || !listener.callback) continue;
+			if (listener.unitRole) {
+				if (!route) continue;
+				if (listener.unitRole !== "global" && (!IsValid(listener.unit) || listener.unit !== route[listener.unitRole])) continue;
 			}
 
 			// 安全调用回调
 			const [success, errorMsg] = xpcall(
-				listener.callback as any,
-				traceback,
-				listener.context,
-				data
+				() => {
+					if (listener.filter && !listener.filter(data)) return;
+					listener.callback.call(listener.context, data);
+				}, traceback
 			);
 
 			if (!success) {
@@ -448,12 +505,12 @@ class MEvent extends CModule {
 			}
 		}
 
-		// 清理空的事件类型
-		if (listeners.length === 0) {
-			delete this.eventIdMap[eventType];
-		}
-
 		return errors;
+	}
+
+	/** 只在真实原版触发点发布一次；普通订阅者仍能收到同一事件。 */
+	FireUnit<K extends UnitEventName>(eventType: K, data: EventCallback[K], source?: CDOTA_BaseNPC, target?: CDOTA_BaseNPC) {
+		return this.Fire(eventType, data, { source, target });
 	}
 
 	/**
@@ -467,8 +524,8 @@ class MEvent extends CModule {
 		let eventID: number;
 
 		const wrappedCallback = (data: EventCallback[K]) => {
-			callback.call(context as TContext, data);
 			this.Unregister(eventID);
+			callback.call(context as TContext, data);
 		};
 
 		eventID = this.Register(eventType, wrappedCallback as any, context);

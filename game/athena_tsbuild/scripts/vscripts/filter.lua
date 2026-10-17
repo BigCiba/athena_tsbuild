@@ -5,7 +5,7 @@ local __TS__ClassExtends = ____lualib.__TS__ClassExtends
 local __TS__DecorateLegacy = ____lualib.__TS__DecorateLegacy
 local __TS__New = ____lualib.__TS__New
 local __TS__SourceMapTraceBack = ____lualib.__TS__SourceMapTraceBack
-__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["9"] = 1,["10"] = 1,["11"] = 3,["12"] = 3,["13"] = 4,["15"] = 4,["16"] = 5,["17"] = 3,["18"] = 6,["19"] = 7,["20"] = 6,["21"] = 10,["22"] = 11,["23"] = 12,["25"] = 15,["26"] = 15,["27"] = 15,["28"] = 15,["29"] = 15,["30"] = 15,["31"] = 10,["32"] = 18,["33"] = 20,["34"] = 21,["35"] = 23,["36"] = 24,["37"] = 24,["39"] = 25,["41"] = 27,["42"] = 29,["43"] = 31,["44"] = 36,["45"] = 37,["46"] = 38,["47"] = 38,["48"] = 38,["49"] = 38,["50"] = 38,["51"] = 38,["52"] = 38,["53"] = 38,["54"] = 38,["55"] = 38,["56"] = 38,["57"] = 38,["58"] = 52,["59"] = 53,["60"] = 54,["61"] = 38,["62"] = 38,["63"] = 57,["64"] = 58,["65"] = 59,["66"] = 60,["68"] = 62,["69"] = 63,["72"] = 66,["73"] = 67,["75"] = 69,["76"] = 18,["77"] = 3,["78"] = 76,["79"] = 77});
+__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["9"] = 1,["10"] = 1,["11"] = 3,["12"] = 3,["13"] = 4,["15"] = 4,["16"] = 5,["17"] = 3,["18"] = 6,["19"] = 7,["20"] = 6,["21"] = 10,["22"] = 11,["23"] = 12,["25"] = 15,["26"] = 15,["27"] = 15,["28"] = 15,["29"] = 15,["30"] = 15,["31"] = 10,["32"] = 18,["33"] = 20,["34"] = 21,["35"] = 23,["36"] = 24,["37"] = 24,["38"] = 24,["39"] = 24,["40"] = 24,["41"] = 24,["42"] = 24,["43"] = 24,["44"] = 25,["46"] = 27,["47"] = 29,["48"] = 31,["49"] = 36,["50"] = 37,["51"] = 38,["52"] = 38,["53"] = 38,["54"] = 38,["55"] = 38,["56"] = 38,["57"] = 38,["58"] = 38,["59"] = 38,["60"] = 38,["61"] = 38,["62"] = 38,["63"] = 52,["64"] = 53,["65"] = 54,["66"] = 38,["67"] = 38,["68"] = 57,["69"] = 58,["70"] = 59,["71"] = 60,["73"] = 62,["74"] = 63,["77"] = 66,["78"] = 67,["80"] = 69,["81"] = 18,["82"] = 3,["83"] = 76,["84"] = 77});
 local ____exports = {}
 local ____tstl_2Dutils = require("lib.tstl-utils")
 local reloadable = ____tstl_2Dutils.reloadable
@@ -34,9 +34,14 @@ function MFilter.prototype.TrackingProjectileFilter(self, params)
     local attacker = EntIndexToHScript(params.entindex_source_const)
     local target = EntIndexToHScript(params.entindex_target_const)
     if params.is_attack == 1 and IsValid(attacker) and attacker:HasState(StateEnum.ATTACK_PROJECTILE_DISABLED) then
-        if IsValid(target) then
-            Event:Fire("attack_projectile_disabled", {unit = attacker, target = target})
-        end
+        Event:FireUnit(
+            "attack_projectile_disabled",
+            {
+                unit = attacker,
+                target = IsValid(target) and target or nil
+            },
+            attacker
+        )
         return false
     end
     if params.is_attack == 1 and IsValid(attacker) and IsValid(target) then

@@ -7,9 +7,10 @@ export class CUnitAttributes extends CModule {
 	private units: { unit: CDOTA_BaseNPC; index: EntityIndex; playerID: PlayerID; }[] = [];
 	private items: Record<number, Record<string, number>> = {};
 	private devoured: Record<number, CDOTA_Item[]> = {};
-	private timer?: string;
+	private running = false;
 	private runId = 0;
-	private seconds = 0;
+	private lastSecondTick = 0;
+	private lastMinuteTick = 0;
 	private killed: CDOTA_BaseNPC[] = [];
 	init() {
 		Event.UnregisterContext(this);
@@ -25,6 +26,16 @@ export class CUnitAttributes extends CModule {
 			this.Sync(unit);
 		}, this);
 		Event.Register("game_start", ({ runId }) => this.Start(runId!), this);
+		Event.Register("tick_time", event => {
+			if (!this.running || event.runId !== this.runId) return;
+			const key = event.tick_time === 1 ? "lastSecondTick" : "lastMinuteTick";
+			if (event.tick <= this[key]) return;
+			this[key] = event.tick;
+			for (const { unit } of this.units) if (this.Active(unit)) {
+				if (event.tick_time === 1) this.RefreshItems(unit);
+				this.Grow(unit, event.tick_time === 1 ? "SEC" : "MIN");
+			}
+		}, this);
 		Event.Register("game_end", event => { if (event.run_id === this.runId) this.Stop(); }, this);
 		Event.Register("game_reset", event => { if (event.runId === GameState.GetSession().runId) this.Clear(); }, this);
 		Event.RegisterWithPriority("entity_killed", ({ victim, attacker }) => {
@@ -111,7 +122,7 @@ export class CUnitAttributes extends CModule {
 	}
 	private Active(unit: CDOTA_BaseNPC) {
 		const session = GameState.GetSession();
-		return this.timer !== undefined && session.runId === this.runId && session.state === "GameState_Battle"
+		return this.running && session.runId === this.runId && session.state === "GameState_Battle"
 			&& IsValid(unit) && unit.IsRealHero() && session.participants.includes(unit.GetPlayerOwnerID());
 	}
 	private GrantGold(unit: CDOTA_BaseNPC, value: number) {
@@ -127,22 +138,14 @@ export class CUnitAttributes extends CModule {
 	}
 	private Start(runId: number) {
 		const session = GameState.GetSession();
-		if (session.runId !== runId || session.state !== "GameState_Battle" || (this.timer && this.runId === runId)) return;
-		this.Stop(); this.runId = runId; this.seconds = 0;
+		if (session.runId !== runId || session.state !== "GameState_Battle" || (this.running && this.runId === runId)) return;
+		this.running = true; this.runId = runId; this.lastSecondTick = 0; this.lastMinuteTick = 0;
 		for (const playerID of GameState.GetSession().participants) {
 			const unit = PlayerResource.GetSelectedHeroEntity(playerID);
 			if (IsValid(unit)) { this.Track(unit); this.RefreshItems(unit); }
 		}
-		this.timer = Timer.GameTimer(1, () => {
-			if (GameState.GetSession().runId !== runId || GameState.GetSession().state !== "GameState_Battle") { this.Stop(); return; }
-			this.seconds++;
-			for (const { unit } of this.units) if (this.Active(unit)) {
-				this.RefreshItems(unit); this.Grow(unit, "SEC"); if (this.seconds % 60 === 0) this.Grow(unit, "MIN");
-			}
-			return 1;
-		});
 	}
-	private Stop() { if (this.timer) Timer.StopTimer(this.timer); this.timer = undefined; }
+	private Stop() { this.running = false; }
 	/** 玩家作用域来源也按实体清除，避免连续对局把上局装备/永久收益带入新英雄。 */
 	private Clear() {
 		this.Stop();

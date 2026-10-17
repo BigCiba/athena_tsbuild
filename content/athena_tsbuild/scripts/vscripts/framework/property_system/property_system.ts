@@ -21,9 +21,8 @@ import { reloadable } from "../../lib/tstl-utils";
    → GetDynamicPropertyValue（会触发回调）
 	 → CalculateDynamicPropertyValue（调用所有回调）
   网表同步：
-  SyncEntityBatch
- → GetPropertyValueInternal
-   → 直接读缓存（不触发回调）
+  SyncDirtyProperties 刷新无参数动态快照
+ → SyncEntityBatch / GetPropertyValueInternal 只读取已完成的快照
  */
 // ==================== 类型定义 ====================
 require('property_system_types');
@@ -610,20 +609,7 @@ class MPropertySystem extends CModule {
 		}
 
 		propertyList.sort((a, b) => a.priority - b.priority);
-		const oldValue = this.GetDynamicPropertyValueInternal(config.scope, key, propertyId);
-		delete storage.runtimeCache[propertyId];
-		const newValue = this.GetDynamicPropertyValueInternal(config.scope, key, propertyId);
-
-		// 发送属性变更事件
-		if (config.notify && oldValue !== newValue) {
-			Event.Fire('property_changed', {
-				scope: config.scope,
-				key,
-				propertyId,
-				oldValue,
-				newValue,
-			});
-		}
+		this.StoreDynamicSnapshot(config.scope, key, propertyId, this.CalculateDynamicPropertyValue(config.scope, key, propertyId));
 
 		if (config.syncToClient) {
 			this.MarkDirty(config.scope, key, propertyId);
@@ -674,24 +660,13 @@ class MPropertySystem extends CModule {
 		// 在修改前记录状态
 		const index = propertyList.findIndex(d => d.sourceId === sourceId);
 		if (index !== -1) {
-			const oldValue = this.GetDynamicPropertyValueInternal(config.scope, key, propertyId);
 			propertyList.splice(index, 1);
 
 			if (propertyList.length === 0) {
 				delete storage.dynamic[propertyId];
 			}
 
-			delete storage.runtimeCache[propertyId];
-			const newValue = this.GetDynamicPropertyValueInternal(config.scope, key, propertyId);
-			if (config.notify && oldValue !== newValue) {
-				Event.Fire('property_changed', {
-					scope: config.scope,
-					key,
-					propertyId,
-					oldValue,
-					newValue,
-				});
-			}
+			this.StoreDynamicSnapshot(config.scope, key, propertyId, this.CalculateDynamicPropertyValue(config.scope, key, propertyId));
 
 			if (config.syncToClient) {
 				this.MarkDirty(config.scope, key, propertyId);
@@ -711,7 +686,7 @@ class MPropertySystem extends CModule {
 		const storage = this.GetStorage(scope, key);
 
 		// 检查缓存
-		if (config.enableCache) {
+		if (config.enableCache && params === undefined) {
 			const cached = storage.runtimeCache[propertyId];
 			const currentFrame = this.GetCurrentFrame();
 
@@ -728,33 +703,23 @@ class MPropertySystem extends CModule {
 		// 计算新值
 		const value = this.CalculateDynamicPropertyValue(scope, key, propertyId, params);
 
-		// 更新缓存
-		if (config.enableCache) {
-			storage.runtimeCache[propertyId] = {
-				value,
-				frame: this.GetCurrentFrame(),
-				time: this.GetCurrentTime(),
-			};
-		}
+		// 禁用缓存只禁止复用旧值，不禁止保留同步快照；带上下文的值不能写回默认快照。
+		if (params === undefined) this.StoreDynamicSnapshot(scope, key, propertyId, value);
 
 		PropertyData.stats.totalReads++;
 		return value;
 	}
 
-	/**
-	 * 内部获取动态属性值（不触发副作用回调，用于系统同步）
-	 * 直接返回缓存值，如果没有缓存则返回默认值
-	 */
-	private GetDynamicPropertyValueInternal(scope: PropertyScope, key: PropertySystemKey, propertyId: string): number {
-		const config = this.GetConfig(propertyId);
-		if (!config) return 0;
-
+	/** 先提交默认快照，再通知最终聚合值；监听器重读不会重复通知同一变化。 */
+	private StoreDynamicSnapshot(scope: PropertyScope, key: PropertySystemKey, propertyId: string, value: number): void {
+		const config = this.GetConfig(propertyId)!;
+		const oldValue = this.GetPropertyValueInternal(scope, key, propertyId);
 		const storage = this.GetStorage(scope, key);
-		const cached = storage.runtimeCache[propertyId];
-
-		// 如果有缓存就返回缓存，否则返回0
-		// defaultValue 由 GetPropertyValue 统一处理，避免重复添加
-		return cached?.value ?? 0;
+		storage.runtimeCache[propertyId] = { value, frame: this.GetCurrentFrame(), time: this.GetCurrentTime() };
+		const newValue = this.GetPropertyValueInternal(scope, key, propertyId);
+		if (oldValue === newValue) return;
+		if (config.syncToClient) this.MarkDirty(scope, key, propertyId);
+		if (config.notify) Event.Fire('property_changed', { scope, key, propertyId, oldValue, newValue });
 	}
 
 	private CalculateDynamicPropertyValue(scope: PropertyScope, key: PropertySystemKey, propertyId: string, params?: any): number {
@@ -912,6 +877,7 @@ class MPropertySystem extends CModule {
 	}
 
 	private SyncDirtyProperties(): void {
+		this.RefreshDynamicSyncSnapshots();
 		let dirtyKeysCount = 0;
 		for (const [_] of pairs(PropertyData.dirtyKeys as any)) { dirtyKeysCount++; }
 		if (dirtyKeysCount === 0) return;
@@ -922,6 +888,8 @@ class MPropertySystem extends CModule {
 		const groupedByEntity: Record<string, string[]> = {};
 
 		for (const dirtyKey of dirtyArray) {
+			// 本次只消费快照中的脏标记，发布期间新增的标记保留给下一轮。
+			delete PropertyData.dirtyKeys[dirtyKey];
 			const [scopeStr, keyStr] = dirtyKey.split('|');
 			const scope = parseInt(scopeStr) as PropertyScope;
 			const key = parseInt(keyStr) as PropertySystemKey;
@@ -958,9 +926,22 @@ class MPropertySystem extends CModule {
 			this.SyncEntityBatch(ek, keysArray);
 		}
 
-		PropertyData.dirtyKeys = {};
 		PropertyData.lastSyncTime = this.GetCurrentTime();
 		PropertyData.stats.syncCount++;
+	}
+
+	/** 同步周期主动检查动态条件，不要求玩法预先读取；只刷新允许同步的实体。 */
+	private RefreshDynamicSyncSnapshots(): void {
+		for (const scope of [PropertyScope.UNIT, PropertyScope.PLAYER]) {
+			const storages = scope === PropertyScope.UNIT ? PropertyData.unitStorage : PropertyData.playerStorage;
+			for (const keyString of Object.keys(storages)) {
+				const key = Number(keyString) as PropertySystemKey;
+				if (!this.ShouldSyncEntityToClient(scope, key)) continue;
+				for (const id of Object.keys(this.GetStorage(scope, key).dynamic)) {
+					if (this.GetConfig(id)?.syncToClient) this.GetDynamicPropertyValue(scope, key, id);
+				}
+			}
+		}
 	}
 
 	private ShouldSyncEntityToClient(scope: PropertyScope, key: PropertySystemKey): boolean {
@@ -978,6 +959,7 @@ class MPropertySystem extends CModule {
 	private SyncEntityBatch(entityKey: string, dirtyKeys: string[]): void {
 		const existingData = CustomNetTables.GetTableValue(this.NETTABLE_NAME, entityKey);
 		const update: Record<string, number> = existingData ? { ...existingData } : {};
+		let changed = false;
 		for (const dirtyKey of dirtyKeys) {
 			const [scopeStr, keyStr, propertyId] = dirtyKey.split('|');
 			const scope = parseInt(scopeStr) as PropertyScope;
@@ -985,10 +967,10 @@ class MPropertySystem extends CModule {
 
 			// 使用内部方法获取值（只读缓存，不触发回调，避免级联副作用）
 			const value = this.GetPropertyValueInternal(scope, key, propertyId);
-			update[propertyId] = value;
+			if (update[propertyId] !== value) { update[propertyId] = value; changed = true; }
 		}
 		// 使用实体专属的 key（例如：unit_0, player_1）
-		CustomNetTables.SetTableValue(this.NETTABLE_NAME, entityKey, update);
+		if (changed) CustomNetTables.SetTableValue(this.NETTABLE_NAME, entityKey, update);
 	}
 
 	/** 强制同步指定属性（立即执行） */
@@ -1594,8 +1576,6 @@ class MPropertySystem extends CModule {
 
 		let dirtyCount = 0;
 		for (const [_] of pairs(PropertyData.dirtyKeys as any)) { dirtyCount++; }
-		if (dirtyCount === 0) return;
-
 		this.print(`[ForceSyncAllDirty] Syncing ${dirtyCount} dirty properties...`);
 		this.SyncDirtyProperties();
 		let remainingCount = 0;

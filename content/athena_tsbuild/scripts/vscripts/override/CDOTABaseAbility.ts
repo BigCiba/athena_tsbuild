@@ -64,6 +64,9 @@ declare interface CDOTABaseAbility {
 	StaticProperty(): Partial<Record<PropertyFunction, any>>;
 	DynamicProperty(): Partial<Record<PropertyFunction, DynamicPropertyFunction>>;
 	EventListener(): Partial<EventListenerMap>;
+	UnitEventListener(): Partial<UnitEventListenerMap>;
+	OnAbilityChargeChanged?: (charge: number, oldCharge: number) => void;
+	__NotifyChargeChanged(oldCharge: number): void;
 	/** 刷新静态属性 */
 	RefreshStaticProperty(): void;
 
@@ -420,6 +423,10 @@ if (IsServer()) {
 				}
 			}
 		}
+		if (IsServer() && this.UnitEventListener) {
+			this.__EventIDList ??= [];
+			this.__EventIDList.push(...Event.RegisterUnitListeners(this.UnitEventListener(), caster, this));
+		}
 		if (this.EventListener != undefined) {
 			this.__EventIDList ??= [];
 			for (const [event, listener] of pairs(this.EventListener())) {
@@ -476,6 +483,7 @@ if (IsServer()) {
 	};
 	CDOTABaseAbility.OnCreated = function () { };
 	CDOTABaseAbility.__OnRefresh = function () {
+		const oldCharge = this.__Charge;
 		this.__Charge = 0;
 		this.__ChargeRestoreTime = GameRules.GetGameTime();
 		this.__IsChargeCooldownFrozen = false;
@@ -503,6 +511,7 @@ if (IsServer()) {
 			}
 		}
 
+		this.__NotifyChargeChanged(oldCharge);
 		this.OnRefresh();
 	};
 	CDOTABaseAbility.OnRefresh = function () { };
@@ -636,6 +645,7 @@ if (IsServer()) {
 
 	CDOTABaseAbility.UseCharges = function () {
 		if (this.__Charge > 0) {
+			const oldCharge = this.__Charge;
 			const wasChargeCooldownFrozen = this.IsChargeCooldownFrozen();
 			const frozenCooldownRemaining = this.__ChargeFrozenCooldownRemaining ?? 0;
 			this.__Charge -= 1;
@@ -646,11 +656,13 @@ if (IsServer()) {
 				this.__ChargeFrozenCooldownRemaining = frozenCooldownRemaining > 0 ? frozenCooldownRemaining : math.max(0, this.__ChargeRestoreTime - GameRules.GetGameTime());
 			}
 			this.GetCaster().UpdateAbilityNetData();
+			this.__NotifyChargeChanged(oldCharge);
 			return true;
 		}
 		return false;
 	};
 	CDOTABaseAbility.RestoreCharges = function (charges = 1) {
+		const oldCharge = this.__Charge;
 		this.__Charge = math.min(this.__Charge + charges, this.GetMaxCharges());
 		if (this.__Charge < this.GetMaxCharges()) {
 			this.__ChargeRestoreTime = GameRules.GetGameTime() + this.GetChargeRestoreTime();
@@ -660,6 +672,14 @@ if (IsServer()) {
 			this.__ChargeFrozenCooldownRemaining = 0;
 		}
 		this.GetCaster().UpdateAbilityNetData();
+		this.__NotifyChargeChanged(oldCharge);
+	};
+	/** 仅实际数值变化发一次；保留原版先总线通知、再技能自身回调的顺序。 */
+	CDOTABaseAbility.__NotifyChargeChanged = function (oldCharge: number) {
+		if (!IsServer() || oldCharge === this.__Charge) return;
+		const charge = this.__Charge;
+		Event.FireUnit("ability_charge_changed", { unit: this.GetCaster(), ability: this, charge, old_charge: oldCharge }, this.GetCaster());
+		if (IsValid(this) && this.OnAbilityChargeChanged) this.OnAbilityChargeChanged(charge, oldCharge);
 	};
 	CDOTABaseAbility.GetCastCooldown = function () {
 		return 0;

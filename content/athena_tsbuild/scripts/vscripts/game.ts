@@ -201,6 +201,9 @@ class MGame extends CModule {
 
 			spawnedUnit.__isNotFirstSpawn = true;
 			FireGameEventLocal("custom_npc_first_spawned", { entindex: tEvents.entindex });
+		} else if (spawnedUnit.IsHero()) {
+			// 原版英雄再次出生也触发 OnReborn，不伪造转生层数。
+			Event.FireUnit("reborn", { unit: spawnedUnit }, spawnedUnit);
 		}
 
 		if (spawnedUnit.GetUnitName() != "npc_dota_thinker") {

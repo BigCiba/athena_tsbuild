@@ -23,4 +23,5 @@ if (IsServer()) {
 	require("settings");
 	require("unit_manager");
 	require("unit_attributes");
+	require("game_time");
 }

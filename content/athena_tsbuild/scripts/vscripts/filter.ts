@@ -21,7 +21,7 @@ class MFilter extends CModule {
 		let target = EntIndexToHScript<CDOTA_BaseNPC>(params.entindex_target_const);
 		// 禁用攻击弹道阻止发射，和目标的 DODGE_BULLET 闪避命中分开处理。
 		if (params.is_attack === 1 && IsValid(attacker) && attacker.HasState(StateEnum.ATTACK_PROJECTILE_DISABLED)) {
-			if (IsValid(target)) Event.Fire("attack_projectile_disabled", { unit: attacker, target });
+			Event.FireUnit("attack_projectile_disabled", { unit: attacker, target: IsValid(target) ? target : undefined }, attacker);
 			return false;
 		}
 		if (params.is_attack == 1 && IsValid(attacker) && IsValid(target)) {
