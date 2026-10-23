@@ -37,6 +37,7 @@ return {
 		"particles/items4_fx/scepter_aura.vpcf",
 		"particles/items_fx/battlefury_cleave.vpcf",
 		"particles/items_fx/cyclone.vpcf",
+		"particles/map/quest.vpcf",
 		"particles/skills/chronos_magic.vpcf",
 		"particles/status_fx/status_effect_huskar_lifebreak.vpcf",
 		"particles/ui/game/ui_game_athena_sea_treasure_fx.vpcf",

@@ -22,7 +22,7 @@ function GameState_Prepare.prototype.OnStateStart(self)
     self:StartThink(
         30,
         function()
-            if not GameState:CompleteSelection(runId) then
+            if not GameState:CompleteSelection(runId, true) then
                 return 1
             end
         end

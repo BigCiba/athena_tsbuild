@@ -235,7 +235,7 @@ test('实际控制器与阶段连续开三局，不重复登录、game_start/gam
 		const f = controllerFixture(mode); f.advance(0.5); assert.equal(f.controller.GetStateName(), 'GameState_Prepare');
 		for (const outcome of ['victory', 'defeat', 'abandoned']) {
 			for (const id of f.online) f.action(id, { action: 'ready', ready: true });
-			assert.equal(f.controller.GetStateName(), 'GameState_Prepare'); f.advance(30);
+			f.advance(0);
 			assert.equal(f.controller.GetStateName(), 'GameState_Battle'); const runId = f.controller.GetSession().runId;
 			f.controller.FinishRun(runId, outcome, 'test'); f.controller.FinishRun(runId, outcome, 'duplicate');
 			assert.equal(f.controller.GetStateName(), 'GameState_Settle'); assert.equal(f.timers.size, 1);
@@ -428,7 +428,9 @@ test('观战队伍不进入准备或参战名单', () => {
 	const f = controllerFixture('team'); f.online.push(2); f.teams.set(2, 1); f.advance(0.5);
 	assert.equal(f.controller.GetSession().players[2], undefined);
 	f.action(0, { action: 'ready', ready: true }); f.action(1, { action: 'ready', ready: true });
-	assert.equal(f.controller.GetStateName(), 'GameState_Prepare');
+	f.advance(0);
+	assert.equal(f.controller.GetStateName(), 'GameState_Battle');
+	assert.deepEqual(Array.from(f.controller.GetSession().participants), [0, 1]);
 });
 test('Panorama 的 0/1 准备值正确处理，非法字符串不会准备', () => {
 	const f = controllerFixture('team'); f.advance(0.5);
@@ -436,7 +438,8 @@ test('Panorama 的 0/1 准备值正确处理，非法字符串不会准备', () 
 	f.action(0, { action: 'ready', ready: 1 }); assert.equal(f.controller.GetSession().players[0].ready, true);
 	f.action(0, { action: 'ready', ready: 0 }); assert.equal(f.controller.GetSession().players[0].ready, false);
 	f.action(0, { action: 'ready', ready: 1 }); f.action(1, { action: 'ready', ready: 1 });
-	assert.equal(f.controller.GetStateName(), 'GameState_Prepare');
+	f.advance(0);
+	assert.equal(f.controller.GetStateName(), 'GameState_Battle');
 });
 test('选人立即公布 30 秒期限；到时随机未确认英雄并直接战斗，保留已确认英雄和难度', () => {
 	const f = controllerFixture('team'); f.advance(0.5);
@@ -448,16 +451,40 @@ test('选人立即公布 30 秒期限；到时随机未确认英雄并直接战�
 	assert.equal(session.players[0].hero, 'npc_dota_hero_axe'); assert.equal(session.players[1].hero, 'npc_dota_hero_lina');
 	assert.equal(session.players[1].ready, true); assert.equal(session.difficulty, 3); assert.deepEqual(Array.from(session.participants), [0, 1]);
 });
-test('全员提前确认仍可在 30 秒内投难度，重开重新计时且旧回调失效', () => {
+test('全员确认立即开局并保留难度，重开重新计时且旧回调失效', () => {
 	const f = controllerFixture(); f.advance(0.5);
 	const oldTimeout = [...f.timers.values()].find(timer => timer.due > 20).fn;
-	f.action(0, { action: 'ready', ready: true }); f.advance(29);
-	assert.equal(f.controller.GetStateName(), 'GameState_Prepare'); f.action(0, { action: 'difficulty', difficulty: 5 });
-	f.advance(1); assert.equal(f.controller.GetStateName(), 'GameState_Battle'); assert.equal(f.controller.GetSession().difficulty, 5);
+	f.action(0, { action: 'difficulty', difficulty: 5 }); f.action(0, { action: 'ready', ready: true });
+	assert.equal(f.controller.GetStateName(), 'GameState_RunInit'); f.advance(0);
+	assert.equal(f.controller.GetStateName(), 'GameState_Battle'); assert.equal(f.controller.GetSession().difficulty, 5);
+	oldTimeout(); assert.equal(f.world.starts, 1); assert.equal(f.events.filter(name => name === 'game_start').length, 1);
 	f.controller.FinishRun(1, 'victory', 'test'); f.action(0, { action: 'replay' }); f.advance(0);
 	assert.equal(f.controller.GetSession().runId, 2); assert.equal(f.controller.GetSession().players[0].ready, false);
 	oldTimeout(); f.advance(29.9); assert.equal(f.controller.GetStateName(), 'GameState_Prepare'); assert.equal(f.world.starts, 1);
 	f.advance(0.1); assert.equal(f.controller.GetStateName(), 'GameState_Battle'); assert.equal(f.world.starts, 2);
+});
+
+test('多人等待最后一人确认，预览英雄不会提前开局且确认英雄保持不变', () => {
+	const f = controllerFixture('team'); f.advance(0.5);
+	f.action(0, { action: 'select_hero', hero: 'npc_dota_hero_lina' }); f.action(0, { action: 'difficulty', difficulty: 4 });
+	f.action(1, { action: 'select_hero', hero: 'npc_dota_hero_axe' }); f.action(1, { action: 'difficulty', difficulty: 3 });
+	assert.equal(f.controller.GetStateName(), 'GameState_Prepare');
+	f.action(0, { action: 'ready', ready: true }); f.advance(5);
+	assert.equal(f.controller.GetStateName(), 'GameState_Prepare'); assert.equal(f.world.starts, 0);
+	f.action(1, { action: 'ready', ready: true });
+	assert.equal(f.controller.GetStateName(), 'GameState_RunInit'); f.advance(0);
+	const session = f.controller.GetSession();
+	assert.equal(f.controller.GetStateName(), 'GameState_Battle'); assert.equal(f.world.starts, 1);
+	assert.equal(session.players[0].hero, 'npc_dota_hero_lina'); assert.equal(session.players[1].hero, 'npc_dota_hero_axe');
+	assert.equal(session.difficulty, 3); assert.deepEqual(Array.from(session.participants), [0, 1]);
+	f.advance(30); assert.equal(f.world.starts, 1);
+});
+
+test('未确认玩家断线后，剩余玩家全员确认即可开局', () => {
+	const f = controllerFixture('team'); f.advance(0.5); f.action(0, { action: 'ready', ready: true });
+	f.online.splice(1); f.advance(0.5);
+	assert.equal(f.controller.GetStateName(), 'GameState_Battle');
+	assert.deepEqual(Array.from(f.controller.GetSession().participants), [0]);
 });
 test('超时不把断线玩家加入名单；全员断线不启动空局，恢复后可开局', () => {
 	const f = controllerFixture('team'); f.advance(0.5); f.online.splice(1); f.advance(30);

@@ -37,110 +37,112 @@
 	}
 }
 
-.HUDMainHover
-{
-	transition-property: brightness, transform;
-	transition-duration: 0.15s;
-	transition-timing-function: ease-in-out;
 
-	&:hover
+#AthenaMainRoot
+{
+	width: 100%;
+	height: 100%;
+}
+
+.AthenaVote
+{
+	flow-children: down;
+	margin-top: 16px;
+}
+
+.AthenaBattleVote
+{
+	horizontal-align: center;
+	margin-top: 65px;
+	padding: 12px 22px;
+	flow-children: down;
+	background-color: #151b27eb;
+
+	Label
 	{
-		brightness: 1.4;
+		color: #e5dfd2;
+		font-size: 20px;
+		margin-bottom: 8px;
 	}
 }
 
-.Fishing
+// 小地图
+#MinimapContainer
 {
-	#BottomBar
-	{
-		opacity: 0;
-	}
-
-	#LeftBar
-	{
-		opacity: 0;
-	}
-
-	#RightBar
-	{
-		opacity: 0;
-	}
-}
-
-// .Fishing,
-.Explore
-{
-	#BottomBar
-	{
-		opacity: 0;
-	}
-
-	#LeftBar
-	{
-		#ArtifactList
-		{
-			opacity: 0;
-			visibility: collapse;
-		}
-
-		#UpgradeList
-		{
-			opacity: 0;
-			visibility: collapse;
-		}
-	}
-
-	#RightBar
-	{
-		#BackpackBtn
-		{
-			opacity: 0;
-			visibility: collapse;
-		}
-
-		#PlayerList
-		{
-			opacity: 0;
-			visibility: collapse;
-		}
-	}
-}
-
-#Version
-{
-	align: right bottom;
-	font-size: 14px;
-	brightness: 0.2;
-}
-
-#Logo
-{
-	horizontal-align: right;
-	margin-right: 240px;
-	margin-top: 10px;
-	width: 168px;
-	height: 100px;
-	background-image: url("file://{images}/custom_game/loading/logo_small_en.png");
+	vertical-align: bottom;
+	margin-left: -20px;
+	margin-bottom: -34px;
+	width: 392px;
+	height: 362px;
+	background-image: url("file://{images}/custom_game/hero_selection/minimap_skin.png");
 	background-size: 100%;
+
+	DOTAMinimap
+	{
+		vertical-align: bottom;
+		margin-left: 40px;
+		margin-bottom: 55px;
+		width: 230px;
+		height: 230px;
+	}
+
+	#MinimapSkin
+	{
+		width: 100%;
+		height: 100%;
+		background-image: url("file://{images}/custom_game/hero_selection/minimap_skin.png");
+		background-size: 100%;
+
+	}
 }
 
-.Language_schinese #Logo,
-.Language_Schinese #Logo
+// 操作面板
+#ActionPanel
 {
-	background-image: url("file://{images}/custom_game/loading/logo_small_cn.png");
-}
-#AthenaSessionRoot { width: 100%; height: 100%; }
-.AthenaSessionCard {
-	horizontal-align: center; vertical-align: center; width: 850px; padding: 28px;
-	flow-children: down; background-color: #151b27f5; border: 1px solid #a88c55;
-	Label { color: #e5dfd2; font-size: 20px; margin-bottom: 12px; }
-	.AthenaTitle { color: #eac985; font-size: 30px; margin-bottom: 20px; }
-	.AthenaError { color: #ff9797; white-space: normal; }
-}
-.AthenaHeroes { width: 100%; flow-children: right-wrap; margin-bottom: 20px; .EOM_Button { margin: 4px; } }
-.AthenaActions { flow-children: right; margin-top: 12px; .EOM_Button { margin-right: 10px; } }
-.AthenaVote { flow-children: down; margin-top: 16px; }
-.AthenaBattleVote {
-	horizontal-align: center; margin-top: 65px; padding: 12px 22px; flow-children: down;
-	background-color: #151b27eb; Label { color: #e5dfd2; font-size: 20px; margin-bottom: 8px; }
+	align: center bottom;
+
+	#LeftPart
+	{
+		align: left bottom;
+		width: 323px;
+		height: 242px;
+
+		DOTAPortrait
+		{
+			align: left bottom;
+			margin-left: 80px;
+			margin-bottom: 10px;
+			width: 200px;
+			height: 175px;
+		}
+
+		#LeftPartSkin
+		{
+			width: 323px;
+			height: 242px;
+			background-image: url("file://{images}/custom_game/hero_selection/action_panel_left.png");
+			background-size: 100%;
+		}
+	}
+
+	#CenterPart
+	{
+		align: left bottom;
+		width: 600px;
+		height: 242px;
+		background-image: url("file://{images}/custom_game/hero_selection/action_panel_center.png");
+		background-size: 740px 100%;
+		margin-left: 323px;
+		margin-right: 341px;
+	}
+
+	#RightPart
+	{
+		align: right bottom;
+		width: 341px;
+		height: 242px;
+		background-image: url("file://{images}/custom_game/hero_selection/action_panel_right.png");
+		background-size: 100%;
+		z-index: 1;
+	}
 }

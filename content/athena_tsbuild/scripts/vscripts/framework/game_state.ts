@@ -34,7 +34,7 @@ export class CGameState extends CModule {
 		CustomUIEvent("athena_game_action", this.OnAction, this);
 		if (this.monitor) Timer.StopTimer(this.monitor);
 		this.monitor = Timer.Timer(0.5, () => {
-			this.RefreshPlayers(); this.session.ExpireVote(Time()); this.UpdateNetTable(); return 0.5;
+			this.RefreshPlayers(); this.CompleteSelection(this.session.runId); this.session.ExpireVote(Time()); this.UpdateNetTable(); return 0.5;
 		});
 		if (IsInToolsMode()) {
 			Convars.RegisterCommand("athena_run_result", (_command, value) => {
@@ -105,12 +105,14 @@ export class CGameState extends CModule {
 	}
 	/** 开发工具也走同一条终局和清理流程，不直接全局 reset。 */
 	DebugRestart() { if (IsInToolsMode()) { if (this.session.state === "GameState_Battle") this.FinishRun(this.session.runId, "abandoned", "开发工具放弃本局"); else if (this.session.state === "GameState_Settle") this.SwitchState("GameState_Reset"); } }
-	/** 每局仅在选人期限结束后锁定名单，未确认英雄由服务器随机选择。 */
-	CompleteSelection(runId: number) {
+	/** 全员确认后立即锁定名单；只有选人超时才替未确认玩家随机选择。 */
+	CompleteSelection(runId: number, timedOut = false) {
 		if (runId !== this.session.runId || this.session.state !== "GameState_Prepare") return false;
 		this.RefreshPlayers();
-		const heroes = this.GetHeroList().filter(name => tonumber(KeyValues.heroes[name].IsHero) === 1 && KeyValues.heroes[name].UnitLabel !== "hide");
-		if (!this.session.FinalizeSelection(heroes, count => RandomInt(0, count - 1))) return false;
+		if (timedOut) {
+			const heroes = this.GetHeroList().filter(name => tonumber(KeyValues.heroes[name].IsHero) === 1 && KeyValues.heroes[name].UnitLabel !== "hide");
+			if (!this.session.FinalizeSelection(heroes, count => RandomInt(0, count - 1))) return false;
+		} else if (!this.session.LockParticipants()) return false;
 		this.SwitchState("GameState_DiffSelection", runId); return true;
 	}
 	private OnAction(event: UIEventProperties<"athena_game_action">) {
@@ -136,6 +138,7 @@ export class CGameState extends CModule {
 			if (this.session.vote!.action === "abandon") this.FinishRun(this.session.runId, "abandoned", "参战玩家确认放弃");
 			else this.SwitchState("GameState_Reset");
 		}
+		this.CompleteSelection(this.session.runId);
 		this.UpdateNetTable();
 	}
 	UpdateNetTable() {

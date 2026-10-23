@@ -24,6 +24,7 @@
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_message.xml"/>
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_notification.xml"/>
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_main.xml"/>
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_hero_selection.xml"/>
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_endscreen.xml"/>
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_mail.xml"/>
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_community.xml"/>
