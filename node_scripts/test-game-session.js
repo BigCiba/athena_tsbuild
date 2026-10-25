@@ -320,7 +320,7 @@ test('世界与波次模块独立持有实体；Event 结算、重置清理刷�
 	globals.Event.Fire('game_start', { runId: session.runId }); assert.equal(timers.size, 1, '重复开局事件不能重复刷怪');
 	waveModule.init(true); assert.equal(internal.size, 6, '热重载只保留模块五个监听与世界一个监听'); assert.equal(timers.size, 1);
 	assert.equal(firstHero.playerID, 0); assert.equal(firstHero.controller, 0); assert.equal(firstHero.owner, player); assert.equal(player.heroName, 'hero_a');
-	assert.equal(gold.get('0:true'), 200); assert.equal(gold.get('0:false'), 0);
+	assert.equal(gold.get('0:true'), 0); assert.equal(gold.get('0:false'), 0); // 初始奖励由独立资源模块在 game_start 发放。
 	let customResource = 1; world.Own(session.runId, () => customResource--);
 	now = 1; [...timers.values()].forEach(fn => fn());
 	const owned = [...entities.values()].filter(unit => ['athena', 'creep'].includes(unit.name));

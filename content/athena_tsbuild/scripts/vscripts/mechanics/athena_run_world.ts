@@ -31,9 +31,8 @@ export class AthenaRunWorld {
 		if (!IsValid(this.base)) throw "雅典娜基地创建失败";
 		this.TrackUnit(this.base, session.runId); this.base.SetForwardVector(anchor.GetForwardVector());
 		this.base.AddNewModifier(this.base, undefined, "modifier_invulnerable", {});
-		const initialGold = [300, 200, 100, 0, 0][session.difficulty - 1];
 		for (const id of session.participants) {
-			const hero = this.CreatePlayerHero(id, session.players[id]!.hero, initialGold);
+			const hero = this.CreatePlayerHero(id, session.players[id]!.hero);
 			this.heroes[id] = hero;
 			this.RecordOwnedData(hero);
 			hero.AddNewModifier(hero, undefined, "modifier_invulnerable", {});
@@ -44,7 +43,7 @@ export class AthenaRunWorld {
 		Game.SetGameResult(false);
 	}
 	/** 沿用 c1 Player.CreateHero：安全移除旧英雄，再创建并显式绑定玩家，不混用 ReplaceHeroWith 和直接删除。 */
-	private CreatePlayerHero(playerID: PlayerID, heroName: string, initialGold: number): CDOTA_BaseNPC_Hero {
+	private CreatePlayerHero(playerID: PlayerID, heroName: string): CDOTA_BaseNPC_Hero {
 		const player = PlayerResource.GetPlayer(playerID);
 		if (!IsValid(player)) throw `玩家 ${playerID} 的控制实体不存在`;
 		const oldHero = PlayerResource.GetSelectedHeroEntity(playerID);
@@ -61,7 +60,7 @@ export class AthenaRunWorld {
 		hero.SetOwner(player);
 		hero.SetControllableByPlayer(playerID, true);
 		PlayerResource.SetGold(playerID, 0, false);
-		PlayerResource.SetGold(playerID, initialGold, true);
+		PlayerResource.SetGold(playerID, 0, true);
 		return hero;
 	}
 	StartBattle(scope: CGameStateBase) {
@@ -118,7 +117,7 @@ export class AthenaRunWorld {
 		for (const key of Object.keys(this.heroes)) {
 			const id = Number(key) as PlayerID;
 			// 待命沿用本局已加载的英雄，避免重开时临时加载另一个英雄及其饰品模型。
-			const placeholder = this.CreatePlayerHero(id, this.session!.players[id]!.hero, 0);
+			const placeholder = this.CreatePlayerHero(id, this.session!.players[id]!.hero);
 			placeholder.AddNewModifier(placeholder, undefined, "modifier_invulnerable", {});
 			placeholder.AddNewModifier(placeholder, undefined, "modifier_stunned", {});
 			delete this.heroes[id];

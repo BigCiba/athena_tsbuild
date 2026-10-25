@@ -22,12 +22,12 @@ MINIMUM_ATTACK_SPEED = 20
 MAXIMUM_ATTACK_SPEED = 700
 BULLET_WIDTH = 32
 INTERACT_RADIUS = 200
-HERO_MAX_LEVEL = 30
+HERO_MAX_LEVEL = 500
 HERO_XP_PER_LEVEL_TABLE = {}
 do
     local index = 0
-    while index < 30 do
-        HERO_XP_PER_LEVEL_TABLE[#HERO_XP_PER_LEVEL_TABLE + 1] = 75 * index + 50 * index * index
+    while index < HERO_MAX_LEVEL do
+        HERO_XP_PER_LEVEL_TABLE[#HERO_XP_PER_LEVEL_TABLE + 1] = 1000 * index
         index = index + 1
     end
 end

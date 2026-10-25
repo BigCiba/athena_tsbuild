@@ -337,6 +337,10 @@ declare interface CustomGameEventDeclarations {
 	};
 	/** 跳过教程 */
 	tutorial_abandon: {};
+
+	active_scan: {};
+	active_glyph: {};
+	next_round: {};
 }
 
 declare interface GameEventDeclarations {

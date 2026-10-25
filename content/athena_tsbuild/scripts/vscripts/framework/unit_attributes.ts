@@ -46,7 +46,6 @@ export class CUnitAttributes extends CModule {
 			this.AddPermanent(attacker, "CUSTOM_ATTRIBUTE_ATTACK", GetKillAttack(attacker), true);
 			// 旧版读了 flStrength 却将 flAttack 写入力量，本次保留有效行为。
 			this.AddPermanent(attacker, "CUSTOM_ATTRIBUTE_STRENGTH", GetKillAttack(attacker), true);
-			this.GrantGold(attacker, GetKillGoldFlat(attacker));
 		}, 200, this); // 在胜负判定结束本局前结算最后一次击杀成长。
 		Event.Register("damage_event", event => {
 			if (!this.Active(event.attacker) || event.damage_category !== DamageCategory_t.DOTA_DAMAGE_CATEGORY_ATTACK
@@ -125,16 +124,12 @@ export class CUnitAttributes extends CModule {
 		return this.running && session.runId === this.runId && session.state === "GameState_Battle"
 			&& IsValid(unit) && unit.IsRealHero() && session.participants.includes(unit.GetPlayerOwnerID());
 	}
-	private GrantGold(unit: CDOTA_BaseNPC, value: number) {
-		if (value !== 0) PlayerResource.ModifyGold(unit.GetPlayerOwnerID(), value, true, EDOTA_ModifyGold_Reason.DOTA_ModifyGold_Unspecified);
-	}
 	private Grow(unit: CDOTA_BaseNPC, interval: "SEC" | "MIN") {
 		// 旧版每分钟护甲仅使用装备值，永久 ARMOR_PER_MIN 未接入。
 		const stats = interval === "SEC" ? ["HEALTH", "ATTACK", "ARMOR", "ALL", "STRENGTH", "AGILITY", "INTELLECT"] : ["HEALTH", "ATTACK", "ALL", "INTELLECT", "PHYSICAL_DAMAGE", "MAGICAL_DAMAGE"];
 		for (const stat of stats) this.AddPermanent(unit, "CUSTOM_ATTRIBUTE_" + stat,
 			interval === "MIN" && stat === "INTELLECT" ? GetItemIntellectPerMin(unit) : AthenaProperty(unit, (PropertyFunction as AnyTable)[stat + "_PER_" + interval]), true);
 		if (interval === "MIN") this.AddPermanent(unit, "CUSTOM_ATTRIBUTE_ARMOR", GetItemArmorPerMin(unit), true);
-		else this.GrantGold(unit, GetGoldPerSec(unit) + GetPlayerGoldPerSecond(unit.GetPlayerOwnerID()));
 	}
 	private Start(runId: number) {
 		const session = GameState.GetSession();

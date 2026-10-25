@@ -14,6 +14,8 @@ declare interface CDOTA_Item {
 	_expiry_time?: number;
 }
 declare interface CDOTA_BaseNPC {
+	__resourceRunId?: number;
+	__resourceDeathPaid?: boolean;
 	__lastPublishedLevel?: number;
 	__counter_ready__: boolean;
 	GetCaster(): CDOTA_BaseNPC | undefined;

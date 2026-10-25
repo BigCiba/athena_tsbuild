@@ -70,29 +70,105 @@
 #MinimapContainer
 {
 	vertical-align: bottom;
-	margin-left: -20px;
-	margin-bottom: -34px;
-	width: 392px;
-	height: 362px;
-	background-image: url("file://{images}/custom_game/hero_selection/minimap_skin.png");
-	background-size: 100%;
 
 	DOTAMinimap
 	{
 		vertical-align: bottom;
-		margin-left: 40px;
-		margin-bottom: 55px;
-		width: 230px;
-		height: 230px;
+		width: 256px;
+		height: 256px;
 	}
 
-	#MinimapSkin
+	.GlyphScan
 	{
-		width: 100%;
-		height: 100%;
-		background-image: url("file://{images}/custom_game/hero_selection/minimap_skin.png");
+		width: 78px;
+		height: 256px;
+		vertical-align: bottom;
+		margin-left: 256px;
+		background-image: url("s2r://panorama/images/hud/reborn/hud_custom_ti10/glyph_scan_bg_psd.vtex");
 		background-size: 100%;
 
+		.TowerProtect
+		{
+			vertical-align: bottom;
+			margin-left: 3px;
+			margin-bottom: 4px;
+			width: 44px;
+			height: 44px;
+
+			// opacity: 0.1;
+			// background-image: url("s2r://panorama/images/hud/reborn/icon_courier_shield_on_psd.vtex");
+			// background-size: 100%;
+			// opacity-brush: #ffb300;
+			&.Cooldown .TowerProtectIcon
+			{
+				saturation: 0;
+			}
+
+			.TowerProtectIcon
+			{
+				width: 44px;
+				height: 44px;
+				background-image: url("file://{images}/custom_game/hud_main/icon_courier_shield_on_psd.png");
+				background-size: 100%;
+			}
+
+			&.Cooldown .CooldownCover
+			{
+				opacity: 1;
+			}
+
+			.CooldownCover
+			{
+				width: 39px;
+				height: 39px;
+				background-color: #000000dd;
+				background-size: 100%;
+				border-radius: 50%;
+				align: center center;
+				opacity: 0;
+			}
+
+			&:hover
+			{
+				brightness: 2.0;
+			}
+
+			&:active
+			{
+				brightness: 0.5;
+				sound: "ui_generic_button_click";
+			}
+		}
+
+		.TowerUpgrade
+		{
+			vertical-align: bottom;
+			margin-left: 3px;
+			margin-bottom: 45px;
+			width: 44px;
+			height: 44px;
+			// opacity: 0.1;
+			background-image: url("file://{images}/custom_game/hud_main/icon_courier_boost_on_psd.png");
+			background-size: 100%;
+			pre-transform-rotate2d: -90deg;
+
+
+			&:hover
+			{
+				brightness: 2.0;
+			}
+
+			&:active
+			{
+				brightness: 0.5;
+				sound: "ui_generic_button_click";
+			}
+
+			&:disabled
+			{
+				saturation: 0;
+			}
+		}
 	}
 }
 
@@ -144,5 +220,154 @@
 		background-image: url("file://{images}/custom_game/hero_selection/action_panel_right.png");
 		background-size: 100%;
 		z-index: 1;
+	}
+}
+
+// 商店
+#ShopPanel
+{
+	align: right bottom;
+
+	#shop_launcher_bg
+	{
+		margin-right: 0px;
+		margin-bottom: 0px;
+		align: right bottom;
+		z-index: -2;
+		width: 316px;
+		height: 66px;
+		background-image: url("s2r://panorama/images/hud/reborn/hud_custom_ti10/gold_bg_psd.vtex");
+		background-size: 100%;
+
+		#HUDSkinFXGold
+		{
+			opacity-mask: url("s2r://panorama/images/hud/reborn/hud_custom_ti10/gold_bg_mask_psd.vtex");
+			animation-name: Gleam2;
+			animation-duration: 6s;
+			animation-delay: 6.5s;
+			animation-iteration-count: infinite;
+			animation-direction: normal;
+			height: 100%;
+			width: 100%;
+			background-size: 100%;
+		}
+	}
+
+	#ShopButton
+	{
+		width: 150px;
+		height: 36px;
+		margin-left: 70px;
+		background-image: url("s2r://panorama/images/hud/reborn/hud_custom_ti10/shop_launcher_button_inrange_psd.vtex");
+		background-size: 100%;
+		box-shadow: #00000055 0px 0px 2px 2px;
+		transition-property: background-image;
+		transition-duration: 0.18s;
+		transition-timing-function: ease-in-out;
+		tooltip-position: top;
+		vertical-align: center;
+
+		&:hover
+		{
+			brightness: 2;
+		}
+
+		&:active
+		{
+			brightness: 0.5;
+		}
+
+		#CustomGoldLabel
+		{
+			opacity: 1;
+		}
+
+		#CustomGoldIcon
+		{
+			background-image: url("s2r://panorama/images/hud/reborn/gold_small_psd.vtex");
+			background-size: 100%;
+			width: 26px;
+			height: 26px;
+			horizontal-align: right;
+			margin-right: 8px;
+			vertical-align: center;
+			margin-bottom: 2px;
+		}
+	}
+
+	.NextRound
+	{
+		vertical-align: bottom;
+		horizontal-align: right;
+		margin-right: 26px;
+		margin-bottom: 8px;
+		width: 44px;
+		height: 44px;
+		tooltip-position: top;
+
+		// opacity: 0.1;
+		// background-image: url("s2r://panorama/images/hud/reborn/icon_courier_boost_on_psd.vtex");
+		// background-size: 100%;
+		.NextRoundIcon
+		{
+			width: 44px;
+			height: 44px;
+			background-image: url("file://{images}/custom_game/hud_main/icon_courier_boost_on_psd.png");
+			background-size: 100%;
+		}
+
+		&:hover
+		{
+			brightness: 2.0;
+		}
+
+		&:active
+		{
+			brightness: 0.5;
+			sound: "ui_generic_button_click";
+		}
+
+		&:disabled
+		{
+			saturation: 0;
+		}
+	}
+}
+
+@keyframes Gleam2
+{
+	0%
+	{
+		background-color: gradient(linear, 0% 0%, 100% 100%, from(#fbefc700), color-stop(.01, #fbefc700), color-stop(.2, #fbefc722), color-stop(.4, #fbefc700), to(#fbefc700));
+	}
+
+	1.2%
+	{
+		background-color: gradient(linear, 0% 0%, 100% 100%, from(#fbefc700), color-stop(0, #fbefc700), color-stop(.3, #fbefc7aa), color-stop(.6, #fbefc700), to(#fbefc700));
+	}
+
+	3.2%
+	{
+		background-color: gradient(linear, 0% 0%, 100% 100%, from(#fbefc700), color-stop(.3, #fbefc700), color-stop(.5, #fbefc7aa), color-stop(.7, #fbefc700), to(#fbefc700));
+	}
+
+	5.2%
+	{
+		background-color: gradient(linear, 0% 0%, 100% 100%, from(#fbefc700), color-stop(.4, #fbefc700), color-stop(.7, #fbefc7aa), color-stop(1, #fbefc700), to(#fbefc700));
+	}
+
+	6%
+	{
+		background-color: gradient(linear, 0% 0%, 100% 100%, from(#fbefc700), color-stop(.6, #fbefc700), color-stop(.8, #fbefc722), color-stop(.99, #fbefc700), to(#fbefc700));
+	}
+
+	7.2%
+	{
+		background-color: gradient(linear, 0% 0%, 100% 100%, from(#fbefc700), color-stop(.6, #fbefc700), color-stop(.8, #fbefc700), color-stop(.99, #fbefc700), to(#fbefc700));
+	}
+
+	100%
+	{
+		background-color: gradient(linear, 0% 0%, 100% 100%, from(#fbefc700), color-stop(.2, #fbefc700), color-stop(.5, #fbefc700), color-stop(.6, #fbefc700), to(#fbefc700));
 	}
 }

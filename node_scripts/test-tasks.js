@@ -14,31 +14,34 @@ function test(name, check) { check(); passed++; console.log('PASS ' + name); }
 function fixture(definitions = structuredClone(realTasks)) {
 	let next = 0, now = 0, tools = false, rewardHook, itemsFail = false, triggerName = '';
 	const triggerHandlers = {};
-	const session = { runId: 1, state: 'GameState_Battle', participants: [0, 1] };
+	const session = { runId: 1, state: 'GameState_Battle', participants: [0, 1], difficulty: 4 };
 	const timers = new Map(), listeners = new Map(), actions = new Map(), entities = new Map(), net = new Map(), dialogs = [], rewards = [], events = [], cleanup = [];
 	const fire = (name, data) => {
 		events.push({ name, data });
 		if (name === 'task_reward' && rewardHook) rewardHook(data);
-		for (const listener of [...listeners.values()].reverse()) if (listener.name === name) listener.callback.call(listener.context, data);
+		for (const listener of [...listeners.values()].sort((a, b) => b.priority - a.priority || b.id - a.id)) if (listener.name === name) listener.callback.call(listener.context, data);
 	};
 	function unit(name, playerID = -1, team = 3) {
 		const unit = { name, index: ++next, valid: true, alive: true, position: -10000, playerID, team, xp: 0, gold: 0, items: [], buffs: [],
 			entindex() { return this.index; }, GetUnitName() { return this.name; }, GetPlayerOwnerID() { return this.playerID; }, GetTeamNumber() { return this.team; },
 			IsAlive() { return this.alive; }, IsRealHero() { return this.name.startsWith('hero'); }, GetLevel() { return this.level ?? 1; },
 			GetAbsOrigin() { return this.position; }, SetForwardVector() {}, AddNewModifier(_caster, _ability, name) { this.buffs.push(name); return { valid: true }; },
-			AddExperience(amount) { this.xp += amount; }, HasRoomForItem() { return true; }, AddItem(item) { this.items.push(item); },
+			GetCurrentXP() { return this.xp; }, AddExperience(amount) { this.xp += amount; return true; }, HasRoomForItem() { return true; }, AddItem(item) { this.items.push(item); },
 		}; entities.set(unit.index, unit); return unit;
 	}
 	const heroes = [unit('hero0', 0, 2), unit('hero1', 1, 2), unit('hero2', 2, 2)];
 	const globals = {
-		CModule: class { error() {} }, NPC: undefined, Task: undefined, math: Math, tostring: String, tonumber: value => value === undefined ? undefined : Number(value),
+		CModule: class { error() {} }, NPC: undefined, Task: undefined, RunResources: undefined, math: Math, tostring: String, tonumber: value => value === undefined ? undefined : Number(value),
 		string: { find: (text, pattern) => text.match(new RegExp(pattern)) ? [1] : [], gsub: (text) => [text.replace(/\s/g, '')] },
 		IsValid: value => !!value?.valid, IsInToolsMode: () => tools, CalcDistance: (a, b) => Math.abs(a.position - b.position),
 		Vector: (x, y, z) => ({ x, y, z }), DOTATeam_t: { DOTA_TEAM_GOODGUYS: 2 }, EDOTA_ModifyGold_Reason: {}, EDOTA_ModifyXP_Reason: {}, _G: {},
 		thisEntity: { GetName: () => triggerName }, FindClearSpaceForUnit: (hero, position) => { hero.destination = position; },
 		GameRules: { GetGameTime: () => now, ExecuteTeamPing() {} }, GameState: { GetSession: () => session, FinishRun(_run, _outcome, error) { assert.fail(error); } },
 		Game: { EachPlayer: callback => heroes.forEach((_hero, id) => callback(id)) },
-		PlayerResource: { GetSelectedHeroEntity: id => heroes[id], GetPlayer: id => ({ valid: true, id }), ModifyGold: (id, amount) => { heroes[id].gold += amount; } },
+		PlayerResource: { GetSelectedHeroEntity: id => heroes[id], GetPlayer: id => ({ valid: true, id }), ModifyGold: (id, amount) => { heroes[id].gold += amount; },
+			GetGold: id => heroes[id].gold, SetGold: (id, value, reliable) => { if (reliable) heroes[id].gold = value; } },
+		HERO_MAX_LEVEL: 500, HERO_XP_PER_LEVEL_TABLE: Array.from({ length: 500 }, (_, i) => i * 1000),
+		GetPlayerKillGoldPercentage: () => 0, GetKillGoldFlat: () => 0, GetPlayerKillScoreBonus: () => 0,
 		KeyValues: { units: realNPCs, items: { item_zhanqi: {}, item_xiongpi: {}, item_hexin: {}, item_mirror: {}, item_yunshizhaohuan: {}, item_hero0: {}, item_hero1: {}, item_butianshi: {}, item_enchant: {} } },
 		LoadKeyValues: file => file.includes('npc_quest') ? realNPCs : definitions,
 		Entities: { FindByName: (_last, name) => name.startsWith('npc_') ? { valid: true, GetAbsOrigin: () => 1000, GetForwardVector: () => 1 } : undefined },
@@ -48,7 +51,8 @@ function fixture(definitions = structuredClone(realTasks)) {
 		CustomGameEventManager: { Send_ServerToPlayer: (player, name, data) => dialogs.push({ player: player.id, name, ...data }) },
 		Notification: { CombatToPlayer() {} }, ParticleManager: { CreateParticle: () => 1, DestroyParticle() {}, CreateParticleForPlayer: () => 1, SetParticleControl() {}, ReleaseParticleIndex() {} }, ParticleAttachment_t: {},
 		PropertySystem: { CleanupUnitPropertiesByIndex: id => cleanup.push(id) }, StateSystem: { CleanupUnitStatesByIndex() {} }, AbilityUpgrade: { CleanupUnitUpgrades() {} },
-		Event: { Register(name, callback, context) { const id = ++next; listeners.set(id, { name, callback, context }); return id; },
+		Event: { Register(name, callback, context) { const id = ++next; listeners.set(id, { id, name, callback, context, priority: 100 }); return id; },
+			RegisterWithPriority(name, callback, priority, context) { const id = this.Register(name, callback, context); listeners.get(id).priority = priority; return id; },
 			UnregisterContext(context) { for (const [id, listener] of listeners) if (listener.context === context) listeners.delete(id); }, Fire: fire },
 		CustomUIEvent: (name, callback, context) => actions.set(name, data => callback.call(context, data)),
 		CustomNetTables: { SetTableValue: (_table, key, value) => net.set(key, JSON.parse(JSON.stringify(value))) },
@@ -59,6 +63,7 @@ function fixture(definitions = structuredClone(realTasks)) {
 		const code = ts.transpileModule(fs.readFileSync(path.join(source, file + '.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, experimentalDecorators: true } }).outputText;
 		vm.runInNewContext(code, { module, exports: module.exports, ...globals, require: name => { if (imports[name]) return imports[name]; assert.equal(name, '../lib/tstl-utils'); return { reloadable: value => value }; } }); return module.exports;
 	}
+	const { CRunResources } = load('mechanics/run_resources'); const resources = new CRunResources(); resources.init();
 	const { CNPC } = load('framework/npc'); const npc = globals.NPC = new CNPC(); npc.init(false);
 	const { CTask, TaskState } = load('mechanics/task'); const task = new CTask(); task.init(false);
 	load('triggers/events', { '../lib/dota_ts_adapter': { registerEntityFunction: (name, callback) => { triggerHandlers[name] = callback; } } });
@@ -86,7 +91,8 @@ function fixture(definitions = structuredClone(realTasks)) {
 }
 test('实际 14 个任务与 6 个 NPC 配置保持原版；solo/team 地图锚点和三种本地化完整', () => {
 	assert.equal(Object.keys(realTasks).length, 14); assert.equal(Object.keys(realNPCs).length, 6);
-	assert.deepEqual(fs.readFileSync(path.join(npcDir, 'kv/gameplay/tasks.kv')), fs.readFileSync('D:/Dota Addons/athena-reborn/game/athena_reborn/scripts/npc/kv/gameplay/tasks.kv'));
+	const originalTasks = path.resolve(root, '../athena-reborn/game/athena_reborn/scripts/npc/kv/gameplay/tasks.kv');
+	if (fs.existsSync(originalTasks)) assert.deepEqual(fs.readFileSync(path.join(npcDir, 'kv/gameplay/tasks.kv')), fs.readFileSync(originalTasks));
 	for (const map of ['solo', 'team']) {
 		const data = fs.readFileSync(path.join(root, 'content/athena_tsbuild/maps', map + '.vmap'));
 		for (const name of Object.keys(realNPCs)) assert.ok(data.includes(Buffer.from('npc_' + name + '\0')), map + '/' + name);
@@ -139,6 +145,15 @@ test('转生启动仅来自本局英雄里程碑事件；100-400 级可再次触
 		f.fire('hero_level_up', { unit: f.heroes[0], level }); f.kill(0, 'boss_iapetos'); f.advance(2); assert.equal(f.state(0, 'Reborn'), 3);
 	}
 	f.fire('hero_level_up', { unit: f.heroes[0], level: 500 }); assert.equal(f.state(0, 'Reborn'), 3);
+});
+test('真实食人魔任务发放金币、魂晶和经验，重复交付不会重发资源', () => {
+	const f = fixture(); f.start(); f.talk(0, 'beaverknight');
+	for (let i = 0; i < 6; i++) f.kill(0, 'ogre');
+	for (let i = 0; i < 2; i++) f.kill(0, 'boss_ogre');
+	assert.equal(f.state(0, 'Beaverknight_Ogre'), 2); f.talk(0, 'beaverknight');
+	assert.equal(f.state(0, 'Beaverknight_Ogre'), 3);
+	const player = f.net.get('run_resources').players[0]; assert.equal(player.gold, 3000); assert.equal(player.crystal, 100); assert.equal(player.experience, 1000);
+	f.talk(0, 'beaverknight'); assert.equal(f.net.get('run_resources').players[0].gold, 3000); assert.equal(f.net.get('run_resources').players[0].crystal, 100);
 });
 test('NPC 范围/生命/局号校验、旁观拒绝、放弃标签与调试权限均由服务器执行', () => {
 	const f = fixture(); f.start(); const npc = [...f.entities.values()].find(unit => unit.name === 'bounty_hunter');

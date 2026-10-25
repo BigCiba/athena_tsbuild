@@ -186,11 +186,7 @@ export class CTask extends CModule {
 		finally { delete this.claiming[key]; }
 	}
 	private GrantAvailableReward(hero: CDOTA_BaseNPC_Hero, reward: EventCallback["task_reward"]) {
-		if (reward.type === "TASK_REWARD_TYPE_RESOURCE" && reward.name === "CUSTOM_RESOURCE_TYPE_GOLD") {
-			PlayerResource.ModifyGold(reward.playerID, reward.amount, true, EDOTA_ModifyGold_Reason.DOTA_ModifyGold_Unspecified); reward.handled = true;
-		} else if (reward.type === "TASK_REWARD_TYPE_RESOURCE" && reward.name === "CUSTOM_RESOURCE_TYPE_EXP") {
-			hero.AddExperience(reward.amount, EDOTA_ModifyXP_Reason.DOTA_ModifyXP_Unspecified, false, false, 0); reward.handled = true;
-		} else if (reward.type === "TASK_REWARD_TYPE_ITEM" || reward.type === "TASK_REWARD_TYPE_SCEPTER") {
+		if (reward.type === "TASK_REWARD_TYPE_ITEM" || reward.type === "TASK_REWARD_TYPE_SCEPTER") {
 			const itemName = reward.type === "TASK_REWARD_TYPE_SCEPTER" ? "item_" + hero.GetUnitName() : reward.name;
 			if (!KeyValues.items[itemName]) return;
 			for (let i = 0; i < reward.amount; i++) {

@@ -15,6 +15,7 @@ require("ability_upgrade");
 if (IsServer()) {
 	// 服务器端初始化
 	require("base");
+	require("run_resources");
 	require("task");
 	require("wave_spawner");
 	require("neutral_spawners");

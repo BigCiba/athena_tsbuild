@@ -23,10 +23,10 @@ const BULLET_WIDTH = 32;	// 普通子弹宽度
 
 const INTERACT_RADIUS = 200; // 交互范围半径
 
-const HERO_MAX_LEVEL = 30; // 英雄最大等级
+const HERO_MAX_LEVEL = 500; // 雅典娜原版英雄最大等级
 const HERO_XP_PER_LEVEL_TABLE: number[] = []; // 英雄升级经验表
-for (let index = 0; index < 30; index++) {
-	HERO_XP_PER_LEVEL_TABLE.push(75 * index + 50 * index * index);
+for (let index = 0; index < HERO_MAX_LEVEL; index++) {
+	HERO_XP_PER_LEVEL_TABLE.push(1000 * index);
 }
 
 /** 复活次数 */

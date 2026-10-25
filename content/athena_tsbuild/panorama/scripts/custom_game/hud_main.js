@@ -5,6 +5,130 @@ var GameVote = require('./GameVote.js');
 var EOM_Button = require('./EOM_Button.js');
 var solid_utils = require('./solid_utils.js');
 
+function RunResourcesPanel(props) {
+  const [resources, _setResources] = libs.createSignal(CustomNetTables.GetTableValue("common", "run_resources"));
+  const player = () => {
+    const data = resources(),
+      state = props.snapshot;
+    if (!data || !state || data.run_id !== state.run_id || state.state !== "GameState_Battle" && state.state !== "GameState_Settle") return undefined;
+    return data.players[String(Players.GetLocalPlayer())];
+  };
+  const number = value => Math.floor(value ?? 0).toString();
+  const progress = () => Math.min(100, Math.max(0, (player()?.level_exp ?? 0) / (player()?.next_level_exp || 1) * 100));
+  libs.createEffect(() => {
+    const id = CustomNetTables.SubscribeNetTableListener("common", function (_, k, v) {
+      if (k === "run_resources") {
+        _setResources(v);
+      }
+    });
+    libs.onCleanup(() => {
+      CustomNetTables.UnsubscribeNetTableListener(id);
+    });
+  });
+  return libs.createComponent(libs.Show, {
+    get when() {
+      return player();
+    },
+    get children() {
+      const _el$ = libs.createElement("Panel", {
+          id: "AthenaResources",
+          hittest: false
+        }, null),
+        _el$2 = libs.createElement("Panel", {
+          "class": "AthenaResourceRow"
+        }, _el$);
+        libs.createElement("Label", {
+          "class": "ResourceName",
+          text: "#CUSTOM_RESOURCE_TYPE_GOLD"
+        }, _el$2);
+        const _el$4 = libs.createElement("Label", {
+          id: "AthenaGold",
+          "class": "GoldValue",
+          get text() {
+            return number(player()?.gold);
+          }
+        }, _el$2);
+        libs.createElement("Label", {
+          "class": "ResourceName",
+          text: "#CUSTOM_RESOURCE_TYPE_CRYSTAL"
+        }, _el$2);
+        const _el$6 = libs.createElement("Label", {
+          id: "AthenaCrystal",
+          "class": "CrystalValue",
+          get text() {
+            return number(player()?.crystal);
+          }
+        }, _el$2);
+        libs.createElement("Label", {
+          "class": "ResourceName",
+          text: "#CUSTOM_RESOURCE_TYPE_SCORE"
+        }, _el$2);
+        const _el$8 = libs.createElement("Label", {
+          id: "AthenaScore",
+          "class": "ScoreValue",
+          get text() {
+            return number(player()?.score);
+          }
+        }, _el$2),
+        _el$9 = libs.createElement("Panel", {
+          "class": "AthenaResourceRow"
+        }, _el$),
+        _el$0 = libs.createElement("Label", {
+          id: "AthenaHeroLevel",
+          get text() {
+            return `Lv. ${player()?.level ?? 1}`;
+          }
+        }, _el$9);
+        libs.createElement("Label", {
+          "class": "ResourceName",
+          text: "#CUSTOM_RESOURCE_TYPE_EXP"
+        }, _el$9);
+        const _el$10 = libs.createElement("Label", {
+          id: "AthenaExperience",
+          get text() {
+            return libs.memo(() => !!player()?.next_level_exp)() ? `${number(player()?.level_exp)} / ${number(player()?.next_level_exp)}` : "MAX";
+          }
+        }, _el$9),
+        _el$11 = libs.createElement("Panel", {
+          "class": "AthenaExperienceTrack"
+        }, _el$),
+        _el$12 = libs.createElement("Panel", {
+          "class": "AthenaExperienceFill",
+          get style() {
+            return {
+              width: `${player()?.next_level_exp ? progress() : 100}%`
+            };
+          }
+        }, _el$11);
+      libs.effect(_p$ => {
+        const _v$ = number(player()?.gold),
+          _v$2 = number(player()?.crystal),
+          _v$3 = number(player()?.score),
+          _v$4 = `Lv. ${player()?.level ?? 1}`,
+          _v$5 = libs.memo(() => !!player()?.next_level_exp)() ? `${number(player()?.level_exp)} / ${number(player()?.next_level_exp)}` : "MAX",
+          _v$6 = {
+            width: `${player()?.next_level_exp ? progress() : 100}%`
+          };
+        _v$ !== _p$._v$ && (_p$._v$ = libs.setProp(_el$4, "text", _v$, _p$._v$));
+        _v$2 !== _p$._v$2 && (_p$._v$2 = libs.setProp(_el$6, "text", _v$2, _p$._v$2));
+        _v$3 !== _p$._v$3 && (_p$._v$3 = libs.setProp(_el$8, "text", _v$3, _p$._v$3));
+        _v$4 !== _p$._v$4 && (_p$._v$4 = libs.setProp(_el$0, "text", _v$4, _p$._v$4));
+        _v$5 !== _p$._v$5 && (_p$._v$5 = libs.setProp(_el$10, "text", _v$5, _p$._v$5));
+        _v$6 !== _p$._v$6 && (_p$._v$6 = libs.setProp(_el$12, "style", _v$6, _p$._v$6));
+        return _p$;
+      }, {
+        _v$: undefined,
+        _v$2: undefined,
+        _v$3: undefined,
+        _v$4: undefined,
+        _v$5: undefined,
+        _v$6: undefined
+      });
+      return _el$;
+    }
+  });
+}
+
 function TaskPanel(props) {
   const [tasks, _setTasks] = libs.createSignal(CustomNetTables.GetTableValue("common", "player_tasks"));
   const [definitions, _setDefinitions] = libs.createSignal(CustomNetTables.GetTableValue("common", "task_definitions"));
@@ -363,6 +487,7 @@ function TaskPanel(props) {
 
 function HudMain() {
   const state = solid_utils.createNetDataSignal("common", "game_state");
+  GetLocalization("#TowerProtect_description");
   return (() => {
     const _el$ = libs.createElement("Panel", {
         id: "AthenaMainRoot",
@@ -372,25 +497,86 @@ function HudMain() {
         id: "MinimapContainer"
       }, _el$);
       libs.createElement("DOTAMinimap", {}, _el$3);
+      const _el$5 = libs.createElement("Panel", {
+        "class": "GlyphScan"
+      }, _el$3),
+      _el$6 = libs.createElement("Button", {
+        "class": "TowerUpgrade",
+        enabled: true
+      }, _el$5);
       libs.createElement("Panel", {
-        id: "MinimapSkin"
-      }, _el$3);
-      const _el$6 = libs.createElement("Panel", {
+        "class": "TowerUpgradeIcon"
+      }, _el$6);
+      const _el$8 = libs.createElement("Panel", {
+        "class": "CooldownCover"
+      }, _el$6),
+      _el$9 = libs.createElement("Button", {
+        get ["class"]() {
+          return libs.classNames("TowerProtect", {
+            Cooldown: true
+          });
+        }
+      }, _el$5);
+      libs.createElement("Panel", {
+        "class": "TowerProtectIcon"
+      }, _el$9);
+      const _el$1 = libs.createElement("Panel", {
+        "class": "CooldownCover"
+      }, _el$9),
+      _el$10 = libs.createElement("Panel", {
         id: "ActionPanel"
       }, _el$),
-      _el$7 = libs.createElement("Panel", {
+      _el$11 = libs.createElement("Panel", {
         id: "LeftPart"
-      }, _el$6);
-      libs.createElement("DOTAPortrait", {}, _el$7);
+      }, _el$10);
+      libs.createElement("DOTAPortrait", {}, _el$11);
       libs.createElement("Panel", {
         id: "LeftPartSkin"
-      }, _el$7);
+      }, _el$11);
       libs.createElement("Panel", {
         id: "CenterPart"
-      }, _el$6);
+      }, _el$10);
       libs.createElement("Panel", {
         id: "RightPart"
-      }, _el$6);
+      }, _el$10);
+      const _el$16 = libs.createElement("Panel", {
+        id: "ShopPanel"
+      }, _el$),
+      _el$17 = libs.createElement("Panel", {
+        id: "shop_launcher_bg"
+      }, _el$16);
+      libs.createElement("Panel", {
+        id: "HUDSkinFXGold",
+        "class": "GleamPanel",
+        hittest: false
+      }, _el$17);
+      const _el$19 = libs.createElement("Button", {
+        id: "ShopButton"
+      }, _el$16);
+      libs.createElement("Label", {
+        id: "CustomGoldLabel",
+        hittest: false,
+        "class": "MonoNumbersFont ShopButtonValueLabel",
+        text: "{s:gold}"
+      }, _el$19);
+      libs.createElement("Panel", {
+        id: "CustomGoldIcon",
+        hittest: false
+      }, _el$19);
+      const _el$22 = libs.createElement("Button", {
+        "class": "NextRound"
+      }, _el$16);
+      libs.createElement("Panel", {
+        "class": "NextRoundIcon"
+      }, _el$22);
+      const _el$24 = libs.createElement("Panel", {
+        "class": "CooldownCover"
+      }, _el$22);
+    libs.insert(_el$, libs.createComponent(RunResourcesPanel, {
+      get snapshot() {
+        return state();
+      }
+    }), _el$3);
     libs.insert(_el$, libs.createComponent(libs.Show, {
       get when() {
         return state()?.state === "GameState_Battle";
@@ -420,6 +606,44 @@ function HudMain() {
         return _el$2;
       }
     }), _el$3);
+    libs.setProp(_el$6, "onactivate", self => GameEvents.SendCustomGameEventToServer("active_scan", {}));
+    libs.setProp(_el$8, "style", {
+      clip: "radial(50% 50% ,0deg,-311deg)"
+    });
+    libs.setProp(_el$9, "enabled", !true);
+    libs.setProp(_el$9, "onactivate", self => GameEvents.SendCustomGameEventToServer("active_glyph", {}));
+    libs.setProp(_el$1, "style", {
+      clip: `radial(50% 50% ,0deg,${180}deg)`
+    });
+    libs.setProp(_el$19, "onactivate", () => ToggleWindow("shop"));
+    libs.setProp(_el$22, "tooltip", "#NextRound");
+    libs.setProp(_el$22, "onactivate", () => {
+      GameEvents.SendCustomGameEventToServer("next_round", {});
+    });
+    libs.setProp(_el$24, "style", {
+      clip: "radial(50% 50% ,0deg,-360deg)"
+    });
+    libs.effect(_p$ => {
+      const _v$ = {
+          title: `${GetLocalization("#TowerUpgradeTitle")}（${Game.GetKeybindForCommand(DOTAKeybindCommand_t.DOTA_KEYBIND_ACTIVATE_RADAR)}）`,
+          text: GetLocalization("#TowerUpgrade_description") + `<font color='#ffcc33'>${GetLocalization("#TowerUpgrade_Cost") + 0}</font>`
+        },
+        _v$2 = libs.classNames("TowerProtect", {
+          Cooldown: true
+        }),
+        _v$3 = {
+          title: GetLocalization("#TowerProtectTitle") + `（${Game.GetKeybindForCommand(DOTAKeybindCommand_t.DOTA_KEYBIND_ACTIVATE_GLYPH)}）`,
+          text: GetLocalization("#TowerProtect_description")
+        };
+      _v$ !== _p$._v$ && (_p$._v$ = libs.setProp(_el$6, "titleTooltip", _v$, _p$._v$));
+      _v$2 !== _p$._v$2 && (_p$._v$2 = libs.setProp(_el$9, "class", _v$2, _p$._v$2));
+      _v$3 !== _p$._v$3 && (_p$._v$3 = libs.setProp(_el$9, "titleTooltip", _v$3, _p$._v$3));
+      return _p$;
+    }, {
+      _v$: undefined,
+      _v$2: undefined,
+      _v$3: undefined
+    });
     return _el$;
   })();
 }

@@ -1199,10 +1199,10 @@ var MINIMUM_ATTACK_SPEED = 20; // 最小攻击速度
 var MAXIMUM_ATTACK_SPEED = 700; // 雅典娜原版最大攻击速度
 var BULLET_WIDTH = 32; // 普通子弹宽度
 var INTERACT_RADIUS = 200; // 交互范围半径
-var HERO_MAX_LEVEL = 30; // 英雄最大等级
+var HERO_MAX_LEVEL = 500; // 雅典娜原版英雄最大等级
 var HERO_XP_PER_LEVEL_TABLE = []; // 英雄升级经验表
-for (var index = 0; index < 30; index++) {
-    HERO_XP_PER_LEVEL_TABLE.push(75 * index + 50 * index * index);
+for (var index = 0; index < HERO_MAX_LEVEL; index++) {
+    HERO_XP_PER_LEVEL_TABLE.push(1000 * index);
 }
 /** 复活次数 */
 var HERO_RESPAWN_COUNT = 0;
