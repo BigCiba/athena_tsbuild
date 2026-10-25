@@ -45,6 +45,7 @@ function fixture(difficulty = 4) {
 	return { ...f, c, heroes, hero, selected, engineGold, writes, fire, enemy, kill, property, snapshot, tick, start,
 		modify: (id, kind, amount, runId = f.session.runId) => c.RunResources.Modify(id, kind, amount, runId) };
 }
+if (require.main === module) {
 test('五档初始金币与秒收益沿用原版，重复开局/秒通知不重发', () => {
 	for (let difficulty = 1; difficulty <= 5; difficulty++) {
 		const f = fixture(difficulty); f.start(); const initial = [300, 200, 100, 0, 0][difficulty - 1];
@@ -158,3 +159,5 @@ test('HUD 使用当前局当前玩家快照，结算保留结果，重开/旁观
 	snapshot.state = 'GameState_Prepare'; assert.equal(render(), undefined);
 });
 console.log(`Passed ${passed} run resource checks.`);
+}
+module.exports = { fixture };

@@ -186,17 +186,7 @@ export class CTask extends CModule {
 		finally { delete this.claiming[key]; }
 	}
 	private GrantAvailableReward(hero: CDOTA_BaseNPC_Hero, reward: EventCallback["task_reward"]) {
-		if (reward.type === "TASK_REWARD_TYPE_ITEM" || reward.type === "TASK_REWARD_TYPE_SCEPTER") {
-			const itemName = reward.type === "TASK_REWARD_TYPE_SCEPTER" ? "item_" + hero.GetUnitName() : reward.name;
-			if (!KeyValues.items[itemName]) return;
-			for (let i = 0; i < reward.amount; i++) {
-				const item = CreateItem(itemName, PlayerResource.GetPlayer(reward.playerID), hero);
-				if (!IsValid(item)) throw `任务物品创建失败：${itemName}`;
-				if (!hero.HasRoomForItem(itemName, true, true)) CreateItemOnPositionSync(hero.GetAbsOrigin(), item);
-				else hero.AddItem(item);
-			}
-			reward.handled = true;
-		} else if (reward.type === "TASK_REWARD_TYPE_MODIFIER" && (_G as AnyTable)[reward.name] !== undefined) {
+		if (reward.type === "TASK_REWARD_TYPE_MODIFIER" && (_G as AnyTable)[reward.name] !== undefined) {
 			reward.handled = IsValid(hero.AddNewModifier(hero, undefined, reward.name, {}));
 		}
 	}

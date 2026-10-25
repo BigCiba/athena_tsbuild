@@ -3,16 +3,21 @@ import classNames from "classnames";
 import { Show } from "solid-js";
 import { GameVote } from "../../components/game_lifecycle/GameVote";
 import { RunResourcesPanel } from "../../components/game_lifecycle/RunResourcesPanel";
+import { ShopPanel } from "../../components/shop/ShopPanel";
+import { useNetTable } from "solid-panorama-all-in-jsx/events.macro";
 import { TaskPanel } from "../../components/task/TaskPanel";
 import { createNetDataSignal } from "../../utils/solid_utils";
 import "./hud_main.less";
 
 function HudMain() {
 	const state = createNetDataSignal("common", "game_state");
+	const resources = useNetTable("common", "run_resources");
+	const gold = () => resources()?.run_id === state()?.run_id ? resources()?.players[String(Players.GetLocalPlayer())]?.gold ?? 0 : 0;
 
 	GetLocalization("#TowerProtect_description")
 	return <Panel id="AthenaMainRoot" hittest={false}>
 		<RunResourcesPanel snapshot={state()} />
+		<ShopPanel snapshot={state()} />
 		<Show when={state()?.state === "GameState_Battle"}><TaskPanel runId={state()?.run_id ?? 0} /></Show>
 		<Show when={state()?.state === "GameState_Battle" && state()?.vote}>
 			<Panel class="AthenaBattleVote" hittest={true}>
@@ -67,8 +72,8 @@ function HudMain() {
 			<Panel id="shop_launcher_bg" >
 				<Panel id="HUDSkinFXGold" class="GleamPanel" hittest={false} />
 			</Panel>
-			<Button id="ShopButton" onactivate={() => ToggleWindow("shop")}>
-				<Label id="CustomGoldLabel" hittest={false} class="MonoNumbersFont ShopButtonValueLabel" text="{s:gold}" />
+			<Button id="ShopButton" enabled={state()?.state === "GameState_Battle"} onactivate={() => ToggleWindow("shop")}>
+				<Label id="CustomGoldLabel" hittest={false} class="MonoNumbersFont ShopButtonValueLabel" text={Math.floor(gold())} />
 				<Panel id="CustomGoldIcon" hittest={false} />
 			</Button>
 			<Button class="NextRound" tooltip="#NextRound" onactivate={() => { GameEvents.SendCustomGameEventToServer("next_round", {}); }}>

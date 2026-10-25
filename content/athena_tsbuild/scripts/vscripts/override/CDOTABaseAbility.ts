@@ -431,13 +431,13 @@ if (IsServer()) {
 			this.__EventIDList ??= [];
 			for (const [event, listener] of pairs(this.EventListener())) {
 				// @ts-ignore
-				this.__EventIDList.push(Event.RegisterForOwner(event, listener, caster));
+				this.__EventIDList.push(Event.RegisterForOwner(event, listener, caster, this));
 			}
 		}
 		// 自动添加属性item_前缀属性
 		const abilityName = this.GetAbilityName();
 		const kv = KeyValues.abilities[abilityName] ?? KeyValues.items[abilityName];
-		if (kv != undefined && kv.AbilityValues != undefined && kv.AbilityValues != "") {
+		if (!this.IsItem() && kv != undefined && kv.AbilityValues != undefined && kv.AbilityValues != "") {
 			for (const [k, valueData] of pairs(kv.AbilityValues)) {
 				if ((k as string).startsWith("item_")) {
 					const value = GetAbilityValues(valueData as any, this.GetLevel(), caster);
@@ -499,7 +499,7 @@ if (IsServer()) {
 		// 自动添加属性item_前缀属性
 		const abilityName = this.GetAbilityName();
 		const kv = KeyValues.abilities[abilityName] ?? KeyValues.items[abilityName];
-		if (kv != undefined && kv.AbilityValues != undefined && kv.AbilityValues != "") {
+		if (!this.IsItem() && kv != undefined && kv.AbilityValues != undefined && kv.AbilityValues != "") {
 			for (const [k, valueData] of pairs(kv.AbilityValues)) {
 				if ((k as string).startsWith("item_")) {
 					const value = GetAbilityValues(valueData as any, this.GetLevel(), caster);
@@ -516,7 +516,7 @@ if (IsServer()) {
 	};
 	CDOTABaseAbility.OnRefresh = function () { };
 	CDOTABaseAbility.__OnDestroy = function () {
-		const caster = this.GetCaster();
+		const caster = this.IsItem() ? (this as CDOTA_Item).__inventoryOwner ?? this.GetCaster() : this.GetCaster();
 		PropertySystem.RemoveStaticProperty(caster.entindex(), this.GetName() + this.entindex());
 		PropertySystem.RemoveStaticProperty(caster.entindex(), "item_" + this.GetName() + this.entindex());
 		PropertySystem.UnregisterDynamicProperty(caster.entindex(), this.GetName() + this.entindex());

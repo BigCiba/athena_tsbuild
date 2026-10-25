@@ -13,9 +13,18 @@ require("kv");
 require("ability_upgrade");
 
 if (IsServer()) {
+	require("../abilities/items/consumable/item_salve");
+	require("../abilities/items/consumable/item_clarity");
+	require("../abilities/items/weapon/item_jia");
+	require("../abilities/items/weapon/item_xie");
+	require("../abilities/items/drops/item_bag_of_coin");
+	require("../abilities/items/essence/essence");
+	require("../abilities/items/quest/item_zhanqi");
 	// 服务器端初始化
 	require("base");
 	require("run_resources");
+	require("items");
+	require("shop");
 	require("task");
 	require("wave_spawner");
 	require("neutral_spawners");

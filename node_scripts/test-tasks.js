@@ -64,6 +64,15 @@ function fixture(definitions = structuredClone(realTasks)) {
 		vm.runInNewContext(code, { module, exports: module.exports, ...globals, require: name => { if (imports[name]) return imports[name]; assert.equal(name, '../lib/tstl-utils'); return { reloadable: value => value }; } }); return module.exports;
 	}
 	const { CRunResources } = load('mechanics/run_resources'); const resources = new CRunResources(); resources.init();
+	// 本套测试只隔离 Task 的事件合同；真实物品创建、交易和清理由 test-items.js 执行生产 Items 模块验证。
+	globals.Event.Register('task_reward', reward => {
+		if (reward.handled || !['TASK_REWARD_TYPE_ITEM', 'TASK_REWARD_TYPE_SCEPTER'].includes(reward.type)) return;
+		const hero = heroes[reward.playerID], name = reward.type === 'TASK_REWARD_TYPE_SCEPTER' ? 'item_' + hero.name : reward.name;
+		if (!globals.KeyValues.items[name]) return;
+		if (itemsFail) throw new Error('item creation failed');
+		for (let i = 0; i < reward.amount; i++) hero.AddItem(globals.CreateItem(name));
+		reward.handled = true;
+	});
 	const { CNPC } = load('framework/npc'); const npc = globals.NPC = new CNPC(); npc.init(false);
 	const { CTask, TaskState } = load('mechanics/task'); const task = new CTask(); task.init(false);
 	load('triggers/events', { '../lib/dota_ts_adapter': { registerEntityFunction: (name, callback) => { triggerHandlers[name] = callback; } } });

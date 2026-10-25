@@ -8,6 +8,12 @@ declare interface CEntityPointer {
 }
 
 declare interface CDOTA_Item {
+	__inventoryOwner?: CDOTA_BaseNPC;
+	__itemRunId?: number;
+	__saleGoldValue?: number;
+	__saleChargeCount?: number;
+	__sold?: boolean;
+	__pickupRunning?: boolean;
 	_devourType_?: DevourType;
 	_created_?: boolean;
 	_is_locked?: boolean;

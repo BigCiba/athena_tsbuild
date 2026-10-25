@@ -67,6 +67,8 @@
 		]
 	},
 	"scripts": {
+		"test:items": "node ./node_scripts/test-items.js",
+		"test:shop-ui": "node ./node_scripts/test-shop-ui.js",
 		"test:resources": "node ./node_scripts/test-run-resources.js",
 		"test:migration": "node ./node_scripts/test-migration-regressions.js",
 		"test:events": "node ./node_scripts/test-event-system.js",

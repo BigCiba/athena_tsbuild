@@ -273,6 +273,10 @@ declare interface CDOTA_BaseNPC {
 	}[] | undefined;
 	AddItem(item: CDOTA_Item, updateNetData?: boolean): CDOTA_Item;
 	AddItem_Engine(item: CDOTA_Item): CDOTA_Item;
+	TakeItem_Engine(item: CDOTA_Item): CDOTA_Item;
+	/** 以真实物品栏为准同步脚本生命周期和物品事件。 */
+	SyncInventory(updateNetData?: boolean): void;
+	__inventoryItems?: CDOTA_Item[];
 	AddItemByName(itemName: string, level?: number, updateNetData?: boolean): CDOTA_Item;
 	AddItemByName_Engine(itemName: string): CDOTA_Item;
 	CheckNoDraw(ent?: CBaseEntity): void;
@@ -657,52 +661,43 @@ if (IsServer()) {
 	CDOTA_BaseNPC.AddItem_Engine ??= CDOTA_BaseNPC.AddItem;
 	CDOTA_BaseNPC.AddItemByName_Engine ??= CDOTA_BaseNPC.AddItemByName;
 	CDOTA_BaseNPC.RemoveItem_Engine ??= CDOTA_BaseNPC.RemoveItem;
+	CDOTA_BaseNPC.TakeItem_Engine ??= CDOTA_BaseNPC.TakeItem;
 	CDOTA_BaseNPC.AddItem = function (item, updateNetData: boolean = true) {
-		this.__items ??= [];
-		this.AddItem_Engine(item);
-		item.__OnCreated();
-		this.__items.push({
-			entIndex: item.entindex(),
-			itemName: item.GetAbilityName(),
-			level: item.GetLevel(),
-			stackCount: item.__StackCount ?? 0,
-			charge: item.__Charge ?? 0,
-			maxCharge: item.GetMaxCharges(),
-			chargeRestoreTime: item.__ChargeRestoreTime ?? 0,
-			isChargeCooldownFrozen: item.IsChargeCooldownFrozen(),
-			chargeFrozenCooldownRemaining: item.GetChargeCooldownRemaining(),
-		});
-		this.TakeItem(item);
-		Event.Fire("item_added", { unit: this, item: item });
-		if (updateNetData) {
-			this.UpdateAbilityNetData();
-		}
-		return item;
+		const added = this.AddItem_Engine(item);
+		this.SyncInventory(updateNetData);
+		return added;
 	};
 	CDOTA_BaseNPC.AddItemByName = function (itemName, level: number = 1, updateNetData: boolean = true) {
-		this.__items ??= [];
-		const item = this.AddItemByName_Engine(itemName);
-		item.__OnCreated();
+		const item = CreateItem(itemName, PlayerResource.GetPlayer(this.GetPlayerOwnerID()), this.IsRealHero() ? this as CDOTA_BaseNPC_Hero : undefined);
+		if (!IsValid(item)) throw `物品创建失败：${itemName}`;
 		if (level > 1) {
 			item.SetLevel(level, false);
 		}
-		this.__items.push({
-			entIndex: item.entindex(),
-			itemName: item.GetAbilityName(),
-			level: item.GetLevel(),
-			stackCount: item.__StackCount ?? 0,
-			charge: item.__Charge ?? 0,
-			maxCharge: item.GetMaxCharges(),
-			chargeRestoreTime: item.__ChargeRestoreTime ?? 0,
-			isChargeCooldownFrozen: item.IsChargeCooldownFrozen(),
-			chargeFrozenCooldownRemaining: item.GetChargeCooldownRemaining(),
-		});
-		this.TakeItem(item);
-		Event.Fire("item_added", { unit: this, item: item });
-		if (updateNetData) {
-			this.UpdateAbilityNetData();
+		return this.AddItem(item, updateNetData);
+	};
+	CDOTA_BaseNPC.TakeItem = function (item) {
+		const result = this.TakeItem_Engine(item);
+		this.SyncInventory();
+		return result;
+	};
+	CDOTA_BaseNPC.SyncInventory = function (updateNetData = true) {
+		const previous = this.__inventoryItems ?? [], current = this.GetAllItems();
+		// 先提交快照，避免 item_added 的同步消费者再次扫描时重复初始化。
+		this.__inventoryItems = current;
+		for (const item of previous) if (!current.includes(item)) {
+			if (IsValid(item) && item.__inventoryOwner === this) { item.__OnDestroy(); item.__inventoryOwner = undefined; }
+			else Event.UnregisterContext(item);
+			Event.Fire("item_removed", { unit: this, item });
 		}
-		return item;
+		for (const item of current) if (!previous.includes(item)) {
+			if (IsValid(item.__inventoryOwner) && item.__inventoryOwner !== this) item.__inventoryOwner.SyncInventory(false);
+			item.__inventoryOwner = this; item.__OnCreated();
+			Event.Fire("item_added", { unit: this, item });
+		}
+		this.__items = current.map(item => ({ entIndex: item.entindex(), itemName: item.GetAbilityName(), level: item.GetLevel(),
+			stackCount: item.__StackCount ?? 0, charge: item.__Charge ?? 0, maxCharge: item.GetMaxCharges(),
+			chargeRestoreTime: item.__ChargeRestoreTime ?? 0, isChargeCooldownFrozen: item.IsChargeCooldownFrozen(), chargeFrozenCooldownRemaining: item.GetChargeCooldownRemaining() }));
+		if (updateNetData) this.UpdateAbilityNetData();
 	};
 	CDOTA_BaseNPC.RemoveItem = function (item: CDOTA_Item) {
 		this.__items ??= [];
@@ -710,35 +705,32 @@ if (IsServer()) {
 			return;
 		}
 		Event.Fire("item_consumed", { unit: this, item: item });
-		item.__OnDestroy();
+		if (item.__inventoryOwner === this) { item.__OnDestroy(); item.__inventoryOwner = undefined; }
 		this.__items = this.__items.filter((data) => data.entIndex != item.entindex());
 		this.RemoveItem_Engine(item);
-		Event.Fire("item_removed", { unit: this, item: item });
-		this.UpdateAbilityNetData();
+		this.SyncInventory();
 	};
 	CDOTA_BaseNPC.RemoveAllItem = function () {
 		this.__items ??= [];
 		const removingItems = this.GetAllItems();
 		removingItems.forEach((item) => {
 			if (IsValid(item)) {
-				item.__OnDestroy();
+				if (item.__inventoryOwner === this) { item.__OnDestroy(); item.__inventoryOwner = undefined; }
 				this.__items = (this.__items ?? []).filter((data) => data.entIndex != item.entindex());
 				this.RemoveItem_Engine(item);
 				Event.Fire("item_removed", { unit: this, item: item });
 			}
 		});
 		this.__items = [];
+		this.__inventoryItems = [];
 		CustomNetTables.SetNetData("unit", this.entindex().toString(), undefined);
 	};
 	CDOTA_BaseNPC.GetAllItems = function () {
 		const items: CDOTA_Item[] = [];
-		this.__items ??= [];
-		this.__items.forEach((data) => {
-			const item = EntIndexToHScript(data.entIndex) as CDOTA_Item;
-			if (IsValid(item)) {
-				items.push(item);
-			}
-		});
+		for (let slot = 0; slot <= 16; slot++) {
+			const item = this.GetItemInSlot(slot);
+			if (IsValid(item) && !items.includes(item)) items.push(item);
+		}
 		return items;
 	};
 	CDOTA_BaseNPC.GetItemByName = function (itemName: string) {
@@ -773,6 +765,7 @@ if (IsServer()) {
 
 	CDOTA_BaseNPC.UpdateAbilityNetData = function () {
 		this.__items ??= [];
+		this.__items = this.__items.filter(data => IsValid(EntIndexToHScript(data.entIndex)));
 		this.__items.forEach((data) => {
 			const item = EntIndexToHScript(data.entIndex) as CDOTA_Item;
 			data.stackCount = item.__StackCount ?? 0;

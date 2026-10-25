@@ -121,6 +121,7 @@ export class CRunResources extends CModule {
 		this.Modify(id, "crystal", math.max(0, tonumber(kv.BountyCrystal) ?? 0), this.runId);
 		this.Modify(id, "score", math.max(0, GetPlayerKillScoreBonus(id)), this.runId);
 		this.Modify(id, "experience", math.max(0, tonumber(kv.BountyXP) ?? 0), this.runId);
+		Event.Fire("unit_bounty", { playerID: id, victim, attacker, runId: this.runId });
 	}
 	private OnTick(event: EventCallback["tick_time"]) {
 		if (event.tick_time !== 1 || event.runId !== this.runId || event.tick <= this.lastTick || !this.running) return;

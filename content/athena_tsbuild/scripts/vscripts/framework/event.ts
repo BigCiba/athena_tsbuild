@@ -12,6 +12,11 @@ declare global {
 	interface UnitEventRoute { source?: CDOTA_BaseNPC; target?: CDOTA_BaseNPC; }
 
 	interface EventCallback {
+		/** 引擎过滤器统一分发；玩法只收紧 allowed，不覆盖其他模块的过滤器。 */
+		inventory_filter: { unit: CDOTA_BaseNPC; item: CDOTA_Item; allowed: boolean; };
+		inventory_order: { order: ExecuteOrderFilterEvent; allowed: boolean; };
+		/** 资源模块完成击杀归属和死亡去重后发布，掉落等玩法独立消费。 */
+		unit_bounty: { playerID: PlayerID; victim: CDOTA_BaseNPC; attacker: CDOTA_BaseNPC; runId: number; };
 		/** 原版 OnAbilityExecuted 阶段；排除物品、toggle 和不触发魔棒的技能。 */
 		valid_ability_executed: ModifierAbilityEvent;
 		/** 一次分裂结算完成；tTargets 保留原版查询列表，包含主目标。 */

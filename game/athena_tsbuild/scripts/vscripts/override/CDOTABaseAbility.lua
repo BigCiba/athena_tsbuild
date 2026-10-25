@@ -438,7 +438,7 @@ if IsServer() then
             end
             for event, listener in pairs(self:EventListener()) do
                 local ____self___EventIDList_11 = self.__EventIDList
-                ____self___EventIDList_11[#____self___EventIDList_11 + 1] = Event:RegisterForOwner(event, listener, caster)
+                ____self___EventIDList_11[#____self___EventIDList_11 + 1] = Event:RegisterForOwner(event, listener, caster, self)
             end
         end
         local abilityName = self:GetAbilityName()
@@ -447,7 +447,7 @@ if IsServer() then
             ____KeyValues_abilities_abilityName_12 = KeyValues.items[abilityName]
         end
         local kv = ____KeyValues_abilities_abilityName_12
-        if kv ~= nil and kv.AbilityValues ~= nil and kv.AbilityValues ~= "" then
+        if not self:IsItem() and kv ~= nil and kv.AbilityValues ~= nil and kv.AbilityValues ~= "" then
             for k, valueData in pairs(kv.AbilityValues) do
                 if __TS__StringStartsWith(k, "item_") then
                     local value = GetAbilityValues(
@@ -524,7 +524,7 @@ if IsServer() then
             ____KeyValues_abilities_abilityName_13 = KeyValues.items[abilityName]
         end
         local kv = ____KeyValues_abilities_abilityName_13
-        if kv ~= nil and kv.AbilityValues ~= nil and kv.AbilityValues ~= "" then
+        if not self:IsItem() and kv ~= nil and kv.AbilityValues ~= nil and kv.AbilityValues ~= "" then
             for k, valueData in pairs(kv.AbilityValues) do
                 if __TS__StringStartsWith(k, "item_") then
                     local value = GetAbilityValues(
@@ -550,7 +550,7 @@ if IsServer() then
     CDOTABaseAbility.OnRefresh = function(self)
     end
     CDOTABaseAbility.__OnDestroy = function(self)
-        local caster = self:GetCaster()
+        local caster = self:IsItem() and (self.__inventoryOwner or self:GetCaster()) or self:GetCaster()
         PropertySystem:RemoveStaticProperty(
             caster:entindex(),
             self:GetName() .. tostring(self:entindex())

@@ -327,6 +327,8 @@ type AccountLevelType = "equip_break_level" | "hero_level" | "collection_treasur
 declare interface CustomNetTableDeclarations {
 	common: {
 		run_resources: AthenaResourceSnapshot;
+		item_inventory: AthenaInventorySnapshot;
+		shop_catalog: AthenaShopCatalog;
 		player_tasks: Record<string, AthenaPlayerTasks>;
 		task_definitions: Record<string, AthenaTaskDefinition>;
 		npcs: Record<string, { name: string; runId: number; }>;

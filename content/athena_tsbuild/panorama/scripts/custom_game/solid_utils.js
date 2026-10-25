@@ -100,6 +100,26 @@ function createDefaultedServiceAccessor(sharedData, defaultVar) {
     return value == undefined ? defaultVar : value;
   };
 }
+function createToggleWindowSignal(windowName, state, options) {
+  const [value, setter] = libs.createSignal(state ?? false);
+  libs.onMount(() => {
+    let id = useClientSideEvent("custom_ui_toggle_windows", eventData => {
+      if (eventData.windowName == windowName) {
+        if (eventData.state === undefined) {
+          setter(value => !value);
+        } else {
+          setter(eventData.state == 1 || eventData.state === true);
+        }
+      } else if (!options?.ignoreOtherWindows) {
+        setter(false);
+      }
+    });
+    libs.onCleanup(() => {
+      GameEvents.Unsubscribe(id);
+    });
+  });
+  return [value, setter];
+}
 function createNetDataSignal(tableName, tableKey, defaultVar) {
   const [v, setter] = libs.createSignal(getNetDataKey(tableName, tableKey) ?? defaultVar);
   libs.onMount(() => {
@@ -151,4 +171,5 @@ exports.createNetDataSignal = createNetDataSignal;
 exports.createNetTableSignal = createNetTableSignal;
 exports.createPlayerNetDataSignal = createPlayerNetDataSignal;
 exports.createServiceNetData = createServiceNetData;
+exports.createToggleWindowSignal = createToggleWindowSignal;
 exports.parseTokenCosts = parseTokenCosts;
