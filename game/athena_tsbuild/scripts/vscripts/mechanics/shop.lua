@@ -9,17 +9,17 @@ local __TS__StringSplit = ____lualib.__TS__StringSplit
 local __TS__ArrayMap = ____lualib.__TS__ArrayMap
 local __TS__ArrayFilter = ____lualib.__TS__ArrayFilter
 local __TS__ObjectValues = ____lualib.__TS__ObjectValues
+local __TS__ArraySome = ____lualib.__TS__ArraySome
 local __TS__ArrayIncludes = ____lualib.__TS__ArrayIncludes
 local __TS__SparseArrayNew = ____lualib.__TS__SparseArrayNew
 local __TS__SparseArrayPush = ____lualib.__TS__SparseArrayPush
 local __TS__SparseArraySpread = ____lualib.__TS__SparseArraySpread
 local __TS__ArrayFind = ____lualib.__TS__ArrayFind
 local __TS__ArrayReduce = ____lualib.__TS__ArrayReduce
-local __TS__ArraySome = ____lualib.__TS__ArraySome
 local __TS__DecorateLegacy = ____lualib.__TS__DecorateLegacy
 local __TS__New = ____lualib.__TS__New
 local __TS__SourceMapTraceBack = ____lualib.__TS__SourceMapTraceBack
-__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["23"] = 1,["24"] = 1,["26"] = 7,["27"] = 8,["28"] = 7,["29"] = 8,["31"] = 8,["32"] = 9,["33"] = 10,["34"] = 11,["35"] = 12,["36"] = 13,["37"] = 14,["38"] = 7,["39"] = 16,["40"] = 17,["41"] = 18,["42"] = 18,["44"] = 19,["45"] = 19,["46"] = 19,["47"] = 19,["48"] = 19,["49"] = 20,["54"] = 21,["55"] = 21,["56"] = 21,["57"] = 21,["58"] = 21,["59"] = 21,["62"] = 21,["68"] = 19,["69"] = 19,["70"] = 19,["71"] = 19,["72"] = 23,["73"] = 23,["74"] = 23,["75"] = 23,["76"] = 23,["78"] = 23,["79"] = 23,["80"] = 23,["81"] = 24,["82"] = 24,["83"] = 24,["84"] = 24,["85"] = 24,["87"] = 24,["88"] = 24,["89"] = 24,["90"] = 25,["91"] = 25,["92"] = 25,["93"] = 26,["94"] = 26,["95"] = 27,["98"] = 29,["99"] = 30,["102"] = 31,["103"] = 32,["105"] = 32,["106"] = 32,["111"] = 33,["112"] = 33,["113"] = 33,["114"] = 33,["115"] = 33,["116"] = 33,["117"] = 33,["118"] = 33,["119"] = 33,["120"] = 33,["121"] = 36,["122"] = 25,["123"] = 25,["124"] = 25,["125"] = 38,["126"] = 38,["127"] = 38,["128"] = 38,["129"] = 38,["130"] = 38,["131"] = 38,["132"] = 38,["133"] = 16,["134"] = 40,["135"] = 41,["136"] = 42,["139"] = 43,["140"] = 43,["141"] = 44,["142"] = 45,["143"] = 46,["144"] = 47,["145"] = 47,["146"] = 48,["147"] = 49,["148"] = 49,["149"] = 49,["150"] = 49,["151"] = 49,["152"] = 49,["153"] = 49,["154"] = 49,["155"] = 49,["156"] = 49,["157"] = 49,["161"] = 52,["162"] = 53,["163"] = 54,["164"] = 55,["166"] = 56,["167"] = 56,["169"] = 57,["170"] = 57,["171"] = 57,["172"] = 59,["173"] = 59,["175"] = 60,["176"] = 60,["178"] = 61,["179"] = 62,["180"] = 62,["184"] = 64,["185"] = 64,["188"] = 66,["189"] = 67,["190"] = 40,["191"] = 69,["192"] = 70,["193"] = 69,["194"] = 72,["195"] = 73,["196"] = 74,["197"] = 72,["198"] = 76,["199"] = 76,["200"] = 76,["202"] = 77,["203"] = 77,["206"] = 78,["207"] = 79,["208"] = 79,["210"] = 80,["211"] = 81,["212"] = 81,["214"] = 82,["215"] = 83,["216"] = 83,["217"] = 83,["218"] = 83,["219"] = 83,["220"] = 83,["221"] = 83,["222"] = 83,["223"] = 84,["224"] = 84,["227"] = 86,["228"] = 76,["229"] = 89,["230"] = 90,["231"] = 90,["232"] = 90,["233"] = 91,["234"] = 91,["235"] = 91,["236"] = 91,["237"] = 91,["239"] = 91,["241"] = 91,["243"] = 92,["244"] = 92,["245"] = 92,["246"] = 92,["247"] = 93,["248"] = 93,["249"] = 94,["252"] = 95,["253"] = 95,["254"] = 95,["255"] = 96,["256"] = 96,["258"] = 97,["259"] = 97,["261"] = 97,["263"] = 97,["264"] = 97,["265"] = 97,["266"] = 97,["267"] = 98,["268"] = 98,["269"] = 98,["270"] = 98,["271"] = 95,["272"] = 95,["273"] = 100,["274"] = 100,["275"] = 100,["277"] = 101,["278"] = 101,["281"] = 102,["282"] = 103,["285"] = 104,["286"] = 105,["287"] = 105,["289"] = 106,["290"] = 106,["291"] = 106,["292"] = 106,["293"] = 106,["294"] = 106,["295"] = 106,["296"] = 106,["297"] = 106,["300"] = 106,["302"] = 107,["303"] = 93,["304"] = 109,["305"] = 110,["306"] = 110,["307"] = 110,["308"] = 110,["311"] = 110,["314"] = 111,["316"] = 112,["317"] = 89,["318"] = 114,["319"] = 115,["320"] = 115,["321"] = 115,["322"] = 116,["323"] = 116,["325"] = 117,["326"] = 117,["328"] = 118,["329"] = 118,["330"] = 118,["332"] = 119,["333"] = 120,["334"] = 120,["336"] = 121,["337"] = 121,["339"] = 122,["340"] = 123,["343"] = 129,["344"] = 129,["347"] = 125,["348"] = 126,["349"] = 126,["350"] = 127,["351"] = 127,["353"] = 128,["363"] = 130,["369"] = 131,["370"] = 132,["373"] = 133,["376"] = 133,["382"] = 134,["383"] = 114,["384"] = 136,["385"] = 137,["386"] = 137,["388"] = 138,["389"] = 138,["390"] = 138,["392"] = 139,["393"] = 139,["395"] = 140,["396"] = 140,["397"] = 140,["399"] = 142,["400"] = 142,["401"] = 142,["402"] = 142,["403"] = 142,["404"] = 142,["405"] = 142,["407"] = 143,["408"] = 143,["411"] = 164,["412"] = 164,["414"] = 165,["415"] = 166,["416"] = 166,["417"] = 167,["418"] = 167,["419"] = 168,["422"] = 169,["425"] = 169,["431"] = 170,["432"] = 170,["433"] = 170,["434"] = 170,["435"] = 170,["436"] = 170,["440"] = 172,["443"] = 145,["444"] = 145,["445"] = 145,["447"] = 146,["448"] = 147,["449"] = 147,["450"] = 147,["451"] = 147,["452"] = 147,["453"] = 148,["454"] = 148,["456"] = 148,["458"] = 147,["459"] = 148,["460"] = 148,["461"] = 148,["462"] = 147,["463"] = 147,["464"] = 147,["465"] = 149,["466"] = 149,["467"] = 149,["468"] = 149,["469"] = 150,["470"] = 150,["471"] = 150,["472"] = 150,["473"] = 150,["474"] = 151,["475"] = 151,["476"] = 151,["477"] = 151,["478"] = 151,["479"] = 151,["480"] = 151,["481"] = 151,["482"] = 151,["485"] = 153,["486"] = 154,["487"] = 155,["488"] = 155,["490"] = 155,["492"] = 155,["493"] = 156,["494"] = 157,["497"] = 158,["500"] = 158,["506"] = 159,["507"] = 159,["508"] = 159,["509"] = 159,["510"] = 159,["511"] = 159,["514"] = 160,["517"] = 162,["523"] = 144,["526"] = 136,["527"] = 175,["528"] = 176,["529"] = 177,["531"] = 177,["532"] = 177,["534"] = 177,["536"] = 177,["538"] = 177,["539"] = 177,["541"] = 178,["542"] = 178,["543"] = 179,["544"] = 179,["545"] = 179,["547"] = 180,["549"] = 175,["550"] = 182,["551"] = 183,["552"] = 184,["553"] = 184,["555"] = 182,["556"] = 186,["557"] = 187,["558"] = 187,["559"] = 187,["560"] = 187,["561"] = 187,["562"] = 188,["563"] = 186,["564"] = 7,["565"] = 8,["566"] = 192,["567"] = 192});
+__TS__SourceMapTraceBack(debug.getinfo(1).short_src, {["23"] = 1,["24"] = 1,["26"] = 7,["27"] = 8,["28"] = 7,["29"] = 8,["31"] = 8,["32"] = 9,["33"] = 10,["34"] = 11,["35"] = 12,["36"] = 13,["37"] = 14,["38"] = 15,["39"] = 7,["40"] = 17,["41"] = 18,["42"] = 19,["43"] = 19,["45"] = 20,["46"] = 20,["47"] = 20,["48"] = 20,["49"] = 20,["50"] = 21,["55"] = 22,["56"] = 22,["57"] = 22,["58"] = 22,["59"] = 22,["60"] = 22,["63"] = 22,["69"] = 20,["70"] = 20,["71"] = 20,["72"] = 20,["73"] = 24,["74"] = 24,["75"] = 24,["76"] = 24,["77"] = 24,["79"] = 24,["80"] = 24,["81"] = 24,["82"] = 25,["83"] = 25,["84"] = 25,["85"] = 25,["86"] = 25,["88"] = 25,["89"] = 25,["90"] = 25,["91"] = 26,["92"] = 26,["93"] = 26,["94"] = 27,["95"] = 27,["96"] = 28,["99"] = 30,["100"] = 31,["103"] = 32,["104"] = 33,["106"] = 33,["107"] = 33,["112"] = 34,["113"] = 34,["114"] = 34,["115"] = 34,["116"] = 34,["117"] = 34,["118"] = 34,["119"] = 34,["120"] = 34,["121"] = 34,["122"] = 37,["123"] = 26,["124"] = 26,["125"] = 26,["126"] = 39,["127"] = 39,["128"] = 39,["129"] = 39,["130"] = 39,["131"] = 39,["132"] = 39,["133"] = 39,["134"] = 17,["135"] = 41,["136"] = 42,["137"] = 43,["140"] = 44,["141"] = 44,["142"] = 45,["143"] = 46,["144"] = 47,["145"] = 48,["146"] = 48,["147"] = 49,["148"] = 50,["149"] = 51,["150"] = 51,["151"] = 51,["152"] = 51,["153"] = 51,["154"] = 51,["155"] = 51,["156"] = 51,["157"] = 51,["158"] = 51,["159"] = 52,["160"] = 53,["161"] = 53,["166"] = 57,["167"] = 58,["168"] = 59,["169"] = 60,["171"] = 61,["172"] = 61,["173"] = 61,["175"] = 61,["177"] = 61,["178"] = 61,["179"] = 62,["180"] = 62,["181"] = 62,["183"] = 62,["185"] = 62,["186"] = 62,["187"] = 63,["188"] = 65,["189"] = 66,["190"] = 66,["192"] = 68,["193"] = 68,["195"] = 69,["196"] = 69,["198"] = 70,["202"] = 72,["203"] = 72,["206"] = 75,["208"] = 76,["209"] = 76,["210"] = 77,["211"] = 78,["213"] = 79,["214"] = 79,["215"] = 79,["216"] = 79,["217"] = 79,["219"] = 80,["220"] = 80,["221"] = 80,["223"] = 81,["224"] = 81,["225"] = 81,["226"] = 81,["227"] = 81,["228"] = 81,["229"] = 82,["230"] = 82,["231"] = 82,["235"] = 84,["238"] = 76,["241"] = 86,["242"] = 87,["243"] = 41,["244"] = 89,["245"] = 90,["246"] = 89,["247"] = 92,["248"] = 93,["249"] = 94,["250"] = 92,["251"] = 96,["252"] = 96,["253"] = 96,["255"] = 97,["256"] = 97,["259"] = 98,["260"] = 99,["261"] = 99,["263"] = 100,["264"] = 101,["265"] = 101,["267"] = 102,["268"] = 103,["269"] = 103,["270"] = 103,["271"] = 103,["272"] = 103,["273"] = 103,["274"] = 103,["275"] = 103,["276"] = 104,["277"] = 104,["280"] = 106,["281"] = 96,["282"] = 109,["283"] = 110,["284"] = 110,["285"] = 110,["286"] = 111,["287"] = 111,["288"] = 111,["289"] = 111,["290"] = 111,["292"] = 111,["294"] = 111,["296"] = 112,["297"] = 112,["298"] = 112,["299"] = 112,["300"] = 113,["301"] = 113,["302"] = 114,["305"] = 115,["306"] = 115,["307"] = 115,["308"] = 116,["309"] = 116,["311"] = 117,["312"] = 117,["314"] = 117,["316"] = 117,["317"] = 117,["318"] = 117,["319"] = 117,["320"] = 118,["321"] = 118,["322"] = 118,["323"] = 118,["324"] = 115,["325"] = 115,["326"] = 120,["327"] = 120,["328"] = 120,["330"] = 121,["331"] = 121,["334"] = 122,["335"] = 123,["338"] = 124,["339"] = 125,["340"] = 125,["342"] = 126,["343"] = 126,["344"] = 126,["345"] = 126,["346"] = 126,["347"] = 126,["348"] = 126,["349"] = 126,["350"] = 126,["353"] = 126,["355"] = 127,["356"] = 113,["357"] = 129,["358"] = 130,["359"] = 130,["360"] = 130,["361"] = 130,["364"] = 130,["367"] = 131,["369"] = 132,["370"] = 109,["371"] = 134,["372"] = 135,["373"] = 135,["374"] = 135,["375"] = 136,["376"] = 136,["378"] = 137,["379"] = 137,["381"] = 138,["382"] = 138,["383"] = 138,["385"] = 139,["386"] = 140,["387"] = 140,["389"] = 141,["390"] = 141,["392"] = 142,["393"] = 143,["396"] = 149,["397"] = 149,["400"] = 145,["401"] = 146,["402"] = 146,["403"] = 147,["404"] = 147,["406"] = 148,["416"] = 150,["422"] = 151,["423"] = 152,["426"] = 153,["429"] = 153,["435"] = 154,["436"] = 134,["437"] = 156,["438"] = 157,["439"] = 157,["441"] = 158,["442"] = 158,["443"] = 158,["445"] = 159,["446"] = 159,["448"] = 160,["449"] = 160,["450"] = 160,["452"] = 162,["453"] = 162,["454"] = 162,["455"] = 162,["456"] = 162,["457"] = 162,["458"] = 162,["460"] = 163,["461"] = 163,["464"] = 184,["465"] = 184,["467"] = 185,["468"] = 186,["469"] = 186,["470"] = 187,["471"] = 187,["472"] = 188,["475"] = 189,["478"] = 189,["484"] = 190,["485"] = 190,["486"] = 190,["487"] = 190,["488"] = 190,["489"] = 190,["493"] = 192,["496"] = 165,["497"] = 165,["498"] = 165,["500"] = 166,["501"] = 167,["502"] = 167,["503"] = 167,["504"] = 167,["505"] = 167,["506"] = 168,["507"] = 168,["509"] = 168,["511"] = 167,["512"] = 168,["513"] = 168,["514"] = 168,["515"] = 167,["516"] = 167,["517"] = 167,["518"] = 169,["519"] = 169,["520"] = 169,["521"] = 169,["522"] = 170,["523"] = 170,["524"] = 170,["525"] = 170,["526"] = 170,["527"] = 171,["528"] = 171,["529"] = 171,["530"] = 171,["531"] = 171,["532"] = 171,["533"] = 171,["534"] = 171,["535"] = 171,["538"] = 173,["539"] = 174,["540"] = 175,["541"] = 175,["543"] = 175,["545"] = 175,["546"] = 176,["547"] = 177,["550"] = 178,["553"] = 178,["559"] = 179,["560"] = 179,["561"] = 179,["562"] = 179,["563"] = 179,["564"] = 179,["567"] = 180,["570"] = 182,["576"] = 164,["579"] = 156,["580"] = 195,["581"] = 196,["582"] = 197,["584"] = 197,["585"] = 197,["587"] = 197,["589"] = 197,["591"] = 197,["592"] = 197,["594"] = 198,["595"] = 198,["596"] = 199,["597"] = 199,["598"] = 199,["600"] = 200,["602"] = 195,["603"] = 202,["604"] = 203,["605"] = 204,["606"] = 204,["608"] = 202,["609"] = 206,["610"] = 207,["611"] = 207,["612"] = 207,["613"] = 207,["614"] = 207,["615"] = 207,["616"] = 208,["617"] = 206,["618"] = 7,["619"] = 8,["620"] = 212,["621"] = 212});
 local ____exports = {}
 local ____tstl_2Dutils = require("lib.tstl-utils")
 local reloadable = ____tstl_2Dutils.reloadable
@@ -34,6 +34,7 @@ function CShop.prototype.____constructor(self, ...)
     self.running = false
     self.entries = {}
     self.recipes = {}
+    self.recipeCosts = {}
     self.results = {}
     self.busy = {}
 end
@@ -156,6 +157,10 @@ function CShop.prototype.Start(self, runId)
                     ),
                     function(____, name) return name ~= "" end
                 )
+                local fee = self:Price(kv, "gold")
+                if fee ~= nil then
+                    self.recipeCosts[result] = fee
+                end
             end
         end
     end
@@ -164,30 +169,78 @@ function CShop.prototype.Start(self, runId)
         local list = {}
         for ____, name in ipairs(__TS__ObjectKeys(names)) do
             do
-                if not Items:Supported(name) then
-                    goto __continue26
+                local ____temp_3
+                if type(raw) == "table" then
+                    ____temp_3 = raw
+                else
+                    ____temp_3 = {}
                 end
-                local kv = KeyValues.items[name]
+                local raw = KeyValues.items[name]
+                local kv = ____temp_3
+                local ____temp_4
+                if type(raw) == "table" then
+                    ____temp_4 = self:BasePrice(name)
+                else
+                    ____temp_4 = nil
+                end
                 local currency = self:Currency(kv)
-                local price = self:BasePrice(name)
+                local price = ____temp_4
+                local entry = {name = name, currency = currency, price = price or 0, ingredients = self.recipes[name] or ({})}
+                list[#list + 1] = entry
+                if not Items:Supported(name) then
+                    goto __continue27
+                end
                 if price == nil or tonumber(kv.ItemPurchasable) == 0 and currency == "gold" and not self.recipes[name] then
-                    goto __continue26
+                    goto __continue27
                 end
                 if price == 0 and not self.recipes[name] then
-                    goto __continue26
+                    goto __continue27
                 end
-                local entry = {name = name, currency = currency, price = price, ingredients = self.recipes[name] or ({})}
                 self.entries[name] = entry
-                list[#list + 1] = entry
             end
-            ::__continue26::
+            ::__continue27::
         end
         if #list > 0 then
             groups[group] = list
         end
     end
+    local related = {}
+    do
+        local depth = 0
+        while depth < 12 do
+            local added = false
+            for name, ingredients in pairs(self.recipes) do
+                do
+                    if self.entries[name] ~= nil or not __TS__ArraySome(
+                        ingredients,
+                        function(____, part) return self.entries[part] ~= nil end
+                    ) or not Items:Supported(name) then
+                        goto __continue35
+                    end
+                    local price = self:BasePrice(name)
+                    if price == nil then
+                        goto __continue35
+                    end
+                    local entry = {
+                        name = name,
+                        ingredients = ingredients,
+                        price = price,
+                        currency = self:Currency(KeyValues.items[name])
+                    }
+                    self.entries[name] = entry
+                    related[name] = entry
+                    added = true
+                end
+                ::__continue35::
+            end
+            if not added then
+                break
+            end
+            depth = depth + 1
+        end
+    end
     self.running = true
-    CustomNetTables:SetTableValue("common", "shop_catalog", {run_id = runId, groups = groups})
+    CustomNetTables:SetTableValue("common", "shop_catalog", {run_id = runId, groups = groups, related = related})
 end
 function CShop.prototype.Currency(self, kv)
     return (tonumber(kv.CrystalCost) or 0) > 0 and "crystal" or ((tonumber(kv.ScoreCost) or 0) > 0 and "score" or "gold")
@@ -208,18 +261,18 @@ function CShop.prototype.BasePrice(self, name, path)
     if currency ~= "gold" then
         return self:Price(kv, currency)
     end
-    local total = self:Price(kv, "gold") or 0
+    local total = self.recipeCosts[name] or self:Price(kv, "gold") or 0
     if not self.recipes[name] then
         return self:Price(kv, "gold")
     end
     for ____, part in ipairs(self.recipes[name]) do
-        local ____self_BasePrice_4 = self.BasePrice
-        local ____array_3 = __TS__SparseArrayNew(unpack(path))
-        __TS__SparseArrayPush(____array_3, name)
-        local price = ____self_BasePrice_4(
+        local ____self_BasePrice_6 = self.BasePrice
+        local ____array_5 = __TS__SparseArrayNew(unpack(path))
+        __TS__SparseArrayPush(____array_5, name)
+        local price = ____self_BasePrice_6(
             self,
             part,
-            {__TS__SparseArraySpread(____array_3)}
+            {__TS__SparseArraySpread(____array_5)}
         )
         if price ~= nil and self:Currency(KeyValues.items[part]) == "gold" then
             total = total + price
@@ -233,13 +286,13 @@ function CShop.prototype.Quote(self, hero, name)
     local materials = {}
     if currency ~= "gold" then
         local price = self:Price(kv, currency)
-        local ____temp_5
+        local ____temp_7
         if price == nil then
-            ____temp_5 = nil
+            ____temp_7 = nil
         else
-            ____temp_5 = {currency = currency, price = price, materials = materials}
+            ____temp_7 = {currency = currency, price = price, materials = materials}
         end
-        return ____temp_5
+        return ____temp_7
     end
     local inventory = __TS__ArrayFilter(
         Items:Inventory(hero),
@@ -256,12 +309,12 @@ function CShop.prototype.Quote(self, hero, name)
                 if entry.item:GetAbilityName() ~= target then
                     return false
                 end
-                local ____tonumber_8 = tonumber
-                local ____opt_6 = KeyValues.items[target]
-                if ____opt_6 ~= nil then
-                    ____opt_6 = ____opt_6.ItemStackable
+                local ____tonumber_10 = tonumber
+                local ____opt_8 = KeyValues.items[target]
+                if ____opt_8 ~= nil then
+                    ____opt_8 = ____opt_8.ItemStackable
                 end
-                local count = ____tonumber_8(____opt_6) == 1 and math.max(
+                local count = ____tonumber_10(____opt_8) == 1 and math.max(
                     1,
                     entry.item:GetCurrentCharges()
                 ) or 1
@@ -283,17 +336,17 @@ function CShop.prototype.Quote(self, hero, name)
         if not recipe and (tonumber(data.ItemPurchasable) == 0 or self:Currency(data) ~= "gold") then
             return
         end
-        local total = self:Price(data, "gold") or 0
+        local total = self.recipeCosts[target] or self:Price(data, "gold") or 0
         if not recipe then
             return total > 0 and total or nil
         end
         for ____, part in ipairs(recipe) do
-            local ____array_9 = __TS__SparseArrayNew(unpack(path))
-            __TS__SparseArrayPush(____array_9, target)
+            local ____array_11 = __TS__SparseArrayNew(unpack(path))
+            __TS__SparseArrayPush(____array_11, target)
             local price = fill(
                 nil,
                 part,
-                {__TS__SparseArraySpread(____array_9)}
+                {__TS__SparseArraySpread(____array_11)}
             )
             if price == nil then
                 return
@@ -302,7 +355,7 @@ function CShop.prototype.Quote(self, hero, name)
         end
         return total
     end
-    local price = self:Price(kv, "gold") or 0
+    local price = self.recipeCosts[name] or self:Price(kv, "gold") or 0
     if self.recipes[name] then
         for ____, part in ipairs(self.recipes[name]) do
             local value = fill(nil, part, {name})
@@ -449,14 +502,14 @@ function CShop.prototype.Buy(self, id, hero, name)
             item.__saleGoldValue = quote.currency == "gold" and quote.price + __TS__ArrayReduce(
                 quote.materials,
                 function(____, total, material)
-                    local ____total_14 = total
-                    local ____temp_13 = Items:SellGold(material)
-                    local ____tonumber_12 = tonumber
-                    local ____opt_10 = KeyValues.items[material:GetAbilityName()]
-                    if ____opt_10 ~= nil then
-                        ____opt_10 = ____opt_10.ItemStackable
+                    local ____total_16 = total
+                    local ____temp_15 = Items:SellGold(material)
+                    local ____tonumber_14 = tonumber
+                    local ____opt_12 = KeyValues.items[material:GetAbilityName()]
+                    if ____opt_12 ~= nil then
+                        ____opt_12 = ____opt_12.ItemStackable
                     end
-                    return ____total_14 + ____temp_13 / (____tonumber_12(____opt_10) == 1 and math.max(
+                    return ____total_16 + ____temp_15 / (____tonumber_14(____opt_12) == 1 and math.max(
                         1,
                         material:GetCurrentCharges()
                     ) or 1)
@@ -485,12 +538,12 @@ function CShop.prototype.Buy(self, id, hero, name)
             end
             Items:TryGive(hero, item, self.runId)
             for ____, record in ipairs(detached) do
-                local ____tonumber_17 = tonumber
-                local ____opt_15 = KeyValues.items[record.item:GetAbilityName()]
-                if ____opt_15 ~= nil then
-                    ____opt_15 = ____opt_15.ItemStackable
+                local ____tonumber_19 = tonumber
+                local ____opt_17 = KeyValues.items[record.item:GetAbilityName()]
+                if ____opt_17 ~= nil then
+                    ____opt_17 = ____opt_17.ItemStackable
                 end
-                if ____tonumber_17(____opt_15) == 1 and record.charges > record.used then
+                if ____tonumber_19(____opt_17) == 1 and record.charges > record.used then
                     record.item:SetCurrentCharges(record.charges - record.used)
                     local restored = false
                     do
@@ -527,16 +580,16 @@ function CShop.prototype.Buy(self, id, hero, name)
 end
 function CShop.prototype.Sell(self, id, hero, index)
     local item = EntIndexToHScript(index or -1)
-    local ____temp_21 = not Items:Owns(hero, item) or item.__sold
-    if not ____temp_21 then
-        local ____tonumber_20 = tonumber
-        local ____opt_18 = KeyValues.items[item:GetAbilityName()]
-        if ____opt_18 ~= nil then
-            ____opt_18 = ____opt_18.ItemSellable
+    local ____temp_23 = not Items:Owns(hero, item) or item.__sold
+    if not ____temp_23 then
+        local ____tonumber_22 = tonumber
+        local ____opt_20 = KeyValues.items[item:GetAbilityName()]
+        if ____opt_20 ~= nil then
+            ____opt_20 = ____opt_20.ItemSellable
         end
-        ____temp_21 = ____tonumber_20(____opt_18) == 0
+        ____temp_23 = ____tonumber_22(____opt_20) == 0
     end
-    if ____temp_21 then
+    if ____temp_23 then
         return "CannotSell"
     end
     local refund = Items:SellGold(item)
@@ -560,6 +613,7 @@ function CShop.prototype.reset(self)
     self.busy = {}
     self.entries = {}
     self.recipes = {}
+    self.recipeCosts = {}
     CustomNetTables:SetTableValue("common", "shop_catalog", {run_id = self.runId, groups = {}})
 end
 CShop = __TS__DecorateLegacy({reloadable}, CShop)

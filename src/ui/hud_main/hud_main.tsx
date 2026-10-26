@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { Show } from "solid-js";
 import { GameVote } from "../../components/game_lifecycle/GameVote";
 import { RunResourcesPanel } from "../../components/game_lifecycle/RunResourcesPanel";
-import { ShopPanel } from "../../components/shop/ShopPanel";
+import { ShopPanel } from "../../components/shop/shop";
 import { useNetTable } from "solid-panorama-all-in-jsx/events.macro";
 import { TaskPanel } from "../../components/task/TaskPanel";
 import { createNetDataSignal } from "../../utils/solid_utils";

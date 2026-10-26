@@ -7,6 +7,7 @@
 		<include src="file://{resources}/scripts/custom_game/kv/npc_items_custom.js"/>
 		<include src="file://{resources}/scripts/custom_game/kv/npc_units_custom.js"/>
 		<include src="file://{resources}/scripts/custom_game/kv/payments_order.js"/>
+		<include src="file://{resources}/scripts/custom_game/kv/shops.js"/>
 		<include src="file://{resources}/scripts/custom_game/manifest_scripts/init.js"/>
 		<include src="file://{resources}/scripts/custom_game/manifest_scripts/request.js"/>
 		<include src="file://{resources}/scripts/custom_game/manifest_scripts/click.js"/>

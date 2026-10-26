@@ -63,12 +63,14 @@
 			"npc_heroes_custom.txt",
 			"npc_items_custom.txt",
 			"npc_units_custom.txt",
+			"kv/gameplay/shops.kv",
 			"payments_order.kv"
 		]
 	},
 	"scripts": {
 		"test:items": "node ./node_scripts/test-items.js",
 		"test:shop-ui": "node ./node_scripts/test-shop-ui.js",
+		"test:less-imports": "node ./node_scripts/test-less-imports.js",
 		"test:resources": "node ./node_scripts/test-run-resources.js",
 		"test:migration": "node ./node_scripts/test-migration-regressions.js",
 		"test:events": "node ./node_scripts/test-event-system.js",

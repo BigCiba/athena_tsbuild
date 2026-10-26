@@ -93,6 +93,19 @@ function fixture() {
 }
 
 if (require.main === module) {
+test('商店展示目录与原版配置逐组一致，荣耀商店和未迁移物品不能被删掉', () => {
+	const f = fixture(); f.start();
+	const expected = read('kv/gameplay/shops.kv'), catalog = f.c.CustomNetTables.GetTableValue('common', 'shop_catalog');
+	for (const [group, names] of Object.entries(expected)) {
+		assert.deepEqual(Array.from(catalog.groups[group] ?? [], entry => entry.name), Object.keys(names), group + ' 商品被过滤或顺序变化');
+	}
+	assert.equal(Object.values(catalog.groups).flat().length, 92);
+	assert.equal(catalog.groups.DefShop.length, 8); assert.equal(catalog.groups.PracticeShop.length, 6);
+	assert.ok(catalog.groups.MainWeapon.some(entry => entry.name === 'item_jian_1'));
+	assert.ok(catalog.groups.consumables.some(entry => entry.name === 'item_gem'));
+	f.money(1000000); assert.equal(f.buy('item_jian_1').error, 'ItemUnavailable'); assert.equal(f.buy('item_ring_shop').error, 'ItemUnavailable');
+	assert.equal(f.c.RunResources.Get(0, 'gold', 1), 1000000);
+});
 test('普通商品真实入背包，属性只汇总一次；出售即清除属性且不重复退款', () => {
 	const f = fixture(); f.start(); f.money(10000);
 	const before = f.heroes[0].GetMaxHealth(); assert.equal(f.buy('item_shipin_1').success, true);
@@ -234,6 +247,20 @@ test('自动拾取金币袋只给一次，精华首次生成精髓且不递归�
 	const f = fixture(); f.start(); f.c.Items.Grant(0, 'item_bag_of_coin', 1, 1); f.c.Items.Sweep(); assert.equal(f.c.RunResources.Get(0, 'gold', 1), 5000); assert.equal(f.items().length, 0);
 	f.c.Items.Grant(0, 'item_essence_small', 1, 1); assert.deepEqual(f.items().map(item => item.name), ['item_essence_str_1']); assert.equal(f.items()[0].charges, 0);
 	f.c.Items.Grant(0, 'item_essence_small', 1, 1); assert.equal(f.items()[0].charges, 30);
+});
+test('原版护甲配方图可连续购买升级，卷轴收费、材料回收和出售成本正确', () => {
+	const f = fixture(); f.start(); f.money(50000);
+	const catalog = f.c.CustomNetTables.GetTableValue('common', 'shop_catalog');
+	assert.ok(catalog.related.item_jia_2); assert.ok(catalog.related.item_jia_5);
+	assert.equal(Object.values(catalog.groups).flat().some(entry => entry.name === 'item_jia_2'), false);
+	const base = Number(f.c.KeyValues.items.item_jia_1.ItemCost), fee2 = Number(f.c.KeyValues.items.item_recipe_jia_2.ItemCost), fee3 = Number(f.c.KeyValues.items.item_recipe_jia_3.ItemCost);
+	assert.equal(catalog.related.item_jia_3.price, base + fee2 + fee3);
+	assert.equal(f.buy('item_jia_1').success, true); const first = f.items()[0];
+	assert.equal(f.buy('item_jia_2').success, true); assert.equal(first.valid, false); assert.deepEqual(f.items().map(item => item.name), ['item_jia_2']);
+	assert.equal(f.c.RunResources.Get(0, 'gold', 1), 50000 - base - fee2);
+	assert.equal(f.buy('item_jia_3').success, true); assert.equal(f.c.RunResources.Get(0, 'gold', 1), 50000 - base - fee2 - fee3);
+	assert.equal(f.sell(f.items()[0]).success, true); assert.equal(f.c.RunResources.Get(0, 'gold', 1), 50000);
+	assert.equal(f.buy('item_jia_3').success, true); assert.equal(f.c.RunResources.Get(0, 'gold', 1), 50000 - base - fee2 - fee3);
 });
 test('三局重开移除物品/地面容器，旧物品、旧请求和晚到计时器都不能污染新局', () => {
 	const f = fixture(); let oldItem, stale;

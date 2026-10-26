@@ -10,6 +10,7 @@ export class CShop extends CModule {
 	private running = false;
 	private entries: Record<string, AthenaShopEntry> = {};
 	private recipes: Record<string, string[]> = {};
+	private recipeCosts: Record<string, number> = {};
 	private results: Record<string, AthenaShopResult> = {};
 	private busy: Partial<Record<PlayerID, boolean>> = {};
 	private requestListener?: CustomGameEventListenerID;
@@ -46,25 +47,44 @@ export class CShop extends CModule {
 			if (typeof kv === "object" && typeof kv.ItemResult === "string" && typeof kv.ItemRequirements === "object") {
 				const requirements = kv.ItemRequirements as Record<string, string>, result = kv.ItemResult as string;
 				const row = Object.keys(requirements).sort()[0];
-				if (row !== undefined) this.recipes[result] = tostring(requirements[row]).split(";").map(name => name.trim()).filter(name => name !== "");
+				if (row !== undefined) {
+					this.recipes[result] = tostring(requirements[row]).split(";").map(name => name.trim()).filter(name => name !== "");
+					const fee = this.Price(kv, "gold");
+					if (fee !== undefined) this.recipeCosts[result] = fee;
+				}
 			}
 		}
 		const groups: Record<string, AthenaShopEntry[]> = {};
 		for (const [group, names] of pairs(definitions)) {
 			const list: AthenaShopEntry[] = [];
 			for (const name of Object.keys(names)) {
+				const raw = KeyValues.items[name], kv = typeof raw === "object" ? raw : {};
+				const currency = this.Currency(kv), price = typeof raw === "object" ? this.BasePrice(name) : undefined;
+				const entry: AthenaShopEntry = { name, currency, price: price ?? 0, ingredients: this.recipes[name] ?? [] };
+				// 展示严格遵循原版商店配置；交易能力独立维护，不能用未迁移脚本删除目录项。
+				list.push(entry);
 				if (!Items.Supported(name)) continue;
-				const kv = KeyValues.items[name], currency = this.Currency(kv), price = this.BasePrice(name);
 				// 不能直接购买的任务/掉落物品只作为配方材料；有专用货币价格或配方的结果另行验证。
 				if (price === undefined || (tonumber(kv.ItemPurchasable) === 0 && currency === "gold" && !this.recipes[name])) continue;
 				if (price === 0 && !this.recipes[name]) continue;
-				const entry: AthenaShopEntry = { name, currency, price, ingredients: this.recipes[name] ?? [] };
-				this.entries[name] = entry; list.push(entry);
+				this.entries[name] = entry;
 			}
 			if (list.length > 0) groups[group] = list;
 		}
+		// 配方图允许继续购买已上架物品的受支持升级，不把它们重复塞进基础商品栏。
+		const related: Record<string, AthenaShopEntry> = {};
+		for (let depth = 0; depth < 12; depth++) {
+			let added = false;
+			for (const [name, ingredients] of pairs(this.recipes)) {
+				if (this.entries[name] !== undefined || !ingredients.some(part => this.entries[part] !== undefined) || !Items.Supported(name)) continue;
+				const price = this.BasePrice(name); if (price === undefined) continue;
+				const entry: AthenaShopEntry = { name, ingredients, price, currency: this.Currency(KeyValues.items[name]) };
+				this.entries[name] = entry; related[name] = entry; added = true;
+			}
+			if (!added) break;
+		}
 		this.running = true;
-		CustomNetTables.SetTableValue("common", "shop_catalog", { run_id: runId, groups });
+		CustomNetTables.SetTableValue("common", "shop_catalog", { run_id: runId, groups, related });
 	}
 	private Currency(kv: KV[string]): ShopCurrency {
 		return (tonumber(kv.CrystalCost) ?? 0) > 0 ? "crystal" : (tonumber(kv.ScoreCost) ?? 0) > 0 ? "score" : "gold";
@@ -77,7 +97,7 @@ export class CShop extends CModule {
 		const kv = KeyValues.items[name]; if (!kv || path.includes(name) || path.length > 12) return;
 		const currency = this.Currency(kv);
 		if (currency !== "gold") return this.Price(kv, currency);
-		let total = this.Price(kv, "gold") ?? 0;
+		let total = this.recipeCosts[name] ?? this.Price(kv, "gold") ?? 0;
 		if (!this.recipes[name]) return this.Price(kv, "gold");
 		for (const part of this.recipes[name]) {
 			const price = this.BasePrice(part, [...path, name]);
@@ -101,12 +121,12 @@ export class CShop extends CModule {
 			const data = KeyValues.items[target]; if (!data) return;
 			const recipe = this.recipes[target];
 			if (!recipe && (tonumber(data.ItemPurchasable) === 0 || this.Currency(data) !== "gold")) return;
-			let total = this.Price(data, "gold") ?? 0;
+			let total = this.recipeCosts[target] ?? this.Price(data, "gold") ?? 0;
 			if (!recipe) return total > 0 ? total : undefined;
 			for (const part of recipe) { const price = fill(part, [...path, target]); if (price === undefined) return; total += price; }
 			return total;
 		};
-		let price = this.Price(kv, "gold") ?? 0;
+		let price = this.recipeCosts[name] ?? this.Price(kv, "gold") ?? 0;
 		if (this.recipes[name]) for (const part of this.recipes[name]) { const value = fill(part, [name]); if (value === undefined) return; price += value; }
 		else price = this.Price(kv, "gold")!;
 		return price !== undefined && price >= 0 && price < math.huge ? { currency, price, materials } : undefined;
@@ -184,7 +204,7 @@ export class CShop extends CModule {
 		if (IsValid(player)) CustomGameEventManager.Send_ServerToPlayer(player, "athena_shop_result", result);
 	}
 	reset() {
-		this.running = false; this.results = {}; this.busy = {}; this.entries = {}; this.recipes = {};
+		this.running = false; this.results = {}; this.busy = {}; this.entries = {}; this.recipes = {}; this.recipeCosts = {};
 		CustomNetTables.SetTableValue("common", "shop_catalog", { run_id: this.runId, groups: {} });
 	}
 }

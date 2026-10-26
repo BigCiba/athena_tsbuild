@@ -58,16 +58,27 @@ export function rollupPluginLess(options: {
 		},
 		// 监听less文件变更
 		async buildStart() {
+			const watched = new Set<string>();
+			const watchLess = async (file: string): Promise<void> => {
+				if (watched.has(file) || !existsSync(file)) return;
+				watched.add(file); this.addWatchFile(file);
+				const content = await readFile(file, 'utf8');
+				for (const match of content.matchAll(/@import\s*(?:\([^)]*\)\s*)?["']([^"']+)["']/g)) {
+					if (/^(?:\w+:|\/\/)/.test(match[1])) continue;
+					const target = path.resolve(dirname(file), match[1]);
+					await watchLess(extname(target) ? target : target + '.less');
+				}
+			};
 			for (const file of options.inputFiles) {
 				const lessFile = file.replace(/\.tsx?$/, '.less');
 				if (existsSync(lessFile)) {
-					this.addWatchFile(lessFile);
+					await watchLess(lessFile);
 				}
 
 				// 关联import的less文件
 				let lessList = resolveImport(path.dirname(file), file);
 				for (const lessPath in lessList) {
-					this.addWatchFile(lessPath);
+					await watchLess(lessPath);
 				}
 			}
 
@@ -75,7 +86,7 @@ export function rollupPluginLess(options: {
 			if (options.globalLessFiles) {
 				for (const lessFile of options.globalLessFiles) {
 					if (existsSync(lessFile)) {
-						this.addWatchFile(lessFile);
+						await watchLess(lessFile);
 					}
 				}
 			}
@@ -109,12 +120,13 @@ export function rollupPluginLess(options: {
 				let lessFileCode = '';
 				const lessFile = filePath.replace(/\.tsx?$/, '.less');
 				if (existsSync(lessFile)) {
-					lessFileCode = await readFile(lessFile, 'utf8');
+					lessFileCode = `@import (multiple) "${lessFile.replace(/\\/g, '/')}";`;
 				}
 
 				let lessList = resolveImport(dirname(filePath), filePath);
 				for (const lessPath in lessList) {
-					lessFileCode += '\n' + await readFile(lessPath, 'utf8');
+					// 保留每份 LESS 的源路径，嵌套 @import 才会相对原文件解析。
+					lessFileCode += `\n@import (multiple) "${lessPath.replace(/\\/g, '/')}";`;
 				}
 
 				const code = findAndMergeLess(this, filePath, cache).trim();
@@ -122,7 +134,7 @@ export function rollupPluginLess(options: {
 				const result = await render(
 					lessFileCode + '\n' + code,
 					{
-						filename: dirname(filePath),
+						filename: filePath,
 						paths: [dirname(filePath), options.rootPath],
 					}
 				);

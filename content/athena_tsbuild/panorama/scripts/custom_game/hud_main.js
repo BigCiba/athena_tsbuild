@@ -129,32 +129,406 @@ function RunResourcesPanel(props) {
   });
 }
 
+const sideGroups = ["DefShop", "PracticeShop"];
+const rarityColors = ["#BEBEBE", "#92E47E", "#7F93FC", "#D57BFF", "#FFE195", "#FF9595"];
+function recipeRequirements(definitions) {
+  const result = {};
+  for (const data of Object.values(definitions)) {
+    if (!data.ItemResult || !data.ItemRequirements) continue;
+    const row = Object.keys(data.ItemRequirements).sort()[0];
+    if (row !== undefined) result[data.ItemResult] = data.ItemRequirements[row].split(";").map(name => name.trim()).filter(Boolean);
+  }
+  return result;
+}
+function recipeLayout(name, recipes) {
+  const nodes = [],
+    lines = [];
+  if (!name) return {
+    nodes,
+    lines
+  };
+  const required = recipes[name] ?? [],
+    results = Object.keys(recipes).filter(result => recipes[result].includes(name));
+  const rows = 1 + Number(required.length > 0) + Number(results.length > 0),
+    blank = (180 - 32 * rows) / (rows + 1);
+  const ys = [[0, blank + 16, 0], [blank + 16, blank * 2 + 48, 0], [blank + 16, blank * 2 + 48, blank * 3 + 80]][rows - 1];
+  const layers = required.length && !results.length ? [0, 2, 1] : [1, 0, 2],
+    center = {
+      x: 201.5,
+      y: ys[layers[0]]
+    };
+  nodes.push({
+    name,
+    x: 180,
+    y: center.y - 14.5
+  });
+  const add = (names, layer, above) => names.forEach((item, i) => {
+    const x = 400 / (names.length * 2) * (i * 2 + 1),
+      y = ys[layer];
+    nodes.push({
+      name: item,
+      x: x - 20,
+      y: y - 14.5
+    });
+    const from = above ? {
+        x: x + 1.5,
+        y
+      } : center,
+      to = above ? center : {
+        x: x + 1.5,
+        y
+      };
+    const dx = to.x - from.x,
+      dy = to.y - from.y;
+    lines.push({
+      ...from,
+      width: Math.sqrt(dx * dx + dy * dy),
+      angle: Math.atan2(dy, dx) * 180 / Math.PI
+    });
+  });
+  add(results, layers[1], true);
+  add(required, layers[2], false);
+  return {
+    nodes,
+    lines
+  };
+}
+function displayedPrice(entry, held, definitions, recipes) {
+  if (entry.currency !== "gold" || !entry.ingredients.length) return entry.price;
+  const used = new Map();
+  const fees = {};
+  for (const data of Object.values(definitions)) if (data.ItemResult && data.ItemCost !== undefined) fees[data.ItemResult] = Number(data.ItemCost) || 0;
+  const full = (name, path = []) => path.includes(name) || path.length > 12 ? 0 : (fees[name] ?? (Number(definitions[name]?.ItemCost) || 0)) + (recipes[name] ?? []).reduce((sum, part) => sum + full(part, [...path, name]), 0);
+  const discount = (name, path = []) => {
+    if (path.includes(name) || path.length > 12) return;
+    const owned = held.find(item => item.slot < 9 && item.name === name && (used.get(item.entity) ?? 0) < (Number(definitions[name]?.ItemStackable) === 1 ? Math.max(1, item.charges) : 1));
+    if (owned) {
+      used.set(owned.entity, (used.get(owned.entity) ?? 0) + 1);
+      return full(name);
+    }
+    const data = definitions[name];
+    if (!data) return;
+    if (!recipes[name]) return Number(data.ItemPurchasable) !== 0 && Number(data.ItemCost) > 0 && !(Number(data.CrystalCost) > 0) && !(Number(data.ScoreCost) > 0) ? 0 : undefined;
+    let total = 0;
+    for (const part of recipes[name]) {
+      const value = discount(part, [...path, name]);
+      if (value === undefined) return;
+      total += value;
+    }
+    return total;
+  };
+  let total = 0;
+  for (const name of entry.ingredients) {
+    const value = discount(name);
+    if (value === undefined) return;
+    total += value;
+  }
+  return Math.max(0, entry.price - total);
+}
+function ShopItemImage(props) {
+  const color = () => rarityColors[Number(props.definitions[props.name]?.Rarity)];
+  return (() => {
+    const _el$ = libs.createElement("Button", {
+        get id() {
+          return props.name;
+        },
+        "class": "CustomItemImage ShopItem",
+        get style() {
+          return props.style;
+        },
+        get onactivate() {
+          return props.onactivate;
+        },
+        get oncontextmenu() {
+          return props.oncontextmenu;
+        }
+      }, null),
+      _el$2 = libs.createElement("DOTAItemImage", {
+        id: "CustomItemImage",
+        get itemname() {
+          return props.name;
+        },
+        showtooltip: false,
+        hittest: false
+      }, _el$),
+      _el$3 = libs.createElement("Panel", {
+        id: "CustomItemImageBorder",
+        hittest: false,
+        get style() {
+          return {
+            width: "100%",
+            height: "100%",
+            border: color() ? `2px solid ${color()}` : "0px solid transparent"
+          };
+        }
+      }, _el$);
+    libs.setProp(_el$, "onmouseover", self => $.DispatchEvent("DOTAShowAbilityTooltip", self, props.name));
+    libs.setProp(_el$, "onmouseout", self => $.DispatchEvent("DOTAHideAbilityTooltip", self));
+    libs.setProp(_el$2, "style", {
+      width: "100%",
+      height: "100%"
+    });
+    libs.effect(_p$ => {
+      const _v$ = props.name,
+        _v$2 = {
+          CanPurchase: !!props.canPurchase
+        },
+        _v$3 = props.style,
+        _v$4 = props.onactivate,
+        _v$5 = props.oncontextmenu,
+        _v$6 = props.name,
+        _v$7 = {
+          width: "100%",
+          height: "100%",
+          border: color() ? `2px solid ${color()}` : "0px solid transparent"
+        };
+      _v$ !== _p$._v$ && (_p$._v$ = libs.setProp(_el$, "id", _v$, _p$._v$));
+      _v$2 !== _p$._v$2 && (_p$._v$2 = libs.setProp(_el$, "classList", _v$2, _p$._v$2));
+      _v$3 !== _p$._v$3 && (_p$._v$3 = libs.setProp(_el$, "style", _v$3, _p$._v$3));
+      _v$4 !== _p$._v$4 && (_p$._v$4 = libs.setProp(_el$, "onactivate", _v$4, _p$._v$4));
+      _v$5 !== _p$._v$5 && (_p$._v$5 = libs.setProp(_el$, "oncontextmenu", _v$5, _p$._v$5));
+      _v$6 !== _p$._v$6 && (_p$._v$6 = libs.setProp(_el$2, "itemname", _v$6, _p$._v$6));
+      _v$7 !== _p$._v$7 && (_p$._v$7 = libs.setProp(_el$3, "style", _v$7, _p$._v$7));
+      return _p$;
+    }, {
+      _v$: undefined,
+      _v$2: undefined,
+      _v$3: undefined,
+      _v$4: undefined,
+      _v$5: undefined,
+      _v$6: undefined,
+      _v$7: undefined
+    });
+    return _el$;
+  })();
+}
+function StashSlot(props) {
+  let button;
+  let disposed = false;
+  const current = () => !disposed && props.active && props.item && Entities.IsValidEntity(props.item.entity) && Entities.GetItemInSlot(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()), props.slot) === props.item.entity ? props.item : undefined;
+  libs.onMount(() => {
+    const start = (_panel, callbacks) => {
+      const item = current();
+      if (!item) return false;
+      const image = $.CreatePanel("DOTAItemImage", $.GetContextPanel(), "dragImage");
+      image.itemname = item.name;
+      image.overrideentityindex = item.entity;
+      image.m_Slot = props.slot;
+      image.m_DragType = "InventorySlot";
+      image.m_DragCompleted = false;
+      image.shopRunId = props.runId;
+      callbacks.displayPanel = image;
+      callbacks.offsetX = 0;
+      callbacks.offsetY = 0;
+      return true;
+    };
+    const drop = (_panel, display) => {
+      const dragged = display;
+      if (disposed || !props.active || dragged.shopRunId !== undefined && dragged.shopRunId !== props.runId || dragged.overrideentityindex === undefined || !Entities.IsValidEntity(dragged.overrideentityindex)) return false;
+      const hero = Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+      if (Abilities.GetCaster(dragged.overrideentityindex) !== hero) return false;
+      Game.PrepareUnitOrders({
+        UnitIndex: hero,
+        OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
+        TargetIndex: props.slot,
+        AbilityIndex: dragged.overrideentityindex
+      });
+      dragged.m_DragCompleted = true;
+      return true;
+    };
+    const end = (_panel, display) => {
+      const dragged = display;
+      const item = current();
+      if (item && dragged.shopRunId === props.runId && dragged.overrideentityindex === item.entity && !dragged.m_DragCompleted) Game.DropItemAtCursor(Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()), item.entity);
+      dragged.DeleteAsync(0);
+      return true;
+    };
+    $.RegisterEventHandler("DragStart", button, start);
+    $.RegisterEventHandler("DragDrop", button, drop);
+    $.RegisterEventHandler("DragEnd", button, end);
+    libs.onCleanup(() => {
+      disposed = true;
+    });
+  });
+  return (() => {
+    const _el$4 = libs.createElement("Panel", {
+        get id() {
+          return `inventory_slot_${props.slot}`;
+        },
+        "class": "AbilityPanel InventoryItem is_item",
+        hittest: false
+      }, null),
+      _el$5 = libs.createElement("Panel", {
+        id: "ButtonAndLevel",
+        hittest: false
+      }, _el$4),
+      _el$6 = libs.createElement("Panel", {
+        id: "ButtonWithLevelUpTab",
+        hittest: false
+      }, _el$5),
+      _el$7 = libs.createElement("Panel", {
+        id: "ButtonWell",
+        hittest: false
+      }, _el$6),
+      _el$8 = libs.createElement("Panel", {
+        id: "ButtonSize"
+      }, _el$7),
+      _el$9 = libs.createElement("Panel", {
+        id: "AbilityButton",
+        draggable: true
+      }, _el$8),
+      _el$0 = libs.createElement("DOTAItemImage", {
+        id: "ItemImage",
+        get itemname() {
+          return props.item?.name ?? "";
+        },
+        showtooltip: false,
+        hittest: false,
+        get style() {
+          return {
+            width: "100%",
+            height: "100%",
+            visibility: props.item ? "visible" : "collapse"
+          };
+        }
+      }, _el$9);
+      libs.createElement("Panel", {
+        id: "AbilityBevel",
+        hittest: false
+      }, _el$9);
+      const _el$10 = libs.createElement("Label", {
+        id: "ItemCharges",
+        get text() {
+          return props.item?.charges ?? 0;
+        },
+        hittest: false
+      }, _el$9);
+      libs.createElement("Panel", {
+        id: "DropTargetHighlight",
+        hittest: false
+      }, _el$9);
+    const _ref$ = button;
+    typeof _ref$ === "function" ? libs.use(_ref$, _el$9) : button = _el$9;
+    libs.setProp(_el$9, "onactivate", () => {
+      const item = current();
+      if (item) props.onselect(item.name);
+    });
+    libs.setProp(_el$9, "oncontextmenu", self => {
+      const item = current();
+      if (item) props.oncontext(self, item);
+    });
+    libs.setProp(_el$9, "onmouseover", self => {
+      const item = current();
+      if (item) $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", self, item.name, Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer()));
+    });
+    libs.setProp(_el$9, "onmouseout", self => $.DispatchEvent("DOTAHideAbilityTooltip", self));
+    libs.effect(_p$ => {
+      const _v$8 = `inventory_slot_${props.slot}`,
+        _v$9 = {
+          no_item: !props.item,
+          no_ability: !props.item,
+          show_item_charges: (props.item?.charges ?? 0) > 0
+        },
+        _v$0 = props.item?.name ?? "",
+        _v$1 = {
+          width: "100%",
+          height: "100%",
+          visibility: props.item ? "visible" : "collapse"
+        },
+        _v$10 = props.item?.charges ?? 0;
+      _v$8 !== _p$._v$8 && (_p$._v$8 = libs.setProp(_el$4, "id", _v$8, _p$._v$8));
+      _v$9 !== _p$._v$9 && (_p$._v$9 = libs.setProp(_el$4, "classList", _v$9, _p$._v$9));
+      _v$0 !== _p$._v$0 && (_p$._v$0 = libs.setProp(_el$0, "itemname", _v$0, _p$._v$0));
+      _v$1 !== _p$._v$1 && (_p$._v$1 = libs.setProp(_el$0, "style", _v$1, _p$._v$1));
+      _v$10 !== _p$._v$10 && (_p$._v$10 = libs.setProp(_el$10, "text", _v$10, _p$._v$10));
+      return _p$;
+    }, {
+      _v$8: undefined,
+      _v$9: undefined,
+      _v$0: undefined,
+      _v$1: undefined,
+      _v$10: undefined
+    });
+    return _el$4;
+  })();
+}
 function ShopPanel(props) {
   const [open, setOpen] = solid_utils.createToggleWindowSignal("shop");
   const [catalog, _setCatalog] = libs.createSignal(CustomNetTables.GetTableValue("common", "shop_catalog")),
     [inventory, _setInventory] = libs.createSignal(CustomNetTables.GetTableValue("common", "item_inventory")),
     [resources, _setResources] = libs.createSignal(CustomNetTables.GetTableValue("common", "run_resources"));
-  const [group, setGroup] = libs.createSignal("consumables"),
-    [pending, setPending] = libs.createSignal(""),
-    [error, setError] = libs.createSignal("");
+  const definitions = GameUI.CustomUIConfig().npc_items_custom ?? {},
+    recipes = recipeRequirements(definitions);
+  const shopDefinitions = GameUI.CustomUIConfig().shops;
+  const [selected, setSelected] = libs.createSignal(""),
+    [pending, setPending] = libs.createSignal("");
+  const [clock, setClock] = libs.createSignal({
+    hour: 0,
+    min: 0,
+    day: true
+  });
   let serial = 0;
   const runId = () => props.snapshot?.run_id ?? 0;
   const active = () => props.snapshot?.state === "GameState_Battle" && catalog()?.run_id === runId();
   const balance = () => resources()?.run_id === runId() ? resources()?.players[String(Players.GetLocalPlayer())] : undefined;
-  const groups = () => Object.keys(catalog()?.groups ?? {});
-  const selectedGroup = () => groups().includes(group()) ? group() : groups()[0];
-  const offers = () => Object.values(catalog()?.groups[selectedGroup()] ?? {});
-  const held = () => inventory()?.run_id === runId() ? Object.values(inventory()?.players[String(Players.GetLocalPlayer())] ?? {}) : [];
-  const itemName = name => {
-    const token = "#DOTA_Tooltip_ability_" + name,
-      text = $.Localize(token);
-    return text === token ? name : text;
+  const held = () => inventory()?.run_id === runId() ? Object.values(inventory()?.players[String(Players.GetLocalPlayer())] ?? {}).map(item => ({
+    ...item,
+    sellable: Number(item.sellable) === 1
+  })) : [];
+  const groups = () => shopDefinitions ? Object.keys(shopDefinitions).filter(group => Object.keys(shopDefinitions[group]).length > 0) : Object.keys(catalog()?.groups ?? {});
+  const offers = group => {
+    const quoted = Object.values(catalog()?.groups[group] ?? {}).map(entry => ({
+      ...entry,
+      ingredients: Object.values(entry.ingredients ?? {})
+    }));
+    if (!shopDefinitions) return quoted;
+    return Object.keys(shopDefinitions[group] ?? {}).map(name => {
+      const quote = quoted.find(entry => entry.name === name);
+      if (quote) return quote;
+      const data = definitions[name] ?? {},
+        currency = Number(data.CrystalCost) > 0 ? "crystal" : Number(data.ScoreCost) > 0 ? "score" : "gold";
+      return {
+        name,
+        currency,
+        price: Number(data[currency === "crystal" ? "CrystalCost" : currency === "score" ? "ScoreCost" : "ItemCost"]) || 0,
+        ingredients: recipes[name] ?? []
+      };
+    });
   };
+  const entries = () => [...groups().flatMap(offers), ...Object.values(catalog()?.related ?? {}).map(entry => ({
+    ...entry,
+    ingredients: Object.values(entry.ingredients ?? {})
+  }))];
+  const entryFor = name => entries().find(entry => entry.name === name);
+  const price = entry => displayedPrice(entry, held(), definitions, recipes);
+  const purchasable = entry => (entry.currency !== "gold" || Number(definitions[entry.name]?.ItemPurchasable) !== 0 || entry.ingredients.length > 0) && (entry.price > 0 || entry.ingredients.length > 0);
+  const canPurchase = name => {
+    const entry = entryFor(name),
+      cost = entry && price(entry);
+    return active() && !pending() && !!entry && purchasable(entry) && cost !== undefined && (balance()?.[entry.currency] ?? 0) >= cost;
+  };
+  const layout = libs.createMemo(() => recipeLayout(selected(), recipes));
+  const report = error => ErrorMessage("#ShopError_" + error);
   const request = (action, item_name, item_entity) => {
     if (!active() || pending()) return;
+    if (action === "buy") {
+      const entry = entryFor(item_name ?? "");
+      if (!entry || !purchasable(entry)) {
+        report("ItemUnavailable");
+        return;
+      }
+      const cost = price(entry);
+      if (cost === undefined) {
+        report("MissingMaterials");
+        return;
+      }
+      if ((balance()?.[entry.currency] ?? 0) < cost) {
+        report("NotEnoughResource");
+        return;
+      }
+    }
     const request_id = `${runId()}:${Game.GetGameTime()}:${++serial}`;
     setPending(request_id);
-    setError("");
     GameEvents.SendCustomEventToServer("athena_shop_action", {
       run_id: runId(),
       request_id,
@@ -163,21 +537,135 @@ function ShopPanel(props) {
       item_entity
     });
   };
+  const select = name => {
+    if (active()) setSelected(name);
+  };
+  const moveFromStash = item => {
+    if (!active() || !held().some(current => current.entity === item.entity)) return;
+    const hero = Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer());
+    const slot = Array.from({
+      length: 9
+    }, (_, index) => index).find(index => Entities.GetItemInSlot(hero, index) === -1);
+    if (slot !== undefined) Game.PrepareUnitOrders({
+      UnitIndex: hero,
+      OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
+      TargetIndex: slot,
+      AbilityIndex: item.entity
+    });
+  };
+  const context = (panel, item) => {
+    const menuRun = runId(),
+      valid = () => active() && runId() === menuRun && held().some(current => current.entity === item.entity);
+    const menus = {
+      "#AthenaShopInspect": () => {
+        if (valid()) select(item.name);
+      },
+      "#AthenaShopRetrieve": () => {
+        if (valid()) moveFromStash(item);
+      }
+    };
+    if (Number(item.sellable) === 1) menus[`${$.Localize("#AthenaShopSell")} ${item.sell_gold}`] = () => {
+      if (valid()) request("sell", undefined, item.entity);
+    };
+    GameUI.CustomUIConfig().showContextMenu(panel, menus, [0, 1]);
+  };
   libs.createEffect(() => {
     runId();
     setPending("");
-    setError("");
+    setSelected("");
     setOpen(false);
   });
   libs.onMount(() => {
     const id = GameEvents.Subscribe("athena_shop_result", result => {
-      if (result.run_id !== runId() || pending() && result.request_id !== pending()) return;
+      if (result.run_id !== runId() || result.request_id !== pending()) return;
       setPending("");
-      setError(result.success ? "" : "#ShopError_" + (result.error ?? "Failed"));
+      if (result.success) Game.EmitSound("General.Buy");else report(result.error ?? "Failed");
     });
-    libs.onCleanup(() => GameEvents.Unsubscribe(id));
+    const check = GameEvents.Subscribe("custom_item_check", event => {
+      if (active()) select(event.itemname);
+    });
+    const update = () => {
+      const minutes = ((Game.GetDOTATime(false, false) + 155) % 600 + 600) % 600 * 0.04;
+      setClock({
+        hour: Math.floor(minutes),
+        min: Math.floor(minutes % 1 * 60),
+        day: Game.IsDayTime()
+      });
+    };
+    update();
+    const timer = setInterval(update, 100);
+    libs.onCleanup(() => {
+      GameEvents.Unsubscribe(id);
+      GameEvents.Unsubscribe(check);
+      clearInterval(timer);
+    });
   });
-  const currencyToken = currency => "#CUSTOM_RESOURCE_TYPE_" + (currency === "crystal" ? "CRYSTAL" : currency === "score" ? "SCORE" : "GOLD");
+  const icon = (name, style) => libs.createComponent(ShopItemImage, {
+    name: name,
+    definitions: definitions,
+    style: style,
+    get canPurchase() {
+      return canPurchase(name);
+    },
+    onactivate: () => select(name),
+    oncontextmenu: () => request("buy", name)
+  });
+  const groupList = (group, side) => (() => {
+    const _el$12 = libs.createElement("Panel", {
+        "class": "ShopItemsList",
+        hittest: false
+      }, null),
+      _el$13 = libs.createElement("Label", {
+        "class": "ShopItemsHeader",
+        text: "#ShopGroup_" + group
+      }, _el$12),
+      _el$14 = libs.createElement("Panel", {
+        "class": "ShopItemsContainer"
+      }, _el$12);
+    libs.setProp(_el$13, "text", "#ShopGroup_" + group);
+    libs.insert(_el$14, libs.createComponent(libs.For, {
+      get each() {
+        return offers(group);
+      },
+      children: entry => side ? (() => {
+        const _el$15 = libs.createElement("Panel", {}, null),
+          _el$16 = libs.createElement("Panel", {
+            get ["class"]() {
+              return entry.currency === "crystal" ? "SideCostCrystal" : "SideCostScore";
+            },
+            hittest: false
+          }, _el$15),
+          _el$17 = libs.createElement("Label", {
+            get text() {
+              return entry.price;
+            },
+            get style() {
+              return {
+                color: entry.currency === "crystal" ? "gradient(linear, 0% 0%, 0% 100%, from(#D7A0E5), to(#e2d3e6))" : "gradient(linear, 0% 0%, 0% 100%, from(#de5d17), to(#eac769))"
+              };
+            }
+          }, _el$16);
+        libs.insert(_el$15, () => icon(entry.name), _el$16);
+        libs.effect(_p$ => {
+          const _v$11 = entry.currency === "crystal" ? "SideCostCrystal" : "SideCostScore",
+            _v$12 = entry.price,
+            _v$13 = {
+              color: entry.currency === "crystal" ? "gradient(linear, 0% 0%, 0% 100%, from(#D7A0E5), to(#e2d3e6))" : "gradient(linear, 0% 0%, 0% 100%, from(#de5d17), to(#eac769))"
+            };
+          _v$11 !== _p$._v$11 && (_p$._v$11 = libs.setProp(_el$16, "class", _v$11, _p$._v$11));
+          _v$12 !== _p$._v$12 && (_p$._v$12 = libs.setProp(_el$17, "text", _v$12, _p$._v$12));
+          _v$13 !== _p$._v$13 && (_p$._v$13 = libs.setProp(_el$17, "style", _v$13, _p$._v$13));
+          return _p$;
+        }, {
+          _v$11: undefined,
+          _v$12: undefined,
+          _v$13: undefined
+        });
+        return _el$15;
+      })() : icon(entry.name)
+    }));
+    return _el$12;
+  })();
   libs.createEffect(() => {
     const id = CustomNetTables.SubscribeNetTableListener("common", function (_, k, v) {
       if (k === "shop_catalog") {
@@ -192,257 +680,285 @@ function ShopPanel(props) {
       CustomNetTables.UnsubscribeNetTableListener(id);
     });
   });
-  return libs.createComponent(libs.Show, {
-    get when() {
-      return libs.memo(() => !!open())() && active();
-    },
-    get children() {
-      const _el$ = libs.createElement("Panel", {
-          id: "AthenaShop",
-          hittest: true
-        }, null),
-        _el$2 = libs.createElement("Panel", {
-          "class": "ShopHeading"
-        }, _el$);
-        libs.createElement("Label", {
-          text: "#AthenaShopTitle"
-        }, _el$2);
-        const _el$4 = libs.createElement("Button", {
-          "class": "ShopClose"
-        }, _el$2);
-        libs.createElement("Label", {
-          text: "×"
-        }, _el$4);
-        const _el$6 = libs.createElement("Panel", {
-          "class": "ShopBalances"
-        }, _el$);
-        libs.createElement("Label", {
-          text: "#CUSTOM_RESOURCE_TYPE_GOLD"
-        }, _el$6);
-        const _el$8 = libs.createElement("Label", {
-          get text() {
-            return Math.floor(balance()?.gold ?? 0);
-          }
-        }, _el$6);
-        libs.createElement("Label", {
-          text: "#CUSTOM_RESOURCE_TYPE_CRYSTAL"
-        }, _el$6);
-        const _el$0 = libs.createElement("Label", {
-          get text() {
-            return Math.floor(balance()?.crystal ?? 0);
-          }
-        }, _el$6);
-        libs.createElement("Label", {
-          text: "#CUSTOM_RESOURCE_TYPE_SCORE"
-        }, _el$6);
-        const _el$10 = libs.createElement("Label", {
-          get text() {
-            return Math.floor(balance()?.score ?? 0);
-          }
-        }, _el$6),
-        _el$11 = libs.createElement("Panel", {
-          "class": "ShopTabs"
-        }, _el$),
-        _el$12 = libs.createElement("Panel", {
-          "class": "ShopOffers"
-        }, _el$);
-        libs.createElement("Label", {
-          "class": "ShopInventoryTitle",
-          text: "#AthenaShopInventory"
-        }, _el$);
-        const _el$14 = libs.createElement("Panel", {
-          "class": "ShopInventory"
-        }, _el$),
-        _el$15 = libs.createElement("Label", {
-          "class": "ShopError",
-          get text() {
-            return error();
-          }
-        }, _el$);
-      libs.setProp(_el$4, "onactivate", () => setOpen(false));
-      libs.insert(_el$11, libs.createComponent(libs.For, {
-        get each() {
-          return groups();
-        },
-        children: name => (() => {
-          const _el$16 = libs.createElement("Button", {}, null),
-            _el$17 = libs.createElement("Label", {
-              text: "#ShopGroup_" + name
-            }, _el$16);
-          libs.setProp(_el$16, "onactivate", () => setGroup(name));
-          libs.setProp(_el$17, "text", "#ShopGroup_" + name);
-          libs.effect(_$p => libs.setProp(_el$16, "classList", {
-            Selected: selectedGroup() === name
-          }, _$p));
-          return _el$16;
-        })()
-      }));
-      libs.insert(_el$12, libs.createComponent(libs.For, {
-        get each() {
-          return offers();
-        },
-        children: entry => (() => {
-          const _el$18 = libs.createElement("Panel", {
-              "class": "ShopOffer"
-            }, null),
-            _el$19 = libs.createElement("DOTAItemImage", {
-              get itemname() {
-                return entry.name;
-              },
-              showtooltip: true
-            }, _el$18),
-            _el$20 = libs.createElement("Panel", {
-              "class": "ShopOfferText"
-            }, _el$18),
-            _el$21 = libs.createElement("Label", {
-              get text() {
-                return itemName(entry.name);
-              }
-            }, _el$20),
-            _el$22 = libs.createElement("Panel", {
-              "class": "ShopCost"
-            }, _el$20),
-            _el$23 = libs.createElement("Label", {
-              get text() {
-                return entry.price;
-              }
-            }, _el$22),
-            _el$24 = libs.createElement("Label", {
-              get text() {
-                return currencyToken(entry.currency);
-              }
-            }, _el$22),
-            _el$27 = libs.createElement("Button", {
-              "class": "ShopBuy"
-            }, _el$18),
-            _el$28 = libs.createElement("Label", {
-              get text() {
-                return Object.keys(entry.ingredients ?? {}).length > 0 ? "#AthenaShopCraft" : "#AthenaShopBuy";
-              }
-            }, _el$27);
-          libs.insert(_el$20, libs.createComponent(libs.Show, {
-            get when() {
-              return Object.keys(entry.ingredients ?? {}).length > 0;
-            },
-            get children() {
-              const _el$25 = libs.createElement("Panel", {
-                  "class": "ShopIngredients"
-                }, null);
-                libs.createElement("Label", {
-                  text: "#AthenaShopMaterials"
-                }, _el$25);
-              libs.insert(_el$25, libs.createComponent(libs.For, {
-                get each() {
-                  return Object.values(entry.ingredients ?? {});
-                },
-                children: name => (() => {
-                  const _el$29 = libs.createElement("DOTAItemImage", {
-                    itemname: name,
-                    showtooltip: true
-                  }, null);
-                  libs.setProp(_el$29, "itemname", name);
-                  return _el$29;
-                })()
-              }), null);
-              return _el$25;
-            }
-          }), null);
-          libs.setProp(_el$27, "onactivate", () => request("buy", entry.name));
-          libs.effect(_p$ => {
-            const _v$5 = {
-                HasRecipe: Object.keys(entry.ingredients ?? {}).length > 0
-              },
-              _v$6 = entry.name,
-              _v$7 = itemName(entry.name),
-              _v$8 = entry.price,
-              _v$9 = currencyToken(entry.currency),
-              _v$0 = !pending() && (Object.keys(entry.ingredients ?? {}).length > 0 || (balance()?.[entry.currency] ?? 0) >= entry.price),
-              _v$1 = Object.keys(entry.ingredients ?? {}).length > 0 ? "#AthenaShopCraft" : "#AthenaShopBuy";
-            _v$5 !== _p$._v$5 && (_p$._v$5 = libs.setProp(_el$18, "classList", _v$5, _p$._v$5));
-            _v$6 !== _p$._v$6 && (_p$._v$6 = libs.setProp(_el$19, "itemname", _v$6, _p$._v$6));
-            _v$7 !== _p$._v$7 && (_p$._v$7 = libs.setProp(_el$21, "text", _v$7, _p$._v$7));
-            _v$8 !== _p$._v$8 && (_p$._v$8 = libs.setProp(_el$23, "text", _v$8, _p$._v$8));
-            _v$9 !== _p$._v$9 && (_p$._v$9 = libs.setProp(_el$24, "text", _v$9, _p$._v$9));
-            _v$0 !== _p$._v$0 && (_p$._v$0 = libs.setProp(_el$27, "enabled", _v$0, _p$._v$0));
-            _v$1 !== _p$._v$1 && (_p$._v$1 = libs.setProp(_el$28, "text", _v$1, _p$._v$1));
-            return _p$;
-          }, {
-            _v$5: undefined,
-            _v$6: undefined,
-            _v$7: undefined,
-            _v$8: undefined,
-            _v$9: undefined,
-            _v$0: undefined,
-            _v$1: undefined
-          });
-          return _el$18;
-        })()
-      }));
-      libs.insert(_el$14, libs.createComponent(libs.For, {
-        get each() {
-          return held();
-        },
-        children: item => (() => {
-          const _el$30 = libs.createElement("Panel", {
-              "class": "ShopOwned"
-            }, null),
-            _el$31 = libs.createElement("DOTAItemImage", {
-              get itemname() {
-                return item.name;
-              },
-              showtooltip: true
-            }, _el$30),
-            _el$32 = libs.createElement("Label", {
-              "class": "ShopCharges",
-              get text() {
-                return item.charges > 1 ? item.charges : "";
-              }
-            }, _el$30),
-            _el$33 = libs.createElement("Button", {}, _el$30),
-            _el$34 = libs.createElement("Label", {
-              get text() {
-                return `${$.Localize("#AthenaShopSell")} ${item.sell_gold}`;
-              }
-            }, _el$33);
-          libs.setProp(_el$33, "onactivate", () => request("sell", undefined, item.entity));
-          libs.effect(_p$ => {
-            const _v$10 = item.name,
-              _v$11 = item.charges > 1 ? item.charges : "",
-              _v$12 = !pending() && Number(item.sellable) === 1,
-              _v$13 = `${$.Localize("#AthenaShopSell")} ${item.sell_gold}`;
-            _v$10 !== _p$._v$10 && (_p$._v$10 = libs.setProp(_el$31, "itemname", _v$10, _p$._v$10));
-            _v$11 !== _p$._v$11 && (_p$._v$11 = libs.setProp(_el$32, "text", _v$11, _p$._v$11));
-            _v$12 !== _p$._v$12 && (_p$._v$12 = libs.setProp(_el$33, "enabled", _v$12, _p$._v$12));
-            _v$13 !== _p$._v$13 && (_p$._v$13 = libs.setProp(_el$34, "text", _v$13, _p$._v$13));
-            return _p$;
-          }, {
-            _v$10: undefined,
-            _v$11: undefined,
-            _v$12: undefined,
-            _v$13: undefined
-          });
-          return _el$30;
-        })()
-      }));
-      libs.effect(_p$ => {
-        const _v$ = Math.floor(balance()?.gold ?? 0),
-          _v$2 = Math.floor(balance()?.crystal ?? 0),
-          _v$3 = Math.floor(balance()?.score ?? 0),
-          _v$4 = error();
-        _v$ !== _p$._v$ && (_p$._v$ = libs.setProp(_el$8, "text", _v$, _p$._v$));
-        _v$2 !== _p$._v$2 && (_p$._v$2 = libs.setProp(_el$0, "text", _v$2, _p$._v$2));
-        _v$3 !== _p$._v$3 && (_p$._v$3 = libs.setProp(_el$10, "text", _v$3, _p$._v$3));
-        _v$4 !== _p$._v$4 && (_p$._v$4 = libs.setProp(_el$15, "text", _v$4, _p$._v$4));
-        return _p$;
+  return (() => {
+    const _el$18 = libs.createElement("Panel", {
+        "class": "ShopRoot Reborn",
+        hittest: false
+      }, null),
+      _el$19 = libs.createElement("Panel", {
+        id: "ShopMain",
+        hittest: false
+      }, _el$18),
+      _el$20 = libs.createElement("Panel", {
+        "class": "ShopContainer"
+      }, _el$19),
+      _el$21 = libs.createElement("Panel", {
+        "class": "SideShop"
+      }, _el$20),
+      _el$22 = libs.createElement("Panel", {
+        "class": "ShopHeader"
+      }, _el$21);
+      libs.createElement("Label", {
+        "class": "HeaderLabel",
+        text: "#mystery_store"
+      }, _el$22);
+      const _el$24 = libs.createElement("Panel", {
+        "class": "ClockPanel"
+      }, _el$21),
+      _el$25 = libs.createElement("Panel", {
+        "class": "IconContainer"
+      }, _el$24);
+      libs.createElement("Image", {
+        "class": "TimeIcon Sun"
+      }, _el$25);
+      libs.createElement("Image", {
+        "class": "TimeIcon Moon"
+      }, _el$25);
+      const _el$28 = libs.createElement("Label", {
+        "class": "TimeLabel",
+        get text() {
+          return `${String(clock().hour).padStart(2, "0")}:${String(clock().min).padStart(2, "0")}`;
+        }
+      }, _el$24),
+      _el$29 = libs.createElement("Panel", {
+        id: "ShopItemContainer",
+        "class": "SideShopItemContainer"
+      }, _el$21),
+      _el$30 = libs.createElement("Panel", {
+        "class": "MoneyContainer"
+      }, _el$21),
+      _el$31 = libs.createElement("Panel", {
+        "class": "NormalShop"
+      }, _el$20),
+      _el$32 = libs.createElement("Panel", {
+        "class": "ShopHeader"
+      }, _el$31);
+      libs.createElement("Label", {
+        "class": "HeaderLabel",
+        text: "#Store"
+      }, _el$32);
+      const _el$34 = libs.createElement("Panel", {
+        id: "ShopItemContainer"
+      }, _el$31),
+      _el$35 = libs.createElement("Panel", {
+        id: "RecipeMain"
+      }, _el$31),
+      _el$36 = libs.createElement("Panel", {
+        id: "ConnectorsContainer",
+        hittest: false
+      }, _el$35),
+      _el$37 = libs.createElement("Panel", {
+        id: "ItemsContainer"
+      }, _el$35),
+      _el$38 = libs.createElement("Panel", {
+        id: "stash",
+        "class": "StashVisible StashActive",
+        hittest: false
+      }, _el$19),
+      _el$39 = libs.createElement("Panel", {
+        id: "stash_bg",
+        hittest: false
+      }, _el$38);
+      libs.createElement("Panel", {
+        id: "stash_upper",
+        hittest: false
+      }, _el$39);
+      libs.createElement("Panel", {
+        id: "stash_lower",
+        hittest: false
+      }, _el$39);
+      libs.createElement("Panel", {
+        id: "stash_active_lower",
+        hittest: false
+      }, _el$39);
+      libs.createElement("Label", {
+        id: "title",
+        text: "#DOTA_STASH",
+        hittest: false
+      }, _el$39);
+      const _el$44 = libs.createElement("Button", {
+        id: "grab_all_button"
+      }, _el$38);
+      libs.createElement("Label", {
+        text: "#DOTA_Inventory_Grab_All",
+        hittest: false
+      }, _el$44);
+      const _el$46 = libs.createElement("Panel", {
+        id: "stash_row",
+        hittest: false
+      }, _el$38);
+    libs.setProp(_el$18, "style", {
+      zIndex: 60
+    });
+    libs.insert(_el$29, libs.createComponent(libs.For, {
+      get each() {
+        return groups().filter(group => sideGroups.includes(group));
+      },
+      children: group => groupList(group, true)
+    }));
+    libs.insert(_el$30, libs.createComponent(libs.For, {
+      each: [{
+        currency: "crystal",
+        name: "Crystal",
+        icon: "DefIcon",
+        color: "gradient(linear, 0% 0%, 0% 100%, from(#D7A0E5), to(#e2d3e6))"
       }, {
-        _v$: undefined,
-        _v$2: undefined,
-        _v$3: undefined,
-        _v$4: undefined
-      });
-      return _el$;
-    }
-  });
+        currency: "score",
+        name: "Score",
+        icon: "PracticeIcon",
+        color: "gradient(linear, 0% 0%, 0% 100%, from(#de5d17), to(#eac769))"
+      }],
+      children: resource => (() => {
+        const _el$47 = libs.createElement("Panel", {}, null),
+          _el$48 = libs.createElement("Label", {
+            get text() {
+              return "#Money" + resource.name;
+            }
+          }, _el$47),
+          _el$49 = libs.createElement("Panel", {}, _el$47),
+          _el$50 = libs.createElement("Image", {
+            get ["class"]() {
+              return resource.icon;
+            }
+          }, _el$49),
+          _el$51 = libs.createElement("Label", {
+            get style() {
+              return {
+                verticalAlign: "center",
+                color: resource.color
+              };
+            },
+            get text() {
+              return Math.floor(balance()?.[resource.currency] ?? 0);
+            }
+          }, _el$49);
+        libs.setProp(_el$47, "style", {
+          flowChildren: "down",
+          horizontalAlign: "center"
+        });
+        libs.setProp(_el$47, "onmouseover", self => $.DispatchEvent("DOTAShowTextTooltip", self, "#Money" + resource.name + "_Description"));
+        libs.setProp(_el$47, "onmouseout", self => $.DispatchEvent("DOTAHideTextTooltip", self));
+        libs.setProp(_el$48, "style", {
+          horizontalAlign: "center"
+        });
+        libs.setProp(_el$49, "style", {
+          horizontalAlign: "center",
+          flowChildren: "right"
+        });
+        libs.effect(_p$ => {
+          const _v$17 = "#Money" + resource.name,
+            _v$18 = resource.icon,
+            _v$19 = {
+              verticalAlign: "center",
+              color: resource.color
+            },
+            _v$20 = Math.floor(balance()?.[resource.currency] ?? 0);
+          _v$17 !== _p$._v$17 && (_p$._v$17 = libs.setProp(_el$48, "text", _v$17, _p$._v$17));
+          _v$18 !== _p$._v$18 && (_p$._v$18 = libs.setProp(_el$50, "class", _v$18, _p$._v$18));
+          _v$19 !== _p$._v$19 && (_p$._v$19 = libs.setProp(_el$51, "style", _v$19, _p$._v$19));
+          _v$20 !== _p$._v$20 && (_p$._v$20 = libs.setProp(_el$51, "text", _v$20, _p$._v$20));
+          return _p$;
+        }, {
+          _v$17: undefined,
+          _v$18: undefined,
+          _v$19: undefined,
+          _v$20: undefined
+        });
+        return _el$47;
+      })()
+    }));
+    libs.insert(_el$34, libs.createComponent(libs.For, {
+      get each() {
+        return groups().filter(group => !sideGroups.includes(group));
+      },
+      children: group => groupList(group, false)
+    }));
+    libs.setProp(_el$35, "style", {
+      width: "100%",
+      height: "180px",
+      backgroundColor: "#00000077",
+      verticalAlign: "bottom",
+      zIndex: 5,
+      backgroundSize: "cover"
+    });
+    libs.insert(_el$36, libs.createComponent(libs.For, {
+      get each() {
+        return layout().lines;
+      },
+      children: line => (() => {
+        const _el$52 = libs.createElement("Panel", {
+          "class": "Connector",
+          get style() {
+            return {
+              width: `${line.width}px`,
+              x: `${line.x}px`,
+              y: `${line.y}px`,
+              transform: `rotateZ(${line.angle}deg)`
+            };
+          }
+        }, null);
+        libs.effect(_$p => libs.setProp(_el$52, "style", {
+          width: `${line.width}px`,
+          x: `${line.x}px`,
+          y: `${line.y}px`,
+          transform: `rotateZ(${line.angle}deg)`
+        }, _$p));
+        return _el$52;
+      })()
+    }));
+    libs.insert(_el$37, libs.createComponent(libs.For, {
+      get each() {
+        return layout().nodes;
+      },
+      children: node => icon(node.name, {
+        x: `${node.x}px`,
+        y: `${node.y}px`
+      })
+    }));
+    libs.setProp(_el$38, "style", {
+      horizontalAlign: "right",
+      height: "176px"
+    });
+    libs.setProp(_el$44, "onactivate", self => {
+      if (active()) $.DispatchEvent("DOTAHUDStashGrabAll", self);
+    });
+    libs.insert(_el$46, libs.createComponent(libs.For, {
+      each: [9, 10, 11, 12, 13, 14],
+      children: slot => libs.createComponent(StashSlot, {
+        slot: slot,
+        get item() {
+          return held().find(item => item.slot === slot);
+        },
+        get active() {
+          return active();
+        },
+        get runId() {
+          return runId();
+        },
+        onselect: select,
+        oncontext: context
+      })
+    }));
+    libs.effect(_p$ => {
+      const _v$14 = {
+          ShopOpen: open() && active()
+        },
+        _v$15 = {
+          DayTime: clock().day,
+          NightTime: !clock().day
+        },
+        _v$16 = `${String(clock().hour).padStart(2, "0")}:${String(clock().min).padStart(2, "0")}`;
+      _v$14 !== _p$._v$14 && (_p$._v$14 = libs.setProp(_el$19, "classList", _v$14, _p$._v$14));
+      _v$15 !== _p$._v$15 && (_p$._v$15 = libs.setProp(_el$24, "classList", _v$15, _p$._v$15));
+      _v$16 !== _p$._v$16 && (_p$._v$16 = libs.setProp(_el$28, "text", _v$16, _p$._v$16));
+      return _p$;
+    }, {
+      _v$14: undefined,
+      _v$15: undefined,
+      _v$16: undefined
+    });
+    return _el$18;
+  })();
 }
 
 function TaskPanel(props) {
