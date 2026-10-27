@@ -334,6 +334,10 @@ class CDamageSystem extends CModule {
 			if (!IsValid(params.target)) return;
 
 			Event.Fire("damage_event", params as DamageEvent);
+			if (IsValid(attacker) && IsValid(target) && params.damage_category === DamageCategory_t.DOTA_DAMAGE_CATEGORY_ATTACK
+				&& !params.is_cleave && ((params.attack_states ?? 0) & (ATTACK_STATES.NOT_PROCESSPROCS | ATTACK_STATES.FAKEATTACK)) === 0) {
+				Event.FireUnit("attack_landed", { attacker, target, record: params.record, attack_states: params.attack_states }, attacker, target);
+			}
 			if (!IsValid(params.target)) {
 				return;
 			}

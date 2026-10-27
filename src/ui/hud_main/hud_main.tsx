@@ -1,10 +1,11 @@
 import { render } from "@bigciba/solid-panorama-runtime";
 import classNames from "classnames";
 import { Show } from "solid-js";
+import { useNetTable } from "solid-panorama-all-in-jsx/events.macro";
 import { GameVote } from "../../components/game_lifecycle/GameVote";
 import { RunResourcesPanel } from "../../components/game_lifecycle/RunResourcesPanel";
+import { LowerHud } from "../../components/lower_hud/LowerHud";
 import { ShopPanel } from "../../components/shop/shop";
-import { useNetTable } from "solid-panorama-all-in-jsx/events.macro";
 import { TaskPanel } from "../../components/task/TaskPanel";
 import { createNetDataSignal } from "../../utils/solid_utils";
 import "./hud_main.less";
@@ -14,7 +15,6 @@ function HudMain() {
 	const resources = useNetTable("common", "run_resources");
 	const gold = () => resources()?.run_id === state()?.run_id ? resources()?.players[String(Players.GetLocalPlayer())]?.gold ?? 0 : 0;
 
-	GetLocalization("#TowerProtect_description")
 	return <Panel id="AthenaMainRoot" hittest={false}>
 		<RunResourcesPanel snapshot={state()} />
 		<ShopPanel snapshot={state()} />
@@ -54,19 +54,7 @@ function HudMain() {
 				</Button>
 			</Panel>
 		</Panel>
-		{/* 操作面板 */}
-		<Panel id="ActionPanel" >
-			<Panel id="LeftPart">
-				<DOTAPortrait />
-				<Panel id="LeftPartSkin" />
-			</Panel>
-			<Panel id="CenterPart">
-
-			</Panel>
-			<Panel id="RightPart">
-
-			</Panel>
-		</Panel>
+		<LowerHud snapshot={state()} />
 		{/* 商店 */}
 		<Panel id="ShopPanel">
 			<Panel id="shop_launcher_bg" >

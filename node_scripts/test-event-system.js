@@ -160,7 +160,7 @@ test('充能增减、封顶无变化、刷新归零均经真实覆盖层通知�
 	c.CDOTABaseAbility = {}; c.C_DOTABaseAbility = {}; c.CDOTA_Ability_Lua = {}; c.KeyValues.abilities = {}; caster.UpdateAbilityNetData = () => {};
 	f.load('override/CDOTABaseAbility');
 	const ability = Object.assign(Object.create(c.CDOTABaseAbility), { __Charge: 1, __ChargeRestoreTime: 0,
-		GetCaster: () => caster, GetMaxCharges: () => 2, GetChargeRestoreTime: () => 10, GetAbilityName: () => 'charge_test',
+		IsItem: () => false, GetCaster: () => caster, GetMaxCharges: () => 2, GetChargeRestoreTime: () => 10, GetAbilityName: () => 'charge_test',
 		OnAbilityChargeChanged(charge, old) { order.push(['ability', charge, old]); },
 	});
 	c.Event.RegisterUnit('ability_charge_changed', event => order.push(['source', event.charge, event.old_charge]), 'source', caster);
@@ -175,7 +175,7 @@ test('真实技能单位监听随创建/销毁管理，充能刷新不会重复�
 	const f = dotaFixture(), c = f.context, caster = f.unit('ability_owner', {}, true); let calls = 0;
 	c.CDOTABaseAbility = {}; c.C_DOTABaseAbility = {}; c.CDOTA_Ability_Lua = {}; c.KeyValues.abilities = {};
 	f.load('override/CDOTABaseAbility');
-	const ability = Object.assign(Object.create(c.CDOTABaseAbility), { GetCaster: () => caster, GetAbilityName: () => 'listener_test', GetAbilityTag: () => -1, GetName: () => 'listener_test', entindex: () => 100,
+	const ability = Object.assign(Object.create(c.CDOTABaseAbility), { IsItem: () => false, GetCaster: () => caster, GetAbilityName: () => 'listener_test', GetAbilityTag: () => -1, GetName: () => 'listener_test', entindex: () => 100,
 		UnitEventListener() { return { reborn: { source: function () { assert.equal(this, ability); calls++; } } }; },
 	});
 	ability.__OnCreated(); ability.__OnRefresh(); c.Event.FireUnit('reborn', { unit: caster }, caster); assert.equal(calls, 1);

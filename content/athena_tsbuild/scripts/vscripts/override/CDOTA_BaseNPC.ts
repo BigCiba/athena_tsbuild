@@ -5,6 +5,8 @@
 //********************************************************************************
 declare interface CDOTA_BaseNPC {
 	IsFriendly(target: CDOTA_BaseNPC): boolean;
+	/** 原版专属 modifier 是等级来源；装备与转生玩法后续接入。 */
+	GetScepterLevel(): number;
 	/** 获取属性 */
 	GetProperty(property: PropertyFunction): number;
 	/** 旧版永久属性入口，实际数值由 PropertySystem 按来源存储。 */
@@ -124,6 +126,9 @@ BaseNPC.GiveMana = function (mana) {
 	Event.Fire("give_mana", { unit: this, manaAmount: mana });
 };
 BaseNPC.GetMaxHealth_Engine ??= BaseNPC.GetMaxHealth;
+BaseNPC.GetScepterLevel = function () {
+	return math.max(0, this.FindModifierByName("modifier_scepter_custom")?.GetStackCount() ?? 0);
+};
 BaseNPC.GetMaxHealth = function () {
 	return GetAthenaMaxHealth(this);
 };
@@ -611,7 +616,7 @@ if (IsServer()) {
 				abilityTag == AbilityTag.Skill ||
 				abilityTag == AbilityTag.Dodge ||
 				abilityTag == AbilityTag.Defense ||
-				abilityTag == AbilityTag.Ultimate
+				abilityTag == AbilityTag.Ultimate || (abilityTag == AbilityTag.None && !ability.IsItem())
 			) {
 				damage_category = DamageCategory_t.DOTA_DAMAGE_CATEGORY_SPELL;
 			}
@@ -779,6 +784,10 @@ if (IsServer()) {
 		if (!this.IsRealHero()) {
 			return;
 		}
+		for (let slot = 0; slot < this.GetAbilityCount(); slot++) {
+			const ability = this.GetAbilityByIndex(slot);
+			if (IsValid(ability) && typeof ability.GetMaxCharges === "function") abilities.push(ability);
+		}
 		CustomNetTables.SetNetData("unit", this.entindex().toString(), {
 			items: this.__items,
 			abilities: abilities.map(ability => {
@@ -802,6 +811,7 @@ if (IsServer()) {
 				ability.__OnCreated();
 			}
 		}
+		this.UpdateAbilityNetData();
 	};
 	CDOTA_BaseNPC.CallAbilityRefresh = function () {
 		for (let i = 0; i < this.GetAbilityCount(); i++) {
@@ -810,6 +820,7 @@ if (IsServer()) {
 				ability.__OnRefresh();
 			}
 		}
+		this.UpdateAbilityNetData();
 	};
 	CDOTA_BaseNPC.CallAbilityDestroy = function () {
 		for (let i = 0; i < this.GetAbilityCount(); i++) {

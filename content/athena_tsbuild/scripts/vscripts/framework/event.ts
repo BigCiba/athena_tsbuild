@@ -7,7 +7,7 @@ declare global {
 	type EventListenerMap = { [K in keyof EventCallback]: (data: EventCallback[K]) => void };
 	/** 原版 EDeclareFunctions：来源、目标精确匹配实体，全局监听不限制单位。 */
 	type UnitEventRole = "source" | "target" | "global";
-	type UnitEventName = "valid_ability_executed" | "cleave" | "ability_charge_changed" | "reborn" | "item_devoured" | "tick_time" | "crit_event" | "attack_projectile_disabled" | "scepter_levelup" | "attack_start_custom";
+	type UnitEventName = "valid_ability_executed" | "cleave" | "ability_charge_changed" | "reborn" | "item_devoured" | "tick_time" | "crit_event" | "attack_projectile_disabled" | "scepter_levelup" | "attack_start_custom" | "attack_landed";
 	type UnitEventListenerMap = { [K in UnitEventName]: Partial<Record<UnitEventRole, (data: EventCallback[K]) => void>> };
 	interface UnitEventRoute { source?: CDOTA_BaseNPC; target?: CDOTA_BaseNPC; }
 
@@ -31,6 +31,8 @@ declare global {
 		/** 原版仅声明未发出的事件，暂不生成触发点。 */
 		scepter_levelup: { unit: CDOTA_BaseNPC; level: number; };
 		attack_start_custom: { attacker: CDOTA_BaseNPC; target?: CDOTA_BaseNPC; };
+		/** 普攻实际命中；法术、分裂、闪避与禁止触发攻击特效的攻击不发布。 */
+		attack_landed: { attacker: CDOTA_BaseNPC; target: CDOTA_BaseNPC; record?: number; attack_states?: ATTACK_STATES; };
 		/** 原版全局事件预留：目前没有对应玩法消费者，不伪造连接/背包触发。 */
 		player_first_spawned: { PlayerID: PlayerID; userid: number; };
 		player_reconnect: { PlayerID: PlayerID; userid: number; };

@@ -6,6 +6,11 @@
 		<include src="s2r://panorama/styles/custom_ui.vcss_c" />
 		<include src="s2r://panorama/styles/hud/dota_hud_shop.vcss_c" />
 		<include src="s2r://panorama/styles/hud/dota_hud_stash.vcss_c" />
+		<!-- 自绘 HUD 复用官方技能、物品、血蓝条和属性样式。 -->
+		<include src="s2r://panorama/styles/hud/dota_hud_ability_panel.vcss_c" />
+		<include src="s2r://panorama/styles/hud/dota_hud_inventory.vcss_c" />
+		<include src="s2r://panorama/styles/hud/dota_hud_health_mana.vcss_c" />
+		<include src="s2r://panorama/styles/hud/dota_hud_stats_region.vcss_c" />
 	</styles>
 	<scripts></scripts>
 	<Panel class="CustomHudRoot" hittest="false"></Panel>

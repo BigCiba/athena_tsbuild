@@ -828,6 +828,10 @@ var StateEnum;
     StateEnum[StateEnum["TELEPORT_DISABLE"] = 16] = "TELEPORT_DISABLE";
     /** 雅典娜：自定义恐惧标记，AI 同时尊重此状态和引擎 IsFeared。 */
     StateEnum[StateEnum["FEAR"] = 17] = "FEAR";
+    /** 由 modifier_common 桥接为引擎眩晕。 */
+    StateEnum[StateEnum["STUNNED"] = 18] = "STUNNED";
+    /** 只影响寻路，不改变移动能力。 */
+    StateEnum[StateEnum["FLYING_FOR_PATHING_PURPOSES_ONLY"] = 19] = "FLYING_FOR_PATHING_PURPOSES_ONLY";
 })(StateEnum || (StateEnum = {}));
 /** 支付类型 */
 var PayType;

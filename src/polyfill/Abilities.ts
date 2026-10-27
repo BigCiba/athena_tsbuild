@@ -1,5 +1,7 @@
 
 declare interface CScriptBindingPR_Abilities {
+	/** 当前客户端必传 bToUpgrade；仅查询升级状态时传 false，上游类型仍是旧的单参数声明。 */
+	CanAbilityBeUpgraded(abilityEntIndex: AbilityEntityIndex, bToUpgrade: boolean): AbilityLearnResult_t;
 	GetChargeRestoreTime(abilityEntIndex: AbilityEntityIndex): number;
 	GetCharge(abilityEntIndex: AbilityEntityIndex): number;
 	GetMaxCharge(abilityEntIndex: AbilityEntityIndex): number;

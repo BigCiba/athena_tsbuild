@@ -58,7 +58,8 @@ export class CShop extends CModule {
 		for (const [group, names] of pairs(definitions)) {
 			const list: AthenaShopEntry[] = [];
 			for (const name of Object.keys(names)) {
-				const raw = KeyValues.items[name], kv = typeof raw === "object" ? raw : {};
+		const raw = KeyValues.items[name];
+		const kv = typeof raw === "object" ? raw : {};
 				const currency = this.Currency(kv), price = typeof raw === "object" ? this.BasePrice(name) : undefined;
 				const entry: AthenaShopEntry = { name, currency, price: price ?? 0, ingredients: this.recipes[name] ?? [] };
 				// 展示严格遵循原版商店配置；交易能力独立维护，不能用未迁移脚本删除目录项。

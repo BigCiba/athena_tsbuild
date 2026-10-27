@@ -225,7 +225,7 @@ DOTABaseAbility.GetMaxCharges = function () {
 	if (charge > 0) {
 		return 1 + charge;
 	}
-	return 0;
+	return math.max(0, tonumber(KeyValues.abilities[this.GetAbilityName()]?.CustomAbilityCharges) ?? 0);
 };
 DOTABaseAbility.GetCharges = function () {
 	return this.__Charge;
@@ -437,6 +437,7 @@ if (IsServer()) {
 		// 自动添加属性item_前缀属性
 		const abilityName = this.GetAbilityName();
 		const kv = KeyValues.abilities[abilityName] ?? KeyValues.items[abilityName];
+		if ((tonumber(kv?.CustomAbilityCharges) ?? 0) > 0) this.__Charge = this.GetMaxCharges();
 		if (!this.IsItem() && kv != undefined && kv.AbilityValues != undefined && kv.AbilityValues != "") {
 			for (const [k, valueData] of pairs(kv.AbilityValues)) {
 				if ((k as string).startsWith("item_")) {
@@ -463,7 +464,7 @@ if (IsServer()) {
 			abilityTag == AbilityTag.Skill ||
 			abilityTag == AbilityTag.Dodge ||
 			abilityTag == AbilityTag.Defense ||
-			abilityTag == AbilityTag.Ultimate
+			abilityTag == AbilityTag.Ultimate || (tonumber(kv?.CustomAbilityCharges) ?? 0) > 0
 		) {
 			this.StartThink(0, "ChargeRestore", () => {
 				if (this.GetMaxCharges() <= 0) return 0;
@@ -489,6 +490,7 @@ if (IsServer()) {
 		this.__IsChargeCooldownFrozen = false;
 		this.__ChargeFrozenCooldownRemaining = 0;
 		const caster = this.GetCaster();
+		if ((tonumber(KeyValues.abilities[this.GetAbilityName()]?.CustomAbilityCharges) ?? 0) > 0) this.__Charge = this.GetMaxCharges();
 		if (this.StaticProperty != undefined) {
 			for (const [property, value] of pairs(this.StaticProperty())) {
 				if (PROPERTY_MAP_REVERSE[property]) {
@@ -649,7 +651,7 @@ if (IsServer()) {
 			const wasChargeCooldownFrozen = this.IsChargeCooldownFrozen();
 			const frozenCooldownRemaining = this.__ChargeFrozenCooldownRemaining ?? 0;
 			this.__Charge -= 1;
-			if (this.__ChargeRestoreTime < GameRules.GetGameTime()) {
+			if (oldCharge === this.GetMaxCharges() || this.__ChargeRestoreTime <= GameRules.GetGameTime()) {
 				this.__ChargeRestoreTime = GameRules.GetGameTime() + this.GetChargeRestoreTime();
 			}
 			if (wasChargeCooldownFrozen) {
@@ -664,6 +666,7 @@ if (IsServer()) {
 	CDOTABaseAbility.RestoreCharges = function (charges = 1) {
 		const oldCharge = this.__Charge;
 		this.__Charge = math.min(this.__Charge + charges, this.GetMaxCharges());
+		if (oldCharge === 0 && this.__Charge > 0 && (tonumber(KeyValues.abilities[this.GetAbilityName()]?.CustomAbilityCharges) ?? 0) > 0) this.EndCooldown();
 		if (this.__Charge < this.GetMaxCharges()) {
 			this.__ChargeRestoreTime = GameRules.GetGameTime() + this.GetChargeRestoreTime();
 		} else {

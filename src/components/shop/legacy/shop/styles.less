@@ -1,18 +1,19 @@
-@import "../elements/AbilityPanel/styles.less";
-
-.ShopRoot {
+.ShopRoot
+{
 	width: 100%;
 	height: 100%;
 }
 
 
-.ShopHeader {
+.ShopHeader
+{
 	width: 100%;
 	height: 50px;
 	background-color: #00000077;
 	padding: 8px 12px 8px 12px;
 
-	.HeaderLabel {
+	.HeaderLabel
+	{
 		text-align: left;
 		horizontal-align: center;
 		font-size: 22px;
@@ -24,7 +25,8 @@
 	}
 }
 
-#ShopMain {
+#ShopMain
+{
 	align: right top;
 	// width: 400px;
 	// box-shadow: 0px 0px 24px #00000066;
@@ -38,32 +40,38 @@
 	transition-duration: 0.1s;
 	transition-timing-function: ease-in-out;
 
-	.ShopContainer {
+	.ShopContainer
+	{
 		flow-children: right;
 	}
 
-	.NormalShop {
+	.NormalShop
+	{
 		background-color: gradient(linear, 0% 0%, 0% 25%, from(#232326), to(#1c1d20));
 		box-shadow: #00000099 0px 0px 8px 0px;
 		border: 2px solid #32383677;
 		flow-children: down;
 	}
 
-	.ExtraShopContainer {
+	.ExtraShopContainer
+	{
 		height: 100%;
 		flow-children: down;
 	}
 
-	&.ShopOpen {
+	&.ShopOpen
+	{
 		transform: translateX(0px);
 		sound: "Shop.PanelUp";
 
 		#ShopItemContainer,
-		#RecipeMain {
+		#RecipeMain
+		{
 			// transform: translateX(0px);
 			opacity: 1;
 
-			.ShopItem {
+			.ShopItem
+			{
 				width: 42px;
 				height: width-percentage(72.7%);
 				margin-top: 1px;
@@ -71,7 +79,8 @@
 				margin-right: 3px;
 				margin-left: 2px;
 
-				&.CanPurchase #CustomItemImageBorder {
+				&.CanPurchase #CustomItemImageBorder
+				{
 					z-index: 10;
 					background-image: url("s2r://panorama/images/hud/shopborder_canpurchase_psd.vtex");
 					background-size: 100%;
@@ -82,60 +91,71 @@
 		}
 	}
 
-	.SideShop {
+	.SideShop
+	{
 		height: 100%;
 		background-color: gradient(linear, 0% 0%, 0% 25%, from(#232326), to(#1c1d20));
 		box-shadow: #00000099 0px 0px 8px 0px;
 		border: 2px solid #32383677;
 		flow-children: down;
 
-		.ClockPanel {
+		.ClockPanel
+		{
 			width: 80px;
 			height: 36px;
 			flow-children: right;
 			horizontal-align: center;
 
-			.IconContainer {
+			.IconContainer
+			{
 				width: 36px;
 				height: 36px;
 				horizontal-align: center;
 				vertical-align: center;
 			}
 
-			.TimeIcon {
+			.TimeIcon
+			{
 				width: 36px;
 				height: 36px;
 				background-size: 100%;
 				opacity: 0;
 			}
 
-			.TimeLabel {
+			.TimeLabel
+			{
 				horizontal-align: center;
 				vertical-align: center;
 				color: white;
 			}
 
-			&.DayTime .Sun {
+			&.DayTime .Sun
+			{
 				opacity: 1;
 			}
 
-			&.NightTime .Moon {
+			&.NightTime .Moon
+			{
 				opacity: 1;
 			}
 
-			.Sun {
+			.Sun
+			{
 				background-image: url("s2r://panorama/images/hud/reborn/icon_sun_psd.vtex");
 			}
 
-			.Moon {
+			.Moon
+			{
 				background-image: url("s2r://panorama/images/hud/reborn/icon_moon_psd.vtex");
 			}
 		}
 
-		#ShopItemContainer.SideShopItemContainer {
+		#ShopItemContainer.SideShopItemContainer
+		{
 			width: 200px;
 
-			.ShopItem {
+			.ShopItem
+			{
 				width: 66px;
 				height: width-percentage(72.7%);
 				margin-top: 4px;
@@ -143,7 +163,8 @@
 				margin-right: 10px;
 				margin-left: 2px;
 
-				&.CanPurchase #CustomItemImageBorder {
+				&.CanPurchase #CustomItemImageBorder
+				{
 					z-index: 10;
 					background-image: url("s2r://panorama/images/hud/shopborder_canpurchase_psd.vtex");
 					background-size: 100%;
@@ -152,16 +173,19 @@
 				}
 			}
 
-			.ShopItemsList {
+			.ShopItemsList
+			{
 				margin-bottom: 10px;
 
-				.ShopItemsHeader {
+				.ShopItemsHeader
+				{
 					horizontal-align: center;
 				}
 			}
 		}
 
-		.MoneyContainer {
+		.MoneyContainer
+		{
 			vertical-align: bottom;
 			margin-bottom: 20px;
 			width: 100%;
@@ -172,7 +196,8 @@
 }
 
 
-#ShopItemContainer {
+#ShopItemContainer
+{
 	height: 550px;
 	width: 402px;
 	// background-image: url("s2r://panorama/images/hud/reborn/bg_mainshop_psd.vtex");
@@ -180,13 +205,15 @@
 	flow-children: right-wrap;
 }
 
-.ShopItemsList {
+.ShopItemsList
+{
 	flow-children: down;
 	width: 200px;
 	padding: 2px;
 	padding-right: 6px;
 
-	.ShopItemsHeader {
+	.ShopItemsHeader
+	{
 		text-transform: uppercase;
 		font-size: 14px;
 		padding: 5px 5px 3px 5px;
@@ -197,11 +224,13 @@
 		font-family: defaultFont;
 	}
 
-	.ShopItemsContainer {
+	.ShopItemsContainer
+	{
 		flow-children: right-wrap;
 		horizontal-align: center;
 
-		.ShopItem {
+		.ShopItem
+		{
 			width: 42px;
 			height: width-percentage(72.7%);
 			margin-top: 1px;
@@ -209,7 +238,8 @@
 			margin-right: 3px;
 			margin-left: 2px;
 
-			&.CanPurchase #CustomItemImageBorder {
+			&.CanPurchase #CustomItemImageBorder
+			{
 				z-index: 10;
 				background-image: url("s2r://panorama/images/hud/shopborder_canpurchase_psd.vtex");
 				background-size: 100%;
@@ -228,13 +258,15 @@
 @define FirstStop: 0.45;
 @define SecondStop: 0.55;
 
-#ConnectorsContainer {
+#ConnectorsContainer
+{
 	width: 100%;
 	height: 100%;
 	overflow: clip;
 	// z-index: 100;
 
-	.Connector {
+	.Connector
+	{
 		height: 3px;
 		border-radius: 1px;
 		transform-origin: 0% 50%;
@@ -246,12 +278,14 @@
 	}
 }
 
-#ItemsContainer {
+#ItemsContainer
+{
 	width: 100%;
 	height: 100%;
 	overflow: clip;
 
-	.ShopItem {
+	.ShopItem
+	{
 		width: 44px;
 		height: width-percentage(72.7%); //29
 		margin-top: 1px;
@@ -265,21 +299,24 @@
 	}
 }
 
-.DefIcon {
+.DefIcon
+{
 	width: 24px;
 	height: 24px;
 	background-image: url("file://{images}/custom_game/icon/score.png");
 	background-size: 100%;
 }
 
-.PracticeIcon {
+.PracticeIcon
+{
 	width: 24px;
 	height: 24px;
 	background-image: url("file://{images}/custom_game/icon/power.png");
 	background-size: 100%;
 }
 
-.SideCostCrystal {
+.SideCostCrystal
+{
 	margin-left: 2px;
 	vertical-align: bottom;
 	// background-image: url("s2r://panorama/images/hud/goldamount_bg_png.vtex");
@@ -289,7 +326,8 @@
 	height: 16px;
 	vertical-align: bottom;
 
-	Label {
+	Label
+	{
 		margin-left: 2px;
 		vertical-align: bottom;
 		font-size: 14px;
@@ -298,7 +336,8 @@
 	}
 }
 
-.SideCostScore {
+.SideCostScore
+{
 	margin-left: 2px;
 	vertical-align: bottom;
 	// background-image: url("s2r://panorama/images/hud/goldamount_bg_png.vtex");
@@ -308,7 +347,8 @@
 	height: 16px;
 	vertical-align: bottom;
 
-	Label {
+	Label
+	{
 		margin-left: 2px;
 		vertical-align: bottom;
 		font-size: 14px;
@@ -317,11 +357,13 @@
 	}
 }
 
-.InventoryItem {
+.InventoryItem
+{
 	margin-right: 3px;
 }
 
-.Reborn .InventoryItem #ButtonSize {
+.Reborn .InventoryItem #ButtonSize
+{
 	width: 38px;
 	height: 28px; //29
 	margin-top: 2px;
@@ -330,11 +372,13 @@
 	margin-right: 0px;
 }
 
-.Reborn #stash {
+.Reborn #stash
+{
 	width: fit-children;
 }
 
-#dragImage {
+#dragImage
+{
 	width: 72px;
 	height: 54px;
 	box-shadow: none;

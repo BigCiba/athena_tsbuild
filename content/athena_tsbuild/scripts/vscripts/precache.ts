@@ -11,6 +11,7 @@ return {
 		"particles/status_fx",
 		"particles/warning",
 		"particles/skin",
+		"particles/units/heroes/hero_omniknight",
 	],
 	soundfile: [
 		"soundevents/voscripts/game_sounds_vo_seraphon.vsndevts",

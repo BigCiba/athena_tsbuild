@@ -39,6 +39,10 @@ enum StateEnum {
 	TELEPORT_DISABLE,
 	/** 雅典娜：自定义恐惧标记，AI 同时尊重此状态和引擎 IsFeared。 */
 	FEAR,
+	/** 由 modifier_common 桥接为引擎眩晕。 */
+	STUNNED,
+	/** 只影响寻路，不改变移动能力。 */
+	FLYING_FOR_PATHING_PURPOSES_ONLY,
 }
 
 /** 支付类型 */

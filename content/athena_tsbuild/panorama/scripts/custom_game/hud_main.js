@@ -129,6 +129,1005 @@ function RunResourcesPanel(props) {
   });
 }
 
+const finite = (value, fallback = 0) => Number.isFinite(Number(value)) ? Number(value) : fallback;
+const invalid = -1;
+function emptyLowerHudState() {
+  return {
+    unit: invalid,
+    controllable: false,
+    alive: false,
+    hero: false,
+    multiSelection: false,
+    learnMode: false,
+    points: 0,
+    abilities: [],
+    items: Array.from({
+      length: 9
+    }),
+    health: 0,
+    maxHealth: 0,
+    mana: 0,
+    maxMana: 0,
+    healthRegen: 0,
+    manaRegen: 0,
+    attack: 0,
+    attackSpeed: 0,
+    armor: 0,
+    reduction: 0,
+    movement: 0,
+    attributes: [0, 0, 0]
+  };
+}
+function hudAttribute(unit, stat) {
+  if (!Entities.IsHero(unit)) return 0;
+  const p = name => finite(Entities.GetPropertyValue(unit, name, false));
+  const original = Math.floor(p("base_" + stat) + (Entities.GetLevel(unit) - 1) * p(stat + "_gain"));
+  const base = Math.max(0, original + Math.floor(p("stats_" + stat + "_base") + p("stats_all_base")));
+  return Math.max(0, Math.floor((base * (1 + (p("stats_" + stat + "_base_percentage") + p("stats_all_base_percentage")) * 0.01) + p("stats_" + stat + "_bonus") + p("stats_all_bonus")) * (1 + (p("stats_" + stat + "_percentage") + p("stats_all_percentage")) * 0.01)));
+}
+function readLowerHudState() {
+  const unit = Players.GetLocalPlayerPortraitUnit();
+  if (unit < 0 || !Entities.IsValidEntity(unit)) return emptyLowerHudState();
+  const controllable = Entities.IsControllableByPlayer(unit, Players.GetLocalPlayer());
+  const net = getNetDataKey("unit", String(unit));
+  const actions = (entity, slot, item) => {
+    const charge = Object.values(net?.abilities ?? {}).find(entry => entry.entIndex === entity);
+    const maxCharges = item ? 0 : finite(charge?.maxCharge);
+    const charges = item ? finite(Items.GetCurrentCharges(entity)) : finite(charge?.charge);
+    const restore = charge?.isChargeCooldownFrozen ? finite(charge.chargeFrozenCooldownRemaining) : Math.max(0, finite(charge?.chargeRestoreTime) - Game.GetGameTime());
+    return {
+      entity,
+      name: Abilities.GetAbilityName(entity),
+      slot,
+      item,
+      level: Abilities.GetLevel(entity),
+      maxLevel: Abilities.GetMaxLevel(entity),
+      cooldown: Math.max(0, finite(Abilities.GetCooldownTimeRemaining(entity)), maxCharges > 0 && charges <= 0 ? restore : 0),
+      cooldownLength: Math.max(0, finite(Abilities.GetCooldownLength(entity))),
+      mana: Math.max(0, finite(Abilities.GetManaCost(entity))),
+      hotkey: item ? slot < 6 ? Game.GetKeybindForInventorySlot(slot) : "" : Abilities.GetKeybind(entity),
+      passive: Abilities.IsPassive(entity),
+      canUpgrade: !item && controllable && Abilities.CanAbilityBeUpgraded(entity, false) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED,
+      active: Abilities.GetToggleState(entity) || Abilities.GetAutoCastState(entity),
+      charges,
+      maxCharges,
+      restore
+    };
+  };
+  const abilities = [];
+  for (let slot = 0; slot < Entities.GetAbilityCount(unit); slot++) {
+    const entity = Entities.GetAbility(unit, slot);
+    if (entity < 0 || !Entities.IsValidEntity(entity) || !Abilities.IsDisplayedAbility(entity)) continue;
+    abilities.push(actions(entity, slot, false));
+  }
+  const items = Array.from({
+    length: 9
+  }, (_, slot) => {
+    const entity = Entities.GetItemInSlot(unit, slot);
+    return entity >= 0 && Entities.IsValidEntity(entity) ? actions(entity, slot, true) : undefined;
+  });
+  const largeHealth = CustomNetTables.GetTableValue("large_number_health", String(unit));
+  const maxHealth = Math.max(0, finite(largeHealth?.maximum, Entities.GetMaxHealth(unit)));
+  const attributes = [hudAttribute(unit, "strength"), hudAttribute(unit, "agility"), hudAttribute(unit, "intellect")];
+  const selected = Players.GetSelectedEntities(Players.GetLocalPlayer());
+  const p = name => finite(Entities.GetPropertyValue(unit, name, false));
+  return {
+    unit,
+    controllable,
+    alive: Entities.IsAlive(unit),
+    hero: Entities.IsHero(unit),
+    multiSelection: selected.length > 1 && selected.indexOf(unit) >= 0,
+    learnMode: Game.IsInAbilityLearnMode(),
+    points: Entities.GetAbilityPoints(unit),
+    abilities,
+    items,
+    attributes,
+    health: Math.max(0, Math.min(maxHealth, finite(largeHealth?.current, Entities.GetHealth(unit)))),
+    maxHealth,
+    mana: Math.max(0, finite(Entities.GetMana(unit))),
+    maxMana: Math.max(0, finite(Entities.GetMaxMana(unit))),
+    healthRegen: Math.max(0, p("base_health_regen") + attributes[0] * 0.16 + p("base_health_regen_constant") + p("base_health_regen_constant_str")) + p("health_regen_constant") + p("health_regen_percentage") * maxHealth * 0.01,
+    manaRegen: Math.max(0, p("base_mana_regen")) + attributes[2] * 0.08 + p("base_mana_regen_constant_int") + p("mana_regen_constant") + p("mana_regen_constant_unique") + p("mana_regen_percentage") * Entities.GetMaxMana(unit) * 0.01,
+    attack: (Entities.GetDamageMin(unit) + Entities.GetDamageMax(unit)) * 0.5 + Entities.GetDamageBonus(unit),
+    attackSpeed: finite(Entities.GetAttackSpeed(unit)) * 100,
+    armor: finite(Entities.GetPhysicalArmorValue(unit)),
+    reduction: Math.max(0, p("damage_reduction")),
+    movement: finite(Entities.GetMoveSpeedModifier(unit, Entities.GetBaseMoveSpeed(unit)))
+  };
+}
+function hudNumber(value) {
+  if (!Number.isFinite(value)) return "0";
+  const magnitude = Math.abs(value);
+  for (const [threshold, suffix] of [[1e12, "T"], [1e9, "B"], [1e6, "M"], [1e3, "K"]]) {
+    if (magnitude >= threshold) return (value / threshold).toFixed(magnitude < threshold * 10 ? 1 : 0).replace(/\.0$/, "") + suffix;
+  }
+  return String(Math.floor(value));
+}
+function isCurrentHudAction(unit, action, runId) {
+  const session = getNetDataKey("common", "game_state");
+  if (!session || session.run_id !== runId || session.state !== "GameState_Battle" || Players.GetLocalPlayerPortraitUnit() !== unit || !Entities.IsValidEntity(unit) || !Entities.IsControllableByPlayer(unit, Players.GetLocalPlayer()) || !Entities.IsValidEntity(action.entity)) return false;
+  return action.item ? Entities.GetItemInSlot(unit, action.slot) === action.entity : Entities.GetAbility(unit, action.slot) === action.entity;
+}
+
+function ActionSlot(props) {
+  let panel;
+  let disposed = false;
+  const current = () => !disposed && props.action && isCurrentHudAction(props.state.unit, props.action, props.runId) ? props.action : undefined;
+  const activate = () => {
+    const action = current();
+    if (!action) return;
+    if (GameUI.IsAltDown()) {
+      Abilities.PingAbility(action.entity);
+      return;
+    }
+    if (!action.item && (GameUI.IsControlDown() || Game.IsInAbilityLearnMode())) {
+      if (Abilities.CanAbilityBeUpgraded(action.entity, false) === AbilityLearnResult_t.ABILITY_CAN_BE_UPGRADED) Abilities.AttemptToUpgrade(action.entity);
+      return;
+    }
+    if (action.item && action.slot >= 6) return;
+    Abilities.ExecuteAbility(action.entity, props.state.unit, false);
+  };
+  libs.onMount(() => {
+    if (props.slot === undefined) return;
+    const start = (_source, callbacks) => {
+      const action = current();
+      if (!action?.item) return false;
+      const image = $.CreatePanel("DOTAItemImage", $.GetContextPanel(), "");
+      image.itemname = action.name;
+      image.overrideentityindex = action.entity;
+      image.m_Slot = action.slot;
+      image.m_DragType = "InventorySlot";
+      image.m_DragCompleted = false;
+      image.shopRunId = props.runId;
+      image.style.width = "64px";
+      image.style.height = "46px";
+      callbacks.displayPanel = image;
+      callbacks.offsetX = 0;
+      callbacks.offsetY = 0;
+      return true;
+    };
+    const drop = (_source, display) => {
+      const drag = display;
+      const unit = props.state.unit;
+      if (disposed || props.slot === undefined || drag.overrideentityindex === undefined || drag.shopRunId !== props.runId || !Entities.IsValidEntity(drag.overrideentityindex) || !props.state.controllable || Abilities.GetCaster(drag.overrideentityindex) !== unit) return false;
+      const snapshot = getNetDataKey("common", "game_state");
+      if (snapshot?.run_id !== props.runId || snapshot.state !== "GameState_Battle" || Players.GetLocalPlayerPortraitUnit() !== unit) return false;
+      Game.PrepareUnitOrders({
+        UnitIndex: unit,
+        OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_MOVE_ITEM,
+        TargetIndex: props.slot,
+        AbilityIndex: drag.overrideentityindex
+      });
+      drag.m_DragCompleted = true;
+      return true;
+    };
+    const end = (_source, display) => {
+      const drag = display,
+        action = current();
+      if (action && drag.shopRunId === props.runId && drag.overrideentityindex === action.entity && !drag.m_DragCompleted) Game.DropItemAtCursor(props.state.unit, action.entity);
+      drag.DeleteAsync(0);
+      return true;
+    };
+    $.RegisterEventHandler("DragStart", panel, start);
+    $.RegisterEventHandler("DragDrop", panel, drop);
+    $.RegisterEventHandler("DragEnd", panel, end);
+  });
+  libs.onCleanup(() => {
+    disposed = true;
+  });
+  const cooldownPercent = () => Math.min(1, (props.action?.cooldown ?? 0) / Math.max(0.1, props.action?.cooldownLength ?? 0, props.action?.cooldown ?? 0));
+  return (() => {
+    const _el$ = libs.createElement("Panel", {
+        "class": "AthenaHudSlot",
+        hittest: false
+      }, null),
+      _el$2 = libs.createElement("Panel", {
+        id: "ButtonAndLevel",
+        hittest: false
+      }, _el$),
+      _el$3 = libs.createElement("Panel", {
+        id: "ButtonWithLevelUpTab",
+        hittest: false
+      }, _el$2),
+      _el$4 = libs.createElement("Button", {
+        id: "LevelUpTab"
+      }, _el$3),
+      _el$5 = libs.createElement("Panel", {
+        id: "LevelUpButton",
+        hittest: false
+      }, _el$4);
+      libs.createElement("Panel", {
+        id: "LevelUpIcon",
+        hittest: false
+      }, _el$5);
+      const _el$7 = libs.createElement("Panel", {
+        id: "ButtonWell",
+        hittest: false
+      }, _el$3),
+      _el$8 = libs.createElement("Panel", {
+        id: "ButtonSize",
+        hittest: false
+      }, _el$7),
+      _el$9 = libs.createElement("Panel", {
+        id: "AbilityButton",
+        get draggable() {
+          return props.slot !== undefined;
+        }
+      }, _el$8),
+      _el$0 = libs.createElement("Panel", {
+        id: "CostContainer",
+        hittest: false
+      }, _el$8),
+      _el$1 = libs.createElement("Panel", {
+        id: "CostChildren",
+        hittest: false
+      }, _el$0),
+      _el$10 = libs.createElement("Label", {
+        id: "ManaCost",
+        "class": "MonoNumbersFont",
+        get text() {
+          return hudNumber(props.action?.mana ?? 0);
+        },
+        hittest: false
+      }, _el$1),
+      _el$11 = libs.createElement("Panel", {
+        id: "ItemChargesContainer",
+        hittest: false
+      }, _el$1),
+      _el$12 = libs.createElement("Label", {
+        id: "ItemCharges",
+        get text() {
+          return props.action?.charges ?? 0;
+        },
+        hittest: false
+      }, _el$11),
+      _el$13 = libs.createElement("Panel", {
+        id: "HotkeyContainer",
+        hittest: false
+      }, _el$3),
+      _el$14 = libs.createElement("Panel", {
+        id: "Hotkey",
+        hittest: false
+      }, _el$13),
+      _el$15 = libs.createElement("Label", {
+        id: "HotkeyText",
+        get text() {
+          return props.action?.hotkey ?? "";
+        },
+        hittest: false
+      }, _el$14),
+      _el$16 = libs.createElement("Panel", {
+        "class": "HudChargeRestore",
+        hittest: false
+      }, _el$3),
+      _el$17 = libs.createElement("Label", {
+        "class": "MonoNumbersFont",
+        get text() {
+          return props.action?.charges ?? 0;
+        },
+        hittest: false
+      }, _el$16),
+      _el$18 = libs.createElement("Label", {
+        get text() {
+          return ` (${Math.ceil(props.action?.restore ?? 0)})`;
+        },
+        hittest: false
+      }, _el$16);
+    libs.setProp(_el$4, "onactivate", () => {
+      const action = current();
+      if (action?.canUpgrade) Abilities.AttemptToUpgrade(action.entity);
+    });
+    const _ref$ = panel;
+    typeof _ref$ === "function" ? libs.use(_ref$, _el$9) : panel = _el$9;
+    libs.setProp(_el$9, "onactivate", activate);
+    libs.setProp(_el$9, "oncontextmenu", self => {
+      const action = current();
+      if (!action) return;
+      if (action.item) props.oncontext(self, action);else if ((Abilities.GetBehavior(action.entity) & DOTA_ABILITY_BEHAVIOR.DOTA_ABILITY_BEHAVIOR_AUTOCAST) !== 0) {
+        Game.PrepareUnitOrders({
+          UnitIndex: props.state.unit,
+          OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO,
+          AbilityIndex: action.entity
+        });
+      }
+    });
+    libs.setProp(_el$9, "onmouseover", self => {
+      const action = props.action;
+      if (action) $.DispatchEvent("DOTAShowAbilityTooltipForEntityIndex", self, action.name, props.state.unit);
+    });
+    libs.setProp(_el$9, "onmouseout", self => $.DispatchEvent("DOTAHideAbilityTooltip", self));
+    libs.insert(_el$9, libs.createComponent(libs.Show, {
+      get when() {
+        return props.action;
+      },
+      children: action => [libs.createComponent(libs.Show, {
+        get when() {
+          return action().item;
+        },
+        get fallback() {
+          return (() => {
+            const _el$26 = libs.createElement("DOTAAbilityImage", {
+              id: "AbilityImage",
+              get abilityname() {
+                return action().name;
+              },
+              hittest: false
+            }, null);
+            libs.effect(_$p => libs.setProp(_el$26, "abilityname", action().name, _$p));
+            return _el$26;
+          })();
+        },
+        get children() {
+          const _el$20 = libs.createElement("DOTAItemImage", {
+            id: "ItemImage",
+            get itemname() {
+              return action().name;
+            },
+            showtooltip: false,
+            hittest: false
+          }, null);
+          libs.effect(_$p => libs.setProp(_el$20, "itemname", action().name, _$p));
+          return _el$20;
+        }
+      }), libs.createElement("Panel", {
+        id: "AbilityBevel",
+        hittest: false
+      }, null), (() => {
+        const _el$22 = libs.createElement("Panel", {
+            id: "Cooldown",
+            hittest: false
+          }, null),
+          _el$23 = libs.createElement("Panel", {
+            id: "CooldownOverlay",
+            get style() {
+              return {
+                clip: `radial(50% 50%, 0deg, ${-360 * cooldownPercent()}deg)`
+              };
+            },
+            hittest: false
+          }, _el$22),
+          _el$24 = libs.createElement("Label", {
+            id: "CooldownTimer",
+            "class": "MonoNumbersFont",
+            get text() {
+              return Math.ceil(action().cooldown);
+            },
+            hittest: false
+          }, _el$22);
+        libs.effect(_p$ => {
+          const _v$10 = action().cooldown > 0,
+            _v$11 = {
+              clip: `radial(50% 50%, 0deg, ${-360 * cooldownPercent()}deg)`
+            },
+            _v$12 = Math.ceil(action().cooldown);
+          _v$10 !== _p$._v$10 && (_p$._v$10 = libs.setProp(_el$22, "visible", _v$10, _p$._v$10));
+          _v$11 !== _p$._v$11 && (_p$._v$11 = libs.setProp(_el$23, "style", _v$11, _p$._v$11));
+          _v$12 !== _p$._v$12 && (_p$._v$12 = libs.setProp(_el$24, "text", _v$12, _p$._v$12));
+          return _p$;
+        }, {
+          _v$10: undefined,
+          _v$11: undefined,
+          _v$12: undefined
+        });
+        return _el$22;
+      })(), libs.createElement("Panel", {
+        id: "AbilityStatusOverlay",
+        hittest: false
+      }, null)]
+    }));
+    libs.insert(_el$2, libs.createComponent(libs.Show, {
+      get when() {
+        return props.action && !props.action.item;
+      },
+      get children() {
+        const _el$19 = libs.createElement("Panel", {
+          id: "AbilityLevelContainer",
+          hittest: false
+        }, null);
+        libs.insert(_el$19, libs.createComponent(libs.For, {
+          get each() {
+            return Array.from({
+              length: Math.min(10, props.action?.maxLevel ?? 0)
+            }, (_, i) => i);
+          },
+          children: level => (() => {
+            const _el$27 = libs.createElement("Panel", {
+              "class": "LevelPanel",
+              hittest: false
+            }, null);
+            libs.effect(_$p => libs.setProp(_el$27, "classList", {
+              active_level: level < Math.ceil((props.action?.level ?? 0) / Math.max(1, (props.action?.maxLevel ?? 1) / 10))
+            }, _$p));
+            return _el$27;
+          })()
+        }));
+        return _el$19;
+      }
+    }), null);
+    libs.effect(_p$ => {
+      const _v$ = {
+          InventoryItem: props.slot !== undefined,
+          BackpackSlot: (props.slot ?? -1) >= 6,
+          no_item: !props.action,
+          no_level: !props.action || props.action.level === 0,
+          is_passive: !!props.action?.passive,
+          is_active: !!props.action?.active,
+          in_cooldown: (props.action?.cooldown ?? 0) > 0,
+          inactive_item: (props.slot ?? -1) >= 6,
+          insufficient_mana: !!props.action && props.action.mana > props.state.mana,
+          show_level_up_tab: !!props.action?.canUpgrade,
+          show_item_charges: !!props.action && props.action.item && props.action.charges > 0,
+          no_hotkey: !props.state.controllable || !props.action?.hotkey || !!props.action?.passive
+        },
+        _v$2 = !!props.action?.canUpgrade,
+        _v$3 = props.slot !== undefined,
+        _v$4 = !!props.action && props.action.mana > 0 && !props.action.passive && !(props.action.item && props.action.charges > 0),
+        _v$5 = hudNumber(props.action?.mana ?? 0),
+        _v$6 = props.action?.charges ?? 0,
+        _v$7 = props.action?.hotkey ?? "",
+        _v$8 = !!props.action && !props.action.item && props.action.maxCharges > 0,
+        _v$9 = props.action?.charges ?? 0,
+        _v$0 = !!props.action && props.action.charges < props.action.maxCharges && props.action.restore > 0,
+        _v$1 = ` (${Math.ceil(props.action?.restore ?? 0)})`;
+      _v$ !== _p$._v$ && (_p$._v$ = libs.setProp(_el$, "classList", _v$, _p$._v$));
+      _v$2 !== _p$._v$2 && (_p$._v$2 = libs.setProp(_el$4, "visible", _v$2, _p$._v$2));
+      _v$3 !== _p$._v$3 && (_p$._v$3 = libs.setProp(_el$9, "draggable", _v$3, _p$._v$3));
+      _v$4 !== _p$._v$4 && (_p$._v$4 = libs.setProp(_el$10, "visible", _v$4, _p$._v$4));
+      _v$5 !== _p$._v$5 && (_p$._v$5 = libs.setProp(_el$10, "text", _v$5, _p$._v$5));
+      _v$6 !== _p$._v$6 && (_p$._v$6 = libs.setProp(_el$12, "text", _v$6, _p$._v$6));
+      _v$7 !== _p$._v$7 && (_p$._v$7 = libs.setProp(_el$15, "text", _v$7, _p$._v$7));
+      _v$8 !== _p$._v$8 && (_p$._v$8 = libs.setProp(_el$16, "visible", _v$8, _p$._v$8));
+      _v$9 !== _p$._v$9 && (_p$._v$9 = libs.setProp(_el$17, "text", _v$9, _p$._v$9));
+      _v$0 !== _p$._v$0 && (_p$._v$0 = libs.setProp(_el$18, "visible", _v$0, _p$._v$0));
+      _v$1 !== _p$._v$1 && (_p$._v$1 = libs.setProp(_el$18, "text", _v$1, _p$._v$1));
+      return _p$;
+    }, {
+      _v$: undefined,
+      _v$2: undefined,
+      _v$3: undefined,
+      _v$4: undefined,
+      _v$5: undefined,
+      _v$6: undefined,
+      _v$7: undefined,
+      _v$8: undefined,
+      _v$9: undefined,
+      _v$0: undefined,
+      _v$1: undefined
+    });
+    return _el$;
+  })();
+}
+function LowerHud(props) {
+  const [state, setState] = libs.createSignal(emptyLowerHudState());
+  let serial = 0,
+    pending = "",
+    disposed = false;
+  const runId = () => props.snapshot?.run_id ?? 0;
+  const hudWidth = () => 521 + Math.max(321, 68 + Math.min(6, state().abilities.length) * (state().abilities.length >= 5 ? 58 : 65));
+  libs.onMount(() => {
+    GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, false);
+    const update = () => {
+      if (!disposed) setState(readLowerHudState());
+    };
+    update();
+    const timer = setInterval(update, 100);
+    const events = ["dota_player_update_selected_unit", "dota_player_update_query_unit", "dota_portrait_ability_layout_changed", "dota_inventory_changed", "dota_hero_ability_points_changed"];
+    const listeners = events.map(event => GameEvents.Subscribe(event, update));
+    const result = GameEvents.Subscribe("athena_shop_result", response => {
+      if (response.run_id !== runId() || response.request_id !== pending) return;
+      pending = "";
+      if (!response.success) ErrorMessage("#ShopError_" + (response.error ?? "Failed"));
+    });
+    libs.onCleanup(() => {
+      disposed = true;
+      clearInterval(timer);
+      listeners.forEach(listener => GameEvents.Unsubscribe(listener));
+      GameEvents.Unsubscribe(result);
+    });
+  });
+  const context = (panel, action) => {
+    const unit = state().unit,
+      run = runId();
+    const valid = () => !disposed && isCurrentHudAction(unit, action, run);
+    const menus = {};
+    if (action.slot < 6) menus["使用"] = () => {
+      if (valid()) Abilities.ExecuteAbility(action.entity, unit, false);
+    };
+    menus["丢到地上"] = () => {
+      if (valid()) Game.DropItemAtCursor(unit, action.entity);
+    };
+    const inventory = CustomNetTables.GetTableValue("common", "item_inventory");
+    const owned = inventory?.run_id === run ? Object.values(inventory.players[String(Players.GetLocalPlayer())] ?? {}).find(item => item.entity === action.entity) : undefined;
+    if (Number(owned?.sellable) === 1 && unit === Players.GetPlayerHeroEntityIndex(Players.GetLocalPlayer())) {
+      menus[`${$.Localize("#AthenaShopSell")} ${owned?.sell_gold ?? 0}`] = () => {
+        if (!valid()) return;
+        pending = `lower_hud:${run}:${Game.GetGameTime()}:${++serial}`;
+        GameEvents.SendCustomEventToServer("athena_shop_action", {
+          action: "sell",
+          run_id: run,
+          request_id: pending,
+          item_entity: action.entity
+        });
+      };
+    }
+    GameUI.CustomUIConfig().showContextMenu(panel, menus, [0, 1]);
+  };
+  return (() => {
+    const _el$28 = libs.createElement("Panel", {
+        id: "lower_hud",
+        "class": "AthenaLowerHud Reborn",
+        hittest: false
+      }, null),
+      _el$29 = libs.createElement("Panel", {
+        id: "center_with_stats",
+        hittest: false
+      }, _el$28),
+      _el$30 = libs.createElement("Panel", {
+        id: "center_block",
+        get style() {
+          return {
+            width: `${hudWidth()}px`
+          };
+        },
+        hittest: false
+      }, _el$29);
+      libs.createElement("Panel", {
+        id: "left_flare",
+        hittest: false
+      }, _el$30);
+      const _el$32 = libs.createElement("Panel", {
+        id: "center_bg",
+        get style() {
+          return {
+            width: `${hudWidth() - 464}px`
+          };
+        },
+        hittest: true
+      }, _el$30),
+      _el$33 = libs.createElement("GenericPanel", {
+        type: "DOTAMultiUnit",
+        id: "multiunit",
+        "class": "PortraitLocation"
+      }, _el$30),
+      _el$34 = libs.createElement("Panel", {
+        id: "PortraitGroup",
+        hittest: false
+      }, _el$30);
+      libs.createElement("Panel", {
+        id: "PortraitBacker",
+        hittest: false
+      }, _el$34);
+      libs.createElement("Panel", {
+        id: "PortraitBackerColor",
+        hittest: false
+      }, _el$34);
+      const _el$37 = libs.createElement("Panel", {
+        id: "PortraitContainer",
+        hittest: false
+      }, _el$34);
+      libs.createElement("DOTAPortrait", {
+        id: "portraitHUD",
+        "class": "PortraitLocation"
+      }, _el$37);
+      libs.createElement("DOTAPortrait", {
+        id: "portraitHUDOverlay",
+        "class": "PortraitLocation",
+        hittest: false
+      }, _el$37);
+      libs.createElement("Panel", {
+        id: "SilenceIcon",
+        hittest: false
+      }, _el$37);
+      libs.createElement("Panel", {
+        id: "MutedIcon",
+        hittest: false
+      }, _el$37);
+      libs.createElement("Panel", {
+        id: "DeathGradient",
+        hittest: false
+      }, _el$37);
+      const _el$43 = libs.createElement("GenericPanel", {
+        type: "DOTAHUDDeathPanel",
+        id: "death_panel_buyback"
+      }, _el$30);
+      libs.createElement("GenericPanel", {
+        type: "DOTAXP",
+        id: "xp",
+        hittest: false
+      }, _el$30);
+      libs.createElement("GenericPanel", {
+        type: "DOTAUnitName",
+        id: "unitname",
+        hittest: false
+      }, _el$30);
+      const _el$46 = libs.createElement("GenericPanel", {
+        type: "DOTALevelUpButton",
+        id: "levelup"
+      }, _el$30),
+      _el$47 = libs.createElement("Panel", {
+        id: "stats_container",
+        hittest: false
+      }, _el$30);
+      libs.createElement("Panel", {
+        id: "stats_container_bg",
+        hittest: false
+      }, _el$47);
+      const _el$49 = libs.createElement("Panel", {
+        id: "stats",
+        hittest: false
+      }, _el$47),
+      _el$50 = libs.createElement("Panel", {
+        id: "Aligner",
+        hittest: false
+      }, _el$49),
+      _el$51 = libs.createElement("Panel", {
+        id: "StatContainer",
+        hittest: false
+      }, _el$50),
+      _el$52 = libs.createElement("Panel", {
+        id: "stragiint",
+        "class": "HudAttributes",
+        hittest: false
+      }, _el$47),
+      _el$53 = libs.createElement("Panel", {
+        id: "AbilitiesAndStatBranch",
+        hittest: false
+      }, _el$30),
+      _el$54 = libs.createElement("Panel", {
+        "class": "LeftRightFlow",
+        hittest: false
+      }, _el$53);
+      libs.createElement("GenericPanel", {
+        type: "DOTAHudTalentDisplay",
+        id: "StatBranch",
+        hittest: false
+      }, _el$54);
+      const _el$56 = libs.createElement("Panel", {
+        id: "abilities",
+        hittest: false
+      }, _el$54),
+      _el$57 = libs.createElement("Panel", {
+        id: "health_mana",
+        "class": "ValidUnit ShowMana",
+        hittest: false
+      }, _el$30),
+      _el$58 = libs.createElement("Panel", {
+        id: "HealthManaContainer",
+        get style() {
+          return {
+            width: `${hudWidth() - 529}px`
+          };
+        },
+        hittest: false
+      }, _el$57),
+      _el$59 = libs.createElement("Panel", {
+        id: "HealthContainer",
+        hittest: false
+      }, _el$58),
+      _el$60 = libs.createElement("ProgressBar", {
+        id: "HealthProgress",
+        get value() {
+          return state().health / Math.max(1, state().maxHealth);
+        },
+        hittest: false
+      }, _el$59),
+      _el$61 = libs.createElement("Label", {
+        id: "HealthLabel",
+        "class": "MonoNumbersFont",
+        get text() {
+          return `${hudNumber(state().health)} / ${hudNumber(state().maxHealth)}`;
+        },
+        hittest: false
+      }, _el$59),
+      _el$62 = libs.createElement("Label", {
+        id: "HealthRegenLabel",
+        "class": "MonoNumbersFont",
+        get text() {
+          return `+${state().healthRegen.toFixed(1)}`;
+        },
+        hittest: false
+      }, _el$59),
+      _el$63 = libs.createElement("Panel", {
+        id: "ManaContainer",
+        hittest: false
+      }, _el$58),
+      _el$64 = libs.createElement("ProgressBar", {
+        id: "ManaProgress",
+        get value() {
+          return state().mana / Math.max(1, state().maxMana);
+        },
+        hittest: false
+      }, _el$63),
+      _el$65 = libs.createElement("Label", {
+        id: "ManaLabel",
+        "class": "MonoNumbersFont",
+        get text() {
+          return `${hudNumber(state().mana)} / ${hudNumber(state().maxMana)}`;
+        },
+        hittest: false
+      }, _el$63),
+      _el$66 = libs.createElement("Label", {
+        id: "ManaRegenLabel",
+        "class": "MonoNumbersFont",
+        get text() {
+          return `+${state().manaRegen.toFixed(1)}`;
+        },
+        hittest: false
+      }, _el$63),
+      _el$67 = libs.createElement("Panel", {
+        id: "inventory",
+        hittest: false
+      }, _el$30),
+      _el$68 = libs.createElement("Panel", {
+        id: "inventory_items",
+        hittest: false
+      }, _el$67),
+      _el$69 = libs.createElement("Panel", {
+        id: "InventoryContainer",
+        hittest: false
+      }, _el$68);
+      libs.createElement("Panel", {
+        id: "InventoryBG",
+        "class": "InventoryBackground",
+        hittest: false
+      }, _el$69);
+      const _el$71 = libs.createElement("Panel", {
+        id: "inventory_list_container",
+        hittest: false
+      }, _el$69),
+      _el$72 = libs.createElement("Panel", {
+        id: "inventory_list",
+        hittest: false
+      }, _el$71),
+      _el$73 = libs.createElement("Panel", {
+        id: "inventory_list2",
+        hittest: false
+      }, _el$71),
+      _el$74 = libs.createElement("Panel", {
+        id: "inventory_backpack_list",
+        hittest: false
+      }, _el$69);
+      libs.createElement("Panel", {
+        id: "BackpackShadow",
+        hittest: false
+      }, _el$69);
+      libs.createElement("Panel", {
+        id: "right_flare",
+        hittest: false
+      }, _el$30);
+    libs.insert(_el$51, libs.createComponent(libs.Index, {
+      get each() {
+        return [{
+          icon: "damage",
+          label: "攻击力",
+          value: state().attack
+        }, {
+          icon: "attack_speed",
+          label: "攻击速度",
+          value: state().attackSpeed
+        }, {
+          icon: "armor",
+          label: "护甲",
+          value: state().armor
+        }, {
+          icon: "magic_resist",
+          label: "伤害减免",
+          value: state().reduction,
+          percent: true
+        }, {
+          icon: "move_speed",
+          label: "移动速度",
+          value: state().movement
+        }];
+      },
+      children: stat => (() => {
+        const _el$77 = libs.createElement("Panel", {
+            "class": "StatIconLabel"
+          }, null),
+          _el$78 = libs.createElement("Label", {
+            "class": "StatRegionLabel MonoNumbersFont",
+            get text() {
+              return hudNumber(stat().value) + (stat().percent ? "%" : "");
+            },
+            hittest: false
+          }, _el$77),
+          _el$79 = libs.createElement("Panel", {
+            get id() {
+              return {
+                damage: "DamageIcon",
+                attack_speed: "AttackSpeedIcon",
+                armor: "ArmorIcon",
+                magic_resist: "MagicResistanceIcon",
+                move_speed: "MoveSpeedIcon"
+              }[stat().icon];
+            },
+            "class": "StatIcon",
+            hittest: false
+          }, _el$77);
+        libs.effect(_p$ => {
+          const _v$30 = `${stat().label}：${stat().value.toFixed(1)}${stat().percent ? "%" : ""}`,
+            _v$31 = hudNumber(stat().value) + (stat().percent ? "%" : ""),
+            _v$32 = {
+              damage: "DamageIcon",
+              attack_speed: "AttackSpeedIcon",
+              armor: "ArmorIcon",
+              magic_resist: "MagicResistanceIcon",
+              move_speed: "MoveSpeedIcon"
+            }[stat().icon];
+          _v$30 !== _p$._v$30 && (_p$._v$30 = libs.setProp(_el$77, "tooltip", _v$30, _p$._v$30));
+          _v$31 !== _p$._v$31 && (_p$._v$31 = libs.setProp(_el$78, "text", _v$31, _p$._v$31));
+          _v$32 !== _p$._v$32 && (_p$._v$32 = libs.setProp(_el$79, "id", _v$32, _p$._v$32));
+          return _p$;
+        }, {
+          _v$30: undefined,
+          _v$31: undefined,
+          _v$32: undefined
+        });
+        return _el$77;
+      })()
+    }));
+    libs.insert(_el$52, libs.createComponent(libs.Index, {
+      get each() {
+        return state().attributes;
+      },
+      children: (value, i) => (() => {
+        const _el$80 = libs.createElement("Panel", {
+            "class": "HudAttribute",
+            hittest: false
+          }, null),
+          _el$81 = libs.createElement("Panel", {
+            "class": `AttributeIcon Attribute${i}`,
+            hittest: false
+          }, _el$80),
+          _el$82 = libs.createElement("Label", {
+            get text() {
+              return hudNumber(value());
+            },
+            hittest: false
+          }, _el$80);
+        libs.setProp(_el$81, "class", `AttributeIcon Attribute${i}`);
+        libs.effect(_$p => libs.setProp(_el$82, "text", hudNumber(value()), _$p));
+        return _el$80;
+      })()
+    }));
+    libs.insert(_el$56, libs.createComponent(libs.Index, {
+      get each() {
+        return state().abilities;
+      },
+      children: action => libs.createComponent(ActionSlot, {
+        get action() {
+          return action();
+        },
+        get state() {
+          return state();
+        },
+        get runId() {
+          return runId();
+        },
+        oncontext: context
+      })
+    }));
+    libs.insert(_el$72, libs.createComponent(libs.For, {
+      each: [0, 1, 2],
+      children: slot => libs.createComponent(ActionSlot, {
+        get action() {
+          return state().items[slot];
+        },
+        slot: slot,
+        get state() {
+          return state();
+        },
+        get runId() {
+          return runId();
+        },
+        oncontext: context
+      })
+    }));
+    libs.insert(_el$73, libs.createComponent(libs.For, {
+      each: [3, 4, 5],
+      children: slot => libs.createComponent(ActionSlot, {
+        get action() {
+          return state().items[slot];
+        },
+        slot: slot,
+        get state() {
+          return state();
+        },
+        get runId() {
+          return runId();
+        },
+        oncontext: context
+      })
+    }));
+    libs.insert(_el$74, libs.createComponent(libs.For, {
+      each: [6, 7, 8],
+      children: slot => libs.createComponent(ActionSlot, {
+        get action() {
+          return state().items[slot];
+        },
+        slot: slot,
+        get state() {
+          return state();
+        },
+        get runId() {
+          return runId();
+        },
+        oncontext: context
+      })
+    }));
+    libs.effect(_p$ => {
+      const _v$13 = {
+          NoUnit: state().unit < 0,
+          UnitDead: !state().alive,
+          ManyAbilities: state().abilities.length > 6
+        },
+        _v$14 = props.snapshot?.state === "GameState_Battle" || props.snapshot?.state === "GameState_Settle",
+        _v$15 = {
+          FiveAbilities: state().abilities.length === 5,
+          SixAbilities: state().abilities.length >= 6,
+          NonHero: !state().hero
+        },
+        _v$16 = {
+          width: `${hudWidth()}px`
+        },
+        _v$17 = {
+          width: `${hudWidth() - 464}px`
+        },
+        _v$18 = state().multiSelection,
+        _v$19 = !state().multiSelection,
+        _v$20 = !state().alive && state().unit >= 0,
+        _v$21 = state().controllable && state().points > 0 && props.snapshot?.state === "GameState_Battle",
+        _v$22 = state().hero,
+        _v$23 = {
+          width: `${hudWidth() - 529}px`
+        },
+        _v$24 = state().health / Math.max(1, state().maxHealth),
+        _v$25 = `${hudNumber(state().health)} / ${hudNumber(state().maxHealth)}`,
+        _v$26 = `+${state().healthRegen.toFixed(1)}`,
+        _v$27 = state().mana / Math.max(1, state().maxMana),
+        _v$28 = `${hudNumber(state().mana)} / ${hudNumber(state().maxMana)}`,
+        _v$29 = `+${state().manaRegen.toFixed(1)}`;
+      _v$13 !== _p$._v$13 && (_p$._v$13 = libs.setProp(_el$28, "classList", _v$13, _p$._v$13));
+      _v$14 !== _p$._v$14 && (_p$._v$14 = libs.setProp(_el$28, "visible", _v$14, _p$._v$14));
+      _v$15 !== _p$._v$15 && (_p$._v$15 = libs.setProp(_el$30, "classList", _v$15, _p$._v$15));
+      _v$16 !== _p$._v$16 && (_p$._v$16 = libs.setProp(_el$30, "style", _v$16, _p$._v$16));
+      _v$17 !== _p$._v$17 && (_p$._v$17 = libs.setProp(_el$32, "style", _v$17, _p$._v$17));
+      _v$18 !== _p$._v$18 && (_p$._v$18 = libs.setProp(_el$33, "visible", _v$18, _p$._v$18));
+      _v$19 !== _p$._v$19 && (_p$._v$19 = libs.setProp(_el$34, "visible", _v$19, _p$._v$19));
+      _v$20 !== _p$._v$20 && (_p$._v$20 = libs.setProp(_el$43, "visible", _v$20, _p$._v$20));
+      _v$21 !== _p$._v$21 && (_p$._v$21 = libs.setProp(_el$46, "visible", _v$21, _p$._v$21));
+      _v$22 !== _p$._v$22 && (_p$._v$22 = libs.setProp(_el$52, "visible", _v$22, _p$._v$22));
+      _v$23 !== _p$._v$23 && (_p$._v$23 = libs.setProp(_el$58, "style", _v$23, _p$._v$23));
+      _v$24 !== _p$._v$24 && (_p$._v$24 = libs.setProp(_el$60, "value", _v$24, _p$._v$24));
+      _v$25 !== _p$._v$25 && (_p$._v$25 = libs.setProp(_el$61, "text", _v$25, _p$._v$25));
+      _v$26 !== _p$._v$26 && (_p$._v$26 = libs.setProp(_el$62, "text", _v$26, _p$._v$26));
+      _v$27 !== _p$._v$27 && (_p$._v$27 = libs.setProp(_el$64, "value", _v$27, _p$._v$27));
+      _v$28 !== _p$._v$28 && (_p$._v$28 = libs.setProp(_el$65, "text", _v$28, _p$._v$28));
+      _v$29 !== _p$._v$29 && (_p$._v$29 = libs.setProp(_el$66, "text", _v$29, _p$._v$29));
+      return _p$;
+    }, {
+      _v$13: undefined,
+      _v$14: undefined,
+      _v$15: undefined,
+      _v$16: undefined,
+      _v$17: undefined,
+      _v$18: undefined,
+      _v$19: undefined,
+      _v$20: undefined,
+      _v$21: undefined,
+      _v$22: undefined,
+      _v$23: undefined,
+      _v$24: undefined,
+      _v$25: undefined,
+      _v$26: undefined,
+      _v$27: undefined,
+      _v$28: undefined,
+      _v$29: undefined
+    });
+    return _el$28;
+  })();
+}
+
 const sideGroups = ["DefShop", "PracticeShop"];
 const rarityColors = ["#BEBEBE", "#92E47E", "#7F93FC", "#D57BFF", "#FFE195", "#FF9595"];
 function recipeRequirements(definitions) {
@@ -1321,7 +2320,6 @@ function HudMain() {
   const state = solid_utils.createNetDataSignal("common", "game_state");
   const [resources, _setResources] = libs.createSignal(CustomNetTables.GetTableValue("common", "run_resources"));
   const gold = () => resources()?.run_id === state()?.run_id ? resources()?.players[String(Players.GetLocalPlayer())]?.gold ?? 0 : 0;
-  GetLocalization("#TowerProtect_description");
   libs.createEffect(() => {
     const id = CustomNetTables.SubscribeNetTableListener("common", function (_, k, v) {
       if (k === "run_resources") {
@@ -1368,56 +2366,40 @@ function HudMain() {
         "class": "CooldownCover"
       }, _el$9),
       _el$10 = libs.createElement("Panel", {
-        id: "ActionPanel"
-      }, _el$),
-      _el$11 = libs.createElement("Panel", {
-        id: "LeftPart"
-      }, _el$10);
-      libs.createElement("DOTAPortrait", {}, _el$11);
-      libs.createElement("Panel", {
-        id: "LeftPartSkin"
-      }, _el$11);
-      libs.createElement("Panel", {
-        id: "CenterPart"
-      }, _el$10);
-      libs.createElement("Panel", {
-        id: "RightPart"
-      }, _el$10);
-      const _el$16 = libs.createElement("Panel", {
         id: "ShopPanel"
       }, _el$),
-      _el$17 = libs.createElement("Panel", {
+      _el$11 = libs.createElement("Panel", {
         id: "shop_launcher_bg"
-      }, _el$16);
+      }, _el$10);
       libs.createElement("Panel", {
         id: "HUDSkinFXGold",
         "class": "GleamPanel",
         hittest: false
-      }, _el$17);
-      const _el$19 = libs.createElement("Button", {
+      }, _el$11);
+      const _el$13 = libs.createElement("Button", {
         id: "ShopButton"
-      }, _el$16),
-      _el$20 = libs.createElement("Label", {
+      }, _el$10),
+      _el$14 = libs.createElement("Label", {
         id: "CustomGoldLabel",
         hittest: false,
         "class": "MonoNumbersFont ShopButtonValueLabel",
         get text() {
           return Math.floor(gold());
         }
-      }, _el$19);
+      }, _el$13);
       libs.createElement("Panel", {
         id: "CustomGoldIcon",
         hittest: false
-      }, _el$19);
-      const _el$22 = libs.createElement("Button", {
+      }, _el$13);
+      const _el$16 = libs.createElement("Button", {
         "class": "NextRound"
-      }, _el$16);
+      }, _el$10);
       libs.createElement("Panel", {
         "class": "NextRoundIcon"
-      }, _el$22);
-      const _el$24 = libs.createElement("Panel", {
+      }, _el$16);
+      const _el$18 = libs.createElement("Panel", {
         "class": "CooldownCover"
-      }, _el$22);
+      }, _el$16);
     libs.insert(_el$, libs.createComponent(RunResourcesPanel, {
       get snapshot() {
         return state();
@@ -1466,12 +2448,17 @@ function HudMain() {
     libs.setProp(_el$1, "style", {
       clip: `radial(50% 50% ,0deg,${180}deg)`
     });
-    libs.setProp(_el$19, "onactivate", () => ToggleWindow("shop"));
-    libs.setProp(_el$22, "tooltip", "#NextRound");
-    libs.setProp(_el$22, "onactivate", () => {
+    libs.insert(_el$, libs.createComponent(LowerHud, {
+      get snapshot() {
+        return state();
+      }
+    }), _el$10);
+    libs.setProp(_el$13, "onactivate", () => ToggleWindow("shop"));
+    libs.setProp(_el$16, "tooltip", "#NextRound");
+    libs.setProp(_el$16, "onactivate", () => {
       GameEvents.SendCustomGameEventToServer("next_round", {});
     });
-    libs.setProp(_el$24, "style", {
+    libs.setProp(_el$18, "style", {
       clip: "radial(50% 50% ,0deg,-360deg)"
     });
     libs.effect(_p$ => {
@@ -1491,8 +2478,8 @@ function HudMain() {
       _v$ !== _p$._v$ && (_p$._v$ = libs.setProp(_el$6, "titleTooltip", _v$, _p$._v$));
       _v$2 !== _p$._v$2 && (_p$._v$2 = libs.setProp(_el$9, "class", _v$2, _p$._v$2));
       _v$3 !== _p$._v$3 && (_p$._v$3 = libs.setProp(_el$9, "titleTooltip", _v$3, _p$._v$3));
-      _v$4 !== _p$._v$4 && (_p$._v$4 = libs.setProp(_el$19, "enabled", _v$4, _p$._v$4));
-      _v$5 !== _p$._v$5 && (_p$._v$5 = libs.setProp(_el$20, "text", _v$5, _p$._v$5));
+      _v$4 !== _p$._v$4 && (_p$._v$4 = libs.setProp(_el$13, "enabled", _v$4, _p$._v$4));
+      _v$5 !== _p$._v$5 && (_p$._v$5 = libs.setProp(_el$14, "text", _v$5, _p$._v$5));
       return _p$;
     }, {
       _v$: undefined,

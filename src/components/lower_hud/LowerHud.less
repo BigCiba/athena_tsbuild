@@ -1,0 +1,68 @@
+// 复用客户端 hud_reborn / ability_panel / inventory / health_mana / stats_region。
+// 此处只桥接自绘 Panel 与官方类型选择器，并保留旧项目 TI10 皮肤。
+#lower_hud.AthenaLowerHud
+{
+	width: 100%; height: 236px; align: center bottom; overflow: noclip;
+	visibility: visible; transform: none; padding: 0; z-index: 5;
+	#center_with_stats { width: fit-children; height: 236px; visibility: visible; z-index: 1; transform: none; overflow: noclip; }
+	#center_block { height: 236px; padding-top: 0; overflow: noclip; }
+	#center_bg { background-image: url("s2r://panorama/images/hud/reborn/hud_custom_ti10/ability_bg_psd.vtex"); }
+	#left_flare { background-image: url("s2r://panorama/images/hud/reborn/hud_custom_ti10/side_flare_tall_psd.vtex"); }
+	#right_flare { background-image: url("s2r://panorama/images/hud/reborn/hud_custom_ti10/right_flare_bg_psd.vtex"); visibility: visible; }
+	#InventoryBG { background-image: url("s2r://panorama/images/hud/reborn/hud_custom_ti10/inventory_bg_psd.vtex"); }
+	#PortraitGroup { width: 159px; height: 145px; margin-left: 52px; vertical-align: bottom; }
+	#PortraitContainer { width: 159px; height: 145px; overflow: clip; }
+	#portraitHUD { width: 159px; height: 145px; transform: none; }
+	#unitname { width: 159px; height: 18px; margin-left: 52px; margin-bottom: 145px; }
+	#inventory { width: 202px; height: 145px; horizontal-align: right; margin-right: 93px; }
+	#inventory_items, #InventoryContainer { width: 202px; height: 145px; flow-children: none; }
+	#inventory_list_container { flow-children: down; padding-left: 3px; padding-top: 6px; }
+	#inventory_list, #inventory_list2 { width: 200px; height: 50px; flow-children: right; }
+	#inventory_list2 { margin-top: -2px; }
+	#inventory_backpack_list { margin-top: 104px; margin-left: 6px; flow-children: right; }
+	#InventoryBG { width: 202px; height: 105px; }
+	#portraitHUDOverlay { visibility: collapse; }
+	#levelup { visibility: visible; }
+	#death_panel_buyback #BuybackButton, #death_panel_buyback .BuybackButton { visibility: collapse; }
+
+	// 同官方 DOTAAbilityList 的宽度、流向；原生 Panel 的状态由框架读取。
+	#abilities { flow-children: right; width: fit-children; min-height: 80px; padding-left: -2px; padding-right: -2px; }
+	.AthenaHudSlot { width: 65px; height: 116px; vertical-align: bottom; overflow: noclip; }
+	.FiveAbilities .AthenaHudSlot, .SixAbilities .AthenaHudSlot { width: 58px; }
+	.AthenaHudSlot.InventoryItem { width: 66px; height: 50px; vertical-align: top; margin: 0; }
+	.InventoryItem #ButtonWithLevelUpTab { width: 66px; height: 50px; }
+	.InventoryItem #ButtonSize { width: 60px; height: 45px; margin: 2px 3px; }
+	.AthenaHudSlot.BackpackSlot { width: 60px; height: 34px; }
+	#ButtonAndLevel { width: 100%; height: 100%; }
+	#abilities #ButtonAndLevel { height: 116px; }
+	#AbilityLevelContainer { vertical-align: bottom; flow-children: right; max-width: 54px; }
+	#AbilityLevelContainer .LevelPanel { width: fill-parent-flow(1); min-width: 2px; }
+	#abilities #AbilityLevelContainer { width: 54px; }
+	#inventory #HotkeyContainer { margin-left: 3px; margin-top: 2px; }
+	#inventory .BackpackSlot #ButtonSize { height: 34px; }
+	.HudChargeRestore { align: left bottom; margin: 0 0 24px 4px; flow-children: right; }
+	.HudChargeRestore Label { color: white; font-size: 14px; text-shadow: 0px 0px 3px 3 #000; }
+
+	// 属性仍显示 PropertySystem 的值，使用官方底板、字体、图标和行布局。
+	#stats_container { width: 159px; height: 145px; margin-left: 52px; vertical-align: bottom; }
+	#stats { width: 159px; height: 140px; margin-top: 2px; }
+	#stats #Aligner { width: 154px; height: 140px; min-width: 0; vertical-align: top; flow-children: down; margin: 4px 5px 0 0; }
+	#StatContainer { width: 154px; height: fit-children; horizontal-align: right; flow-children: down; }
+	.StatIconLabel { height: 23px; horizontal-align: right; flow-children: right; }
+	.StatRegionLabel { font-size: 14px; color: #ccc; margin-top: 3px; }
+	#HealthRegenLabel, #ManaRegenLabel { width: 100%; horizontal-align: right; text-align: right; z-index: 5; }
+	#stats .StatIcon { margin-left: 2px; }
+	.HudAttributes { horizontal-align: right; flow-children: right; }
+	.HudAttribute { height: 20px; flow-children: right; }
+	.HudAttribute Label { font-size: 14px; color: #ccc; vertical-align: center; margin-right: 2px; }
+	.AttributeIcon { width: 14px; height: 14px; vertical-align: center; background-size: contain; }
+	.Attribute0 { background-image: url("s2r://panorama/images/hud/pip_str_png.vtex"); }
+	.Attribute1 { background-image: url("s2r://panorama/images/hud/pip_agi_png.vtex"); }
+	.Attribute2 { background-image: url("s2r://panorama/images/hud/pip_int_png.vtex"); }
+
+	// 超出官方六技能布局时分行，普通英雄保持原版尺寸。
+	&.ManyAbilities #abilities { width: 348px; flow-children: right-wrap; }
+	&.ManyAbilities .AthenaHudSlot:not(.InventoryItem) { height: 80px; }
+	&.ManyAbilities #abilities #ButtonAndLevel { height: 80px; }
+	&.NoUnit #center_with_stats { visibility: collapse; }
+}

@@ -161,7 +161,8 @@ class MStateSystem extends CModule {
 		const ids = stateId !== undefined ? [this.NormalizeStateId(stateId)] : Object.keys(storage.static);
 		let removed = false;
 		for (const id of ids) {
-			const list = storage.static[id], remaining = list?.filter(data => data.sourceId !== sourceId);
+			const list = storage.static[id];
+			const remaining = list?.filter(data => data.sourceId !== sourceId);
 			if (!list || remaining!.length === list.length) continue;
 			if (remaining!.length > 0) storage.static[id] = remaining; else delete storage.static[id];
 			removed = true; this.MarkDirty(key, id); this.RefreshResolvedValue(key, id);
@@ -201,7 +202,8 @@ class MStateSystem extends CModule {
 		const ids = stateId !== undefined ? [this.NormalizeStateId(stateId)] : Object.keys(storage.dynamic);
 		let removed = false;
 		for (const id of ids) {
-			const list = storage.dynamic[id], remaining = list?.filter(data => data.sourceId !== sourceId);
+			const list = storage.dynamic[id];
+			const remaining = list?.filter(data => data.sourceId !== sourceId);
 			if (!list || remaining!.length === list.length) continue;
 			if (remaining!.length > 0) storage.dynamic[id] = remaining; else delete storage.dynamic[id];
 			removed = true; this.MarkDirty(key, id); this.RefreshResolvedValue(key, id);

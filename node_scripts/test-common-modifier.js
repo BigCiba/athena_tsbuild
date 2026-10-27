@@ -43,6 +43,7 @@ function fixture(difficulty = 4, randomFactors = [], server = true) {
 		Kill() { this.engineHealth = 0; },
 		GetUnitName() { return this.unitName; }, GetPlayerOwnerID() { return this.hero ? this.playerID ?? 0 : -1; }, entindex() { return this.index; },
 		GetLevel() { return this.level ?? 1; }, GetItemInSlot(slot) { return this.items?.[slot]; }, GetTeamNumber() { return this.hero ? 2 : 3; },
+		GetAbilityCount() { return Object.keys(this.abilities ?? {}).length; }, GetAbilityByIndex(slot) { return Object.values(this.abilities ?? {})[slot]; },
 		GetBaseAttackTime() { return 1.7; }, Script_GetAttackRange() { return 150; }, SetBaseHealthRegen() {}, SetBaseManaRegen() {},
 		HasModifier(name) { return !!this.modifiers[name]; }, FindModifierByName(name) { return this.modifiers[name]; },
 		AddNewModifier(_caster, _ability, name, params) {

@@ -106,6 +106,7 @@ export class modifier_common extends EOMModifier {
 			modifierfunction.MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT, modifierfunction.MODIFIER_PROPERTY_COOLDOWN_REDUCTION_CONSTANT,
 			modifierfunction.MODIFIER_PROPERTY_ATTACKSPEED_BASE_OVERRIDE,
 			modifierfunction.MODIFIER_EVENT_ON_ABILITY_EXECUTED,
+			modifierfunction.MODIFIER_EVENT_ON_ATTACK_LANDED,
 		];
 		if (this.GetParent().IsRealHero()) functions.push(
 			modifierfunction.MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE_TARGET, modifierfunction.MODIFIER_EVENT_ON_ABILITY_FULLY_CAST,
@@ -116,7 +117,14 @@ export class modifier_common extends EOMModifier {
 		return functions;
 	}
 	// 保留引擎血条；自定义血条界面尚未迁移。
-	CheckState() { return { [modifierstate.MODIFIER_STATE_NO_HEALTH_BAR]: false }; }
+	CheckState() {
+		const unit = this.GetParent();
+		return {
+			[modifierstate.MODIFIER_STATE_NO_HEALTH_BAR]: false,
+			[modifierstate.MODIFIER_STATE_STUNNED]: unit.HasState(StateEnum.STUNNED) || undefined,
+			[modifierstate.MODIFIER_STATE_FLYING_FOR_PATHING_PURPOSES_ONLY]: unit.HasState(StateEnum.FLYING_FOR_PATHING_PURPOSES_ONLY) || undefined,
+		};
+	}
 	/** 客户端默认允许血条，具体 modifier 再用 NO_HEALTH_BAR 按优先级覆盖。 */
 	StaticState() { return { [StateEnum.HEALTH_BAR]: true }; }
 	GetDisableAutoAttack(): 0 | 1 { return 1; }
@@ -152,6 +160,12 @@ export class modifier_common extends EOMModifier {
 	}
 	OnAbilityStart(event: ModifierAbilityEvent) {
 		if (event.unit === this.GetParent()) Event.Fire("ability_cast_start", { ability: event.ability, caster: event.unit, position: event.ability.GetCursorPosition(), abilityTag: event.ability.GetAbilityTag() });
+	}
+	/** 原生 PerformAttack 与自定义 Attack 各从自己的命中路径进入一次。 */
+	OnAttackLanded(event: ModifierAttackEvent) {
+		if (IsServer() && event.attacker === this.GetParent() && IsValid(event.target)) {
+			Event.FireUnit("attack_landed", { attacker: event.attacker, target: event.target, record: event.record }, event.attacker, event.target);
+		}
 	}
 	/** 原版在执行阶段通知，不以 FULLY_CAST 或冷却/被动判断替代。 */
 	OnAbilityExecuted(event: ModifierAbilityEvent) {
